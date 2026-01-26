@@ -1,0 +1,2331 @@
+{
+  "profileId": "didacticplanningtools:core",
+  "version": "1.8.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dpt": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/",
+    "dpf": "http://w3id.org/openeduhub/fields/dpt/"
+  },
+  "groups": [
+    {
+      "id": "method_taxon",
+      "label": {
+        "de": "Instrument (Vokabular)",
+        "en": "Instrument (Vocabulary)"
+      }
+    },
+    {
+      "id": "planning_core",
+      "label": {
+        "de": "Planungs-Kern",
+        "en": "Planning Core"
+      }
+    },
+    {
+      "id": "phases",
+      "label": {
+        "de": "Unterrichtsphasen",
+        "en": "Lesson Phases"
+      }
+    },
+    {
+      "id": "interaction",
+      "label": {
+        "de": "Interaktion (ICAP)",
+        "en": "Interaction (ICAP)"
+      }
+    },
+    {
+      "id": "objectives",
+      "label": {
+        "de": "Lernziele/Taxonomien",
+        "en": "Learning Objectives/Taxonomies"
+      }
+    },
+    {
+      "id": "assessment",
+      "label": {
+        "de": "Assessment",
+        "en": "Assessment"
+      }
+    },
+    {
+      "id": "differentiation",
+      "label": {
+        "de": "Differenzierung",
+        "en": "Differentiation"
+      }
+    },
+    {
+      "id": "context",
+      "label": {
+        "de": "Kontext (Modalität/Ort)",
+        "en": "Context (Modality/Location)"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "dpt:concept",
+      "group": "method_taxon",
+      "label": {
+        "de": "Didaktisches Planungsinstrument",
+        "en": "Didactic Planning Tool"
+      },
+      "description": {
+        "de": "Didaktischer Planungsinstrumente mit Methoden & Techniken, Entwurfsmustern, Ablaufgerüsten und konkreten Unterrichtsplänen.",
+        "en": "Didactic planning tools with teaching methods & techniques, didactic patterns, process frameworks and concrete lesson plans."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpt:concept",
+        "uri": "dpt:concept",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/",
+          "concepts": [
+            {
+              "label": {
+                "de": "Methoden & Techniken",
+                "en": "Methods & Techniques"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/1"
+            },
+            {
+              "label": {
+                "de": "Einstieg & Aktivierung",
+                "en": "Introduction & Activation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11"
+            },
+            {
+              "label": {
+                "de": "Orientierung & Vorstrukturierung",
+                "en": "Orientation & Pre-structuring"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12"
+            },
+            {
+              "label": {
+                "de": "Darstellung & Instruktion",
+                "en": "Presentation & Instruction"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13"
+            },
+            {
+              "label": {
+                "de": "Erarbeitung & Konstruktion",
+                "en": "Development & Construction"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14"
+            },
+            {
+              "label": {
+                "de": "Übung & Festigung",
+                "en": "Practice & Consolidation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15"
+            },
+            {
+              "label": {
+                "de": "Anwendung & Problemlösen",
+                "en": "Application & Problem Solving"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16"
+            },
+            {
+              "label": {
+                "de": "Kommunikation & Diskurs",
+                "en": "Communication & Discourse"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17"
+            },
+            {
+              "label": {
+                "de": "Kooperation & Kollaboration",
+                "en": "Cooperation & Collaboration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18"
+            },
+            {
+              "label": {
+                "de": "Erfahrungs- & Handlungsorientierung",
+                "en": "Experience & Action Orientation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19"
+            },
+            {
+              "label": {
+                "de": "Kreative Produktion & Gestaltung",
+                "en": "Creative Production & Design"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110"
+            },
+            {
+              "label": {
+                "de": "Reflexion & Metakognition",
+                "en": "Reflection & Metacognition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111"
+            },
+            {
+              "label": {
+                "de": "Assessment & Prüfung",
+                "en": "Assessment & Examination"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112"
+            },
+            {
+              "label": {
+                "de": "Lernorganisation & Steuerung",
+                "en": "Learning Organization & Control"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113"
+            },
+            {
+              "label": {
+                "de": "Didaktische Entwurfsmuster",
+                "en": "Didactic Design Patterns"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/2"
+            },
+            {
+              "label": {
+                "de": "Lehr-Lern-Prozess",
+                "en": "Teaching-Learning Process"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
+            },
+            {
+              "label": {
+                "de": "Lernumgebung & Raumgestaltung",
+                "en": "Learning Environment & Space Design"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22"
+            },
+            {
+              "label": {
+                "de": "Soziale Interaktion",
+                "en": "Social Interaction"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23"
+            },
+            {
+              "label": {
+                "de": "Methodische Ausrichtung",
+                "en": "Methodical Orientation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
+            },
+            {
+              "label": {
+                "de": "Technologische Integration",
+                "en": "Technological Integration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
+            },
+            {
+              "label": {
+                "de": "Assessment & Feedback",
+                "en": "Assessment & Feedback"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26"
+            },
+            {
+              "label": {
+                "de": "Curriculare Organisation",
+                "en": "Curricular Organization"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27"
+            },
+            {
+              "label": {
+                "de": "Individuelle Förderung & Inklusion",
+                "en": "Individual Support & Inclusion"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28"
+            },
+            {
+              "label": {
+                "de": "Ablauf- & Planungsgerüste",
+                "en": "Process & Planning Frameworks"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/3"
+            },
+            {
+              "label": {
+                "de": "Angeleitet & strukturiert",
+                "en": "Guided & Structured"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31"
+            },
+            {
+              "label": {
+                "de": "Entdeckend & forschend",
+                "en": "Discovering & Researching"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32"
+            },
+            {
+              "label": {
+                "de": "Problemlösend & fallorientiert",
+                "en": "Problem-Solving & Case-Oriented"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33"
+            },
+            {
+              "label": {
+                "de": "Diskursiv & gemeinsam weiterdenken",
+                "en": "Discursive & Collaborative Thinking"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34"
+            },
+            {
+              "label": {
+                "de": "Projektbasiert & gestaltend",
+                "en": "Project-based & design-oriented"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35"
+            },
+            {
+              "label": {
+                "de": "Erfahrungsorientiert & praktisch",
+                "en": "Experience-oriented & practical"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36"
+            },
+            {
+              "label": {
+                "de": "Übend & festigend",
+                "en": "Practicing & consolidating"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37"
+            },
+            {
+              "label": {
+                "de": "Ergebnis- & rückwärtsorientiert",
+                "en": "Outcome- & backward-oriented"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38"
+            },
+            {
+              "label": {
+                "de": "Selbstreguliert & reflektierend",
+                "en": "Self-regulated & reflective"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/39"
+            },
+            {
+              "label": {
+                "de": "Wahl-/pfadgesteuert & personalisiert",
+                "en": "Choice/path-driven & personalized"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310"
+            },
+            {
+              "label": {
+                "de": "Zeitlich/örtlich flexibel",
+                "en": "Time/location flexible"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311"
+            },
+            {
+              "label": {
+                "de": "Konkrete Unterrichtspläne",
+                "en": "Concrete lesson plans"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/4"
+            },
+            {
+              "label": {
+                "de": "Baustein (10–40 min)",
+                "en": "Module (10–40 min)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
+            },
+            {
+              "label": {
+                "de": "Stunde / Block (45–180 min)",
+                "en": "Hour / Block (45–180 min)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
+            },
+            {
+              "label": {
+                "de": "Einheit (2–8 Wochen)",
+                "en": "Unit (2–8 weeks)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43"
+            },
+            {
+              "label": {
+                "de": "Modul / Kurs (8–16+ Wochen)",
+                "en": "Module / Course (8–16+ weeks)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        }
+      }
+    },
+    {
+      "id": "dpf:granularity",
+      "group": "planning_core",
+      "label": {
+        "de": "Granularität (Handlungsebene)",
+        "en": "Granularity (Action Level)"
+      },
+      "description": {
+        "de": "SYS, PR, MO, KU, SI, PH, AK",
+        "en": "SYS, PR, MO, KU, SI, PH, AK"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:granularity",
+        "uri": "dpf:granularity",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "SYS",
+                "en": "SYS"
+              }
+            },
+            {
+              "label": {
+                "de": "PR",
+                "en": "PR"
+              }
+            },
+            {
+              "label": {
+                "de": "MO",
+                "en": "MO"
+              }
+            },
+            {
+              "label": {
+                "de": "KU",
+                "en": "KU"
+              }
+            },
+            {
+              "label": {
+                "de": "SI",
+                "en": "SI"
+              }
+            },
+            {
+              "label": {
+                "de": "PH",
+                "en": "PH"
+              }
+            },
+            {
+              "label": {
+                "de": "AK",
+                "en": "AK"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:funktion",
+      "group": "planning_core",
+      "label": {
+        "de": "Didaktische Funktion",
+        "en": "Didactic Function"
+      },
+      "description": {
+        "de": "ACTV, ORNT, INST, CONS, PRAC, APPL, DISC, COLL, EXPE, CREA, REFL, ASMT, ORGA",
+        "en": "ACTV, ORNT, INST, CONS, PRAC, APPL, DISC, COLL, EXPE, CREA, REFL, ASMT, ORGA"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:funktion",
+        "uri": "dpf:funktion",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "ACTV",
+                "en": "ACTV"
+              }
+            },
+            {
+              "label": {
+                "de": "ORNT",
+                "en": "ORNT"
+              }
+            },
+            {
+              "label": {
+                "de": "INST",
+                "en": "INST"
+              }
+            },
+            {
+              "label": {
+                "de": "CONS",
+                "en": "CONS"
+              }
+            },
+            {
+              "label": {
+                "de": "PRAC",
+                "en": "PRAC"
+              }
+            },
+            {
+              "label": {
+                "de": "APPL",
+                "en": "APPL"
+              }
+            },
+            {
+              "label": {
+                "de": "DISC",
+                "en": "DISC"
+              }
+            },
+            {
+              "label": {
+                "de": "COLL",
+                "en": "COLL"
+              }
+            },
+            {
+              "label": {
+                "de": "EXPE",
+                "en": "EXPE"
+              }
+            },
+            {
+              "label": {
+                "de": "CREA",
+                "en": "CREA"
+              }
+            },
+            {
+              "label": {
+                "de": "REFL",
+                "en": "REFL"
+              }
+            },
+            {
+              "label": {
+                "de": "ASMT",
+                "en": "ASMT"
+              }
+            },
+            {
+              "label": {
+                "de": "ORGA",
+                "en": "ORGA"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:learning_phase",
+      "group": "phases",
+      "label": {
+        "de": "Phase",
+        "en": "Phase"
+      },
+      "description": {
+        "de": "EINS, ORIE, INPT, ERKU, ERAR, UEBE, ANWL, SICH, REFL, ASMT, ORGA",
+        "en": "EINS, ORIE, INPT, ERKU, ERAR, UEBE, ANWL, SICH, REFL, ASMT, ORGA"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:learning_phase",
+        "uri": "dpf:learning_phase",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "EINS",
+                "en": "EINS"
+              }
+            },
+            {
+              "label": {
+                "de": "ORIE",
+                "en": "ORIE"
+              }
+            },
+            {
+              "label": {
+                "de": "INPT",
+                "en": "INPT"
+              }
+            },
+            {
+              "label": {
+                "de": "ERKU",
+                "en": "ERKU"
+              }
+            },
+            {
+              "label": {
+                "de": "ERAR",
+                "en": "ERAR"
+              }
+            },
+            {
+              "label": {
+                "de": "UEBE",
+                "en": "UEBE"
+              }
+            },
+            {
+              "label": {
+                "de": "ANWL",
+                "en": "ANWL"
+              }
+            },
+            {
+              "label": {
+                "de": "SICH",
+                "en": "SICH"
+              }
+            },
+            {
+              "label": {
+                "de": "REFL",
+                "en": "REFL"
+              }
+            },
+            {
+              "label": {
+                "de": "ASMT",
+                "en": "ASMT"
+              }
+            },
+            {
+              "label": {
+                "de": "ORGA",
+                "en": "ORGA"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:icap_primary",
+      "group": "interaction",
+      "label": {
+        "de": "ICAP – primärer Modus",
+        "en": "ICAP – Primary Mode"
+      },
+      "description": {
+        "de": "PASS, ACTI, CSTR, INTR",
+        "en": "PASS, ACTI, CSTR, INTR"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:icap_primary",
+        "uri": "dpf:icap_primary",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "PASS",
+                "en": "PASS"
+              }
+            },
+            {
+              "label": {
+                "de": "ACTI",
+                "en": "ACTI"
+              }
+            },
+            {
+              "label": {
+                "de": "CSTR",
+                "en": "CSTR"
+              }
+            },
+            {
+              "label": {
+                "de": "INTR",
+                "en": "INTR"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:icap_submodes",
+      "group": "interaction",
+      "label": {
+        "de": "ICAP – Submodes",
+        "en": "ICAP – Submodes"
+      },
+      "description": {
+        "de": "Mehrfachwahl (LISTN, VIEW, READ, …, COLAB)",
+        "en": "Multiple choice (LISTN, VIEW, READ, …, COLAB)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:icap_submodes",
+        "uri": "dpf:icap_submodes",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "LISTN",
+                "en": "LISTN"
+              }
+            },
+            {
+              "label": {
+                "de": "VIEW",
+                "en": "VIEW"
+              }
+            },
+            {
+              "label": {
+                "de": "READ",
+                "en": "READ"
+              }
+            },
+            {
+              "label": {
+                "de": "SUMR",
+                "en": "SUMR"
+              }
+            },
+            {
+              "label": {
+                "de": "HILIT",
+                "en": "HILIT"
+              }
+            },
+            {
+              "label": {
+                "de": "REPT",
+                "en": "REPT"
+              }
+            },
+            {
+              "label": {
+                "de": "MANIP",
+                "en": "MANIP"
+              }
+            },
+            {
+              "label": {
+                "de": "RECL",
+                "en": "RECL"
+              }
+            },
+            {
+              "label": {
+                "de": "NOTAT",
+                "en": "NOTAT"
+              }
+            },
+            {
+              "label": {
+                "de": "QUIZ",
+                "en": "QUIZ"
+              }
+            },
+            {
+              "label": {
+                "de": "FEED",
+                "en": "FEED"
+              }
+            },
+            {
+              "label": {
+                "de": "PHYS",
+                "en": "PHYS"
+              }
+            },
+            {
+              "label": {
+                "de": "SEXP",
+                "en": "SEXP"
+              }
+            },
+            {
+              "label": {
+                "de": "EXMP",
+                "en": "EXMP"
+              }
+            },
+            {
+              "label": {
+                "de": "SUMM",
+                "en": "SUMM"
+              }
+            },
+            {
+              "label": {
+                "de": "CMAP",
+                "en": "CMAP"
+              }
+            },
+            {
+              "label": {
+                "de": "ANNO",
+                "en": "ANNO"
+              }
+            },
+            {
+              "label": {
+                "de": "VISU",
+                "en": "VISU"
+              }
+            },
+            {
+              "label": {
+                "de": "GENQ",
+                "en": "GENQ"
+              }
+            },
+            {
+              "label": {
+                "de": "PRED",
+                "en": "PRED"
+              }
+            },
+            {
+              "label": {
+                "de": "PROB",
+                "en": "PROB"
+              }
+            },
+            {
+              "label": {
+                "de": "CREAT",
+                "en": "CREAT"
+              }
+            },
+            {
+              "label": {
+                "de": "PDIS",
+                "en": "PDIS"
+              }
+            },
+            {
+              "label": {
+                "de": "ARGU",
+                "en": "ARGU"
+              }
+            },
+            {
+              "label": {
+                "de": "DEBA",
+                "en": "DEBA"
+              }
+            },
+            {
+              "label": {
+                "de": "NEGOT",
+                "en": "NEGOT"
+              }
+            },
+            {
+              "label": {
+                "de": "COEDT",
+                "en": "COEDT"
+              }
+            },
+            {
+              "label": {
+                "de": "QAREF",
+                "en": "QAREF"
+              }
+            },
+            {
+              "label": {
+                "de": "PREV",
+                "en": "PREV"
+              }
+            },
+            {
+              "label": {
+                "de": "TEACH",
+                "en": "TEACH"
+              }
+            },
+            {
+              "label": {
+                "de": "COSLV",
+                "en": "COSLV"
+              }
+            },
+            {
+              "label": {
+                "de": "FACIL",
+                "en": "FACIL"
+              }
+            },
+            {
+              "label": {
+                "de": "CHAT",
+                "en": "CHAT"
+              }
+            },
+            {
+              "label": {
+                "de": "COLAB",
+                "en": "COLAB"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:icap_meta",
+      "group": "interaction",
+      "label": {
+        "de": "ICAP – Metaaktivitäten",
+        "en": "ICAP – Meta Activities"
+      },
+      "description": {
+        "de": "GOAL, PLAN, MONI, EVAL, REFL",
+        "en": "GOAL, PLAN, MONI, EVAL, REFL"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:icap_meta",
+        "uri": "dpf:icap_meta",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "GOAL",
+                "en": "GOAL"
+              }
+            },
+            {
+              "label": {
+                "de": "PLAN",
+                "en": "PLAN"
+              }
+            },
+            {
+              "label": {
+                "de": "MONI",
+                "en": "MONI"
+              }
+            },
+            {
+              "label": {
+                "de": "EVAL",
+                "en": "EVAL"
+              }
+            },
+            {
+              "label": {
+                "de": "REFL",
+                "en": "REFL"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:learning_objectives",
+      "group": "objectives",
+      "label": {
+        "de": "Lernziele (Domäne/Framework/Level)",
+        "en": "Learning Objectives (Domain/Framework/Level)"
+      },
+      "description": {
+        "de": "Array von Ziel-Objekten (domain, framework, levelCode, optional label/why).",
+        "en": "Array of objective objects (domain, framework, levelCode, optional label/why)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:learning_objectives",
+        "uri": "dpf:learning_objectives",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "item_shape": {
+          "domain": {
+            "enum": [
+              "KOG",
+              "AFF",
+              "PSY",
+              "EMO",
+              "METH"
+            ]
+          },
+          "framework": {
+            "type": "string"
+          },
+          "levelCode": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "why": {
+            "type": "string"
+          }
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:assessment_purpose",
+      "group": "assessment",
+      "label": {
+        "de": "Zweck/Timing",
+        "en": "Purpose/Timing"
+      },
+      "description": {
+        "de": "DIAG, FORM, SUMM (Mehrfachwahl)",
+        "en": "DIAG, FORM, SUMM (multiple choice)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:assessment_purpose",
+        "uri": "dpf:assessment_purpose",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "DIAG",
+                "en": "DIAG"
+              }
+            },
+            {
+              "label": {
+                "de": "FORM",
+                "en": "FORM"
+              }
+            },
+            {
+              "label": {
+                "de": "SUMM",
+                "en": "SUMM"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:assessment_agent",
+      "group": "assessment",
+      "label": {
+        "de": "Akteur/Rolle",
+        "en": "Actor/Role"
+      },
+      "description": {
+        "de": "LEHR, PEER, SELF, AUTO, EXTERN (Mehrfachwahl)",
+        "en": "LEHR, PEER, SELF, AUTO, EXTERN (multiple choice)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:assessment_agent",
+        "uri": "dpf:assessment_agent",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "LEHR",
+                "en": "LEHR"
+              }
+            },
+            {
+              "label": {
+                "de": "PEER",
+                "en": "PEER"
+              }
+            },
+            {
+              "label": {
+                "de": "SELF",
+                "en": "SELF"
+              }
+            },
+            {
+              "label": {
+                "de": "AUTO",
+                "en": "AUTO"
+              }
+            },
+            {
+              "label": {
+                "de": "EXTERN",
+                "en": "EXTERN"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:assessment_norm",
+      "group": "assessment",
+      "label": {
+        "de": "Bezugsnorm",
+        "en": "Reference Norm"
+      },
+      "description": {
+        "de": "Standard: KRIT. Optionen: KRIT, IPSA, SOZIAL, NORM",
+        "en": "Default: KRIT. Options: KRIT, IPSA, SOZIAL, NORM"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:assessment_norm",
+        "uri": "dpf:assessment_norm",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "default": [
+          "KRIT"
+        ],
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "KRIT",
+                "en": "KRIT"
+              }
+            },
+            {
+              "label": {
+                "de": "IPSA",
+                "en": "IPSA"
+              }
+            },
+            {
+              "label": {
+                "de": "SOZIAL",
+                "en": "SOCIAL"
+              }
+            },
+            {
+              "label": {
+                "de": "NORM",
+                "en": "NORM"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:assessment_method",
+      "group": "assessment",
+      "label": {
+        "de": "Methode/Format",
+        "en": "Method/Format"
+      },
+      "description": {
+        "de": "z. B. QUIZ, WRIT, PRES, PROD, RUBR … (Mehrfachwahl)",
+        "en": "e.g. QUIZ, WRIT, PRES, PROD, RUBR … (multiple choice)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:assessment_method",
+        "uri": "dpf:assessment_method",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "QUIZ",
+                "en": "QUIZ"
+              }
+            },
+            {
+              "label": {
+                "de": "EXAM",
+                "en": "EXAM"
+              }
+            },
+            {
+              "label": {
+                "de": "WRIT",
+                "en": "WRIT"
+              }
+            },
+            {
+              "label": {
+                "de": "ORAL",
+                "en": "ORAL"
+              }
+            },
+            {
+              "label": {
+                "de": "PRES",
+                "en": "PRES"
+              }
+            },
+            {
+              "label": {
+                "de": "PERF",
+                "en": "PERF"
+              }
+            },
+            {
+              "label": {
+                "de": "SIMU",
+                "en": "SIMU"
+              }
+            },
+            {
+              "label": {
+                "de": "PROD",
+                "en": "PROD"
+              }
+            },
+            {
+              "label": {
+                "de": "CASE",
+                "en": "CASE"
+              }
+            },
+            {
+              "label": {
+                "de": "PROJ",
+                "en": "PROJ"
+              }
+            },
+            {
+              "label": {
+                "de": "PORT",
+                "en": "PORT"
+              }
+            },
+            {
+              "label": {
+                "de": "REFL",
+                "en": "REFL"
+              }
+            },
+            {
+              "label": {
+                "de": "DISC",
+                "en": "DISC"
+              }
+            },
+            {
+              "label": {
+                "de": "OBSV",
+                "en": "OBSV"
+              }
+            },
+            {
+              "label": {
+                "de": "RUBR",
+                "en": "RUBR"
+              }
+            },
+            {
+              "label": {
+                "de": "A_TEST",
+                "en": "A_TEST"
+              }
+            },
+            {
+              "label": {
+                "de": "A_KEY",
+                "en": "A_KEY"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:difficulty",
+      "group": "planning_core",
+      "label": {
+        "de": "Schwierigkeitsgrad (1–5)",
+        "en": "Difficulty level (1–5)"
+      },
+      "description": {
+        "de": "1=Sehr leicht … 5=Fortgeschritten",
+        "en": "1=Very easy … 5=Advanced"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:difficulty",
+        "uri": "dpf:difficulty",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "minimum": 1,
+          "maximum": 5
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:modality",
+      "group": "context",
+      "label": {
+        "de": "Lern-Modalität",
+        "en": "Learning Modality"
+      },
+      "description": {
+        "de": "PRES, ONL-SYNC, ONL-ASY, HYB, HFX",
+        "en": "PRES, ONL-SYNC, ONL-ASY, HYB, HFX"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:modality",
+        "uri": "dpf:modality",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "PRES",
+                "en": "PRES"
+              }
+            },
+            {
+              "label": {
+                "de": "ONL-SYNC",
+                "en": "ONL-SYNC"
+              }
+            },
+            {
+              "label": {
+                "de": "ONL-ASY",
+                "en": "ONL-ASY"
+              }
+            },
+            {
+              "label": {
+                "de": "HYB",
+                "en": "HYB"
+              }
+            },
+            {
+              "label": {
+                "de": "HFX",
+                "en": "HFX"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:social_form",
+      "group": "context",
+      "label": {
+        "de": "Sozialform",
+        "en": "Social Form"
+      },
+      "description": {
+        "de": "EINZEL, PARTNER, GRP-KLEIN, GRP-GROSS, PLENUM, PROJEKT, FRONTAL",
+        "en": "SINGLE, PARTNER, GRP-SMALL, GRP-LARGE, PLENARY, PROJECT, FRONTAL"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:social_form",
+        "uri": "dpf:social_form",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "EINZEL",
+                "en": "SINGLE"
+              }
+            },
+            {
+              "label": {
+                "de": "PARTNER",
+                "en": "PARTNER"
+              }
+            },
+            {
+              "label": {
+                "de": "GRP-KLEIN",
+                "en": "GRP-SMALL"
+              }
+            },
+            {
+              "label": {
+                "de": "GRP-GROSS",
+                "en": "GRP-LARGE"
+              }
+            },
+            {
+              "label": {
+                "de": "PLENUM",
+                "en": "PLENARY"
+              }
+            },
+            {
+              "label": {
+                "de": "PROJEKT",
+                "en": "PROJECT"
+              }
+            },
+            {
+              "label": {
+                "de": "FRONTAL",
+                "en": "FRONTAL"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:support_mode",
+      "group": "context",
+      "label": {
+        "de": "Unterstützungs-/Steuerungsmodus",
+        "en": "Support/Control Mode"
+      },
+      "description": {
+        "de": "SELF_FULL, TEACHER_DIRECTED, CO_CONSTRUCTIVE …",
+        "en": "SELF_FULL, TEACHER_DIRECTED, CO_CONSTRUCTIVE …"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:support_mode",
+        "uri": "dpf:support_mode",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "SELF_FULL",
+                "en": "SELF_FULL"
+              }
+            },
+            {
+              "label": {
+                "de": "SELF_WITH_OPTIONAL_TEACHER_INPUT",
+                "en": "SELF_WITH_OPTIONAL_TEACHER_INPUT"
+              }
+            },
+            {
+              "label": {
+                "de": "WITH_STUDENT_INPUT",
+                "en": "WITH_STUDENT_INPUT"
+              }
+            },
+            {
+              "label": {
+                "de": "PARALLELIZED",
+                "en": "PARALLELIZED"
+              }
+            },
+            {
+              "label": {
+                "de": "TEACHER_DIRECTED",
+                "en": "TEACHER_DIRECTED"
+              }
+            },
+            {
+              "label": {
+                "de": "GUIDED_SELF",
+                "en": "GUIDED_SELF"
+              }
+            },
+            {
+              "label": {
+                "de": "CO_CONSTRUCTIVE",
+                "en": "CO_CONSTRUCTIVE"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:location_category",
+      "group": "context",
+      "label": {
+        "de": "Lernort – Kategorie (L1)",
+        "en": "Learning location – Category (L1)"
+      },
+      "description": {
+        "de": "CAMP, EXT, WBL, FIELD, HOME, COMM",
+        "en": "CAMP, EXT, WBL, FIELD, HOME, COMM"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:location_category",
+        "uri": "dpf:location_category",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "CAMP",
+                "en": "CAMP"
+              }
+            },
+            {
+              "label": {
+                "de": "EXT",
+                "en": "EXT"
+              }
+            },
+            {
+              "label": {
+                "de": "WBL",
+                "en": "WBL"
+              }
+            },
+            {
+              "label": {
+                "de": "FIELD",
+                "en": "FIELD"
+              }
+            },
+            {
+              "label": {
+                "de": "HOME",
+                "en": "HOME"
+              }
+            },
+            {
+              "label": {
+                "de": "COMM",
+                "en": "COMM"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:location_subcategory",
+      "group": "context",
+      "label": {
+        "de": "Lernort – Untertyp (L2, optional)",
+        "en": "Learning Location – Subtype (L2, optional)"
+      },
+      "description": {
+        "de": "Freitext-Code wie CLASS, LAB-SCI, MUSE, URB …",
+        "en": "Free text code like CLASS, LAB-SCI, MUSE, URB …"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:location_subcategory",
+        "uri": "dpf:location_subcategory",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "case": "upper"
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:differentiation_axes",
+      "group": "differentiation",
+      "label": {
+        "de": "Achsen",
+        "en": "Axes"
+      },
+      "description": {
+        "de": "CONT, PROC, PROD, PACE, ENV, AFFC",
+        "en": "CONT, PROC, PROD, PACE, ENV, AFFC"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:differentiation_axes",
+        "uri": "dpf:differentiation_axes",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "CONT",
+                "en": "CONT"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC",
+                "en": "PROC"
+              }
+            },
+            {
+              "label": {
+                "de": "PROD",
+                "en": "PROD"
+              }
+            },
+            {
+              "label": {
+                "de": "PACE",
+                "en": "PACE"
+              }
+            },
+            {
+              "label": {
+                "de": "ENV",
+                "en": "ENV"
+              }
+            },
+            {
+              "label": {
+                "de": "AFFC",
+                "en": "AFFC"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:content_adjustment",
+      "group": "differentiation",
+      "label": {
+        "de": "CONT — Hebel",
+        "en": "CONT — Levers"
+      },
+      "description": {
+        "de": "CONT:LVL, CONT:CPLX, CONT:SCOPE, CONT:REP, CONT:LANGD, CONT:BRID",
+        "en": "CONT:LVL, CONT:CPLX, CONT:SCOPE, CONT:REP, CONT:LANGD, CONT:BRID"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:content_adjustment",
+        "uri": "dpf:content_adjustment",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "CONT:LVL",
+                "en": "CONT:LVL"
+              }
+            },
+            {
+              "label": {
+                "de": "CONT:CPLX",
+                "en": "CONT:CPLX"
+              }
+            },
+            {
+              "label": {
+                "de": "CONT:SCOPE",
+                "en": "CONT:SCOPE"
+              }
+            },
+            {
+              "label": {
+                "de": "CONT:REP",
+                "en": "CONT:REP"
+              }
+            },
+            {
+              "label": {
+                "de": "CONT:LANGD",
+                "en": "CONT:LANGD"
+              }
+            },
+            {
+              "label": {
+                "de": "CONT:BRID",
+                "en": "CONT:BRID"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:process_support",
+      "group": "differentiation",
+      "label": {
+        "de": "PROC — Support",
+        "en": "PROC — Support"
+      },
+      "description": {
+        "de": "PROC:HINT, PROC:WEX, PROC:GN, PROC:AO, PROC:MODL, PROC:SST, PROC:CKL, PROC:PTU, PROC:CONF, PROC:GFB",
+        "en": "PROC:HINT, PROC:WEX, PROC:GN, PROC:AO, PROC:MODL, PROC:SST, PROC:CKL, PROC:PTU, PROC:CONF, PROC:GFB"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:process_support",
+        "uri": "dpf:process_support",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "PROC:HINT",
+                "en": "PROC:HINT"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:WEX",
+                "en": "PROC:WEX"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:GN",
+                "en": "PROC:GN"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:AO",
+                "en": "PROC:AO"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:MODL",
+                "en": "PROC:MODL"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:SST",
+                "en": "PROC:SST"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:CKL",
+                "en": "PROC:CKL"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:PTU",
+                "en": "PROC:PTU"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:CONF",
+                "en": "PROC:CONF"
+              }
+            },
+            {
+              "label": {
+                "de": "PROC:GFB",
+                "en": "PROC:GFB"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:product_flex",
+      "group": "differentiation",
+      "label": {
+        "de": "PROD — Flex",
+        "en": "PROD — Flex"
+      },
+      "description": {
+        "de": "PROD:MMODA, PROD:SINGLE, PROD:AUDC, PROD:REV, PROD:TEAM",
+        "en": "PROD:MMODA, PROD:SINGLE, PROD:AUDC, PROD:REV, PROD:TEAM"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:product_flex",
+        "uri": "dpf:product_flex",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "PROD:MMODA",
+                "en": "PROD:MMODA"
+              }
+            },
+            {
+              "label": {
+                "de": "PROD:SINGLE",
+                "en": "PROD:SINGLE"
+              }
+            },
+            {
+              "label": {
+                "de": "PROD:AUDC",
+                "en": "PROD:AUDC"
+              }
+            },
+            {
+              "label": {
+                "de": "PROD:REV",
+                "en": "PROD:REV"
+              }
+            },
+            {
+              "label": {
+                "de": "PROD:TEAM",
+                "en": "PROD:TEAM"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:pace_policy",
+      "group": "differentiation",
+      "label": {
+        "de": "PACE — Policy",
+        "en": "PACE — Policy"
+      },
+      "description": {
+        "de": "PACE:FLEXD, PACE:SPAC, PACE:GATE, PACE:EXTRA, PACE:FAST",
+        "en": "PACE:FLEXD, PACE:SPAC, PACE:GATE, PACE:EXTRA, PACE:FAST"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:pace_policy",
+        "uri": "dpf:pace_policy",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "PACE:FLEXD",
+                "en": "PACE:FLEXD"
+              }
+            },
+            {
+              "label": {
+                "de": "PACE:SPAC",
+                "en": "PACE:SPAC"
+              }
+            },
+            {
+              "label": {
+                "de": "PACE:GATE",
+                "en": "PACE:GATE"
+              }
+            },
+            {
+              "label": {
+                "de": "PACE:EXTRA",
+                "en": "PACE:EXTRA"
+              }
+            },
+            {
+              "label": {
+                "de": "PACE:FAST",
+                "en": "PACE:FAST"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "dpf:diff_strategies",
+      "group": "differentiation",
+      "label": {
+        "de": "Strategien (konkrete Beschreibung, optional)",
+        "en": "Strategies (concrete description, optional)"
+      },
+      "description": {
+        "de": "ADRL, AITUT, CHOI, COMP, ENRI, EXEM, FDBK, FLEX, FLXA, HINT, INTR, JIGS, LANG, MENU, MMOD, MMOP, MPTH, OPEN, PACE, PEER, PLAY, QLEV, RAFT, REME, SEAT, SOCR, STAG, STAT, TIER, TPS",
+        "en": "ADRL, AITUT, CHOI, COMP, ENRI, EXEM, FDBK, FLEX, FLXA, HINT, INTR, JIGS, LANG, MENU, MMOD, MMOP, MPTH, OPEN, PACE, PEER, PLAY, QLEV, RAFT, REME, SEAT, SOCR, STAG, STAT, TIER, TPS"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "dpf:diff_strategies",
+        "uri": "dpf:diff_strategies",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "ADRL",
+                "en": "ADRL"
+              }
+            },
+            {
+              "label": {
+                "de": "AITUT",
+                "en": "AITUT"
+              }
+            },
+            {
+              "label": {
+                "de": "CHOI",
+                "en": "CHOI"
+              }
+            },
+            {
+              "label": {
+                "de": "COMP",
+                "en": "COMP"
+              }
+            },
+            {
+              "label": {
+                "de": "ENRI",
+                "en": "ENRI"
+              }
+            },
+            {
+              "label": {
+                "de": "EXEM",
+                "en": "EXEM"
+              }
+            },
+            {
+              "label": {
+                "de": "FDBK",
+                "en": "FDBK"
+              }
+            },
+            {
+              "label": {
+                "de": "FLEX",
+                "en": "FLEX"
+              }
+            },
+            {
+              "label": {
+                "de": "FLXA",
+                "en": "FLXA"
+              }
+            },
+            {
+              "label": {
+                "de": "HINT",
+                "en": "HINT"
+              }
+            },
+            {
+              "label": {
+                "de": "INTR",
+                "en": "INTR"
+              }
+            },
+            {
+              "label": {
+                "de": "JIGS",
+                "en": "JIGS"
+              }
+            },
+            {
+              "label": {
+                "de": "LANG",
+                "en": "LANG"
+              }
+            },
+            {
+              "label": {
+                "de": "MENU",
+                "en": "MENU"
+              }
+            },
+            {
+              "label": {
+                "de": "MMOD",
+                "en": "MMOD"
+              }
+            },
+            {
+              "label": {
+                "de": "MMOP",
+                "en": "MMOP"
+              }
+            },
+            {
+              "label": {
+                "de": "MPTH",
+                "en": "MPTH"
+              }
+            },
+            {
+              "label": {
+                "de": "OPEN",
+                "en": "OPEN"
+              }
+            },
+            {
+              "label": {
+                "de": "PACE",
+                "en": "PACE"
+              }
+            },
+            {
+              "label": {
+                "de": "PEER",
+                "en": "PEER"
+              }
+            },
+            {
+              "label": {
+                "de": "PLAY",
+                "en": "PLAY"
+              }
+            },
+            {
+              "label": {
+                "de": "QLEV",
+                "en": "QLEV"
+              }
+            },
+            {
+              "label": {
+                "de": "RAFT",
+                "en": "RAFT"
+              }
+            },
+            {
+              "label": {
+                "de": "REME",
+                "en": "REME"
+              }
+            },
+            {
+              "label": {
+                "de": "SEAT",
+                "en": "SEAT"
+              }
+            },
+            {
+              "label": {
+                "de": "SOCR",
+                "en": "SOCR"
+              }
+            },
+            {
+              "label": {
+                "de": "STAG",
+                "en": "STAG"
+              }
+            },
+            {
+              "label": {
+                "de": "STAT",
+                "en": "STAT"
+              }
+            },
+            {
+              "label": {
+                "de": "TIER",
+                "en": "TIER"
+              }
+            },
+            {
+              "label": {
+                "de": "TPS",
+                "en": "TPS"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "dpt:concept": "",
+    "dpf:granularity": "",
+    "dpf:funktion": "",
+    "dpf:learning_phase": "",
+    "dpf:icap_primary": "",
+    "dpf:icap_submodes": [],
+    "dpf:icap_meta": [],
+    "dpf:learning_objectives": [],
+    "dpf:assessment_purpose": [],
+    "dpf:assessment_agent": [],
+    "dpf:assessment_norm": [],
+    "dpf:assessment_method": [],
+    "dpf:difficulty": null,
+    "dpf:modality": "",
+    "dpf:social_form": "",
+    "dpf:support_mode": "",
+    "dpf:location_category": "",
+    "dpf:location_subcategory": "",
+    "dpf:differentiation_axes": [],
+    "dpf:content_adjustment": [],
+    "dpf:process_support": [],
+    "dpf:product_flex": [],
+    "dpf:pace_policy": [],
+    "dpf:diff_strategies": []
+  }
+}

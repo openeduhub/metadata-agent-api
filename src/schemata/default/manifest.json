@@ -1,0 +1,23 @@
+{
+  "contextName": "default",
+  "name": "WLO/OEH Standard",
+  "versions": {
+    "1.8.0": {
+      "releaseDate": "2025-11-01",
+      "isDefault": true,
+      "schemas": [
+        "core.json",
+        "event.json",
+        "education_offer.json",
+        "learning_material.json",
+        "person.json",
+        "organization.json",
+        "tool_service.json",
+        "occupation.json",
+        "didactic_planning_tools.json",
+        "source.json",
+        "prompt.json"
+      ]
+    }
+  }
+}

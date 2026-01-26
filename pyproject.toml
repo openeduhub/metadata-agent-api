@@ -1,0 +1,20 @@
+[project]
+name = "metadata-agent-api"
+version = "1.0.0"
+description = "AI-powered metadata extraction API for educational content"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    "httpx>=0.28.0",
+    "python-multipart>=0.0.18",
+    "aiofiles>=24.1.0",
+    "openai>=1.57.0",
+    "tenacity>=9.0.0",
+    "python-dotenv>=1.0.1",
+]
+
+[project.scripts]
+app = "src.main:app"

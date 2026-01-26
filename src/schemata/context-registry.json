@@ -1,0 +1,18 @@
+{
+  "contexts": {
+    "default": {
+      "name": "WLO/OEH Standard",
+      "description": "Vollständiges Schema-Set für Wirlernenonline / Open Edu Hub",
+      "defaultVersion": "1.8.0",
+      "path": "default"
+    },
+    "mds_oeh": {
+      "name": "MDS OEH",
+      "description": "Reduziertes Schema-Set: Events, Personen, Organisationen, Bildungsangebote",
+      "defaultVersion": "1.8.0",
+      "path": "mds_oeh",
+      "basedOn": "default@1.8.0"
+    }
+  },
+  "defaultContext": "default"
+}

@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # =========================================
+  # Default: B-API OpenAI (recommended)
+  # =========================================
+  metadata-agent-api:
+    build: .
+    container_name: metadata-agent-api
+    ports:
+      - "8000:8000"
+    environment:
+      # LLM Provider: b-api-openai, b-api-academiccloud, or openai
+      - METADATA_AGENT_LLM_PROVIDER=b-api-openai
+      
+      # B-API Key (for b-api-openai and b-api-academiccloud)
+      - B_API_KEY=${B_API_KEY:-}
+      
+      # OpenAI Key (only needed if using provider=openai)
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      
+      # Worker Settings
+      - METADATA_AGENT_DEFAULT_MAX_WORKERS=10
+      - METADATA_AGENT_REQUEST_TIMEOUT=60
+      
+      # Default Schema Settings
+      - METADATA_AGENT_DEFAULT_CONTEXT=default
+      - METADATA_AGENT_DEFAULT_VERSION=1.8.0
+      
+      # Normalization
+      - METADATA_AGENT_NORMALIZATION_ENABLED=true
+      
+      # App Settings
+      - METADATA_AGENT_DEBUG=false
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # =========================================
+  # Alternative: B-API AcademicCloud (deepseek-r1)
+  # =========================================
+  # metadata-agent-api-academiccloud:
+  #   build: .
+  #   container_name: metadata-agent-api-academiccloud
+  #   ports:
+  #     - "8001:8000"
+  #   environment:
+  #     - METADATA_AGENT_LLM_PROVIDER=b-api-academiccloud
+  #     - B_API_KEY=${B_API_KEY:-}
+  #     - METADATA_AGENT_DEFAULT_MAX_WORKERS=10
+
+  # =========================================
+  # Alternative: Native OpenAI
+  # =========================================
+  # metadata-agent-api-openai:
+  #   build: .
+  #   container_name: metadata-agent-api-openai
+  #   ports:
+  #     - "8002:8000"
+  #   environment:
+  #     - METADATA_AGENT_LLM_PROVIDER=openai
+  #     - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+  #     - METADATA_AGENT_OPENAI_MODEL=gpt-4o-mini
+  #     - METADATA_AGENT_DEFAULT_MAX_WORKERS=10

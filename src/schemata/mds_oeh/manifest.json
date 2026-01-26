@@ -1,0 +1,18 @@
+{
+  "contextName": "mds_oeh",
+  "name": "MDS OEH",
+  "basedOn": "default@1.8.0",
+  "versions": {
+    "1.8.0": {
+      "releaseDate": "2025-11-28",
+      "isDefault": true,
+      "schemas": [
+        "core.json",
+        "event.json",
+        "education_offer.json",
+        "person.json",
+        "organization.json"
+      ]
+    }
+  }
+}

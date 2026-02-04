@@ -16,38 +16,24 @@
       }
     },
     {
-      "id": "publication",
+      "id": "typification",
       "label": {
-        "de": "Publikation",
-        "en": "Publication"
-      }
-    },
-    {
-      "id": "license",
-      "label": {
-        "de": "Lizenz",
-        "en": "License"
-      }
-    },
-    {
-      "id": "classification",
-      "label": {
-        "de": "Klassifikation",
-        "en": "Classification"
-      }
-    },
-    {
-      "id": "audience",
-      "label": {
-        "de": "Zielgruppe",
-        "en": "Audience"
+        "de": "Typisierung",
+        "en": "Typification"
       }
     },
     {
       "id": "education",
       "label": {
-        "de": "Bildungskontext",
-        "en": "Educational Context"
+        "de": "Pädagogisch/Didaktisch",
+        "en": "Educational"
+      }
+    },
+    {
+      "id": "license",
+      "label": {
+        "de": "Lizenz, Quelle, Mitwirkende",
+        "en": "License"
       }
     }
   ],
@@ -132,7 +118,7 @@
     },
     {
       "id": "cclom:general_keyword",
-      "group": "description",
+      "group": "typification",
       "label": {
         "de": "Schlagwörter",
         "en": "Keywords"
@@ -268,7 +254,7 @@
     },
     {
       "id": "cm:author",
-      "group": "publication",
+      "group": "license",
       "label": {
         "de": "Autor:in / Urheber:in",
         "en": "Author / Creator"
@@ -301,7 +287,7 @@
     },
     {
       "id": "ccm:oeh_publisher_combined",
-      "group": "publication",
+      "group": "license",
       "label": {
         "de": "Publisher / Herausgeber",
         "en": "Publisher"
@@ -562,7 +548,7 @@
     },
     {
       "id": "ccm:oeh_flex_lrt",
-      "group": "classification",
+      "group": "typification",
       "label": {
         "de": "Inhaltsart(en)",
         "en": "Content Type(s)"
@@ -725,7 +711,7 @@
     },
     {
       "id": "ccm:educationalcontext",
-      "group": "education",
+      "group": "typification",
       "label": {
         "de": "Bildungsstufe",
         "en": "Education Level"
@@ -852,7 +838,7 @@
     },
     {
       "id": "ccm:taxonid",
-      "group": "education",
+      "group": "typification",
       "label": {
         "de": "Fach",
         "en": "Subject"

@@ -9,13 +9,6 @@
   },
   "groups": [
     {
-      "id": "basic",
-      "label": {
-        "de": "Basis",
-        "en": "Basics"
-      }
-    },
-    {
       "id": "description",
       "label": {
         "de": "Beschreibung",
@@ -189,7 +182,7 @@
     },
     {
       "id": "ccm:wwwurl",
-      "group": "publication",
+      "group": "description",
       "label": {
         "de": "Web-URL",
         "en": "Web URL"
@@ -232,7 +225,7 @@
     },
     {
       "id": "preview:url",
-      "group": "publication",
+      "group": "description",
       "label": {
         "de": "URL des Vorschaubildes",
         "en": "Preview Image URL"
@@ -494,7 +487,7 @@
     },
     {
       "id": "cclom:general_language",
-      "group": "classification",
+      "group": "description",
       "label": {
         "de": "Sprache",
         "en": "Language"

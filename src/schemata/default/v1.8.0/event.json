@@ -1284,22 +1284,22 @@
           "concepts": [
             {
               "label": {
-                "de": "OnlineEventAttendanceMode",
-                "en": "OnlineEventAttendanceMode"
+                "de": "Online",
+                "en": "Online"
               },
               "uri": "https://schema.org/OnlineEventAttendanceMode"
             },
             {
               "label": {
-                "de": "OfflineEventAttendanceMode",
-                "en": "OfflineEventAttendanceMode"
+                "de": "Vor Ort",
+                "en": "Offline"
               },
               "uri": "https://schema.org/OfflineEventAttendanceMode"
             },
             {
               "label": {
-                "de": "MixedEventAttendanceMode",
-                "en": "MixedEventAttendanceMode"
+                "de": "Hybrid",
+                "en": "Mixed"
               },
               "uri": "https://schema.org/MixedEventAttendanceMode"
             }
@@ -2351,11 +2351,9 @@
   ],
   "output_template": {
     "oeh:eventType": [],
-    "schema:eventSchedule": [],
     "schema:startDate": "",
     "schema:endDate": "",
     "schema:doorTime": "",
-    "schema:openingHoursSpecification": [],
     "schema:eventStatus": "",
     "schema:previousStartDate": [],
     "schema:duration": "",
@@ -2369,7 +2367,6 @@
     "schema:performer": [],
     "schema:attendee": [],
     "schema:offers": [],
-    "schema:remainingAttendeeCapacity": null,
     "schema:teaches": []
   }
 }

@@ -1,0 +1,1278 @@
+{
+  "profileId": "core:tool_service",
+  "version": "1.8.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "sdo": "https://schema.org/",
+    "ccm": "https://example.org/ccm/",
+    "preview": "https://example.org/preview/"
+  },
+  "groups": [
+    {
+      "id": "classification",
+      "label": {
+        "de": "Klassifikation",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "technical",
+      "label": {
+        "de": "Technik & Plattform",
+        "en": "Technology & Platform"
+      }
+    },
+    {
+      "id": "provider",
+      "label": {
+        "de": "Anbieter & Darstellung",
+        "en": "Providers & Representation"
+      }
+    },
+    {
+      "id": "pricing",
+      "label": {
+        "de": "Kosten & Angebote",
+        "en": "Costs & Offers"
+      }
+    },
+    {
+      "id": "compliance",
+      "label": {
+        "de": "Compliance & Schutz",
+        "en": "Compliance & Protection"
+      }
+    },
+    {
+      "id": "audience",
+      "label": {
+        "de": "Zielgruppe",
+        "en": "Target Group"
+      }
+    },
+    {
+      "id": "usage",
+      "label": {
+        "de": "Nutzung & Einsatz",
+        "en": "Usage & Application"
+      }
+    },
+    {
+      "id": "linkage",
+      "label": {
+        "de": "Verknüpfungen",
+        "en": "Connections"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "ccm:tool_schema_types",
+      "group": "classification",
+      "label": {
+        "de": "Schema.org-Typ(en)",
+        "en": "Schema.org Type(s)"
+      },
+      "description": {
+        "de": "Passende Typen (Mehrfachauswahl) wie SoftwareApplication, WebApplication, Service …",
+        "en": "Suitable types (multiple choice) such as SoftwareApplication, WebApplication, Service …"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:tool_schema_types",
+        "uri": "@type",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "SoftwareApplication",
+                "en": "SoftwareApplication"
+              }
+            },
+            {
+              "label": {
+                "de": "WebApplication",
+                "en": "WebApplication"
+              }
+            },
+            {
+              "label": {
+                "de": "MobileApplication",
+                "en": "MobileApplication"
+              }
+            },
+            {
+              "label": {
+                "de": "Service",
+                "en": "Service"
+              }
+            },
+            {
+              "label": {
+                "de": "WebAPI",
+                "en": "WebAPI"
+              }
+            },
+            {
+              "label": {
+                "de": "APIReference",
+                "en": "APIReference"
+              }
+            },
+            {
+              "label": {
+                "de": "Product",
+                "en": "Product"
+              }
+            },
+            {
+              "label": {
+                "de": "DataFeed",
+                "en": "DataFeed"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "case": "title",
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:application_category",
+      "group": "classification",
+      "label": {
+        "de": "Anwendungskategorie",
+        "en": "Application Category"
+      },
+      "description": {
+        "de": "Funktionale Kategorie (Wissensmanagement, Kollaboration, Datenspeicherung …)",
+        "en": "Functional category (knowledge management, collaboration, data storage …)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:application_category",
+        "uri": "sdo:applicationCategory",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Wissensmanagement",
+                "en": "Knowledge Management"
+              }
+            },
+            {
+              "label": {
+                "de": "Zusammenarbeit & Kommunikation",
+                "en": "Collaboration & Communication"
+              }
+            },
+            {
+              "label": {
+                "de": "Datenspeicherung & -verwaltung",
+                "en": "Data Storage & Management"
+              }
+            },
+            {
+              "label": {
+                "de": "Lernmanagement (LMS)",
+                "en": "Learning Management (LMS)"
+              }
+            },
+            {
+              "label": {
+                "de": "Autorenwerkzeuge",
+                "en": "Authoring Tools"
+              }
+            },
+            {
+              "label": {
+                "de": "Virtuelles Klassenzimmer",
+                "en": "Virtual Classroom"
+              }
+            },
+            {
+              "label": {
+                "de": "E-Portfolio",
+                "en": "E-Portfolio"
+              }
+            },
+            {
+              "label": {
+                "de": "Plagiatsprüfung",
+                "en": "Plagiarism Check"
+              }
+            },
+            {
+              "label": {
+                "de": "Bibliotheksverwaltung",
+                "en": "Library Management"
+              }
+            },
+            {
+              "label": {
+                "de": "KI-Tools/Sprachmodelle",
+                "en": "AI Tools/Language Models"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "case": "title"
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:platform",
+      "group": "technical",
+      "label": {
+        "de": "Plattform",
+        "en": "Platform"
+      },
+      "description": {
+        "de": "Zielplattform(en): Web, Desktop, Mobil, Embedded, VR/AR, Cross-Plattform.",
+        "en": "Target platform(s): Web, Desktop, Mobile, Embedded, VR/AR, Cross-Platform."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:platform",
+        "uri": "ccm:platform",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Webbrowser",
+                "en": "Web browser"
+              }
+            },
+            {
+              "label": {
+                "de": "Desktop",
+                "en": "Desktop"
+              }
+            },
+            {
+              "label": {
+                "de": "Mobil",
+                "en": "Mobile"
+              }
+            },
+            {
+              "label": {
+                "de": "Embedded",
+                "en": "Embedded"
+              }
+            },
+            {
+              "label": {
+                "de": "VR/AR",
+                "en": "VR/AR"
+              }
+            },
+            {
+              "label": {
+                "de": "Cross-Plattform",
+                "en": "Cross-platform"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:operatingSystem",
+      "group": "technical",
+      "label": {
+        "de": "Betriebssystem(e)",
+        "en": "Operating system(s)"
+      },
+      "description": {
+        "de": "Nur relevant, wenn keine reine Cloud-Software.",
+        "en": "Only relevant if not pure cloud software."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:operatingSystem",
+        "uri": "sdo:operatingSystem",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "uppercase_os": false
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:deployment_model",
+      "group": "technical",
+      "label": {
+        "de": "Bereitstellungsmodell",
+        "en": "Deployment model"
+      },
+      "description": {
+        "de": "SaaS/Cloud, On-Premises, Selbst-Hosting.",
+        "en": "SaaS/Cloud, On-Premises, Selbst-Hosting."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:deployment_model",
+        "uri": "ccm:deployment_model",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "SaaS/Cloud",
+                "en": "SaaS/Cloud"
+              }
+            },
+            {
+              "label": {
+                "de": "On-Premises",
+                "en": "On-Premises"
+              }
+            },
+            {
+              "label": {
+                "de": "Selbst-Hosting",
+                "en": "Self-hosting"
+              }
+            },
+            {
+              "label": {
+                "de": "Hybrid",
+                "en": "Hybrid"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:softwareVersion",
+      "group": "technical",
+      "label": {
+        "de": "Version",
+        "en": "Version"
+      },
+      "description": {
+        "de": "Versionsnummer (z. B. 3.2.1).",
+        "en": "Version number (e.g. 3.2.1)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:softwareVersion",
+        "uri": "sdo:softwareVersion",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^[0-9]+(\\.[0-9A-Za-z-]+)*$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:datePublished",
+      "group": "technical",
+      "label": {
+        "de": "Veröffentlichungs-/Release-Datum",
+        "en": "Release date"
+      },
+      "description": {
+        "de": "Datum der aktuellen Version oder Erstveröffentlichung im Format YYYY-MM-DD, z.B. 2024-03-15.",
+        "en": "Date of the current version or initial release in YYYY-MM-DD format, e.g. 2024-03-15."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:datePublished",
+        "uri": "sdo:datePublished",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:softwareRequirements",
+      "group": "technical",
+      "label": {
+        "de": "Software-/Systemanforderungen",
+        "en": "Software/System requirements"
+      },
+      "description": {
+        "de": "Kompatibilitäten, Abhängigkeiten, Mindestanforderungen.",
+        "en": "Compatibilities, dependencies, minimum requirements."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:softwareRequirements",
+        "uri": "sdo:softwareRequirements",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:permissions",
+      "group": "technical",
+      "label": {
+        "de": "Berechtigungen",
+        "en": "Permissions"
+      },
+      "description": {
+        "de": "Erforderliche App-/Systemberechtigungen.",
+        "en": "Required app/system permissions."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:permissions",
+        "uri": "sdo:permissions",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:downloadUrl",
+      "group": "technical",
+      "label": {
+        "de": "Download-URL",
+        "en": "Download URL"
+      },
+      "description": {
+        "de": "Direkter Link zu Installationspaketen/Stores.",
+        "en": "Direct link to installation packages/stores."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:downloadUrl",
+        "uri": "sdo:downloadUrl",
+        "datatype": "uri",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:installUrl",
+      "group": "technical",
+      "label": {
+        "de": "Installations-/Einrichtungs-URL",
+        "en": "Installation/setup URL"
+      },
+      "description": {
+        "de": "Setup-/Onboarding-Link.",
+        "en": "Setup/onboarding link."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:installUrl",
+        "uri": "sdo:installUrl",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:provider",
+      "group": "provider",
+      "label": {
+        "de": "Anbieter",
+        "en": "Provider"
+      },
+      "description": {
+        "de": "Service-/Softwareanbieter (Organisation/Person).",
+        "en": "Service or software provider (organization/person)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:provider",
+        "uri": "sdo:provider",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:brand",
+      "group": "provider",
+      "label": {
+        "de": "Marke/Brand",
+        "en": "Brand"
+      },
+      "description": {
+        "de": "Zugehörige Marke/Produktlinie.",
+        "en": "Associated brand/product line."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:brand",
+        "uri": "sdo:brand",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:logo",
+      "group": "provider",
+      "label": {
+        "de": "Logo-URL",
+        "en": "Logo URL"
+      },
+      "description": {
+        "de": "Bild-/SVG-URL des Logos.",
+        "en": "Image/SVG URL of the logo."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:logo",
+        "uri": "sdo:logo",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+\\.(jpg|jpeg|png|svg|webp))$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:areaServed",
+      "group": "provider",
+      "label": {
+        "de": "Versorgungsgebiet",
+        "en": "Service area"
+      },
+      "description": {
+        "de": "Länder/Regionen, in denen Service/Produkt offiziell angeboten wird.",
+        "en": "Countries/regions where the service/product is officially offered."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:areaServed",
+        "uri": "sdo:areaServed",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:hoursAvailable",
+      "group": "provider",
+      "label": {
+        "de": "Servicezeiten",
+        "en": "Service times"
+      },
+      "description": {
+        "de": "Öffnungs-/Verfügbarkeitszeiten (OpeningHoursSpecification).",
+        "en": "Opening/availability times (OpeningHoursSpecification)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:hoursAvailable",
+        "uri": "sdo:hoursAvailable",
+        "datatype": "json",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": false
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:isAccessibleForFree",
+      "group": "pricing",
+      "label": {
+        "de": "Kostenfrei zugänglich",
+        "en": "Free access"
+      },
+      "description": {
+        "de": "Ja/Nein (unabhängig von optionalen Premium-Angeboten).",
+        "en": "Yes/No (regardless of optional premium offers)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:isAccessibleForFree",
+        "uri": "sdo:isAccessibleForFree",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:offers",
+      "group": "pricing",
+      "label": {
+        "de": "Preismodelle/Angebote",
+        "en": "Pricing models/offers"
+      },
+      "description": {
+        "de": "Preis-/Tarifangaben (Offer/PriceSpecification) als JSON.",
+        "en": "Price/Tariff information (Offer/PriceSpecification) in JSON."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:offers",
+        "uri": "sdo:offers",
+        "datatype": "json",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": false
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:termsOfService",
+      "group": "pricing",
+      "label": {
+        "de": "Nutzungsbedingungen (ToS)",
+        "en": "Terms of Service (ToS)"
+      },
+      "description": {
+        "de": "URL oder Textfassung der Nutzungsbedingungen.",
+        "en": "URL or text version of the terms of service."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:termsOfService",
+        "uri": "sdo:termsOfService",
+        "datatype": "union(uri,string)",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:privacy_policy",
+      "group": "compliance",
+      "label": {
+        "de": "Datenschutzerklärung",
+        "en": "Privacy Policy"
+      },
+      "description": {
+        "de": "URL zur Datenschutz-/Privacy-Policy.",
+        "en": "URL to the Privacy Policy."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:privacy_policy",
+        "uri": "ccm:privacy_policy",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:data_protection",
+      "group": "compliance",
+      "label": {
+        "de": "Datenschutz-Status",
+        "en": "Data Protection Status"
+      },
+      "description": {
+        "de": "Einschätzung/Status, z. B. DSGVO-Konformität, AVV vorhanden.",
+        "en": "Assessment/Status, e.g., GDPR compliance, AVV available."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:data_protection",
+        "uri": "ccm:data_protection",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "DSGVO-konform (Selbstauskunft)",
+                "en": "GDPR-compliant (self-disclosure)"
+              }
+            },
+            {
+              "label": {
+                "de": "AV-Vertrag vorhanden",
+                "en": "Data Processing Agreement available"
+              }
+            },
+            {
+              "label": {
+                "de": "Datenverarbeitung in EU/EWR",
+                "en": "Data processing in EU/EEA"
+              }
+            },
+            {
+              "label": {
+                "de": "Datenverarbeitung außerhalb EU/EWR",
+                "en": "Data processing outside EU/EEA"
+              }
+            },
+            {
+              "label": {
+                "de": "Unklar/prüfen",
+                "en": "Unclear/check"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:contentRating",
+      "group": "compliance",
+      "label": {
+        "de": "FSK/Content-Rating",
+        "en": "FSK/Content Rating"
+      },
+      "description": {
+        "de": "Alters-/Inhaltsfreigabe (z. B. FSK).",
+        "en": "Age/Content release (e.g., FSK)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:contentRating",
+        "uri": "sdo:contentRating",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:isFamilyFriendly",
+      "group": "compliance",
+      "label": {
+        "de": "Familienfreundlich",
+        "en": "Family-friendly"
+      },
+      "description": {
+        "de": "Kennzeichnet familien-/jugendgeeignete Inhalte.",
+        "en": "Indicates family/youth-friendly content."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:isFamilyFriendly",
+        "uri": "sdo:isFamilyFriendly",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:security",
+      "group": "compliance",
+      "label": {
+        "de": "IT-Sicherheit",
+        "en": "IT Security"
+      },
+      "description": {
+        "de": "Hinweise/Standards (z. B. ISO 27001, 2FA, SSO).",
+        "en": "Notes/Standards (e.g., ISO 27001, 2FA, SSO)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:security",
+        "uri": "ccm:security",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:interoperability",
+      "group": "compliance",
+      "label": {
+        "de": "Interoperabilität/Standards",
+        "en": "Interoperability/Standards"
+      },
+      "description": {
+        "de": "Unterstützte Standards/Protokolle (LTI, SCORM, xAPI, IMS …).",
+        "en": "Supported standards/protocols (LTI, SCORM, xAPI, IMS …)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:interoperability",
+        "uri": "ccm:interoperability",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:audience",
+      "group": "audience",
+      "label": {
+        "de": "Zielgruppen (Audience)",
+        "en": "Target Groups (Audience)"
+      },
+      "description": {
+        "de": "Anvisierte Nutzergruppen (Lehrende, Lernende, Admins …).",
+        "en": "Intended user groups (instructors, learners, admins …)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "sdo:audience",
+        "uri": "sdo:audience",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:use_cases",
+      "group": "usage",
+      "label": {
+        "de": "Verwendungszwecke",
+        "en": "Purposes"
+      },
+      "description": {
+        "de": "„Ich will …“ (z. B. Video schneiden, kooperativ schreiben).",
+        "en": "“I want to …” (e.g. edit video, write cooperatively)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:use_cases",
+        "uri": "ccm:use_cases",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:modalities",
+      "group": "usage",
+      "label": {
+        "de": "Modalitäten",
+        "en": "Modalities"
+      },
+      "description": {
+        "de": "Analog/Digital, benötigte Software/Hardware, Online/Offline.",
+        "en": "Analog/Digital, benötigte Software/Hardware, Online/Offline."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:modalities",
+        "uri": "ccm:modalities",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Digital",
+                "en": "Digital"
+              }
+            },
+            {
+              "label": {
+                "de": "Analog",
+                "en": "Analog"
+              }
+            },
+            {
+              "label": {
+                "de": "Online",
+                "en": "Online"
+              }
+            },
+            {
+              "label": {
+                "de": "Offline",
+                "en": "Offline"
+              }
+            },
+            {
+              "label": {
+                "de": "Benötigt Zusatzsoftware",
+                "en": "Requires additional software"
+              }
+            },
+            {
+              "label": {
+                "de": "Benötigt Zusatzhardware",
+                "en": "Requires additional hardware"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "ccm:tool_schema_types": [],
+    "ccm:application_category": [],
+    "ccm:platform": [],
+    "sdo:operatingSystem": [],
+    "ccm:deployment_model": "",
+    "sdo:softwareVersion": "",
+    "sdo:datePublished": "",
+    "sdo:softwareRequirements": [],
+    "sdo:permissions": [],
+    "sdo:downloadUrl": [],
+    "sdo:installUrl": "",
+    "sdo:provider": "",
+    "sdo:brand": "",
+    "sdo:logo": "",
+    "sdo:areaServed": [],
+    "sdo:hoursAvailable": [],
+    "sdo:isAccessibleForFree": null,
+    "sdo:offers": [],
+    "sdo:termsOfService": "",
+    "ccm:privacy_policy": "",
+    "ccm:data_protection": [],
+    "sdo:contentRating": "",
+    "sdo:isFamilyFriendly": null,
+    "ccm:security": [],
+    "ccm:interoperability": [],
+    "sdo:audience": [],
+    "ccm:use_cases": [],
+    "ccm:modalities": []
+  }
+}

@@ -1,0 +1,1188 @@
+{
+  "profileId": "core:source",
+  "version": "1.8.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "sdo": "https://schema.org/",
+    "ccm": "https://example.org/ccm/",
+    "harv": "https://example.org/harvesting/",
+    "inherit": "https://example.org/inheritance/"
+  },
+  "groups": [
+    {
+      "id": "typing",
+      "label": {
+        "de": "Typisierung",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "linkage",
+      "label": {
+        "de": "Quellen-Verknüpfungen",
+        "en": "Source Links"
+      }
+    },
+    {
+      "id": "harvesting",
+      "label": {
+        "de": "Erschließung (Crawl/Import)",
+        "en": "Indexing (Crawl/Import)"
+      }
+    },
+    {
+      "id": "inheritance",
+      "label": {
+        "de": "Vererbung (Top-Down/Bottom-Up)",
+        "en": "Inheritance (Top-Down/Bottom-Up)"
+      }
+    },
+    {
+      "id": "governance",
+      "label": {
+        "de": "Verantwortung & Verwaltung",
+        "en": "Responsibility & Management"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "ccm:source_kind",
+      "group": "typing",
+      "label": {
+        "de": "Quellentyp (Untertyp)",
+        "en": "Source Type (Subtype)"
+      },
+      "description": {
+        "de": "Spezifischer Untertyp der Quelle.",
+        "en": "Specific Subtype of the Source."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:source_kind",
+        "uri": "sdo:additionalType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Kollektion/Kanal",
+                "en": "Collection/Channel"
+              }
+            },
+            {
+              "label": {
+                "de": "Wörterbuch",
+                "en": "Dictionary"
+              }
+            },
+            {
+              "label": {
+                "de": "Portal",
+                "en": "Portal"
+              }
+            },
+            {
+              "label": {
+                "de": "Stream/RSS",
+                "en": "Stream/RSS"
+              }
+            },
+            {
+              "label": {
+                "de": "Lexikon/Enzyklopädie",
+                "en": "Lexicon/Encyclopedia"
+              }
+            },
+            {
+              "label": {
+                "de": "Datenbank",
+                "en": "Database"
+              }
+            },
+            {
+              "label": {
+                "de": "Repository",
+                "en": "Repository"
+              }
+            },
+            {
+              "label": {
+                "de": "Suchmaschine",
+                "en": "Search Engine"
+              }
+            },
+            {
+              "label": {
+                "de": "Referatory",
+                "en": "Referatory"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:schema_types_declared",
+      "group": "typing",
+      "label": {
+        "de": "Schema.org-Typen",
+        "en": "Schema.org Types"
+      },
+      "description": {
+        "de": "Explizite schema.org-Typen der Quelle.",
+        "en": "Explicit schema.org Types of the Source."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:schema_types_declared",
+        "uri": "@type",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "CreativeWork",
+                "en": "CreativeWork"
+              }
+            },
+            {
+              "label": {
+                "de": "DataFeed",
+                "en": "DataFeed"
+              }
+            },
+            {
+              "label": {
+                "de": "DataCatalog",
+                "en": "DataCatalog"
+              }
+            },
+            {
+              "label": {
+                "de": "Dataset",
+                "en": "Dataset"
+              }
+            },
+            {
+              "label": {
+                "de": "WebSite",
+                "en": "WebSite"
+              }
+            },
+            {
+              "label": {
+                "de": "Service",
+                "en": "Service"
+              }
+            },
+            {
+              "label": {
+                "de": "ScholarlyArticle",
+                "en": "ScholarlyArticle"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:sourceOrganization",
+      "group": "linkage",
+      "label": {
+        "de": "Ursprungsorganisation",
+        "en": "Originating organization"
+      },
+      "description": {
+        "de": "Institution, die die Inhalte ursprünglich erstellt/herausgegeben hat.",
+        "en": "Institution that originally created/published the content."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:sourceOrganization",
+        "uri": "sdo:sourceOrganization",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Organization",
+            "label": {
+              "de": "Ursprungsorganisation",
+              "en": "Originating organization"
+            },
+            "description": {
+              "de": "Institution, die die Inhalte ursprünglich erstellt/herausgegeben hat.",
+              "en": "Institution that originally created/published the content."
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "",
+                  "en": ""
+                },
+                "prompt": {
+                  "de": "",
+                  "en": ""
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:isBasedOn",
+      "group": "linkage",
+      "label": {
+        "de": "Basiert auf (Objekt)",
+        "en": "Based on (Object)"
+      },
+      "description": {
+        "de": "Verweis auf Original/Fork/Remix als CreativeWork.",
+        "en": "Reference to original/fork/remix as CreativeWork."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:isBasedOn",
+        "uri": "sdo:isBasedOn",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "CreativeWork",
+            "label": {
+              "de": "Basiert auf (Objekt)",
+              "en": "Based on (Object)"
+            },
+            "description": {
+              "de": "Verweis auf Original/Fork/Remix als CreativeWork.",
+              "en": "Reference to original/fork/remix as CreativeWork."
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "",
+                  "en": ""
+                },
+                "prompt": {
+                  "de": "",
+                  "en": ""
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:isBasedOnUrl",
+      "group": "linkage",
+      "label": {
+        "de": "Basiert auf (URL)",
+        "en": "Based on (URL)"
+      },
+      "description": {
+        "de": "URL der Originalquelle/Fundstelle.",
+        "en": "URL of the original source/location."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:isBasedOnUrl",
+        "uri": "sdo:isBasedOnUrl",
+        "datatype": "uri",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:provider",
+      "group": "linkage",
+      "label": {
+        "de": "Bereitstellende Plattform (Provider)",
+        "en": "Providing Platform (Provider)"
+      },
+      "description": {
+        "de": "Plattform/Repository/LMS, das Inhalte bereitstellt.",
+        "en": "Platform/Repository/LMS that provides content."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:provider",
+        "uri": "sdo:provider",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Organization",
+            "label": {
+              "de": "Bereitstellende Plattform (Provider)",
+              "en": "Providing Platform (Provider)"
+            },
+            "description": {
+              "de": "Plattform/Repository/LMS, das Inhalte bereitstellt.",
+              "en": "Platform/Repository/LMS that provides content."
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "",
+                  "en": ""
+                },
+                "prompt": {
+                  "de": "",
+                  "en": ""
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:publisher",
+      "group": "linkage",
+      "label": {
+        "de": "Publisher dieser Fassung",
+        "en": "Publisher of this version"
+      },
+      "description": {
+        "de": "Wer veröffentlicht die konkrete Fassung?",
+        "en": "Who publishes the specific version?"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:publisher",
+        "uri": "sdo:publisher",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Organization",
+            "label": {
+              "de": "Publisher dieser Fassung",
+              "en": "Publisher of this version"
+            },
+            "description": {
+              "de": "Wer veröffentlicht die konkrete Fassung?",
+              "en": "Who publishes the specific version?"
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "",
+                  "en": ""
+                },
+                "prompt": {
+                  "de": "",
+                  "en": ""
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:citation",
+      "group": "linkage",
+      "label": {
+        "de": "Zitierung/Literatur",
+        "en": "Citation/Literature"
+      },
+      "description": {
+        "de": "Formale Quellenangabe(n) oder verlinkte Werke.",
+        "en": "Formal source citation(s) or linked works."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:citation",
+        "uri": "sdo:citation",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "allowed_item_types": [
+          "string",
+          "object"
+        ],
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "CreativeWork",
+              "label": {
+                "de": "Zitierung/Literatur",
+                "en": "Citation/Literature"
+              },
+              "description": {
+                "de": "Formale Quellenangabe(n) oder verlinkte Werke.",
+                "en": "Formal source citation(s) or linked works."
+              },
+              "fields": [
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL oder Webadresse",
+                    "en": "URL or web address"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "CreativeWork",
+            "label": {
+              "de": "CreativeWork",
+              "en": "CreativeWork"
+            },
+            "description": {
+              "de": "",
+              "en": ""
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "",
+                  "en": ""
+                },
+                "prompt": {
+                  "de": "",
+                  "en": ""
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:mainEntityOfPage",
+      "group": "linkage",
+      "label": {
+        "de": "Kanonische Detailseite",
+        "en": "Canonical detail page"
+      },
+      "description": {
+        "de": "URL der kanonischen Detailseite des Werks.",
+        "en": "URL of the canonical detail page of the work."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:mainEntityOfPage",
+        "uri": "sdo:mainEntityOfPage",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:sameAs",
+      "group": "linkage",
+      "label": {
+        "de": "Stabile Identifikatoren",
+        "en": "Stable Identifiers"
+      },
+      "description": {
+        "de": "Stabile Referenzen (DOI, Handle, Wikidata, GitHub, …).",
+        "en": "Stable references (DOI, Handle, Wikidata, GitHub, …)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:sameAs",
+        "uri": "sdo:sameAs",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:mode",
+      "group": "harvesting",
+      "label": {
+        "de": "Erschließungsform",
+        "en": "Access Method"
+      },
+      "description": {
+        "de": "Welcher Spider/Crawler oder manuell erschlossen?",
+        "en": "Which spider/crawler or manually indexed?"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "harv:mode",
+        "uri": "harv:mode",
+        "datatype": "string",
+        "multiple": false,
+        "required": true,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "crawler:generic",
+                "en": "crawler:generic"
+              }
+            },
+            {
+              "label": {
+                "de": "crawler:rss",
+                "en": "crawler:rss"
+              }
+            },
+            {
+              "label": {
+                "de": "crawler:api",
+                "en": "crawler:api"
+              }
+            },
+            {
+              "label": {
+                "de": "Manuell",
+                "en": "manual"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "lowercase": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:status",
+      "group": "harvesting",
+      "label": {
+        "de": "Erschließungsstatus",
+        "en": "Access Status"
+      },
+      "description": {
+        "de": "Aktueller Status der Erschließung.",
+        "en": "Current status of the indexing."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "harv:status",
+        "uri": "harv:status",
+        "datatype": "string",
+        "multiple": false,
+        "required": true,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Geplant",
+                "en": "planned"
+              }
+            },
+            {
+              "label": {
+                "de": "Laufend",
+                "en": "running"
+              }
+            },
+            {
+              "label": {
+                "de": "Erfolgreich",
+                "en": "succeeded"
+              }
+            },
+            {
+              "label": {
+                "de": "Fehlgeschlagen",
+                "en": "failed"
+              }
+            },
+            {
+              "label": {
+                "de": "Pausiert",
+                "en": "paused"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:last_run",
+      "group": "harvesting",
+      "label": {
+        "de": "Letzter Lauf",
+        "en": "Last run"
+      },
+      "description": {
+        "de": "Zeitpunkt des letzten Crawl/Imports (ISO-8601).",
+        "en": "Timestamp of the last crawl/import (ISO-8601)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "harv:last_run",
+        "uri": "harv:last_run",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": false,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:next_run",
+      "group": "harvesting",
+      "label": {
+        "de": "Nächster Lauf",
+        "en": "Next run"
+      },
+      "description": {
+        "de": "Geplanter nächster Crawl/Import (ISO-8601).",
+        "en": "Scheduled next crawl/import (ISO-8601)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "harv:next_run",
+        "uri": "harv:next_run",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": false,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:scope",
+      "group": "harvesting",
+      "label": {
+        "de": "Erschließungsumfang",
+        "en": "Scope of indexing"
+      },
+      "description": {
+        "de": "Alle Inhalte oder ausgewählte Teilmengen?",
+        "en": "All content or selected subsets?"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "harv:scope",
+        "uri": "harv:scope",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Alle",
+                "en": "all"
+              }
+            },
+            {
+              "label": {
+                "de": "Teilmenge",
+                "en": "subset"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:storage_context",
+      "group": "harvesting",
+      "label": {
+        "de": "Speicherort",
+        "en": "Storage location"
+      },
+      "description": {
+        "de": "Ablageort der erschlossenen Daten (Kontext/Ordner).",
+        "en": "Location of the accessed data (context/folder)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "harv:storage_context",
+        "uri": "harv:storage_context",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "inherit:topdown_fields",
+      "group": "inheritance",
+      "label": {
+        "de": "Top-Down-Vererbung",
+        "en": "Top-Down inheritance"
+      },
+      "description": {
+        "de": "Welche Felder sollen standardmäßig an Inhalte vererbt werden?",
+        "en": "Which fields should be inherited to content by default?"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "inherit:topdown_fields",
+        "uri": "inherit:topdown_fields",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Disziplin",
+                "en": "discipline"
+              }
+            },
+            {
+              "label": {
+                "de": "Schlagwörter",
+                "en": "keywords"
+              }
+            },
+            {
+              "label": {
+                "de": "Lizenz",
+                "en": "license"
+              }
+            },
+            {
+              "label": {
+                "de": "Anzeigen",
+                "en": "ads"
+              }
+            },
+            {
+              "label": {
+                "de": "Kosten",
+                "en": "cost"
+              }
+            },
+            {
+              "label": {
+                "de": "Anmeldung erforderlich",
+                "en": "login_required"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "inherit:bottomup_facets",
+      "group": "inheritance",
+      "label": {
+        "de": "Bottom-Up-Aggregation",
+        "en": "Bottom-Up aggregation"
+      },
+      "description": {
+        "de": "Welche Facetten werden aus Inhalten an der Quelle aggregiert angezeigt?",
+        "en": "Which facets are aggregated from content at the source?"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "inherit:bottomup_facets",
+        "uri": "inherit:bottomup_facets",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Disziplin",
+                "en": "discipline"
+              }
+            },
+            {
+              "label": {
+                "de": "Schlagwörter",
+                "en": "keywords"
+              }
+            },
+            {
+              "label": {
+                "de": "Lizenz",
+                "en": "license"
+              }
+            },
+            {
+              "label": {
+                "de": "Bildungsniveau",
+                "en": "educationalLevel"
+              }
+            },
+            {
+              "label": {
+                "de": "Zielgruppe",
+                "en": "audience"
+              }
+            },
+            {
+              "label": {
+                "de": "Kosten",
+                "en": "cost"
+              }
+            },
+            {
+              "label": {
+                "de": "Anmeldung erforderlich",
+                "en": "login_required"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:editorial_owner",
+      "group": "governance",
+      "label": {
+        "de": "Verantwortliche Redaktion",
+        "en": "Responsible editorial team"
+      },
+      "description": {
+        "de": "Intern verantwortliche Redaktion/Gruppe.",
+        "en": "Internally responsible editorial team/group."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "ccm:editorial_owner",
+        "uri": "ccm:editorial_owner",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "ccm:source_kind": [],
+    "ccm:schema_types_declared": [],
+    "schema:sourceOrganization": {},
+    "schema:isBasedOn": [],
+    "schema:isBasedOnUrl": [],
+    "schema:provider": {},
+    "schema:publisher": {},
+    "schema:citation": [],
+    "schema:mainEntityOfPage": "",
+    "schema:sameAs": [],
+    "harv:mode": "",
+    "harv:status": "",
+    "harv:last_run": "",
+    "harv:next_run": "",
+    "harv:scope": "",
+    "harv:storage_context": "",
+    "inherit:topdown_fields": [],
+    "inherit:bottomup_facets": [],
+    "ccm:editorial_owner": ""
+  }
+}

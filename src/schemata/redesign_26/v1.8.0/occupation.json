@@ -1,0 +1,411 @@
+{
+  "profileId": "vocab:occupation",
+  "version": "1.8.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "oeh": "http://w3id.org/openeduhub/vocabs/",
+    "skos": "http://www.w3.org/2004/02/skos/core#"
+  },
+  "groups": [
+    {
+      "id": "occupation",
+      "label": {
+        "de": "Berufe",
+        "en": "Occupations"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "oeh:occupation",
+      "group": "occupation",
+      "label": {
+        "de": "Beruf",
+        "en": "Occupation"
+      },
+      "description": {
+        "de": "Hierarchisches Vokabular für Berufe (Berufsprofile) mit Mappings zu ISCO, ESCO und KldB. Nutze ausschließlich die Vokabular-Labels in exakt gleicher Schreibweise, einschließlich Mehrwort-Bezeichnungen oder Klammern.",
+        "en": "Hierarchical vocabulary for occupations (occupational profiles) with mappings to ISCO, ESCO and KldB. Use the vocabulary labels exactly as listed, including multi-word labels and parentheses."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "oeh:occupation",
+        "uri": "http://w3id.org/openeduhub/vocabs/occupation/",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/occupation/",
+          "hierarchical": true,
+          "concepts": [
+            {
+              "label": {
+                "de": "Bildungsberufe",
+                "en": "Educational professions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/1"
+            },
+            {
+              "label": {
+                "de": "Lehrkraft (Schule)",
+                "en": "Teacher (School)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/1-1",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/1"
+            },
+            {
+              "label": {
+                "de": "Instruktionsdesigner/in",
+                "en": "Instructional Designer"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/1-2",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/1"
+            },
+            {
+              "label": {
+                "de": "Gesundheitsberufe",
+                "en": "Health professions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/2"
+            },
+            {
+              "label": {
+                "de": "Pflegefachkraft",
+                "en": "Nursing professional"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/2-1",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/2"
+            },
+            {
+              "label": {
+                "de": "Anästhesietechnische/r Assistent/in (ATA)",
+                "en": "Anesthesia Technical Assistant (ATA)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/2-2",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/2"
+            },
+            {
+              "label": {
+                "de": "Handwerksberufe",
+                "en": "Craft professions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/3"
+            },
+            {
+              "label": {
+                "de": "Tischler/in",
+                "en": "Carpenter"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/3-1",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/3"
+            },
+            {
+              "label": {
+                "de": "Kreative Berufe",
+                "en": "Creative professions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/4"
+            },
+            {
+              "label": {
+                "de": "Grafikdesigner/in",
+                "en": "Graphic Designer"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/4-1",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/4"
+            },
+            {
+              "label": {
+                "de": "Naturwissenschaftliche Berufe",
+                "en": "Natural science professions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/5"
+            },
+            {
+              "label": {
+                "de": "Research Scientist / Wissenschaftler/in (F&E)",
+                "en": "Research Scientist (R&D)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/5-1",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/5"
+            },
+            {
+              "label": {
+                "de": "Technische Berufe (inkl. IT)",
+                "en": "Technical professions (including IT)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/6"
+            },
+            {
+              "label": {
+                "de": "Mechatroniker/in",
+                "en": "Mechatronics Engineer"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/6-1",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/6"
+            },
+            {
+              "label": {
+                "de": "Softwareentwickler/in",
+                "en": "Software Developer"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/6-2",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/6"
+            },
+            {
+              "label": {
+                "de": "Wirtschaftsberufe",
+                "en": "Business professions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/7"
+            },
+            {
+              "label": {
+                "de": "Betriebswirt/in",
+                "en": "Business Manager"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/7-1",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/7"
+            },
+            {
+              "label": {
+                "de": "Öffentlicher Dienst / Beamtenlaufbahn",
+                "en": "Public Service / Civil Service Career"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/8"
+            },
+            {
+              "label": {
+                "de": "Amtsanwältin/Amtsanwalt",
+                "en": "Public Prosecutor"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/occupation/8-1",
+              "broader": "http://w3id.org/openeduhub/vocabs/occupation/8"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:occupationalCategory",
+      "group": "occupation",
+      "label": {
+        "de": "Berufskategorie",
+        "en": "Occupational Category"
+      },
+      "description": {
+        "de": "Kategorisierung des Berufs",
+        "en": "Categorization of the occupation"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "oeh:occupationalCategory",
+        "uri": "https://schema.org/occupationalCategory",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:educationRequirements",
+      "group": "occupation",
+      "label": {
+        "de": "Bildungsvoraussetzungen",
+        "en": "Education Requirements"
+      },
+      "description": {
+        "de": "Erforderliche Bildung oder Ausbildung",
+        "en": "Required education or training"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "oeh:educationRequirements",
+        "uri": "https://schema.org/educationRequirements",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:experienceRequirements",
+      "group": "occupation",
+      "label": {
+        "de": "Erfahrungsanforderungen",
+        "en": "Experience Requirements"
+      },
+      "description": {
+        "de": "Erforderliche Berufserfahrung",
+        "en": "Required professional experience"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "oeh:experienceRequirements",
+        "uri": "https://schema.org/experienceRequirements",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:qualifications",
+      "group": "occupation",
+      "label": {
+        "de": "Qualifikationen",
+        "en": "Qualifications"
+      },
+      "description": {
+        "de": "Erforderliche Qualifikationen oder Zertifikate",
+        "en": "Required qualifications or certificates"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "oeh:qualifications",
+        "uri": "https://schema.org/qualifications",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:skills",
+      "group": "occupation",
+      "label": {
+        "de": "Fähigkeiten",
+        "en": "Skills"
+      },
+      "description": {
+        "de": "Erforderliche Fähigkeiten und Kompetenzen",
+        "en": "Required skills and competencies"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "oeh:skills",
+        "uri": "https://schema.org/skills",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:occupationLocation",
+      "group": "occupation",
+      "label": {
+        "de": "Berufsstandort",
+        "en": "Occupation Location"
+      },
+      "description": {
+        "de": "Geografischer Geltungsbereich des Berufs (z.B. DE, EU, global)",
+        "en": "Geographic scope of the occupation (e.g. DE, EU, global)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "oeh:occupationLocation",
+        "uri": "https://schema.org/occupationLocation",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "oeh:occupation": [],
+    "oeh:occupationalCategory": "",
+    "oeh:educationRequirements": "",
+    "oeh:experienceRequirements": "",
+    "oeh:qualifications": "",
+    "oeh:skills": [],
+    "oeh:occupationLocation": ""
+  }
+}

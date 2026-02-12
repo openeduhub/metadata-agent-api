@@ -22,6 +22,9 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 # Copy application code
 COPY src/ ./src/
 
+# Copy widget static files (if present from build pipeline)
+COPY src/static/ ./src/static/
+
 # Create non-root user
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser

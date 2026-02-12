@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Agent – Parameter-Playground</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Widget Styles -->
+    <link rel="stylesheet" href="../dist/styles.css">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+
+        .page-header {
+            max-width: 1600px;
+            margin: 0 auto 12px;
+        }
+        .page-header h1 { font-size: 20px; font-weight: 500; color: #1d1b20; }
+        .page-header p { color: #666; margin-top: 2px; font-size: 13px; }
+
+        /* ===== Control Panel ===== */
+        .control-panel {
+            max-width: 1600px;
+            margin: 0 auto 12px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .panel-section {
+            padding: 10px 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .panel-section:last-child { border-bottom: none; }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 5px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .btn:hover { background: #e8f0fe; border-color: #1976d2; }
+        .btn.active { background: #1976d2; color: white; border-color: #1976d2; }
+        .btn.primary { background: #1976d2; color: white; border-color: #1976d2; }
+        .btn.primary:hover { background: #1565c0; }
+
+        /* Toggle switches */
+        .toggle {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 4px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            background: white;
+            transition: all 0.15s;
+            user-select: none;
+        }
+        .toggle:hover { border-color: #1976d2; }
+        .toggle.on { background: #e8f0fe; border-color: #1976d2; color: #1976d2; }
+        .toggle .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #ccc; transition: background 0.15s;
+        }
+        .toggle.on .dot { background: #1976d2; }
+
+        /* Separator */
+        .sep {
+            width: 1px; height: 20px; background: #e0e0e0; margin: 0 2px;
+        }
+
+        /* File info */
+        .file-info { font-size: 12px; color: #666; }
+
+        /* ===== Widget Container ===== */
+        .widget-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+            min-height: 400px;
+        }
+
+        metadata-agent-canvas {
+            display: block;
+            width: 100%;
+            min-height: 400px;
+        }
+
+        /* ===== JSON Preview ===== */
+        .json-preview {
+            max-width: 1600px;
+            margin: 12px auto 0;
+            padding: 12px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 10px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            max-height: 250px;
+            overflow: auto;
+            white-space: pre-wrap;
+            display: none;
+        }
+
+        /* ===== Select (dropdown) ===== */
+        .ctrl-select {
+            padding: 5px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            background: white;
+            font-size: 12px;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+            min-width: 160px;
+            transition: border-color 0.15s;
+        }
+        .ctrl-select:hover, .ctrl-select:focus { border-color: #1976d2; outline: none; }
+
+        /* ===== Color swatches ===== */
+        .swatch {
+            width: 24px; height: 24px; border-radius: 6px;
+            border: 2px solid transparent; cursor: pointer;
+            transition: border-color 0.15s;
+        }
+        .swatch:hover, .swatch.active { border-color: #1976d2; }
+
+        /* ===== Current Config Display ===== */
+        .config-display {
+            max-width: 1600px;
+            margin: 8px auto 0;
+            padding: 8px 14px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .config-display span { white-space: nowrap; }
+        .config-display .val { color: #1976d2; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>Parameter-Playground</h1>
+        <p>Teste alle Attribute der Webkomponente interaktiv. JSON laden, Layouts wechseln, Elemente ein-/ausschalten.</p>
+    </div>
+
+    <!-- ===== Control Panel ===== -->
+    <div class="control-panel">
+
+        <!-- Row 1: Data source -->
+        <div class="panel-section">
+            <span class="section-label">Daten</span>
+            <button class="btn primary" onclick="loadExampleJson()">Beispiel-JSON laden</button>
+            <button class="btn" onclick="document.getElementById('fileInput').click()">JSON hochladen…</button>
+            <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadFileJson(event)">
+            <span class="file-info" id="fileInfo"></span>
+            <div class="sep"></div>
+            <button class="btn" onclick="toggleJsonPreview()">JSON anzeigen</button>
+        </div>
+
+        <!-- Row 2: Schema -->
+        <div class="panel-section">
+            <span class="section-label">Schema</span>
+            <select class="ctrl-select" id="ctSelect" disabled>
+                <option value="">Lade Inhaltstypen…</option>
+            </select>
+            <div class="sep"></div>
+            <span class="section-label" style="min-width:auto">Kontext</span>
+            <button class="btn active" data-ctx="default" onclick="setContext('default', this)">default</button>
+            <button class="btn" data-ctx="redesign_26" onclick="setContext('redesign_26', this)">redesign_26</button>
+            <div class="sep"></div>
+            <span class="section-label" style="min-width:auto">Version</span>
+            <button class="btn active" data-ver="latest" onclick="setVersion('latest', this)">latest</button>
+            <button class="btn" data-ver="1.8.0" onclick="setVersion('1.8.0', this)">1.8.0</button>
+        </div>
+
+        <!-- Row 3: Layout -->
+        <div class="panel-section">
+            <span class="section-label">Layout</span>
+            <button class="btn active" data-layout="default" onclick="setLayout('default', this)">Default</button>
+            <button class="btn" data-layout="compact" onclick="setLayout('compact', this)">Compact</button>
+            <button class="btn" data-layout="plugin" onclick="setLayout('plugin', this)">Plugin</button>
+            <button class="btn" data-layout="dialog" onclick="setLayout('dialog', this)">Dialog</button>
+            <button class="btn" data-layout="detail" onclick="setLayout('detail', this)">Detail</button>
+            <button class="btn" data-layout="metadatenpruefdialog" onclick="setLayout('metadatenpruefdialog', this)">Prüfdialog</button>
+            <button class="btn" data-layout="prueftisch" onclick="setLayout('prueftisch', this)">Prüftisch</button>
+            <button class="btn" data-layout="prueftisch-gross" onclick="setLayout('prueftisch-gross', this)">Prüftisch groß</button>
+            <div class="sep"></div>
+            <span class="section-label" style="min-width:auto">Spalten</span>
+            <button class="btn active" data-col="1" onclick="setColumns(1, this)">1</button>
+            <button class="btn" data-col="2" onclick="setColumns(2, this)">2</button>
+            <button class="btn" data-col="3" onclick="setColumns(3, this)">3</button>
+            <button class="btn" data-col="4" onclick="setColumns(4, this)">4</button>
+        </div>
+
+        <!-- Row 4: Input mode -->
+        <div class="panel-section">
+            <span class="section-label">Eingabe</span>
+            <button class="btn active" data-mode="text" onclick="setInputMode('text', this)">Text</button>
+            <button class="btn" data-mode="url" onclick="setInputMode('url', this)">URL</button>
+            <button class="btn" data-mode="nodeId" onclick="setInputMode('nodeId', this)">Node-ID</button>
+            <div class="sep"></div>
+            <div class="toggle" data-attr="auto-extract" onclick="toggleAttr(this)"><span class="dot"></span> Auto-Extract</div>
+        </div>
+
+        <!-- Row 5: Element toggles -->
+        <div class="panel-section">
+            <span class="section-label">Elemente</span>
+            <div class="toggle on" data-attr="show-input-area" onclick="toggleAttr(this)"><span class="dot"></span> Eingabe</div>
+            <div class="toggle on" data-attr="show-status-bar" onclick="toggleAttr(this)"><span class="dot"></span> Statusbar</div>
+            <div class="toggle on" data-attr="show-core-fields" onclick="toggleAttr(this)"><span class="dot"></span> Kernfelder</div>
+            <div class="toggle on" data-attr="show-special-fields" onclick="toggleAttr(this)"><span class="dot"></span> Spezialfelder</div>
+            <div class="toggle on" data-attr="show-field-actions" onclick="toggleAttr(this)"><span class="dot"></span> Feld-Aktionen</div>
+            <div class="toggle on" data-attr="show-footer" onclick="toggleAttr(this)"><span class="dot"></span> Footer</div>
+            <div class="toggle on" data-attr="show-floating-controls" onclick="toggleAttr(this)"><span class="dot"></span> Float-Controls</div>
+            <div class="toggle" data-attr="show-upload-button" onclick="toggleAttr(this)"><span class="dot"></span> Upload</div>
+            <div class="toggle" data-attr="show-page-mode" onclick="toggleAttr(this)"><span class="dot"></span> Seitenmodus</div>
+            <div class="toggle" data-attr="show-content-type-only" onclick="toggleAttr(this)"><span class="dot"></span> Nur CT</div>
+        </div>
+
+        <!-- Row 6: Behavior -->
+        <div class="panel-section">
+            <span class="section-label">Verhalten</span>
+            <div class="toggle" data-attr="readonly" onclick="toggleAttr(this)"><span class="dot"></span> Readonly</div>
+            <div class="toggle on" data-attr="borderless" onclick="toggleAttr(this)"><span class="dot"></span> Randlos</div>
+            <div class="toggle on" data-attr="highlight-ai" onclick="toggleAttr(this)"><span class="dot"></span> KI-Highlight</div>
+            <div class="sep"></div>
+            <span class="section-label" style="min-width:auto">Hintergrund</span>
+            <div class="swatch active" style="background:#ffffff" data-bg="#ffffff" onclick="setBgColor('#ffffff', this)" title="Weiß"></div>
+            <div class="swatch" style="background:#f5f5f5" data-bg="#f5f5f5" onclick="setBgColor('#f5f5f5', this)" title="Hellgrau"></div>
+            <div class="swatch" style="background:#e8f0fe" data-bg="#e8f0fe" onclick="setBgColor('#e8f0fe', this)" title="Hellblau"></div>
+            <div class="swatch" style="background:#fef7e0" data-bg="#fef7e0" onclick="setBgColor('#fef7e0', this)" title="Hellgelb"></div>
+            <div class="swatch" style="background:#1e1e1e" data-bg="#1e1e1e" onclick="setBgColor('#1e1e1e', this)" title="Dunkel"></div>
+        </div>
+
+    </div>
+
+    <!-- Current config display -->
+    <div class="config-display" id="configDisplay"></div>
+
+    <!-- ===== Widget ===== -->
+    <div class="widget-container" id="widgetContainer">
+        <metadata-agent-canvas
+            id="canvas"
+            api-url="https://metadata-agent-api.vercel.app"
+            layout="default"
+            context-name="default"
+            schema-version="latest"
+            columns="1"
+            input-mode="text"
+            show-input-area="true"
+            show-status-bar="true"
+            show-core-fields="true"
+            show-special-fields="true"
+            show-footer="true"
+            show-floating-controls="true"
+            show-field-actions="true"
+            show-upload-button="false"
+            show-page-mode="false"
+            show-content-type-only="false"
+            readonly="false"
+            borderless="true"
+            highlight-ai="true"
+            auto-extract="false">
+        </metadata-agent-canvas>
+    </div>
+
+    <pre class="json-preview" id="jsonPreview"></pre>
+
+    <!-- Widget Scripts -->
+    <script src="../dist/runtime.js" defer></script>
+    <script src="../dist/polyfills.js" defer></script>
+    <script src="../dist/main.js" defer></script>
+
+    <script>
+        const apiUrl = 'https://metadata-agent-api.vercel.app';
+        const canvas = document.getElementById('canvas');
+        canvas.setAttribute('api-url', apiUrl);
+
+        let currentLayout = 'default';
+        let currentColumns = 1;
+
+        // ===== Layout =====
+        function setLayout(layout, btn) {
+            currentLayout = layout;
+            canvas.setAttribute('layout', layout);
+            document.querySelectorAll('[data-layout]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateConfigDisplay();
+        }
+
+        // ===== Columns =====
+        function setColumns(n, btn) {
+            currentColumns = n;
+            canvas.setAttribute('columns', n);
+            document.querySelectorAll('[data-col]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateConfigDisplay();
+        }
+
+        // ===== Toggle attribute =====
+        function toggleAttr(el) {
+            const isOn = el.classList.toggle('on');
+            const attr = el.dataset.attr;
+            canvas.setAttribute(attr, isOn ? 'true' : 'false');
+            updateConfigDisplay();
+        }
+
+        // ===== Content Type (dropdown) =====
+        const SCHEMA_LABELS = {
+            'core.json': 'Kernmetadaten',
+            'event.json': 'Veranstaltung',
+            'education_offer.json': 'Bildungsangebot',
+            'learning_material.json': 'Lernmaterial',
+            'person.json': 'Person',
+            'organization.json': 'Organisation',
+            'tool_service.json': 'Tool / Service',
+            'occupation.json': 'Beruf',
+            'didactic_planning_tools.json': 'Didaktische Planungswerkzeuge',
+            'source.json': 'Quelle',
+            'prompt.json': 'Prompt'
+        };
+
+        async function loadContentTypes() {
+            const select = document.getElementById('ctSelect');
+            try {
+                const resp = await fetch(`${apiUrl}/info/schemas/default/latest`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const schemas = await resp.json();
+
+                select.innerHTML = '<option value="">— Inhaltstyp wählen —</option>';
+                schemas.forEach(schema => {
+                    const label = SCHEMA_LABELS[schema.file] || schema.file.replace('.json', '');
+                    const opt = document.createElement('option');
+                    opt.value = schema.file;
+                    opt.textContent = label;
+                    select.appendChild(opt);
+                });
+                select.disabled = false;
+
+                select.addEventListener('change', () => {
+                    const file = select.value;
+                    if (file) {
+                        canvas.contentType = file;
+                        updateConfigDisplay();
+                    }
+                });
+            } catch (err) {
+                select.innerHTML = `<option value="">Fehler: ${err.message}</option>`;
+            }
+        }
+
+        // ===== Context & Version =====
+        function setContext(ctx, btn) {
+            canvas.setAttribute('context-name', ctx);
+            document.querySelectorAll('[data-ctx]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateConfigDisplay();
+        }
+
+        function setVersion(ver, btn) {
+            canvas.setAttribute('schema-version', ver);
+            document.querySelectorAll('[data-ver]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateConfigDisplay();
+        }
+
+        // ===== Input Mode =====
+        function setInputMode(mode, btn) {
+            canvas.setAttribute('input-mode', mode);
+            document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateConfigDisplay();
+        }
+
+        // ===== Background Color =====
+        function setBgColor(color, el) {
+            canvas.setAttribute('background-color', color);
+            document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+            updateConfigDisplay();
+        }
+
+        // ===== JSON Import =====
+        async function loadExampleJson() {
+            try {
+                const resp = await fetch('metadata-2026-02-11.json');
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                applyMetadata(data, 'metadata-2026-02-11.json');
+            } catch (err) {
+                alert('Fehler beim Laden: ' + err.message);
+            }
+        }
+
+        function loadFileJson(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    applyMetadata(data, file.name);
+                } catch (err) {
+                    alert('Ungültige JSON: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function applyMetadata(data, filename) {
+            if (data.contextName) canvas.setAttribute('context-name', data.contextName);
+            if (data.schemaVersion) canvas.setAttribute('schema-version', data.schemaVersion);
+            canvas.metadataInput = data;
+            document.getElementById('fileInfo').textContent = `✓ ${filename}`;
+            const preview = document.getElementById('jsonPreview');
+            preview.textContent = JSON.stringify(data, null, 2);
+        }
+
+        function toggleJsonPreview() {
+            const el = document.getElementById('jsonPreview');
+            el.style.display = el.style.display === 'none' ? 'block' : (el.style.display === 'block' ? 'none' : 'block');
+        }
+
+        // ===== Config Display =====
+        function updateConfigDisplay() {
+            const attrs = {};
+            document.querySelectorAll('.toggle').forEach(t => {
+                attrs[t.dataset.attr] = t.classList.contains('on');
+            });
+            const activeLayout = document.querySelector('[data-layout].active');
+            const activeCols = document.querySelector('[data-col].active');
+            const activeMode = document.querySelector('[data-mode].active');
+            const activeCtx = document.querySelector('[data-ctx].active');
+            const activeVer = document.querySelector('[data-ver].active');
+            const ctSelect = document.getElementById('ctSelect');
+            const activeBg = document.querySelector('.swatch.active');
+
+            const parts = [
+                `layout=<span class="val">${activeLayout?.dataset.layout || '?'}</span>`,
+                `columns=<span class="val">${activeCols?.dataset.col || '?'}</span>`,
+                `input-mode=<span class="val">${activeMode?.dataset.mode || '?'}</span>`,
+                `context=<span class="val">${activeCtx?.dataset.ctx || '?'}</span>`,
+                `version=<span class="val">${activeVer?.dataset.ver || '?'}</span>`,
+            ];
+            if (ctSelect?.value) parts.push(`content-type=<span class="val">${ctSelect.options[ctSelect.selectedIndex]?.textContent}</span>`);
+            if (activeBg?.dataset.bg && activeBg.dataset.bg !== '#ffffff') parts.push(`bg=<span class="val">${activeBg.dataset.bg}</span>`);
+            for (const [k, v] of Object.entries(attrs)) {
+                parts.push(`${k}=<span class="val">${v}</span>`);
+            }
+            document.getElementById('configDisplay').innerHTML = parts.map(p => `<span>${p}</span>`).join('');
+        }
+
+        // ===== Init =====
+        customElements.whenDefined('metadata-agent-canvas').then(() => {
+            loadContentTypes();
+            updateConfigDisplay();
+        });
+
+        // Auto-load if ?autoload
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('autoload')) {
+            customElements.whenDefined('metadata-agent-canvas').then(() => {
+                setTimeout(loadExampleJson, 500);
+            });
+        }
+    </script>
+
+</body>
+</html>

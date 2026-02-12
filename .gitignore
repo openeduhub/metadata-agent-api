@@ -45,6 +45,11 @@ htmlcov/
 *.log
 logs/
 
+# Widget dist: committed so Vercel can serve the web component.
+# Rebuild with: scripts/deploy-widget.ps1
+!src/static/widget/dist/
+!src/static/widget/assets/
+
 # OS
 .DS_Store
 Thumbs.db

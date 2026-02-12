@@ -1,6 +1,7 @@
 """Geocoding service using Photon API (Komoot) to convert addresses to coordinates."""
 import asyncio
 import re
+import time
 from typing import Any, Optional
 import httpx
 
@@ -332,7 +333,6 @@ class GeocodingService:
     
     async def _wait_for_rate_limit(self) -> None:
         """Wait for rate limit (1 request per second)."""
-        import time
         now = time.time() * 1000  # Convert to milliseconds
         time_since_last = now - self._last_request_time
         

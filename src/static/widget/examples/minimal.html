@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Agent – Minimale Einbettung</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Widget Styles -->
+    <link rel="stylesheet" href="../dist/styles.css">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f9f9f9;
+            padding: 24px;
+        }
+
+        h1 { font-size: 20px; font-weight: 400; color: #333; margin-bottom: 8px; }
+        p.subtitle { color: #666; font-size: 14px; margin-bottom: 20px; }
+
+        /* Simulates embedding inside an existing page layout */
+        .page-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 700px;
+            gap: 24px;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .main-content h2 { font-size: 16px; margin-bottom: 8px; }
+        .main-content p { font-size: 14px; color: #444; line-height: 1.6; }
+
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .sidebar h3 {
+            font-size: 13px;
+            font-weight: 500;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        metadata-agent-canvas {
+            display: block;
+            width: 100%;
+            min-height: 400px;
+        }
+
+        /* ===== Content-Type Bar ===== */
+        .content-type-bar {
+            max-width: 1400px;
+            margin: 0 auto 16px;
+            padding: 14px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .content-type-bar .label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #49454f;
+            margin-right: 4px;
+            white-space: nowrap;
+        }
+
+        .ct-select {
+            padding: 7px 12px;
+            border: 1px solid #c4c7c5;
+            border-radius: 8px;
+            background: white;
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+            color: #1d1b20;
+            cursor: pointer;
+            min-width: 220px;
+            transition: border-color 0.2s;
+        }
+
+        .ct-select:hover, .ct-select:focus {
+            border-color: #1976d2;
+            outline: none;
+        }
+
+        .toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border: 1px solid #c4c7c5;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+            color: #1d1b20;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toggle-btn:hover {
+            background: #e8f0fe;
+            border-color: #1976d2;
+        }
+
+        .toggle-btn.on {
+            background: #1976d2;
+            color: white;
+            border-color: #1976d2;
+        }
+
+        @media (max-width: 768px) {
+            .page-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Minimale Einbettung</h1>
+    <p class="subtitle">Kompakte Variante ohne Statusbar und Controls — z.B. für Sidebars oder bestehende Formulare.</p>
+
+    <!-- Externer Content-Type Switcher + Optionen -->
+    <div class="content-type-bar">
+        <span class="label">Inhaltstyp:</span>
+        <select class="ct-select" id="ctSelect" disabled>
+            <option value="">Lade Inhaltstypen…</option>
+        </select>
+
+        <span class="label" style="margin-left: 16px;">Anzeige:</span>
+        <button class="toggle-btn on" id="toggleCore" onclick="toggleCoreFields(this)">
+            <span class="material-icons" style="font-size:16px">checklist</span> Kernfelder
+        </button>
+    </div>
+
+    <div class="page-layout">
+        <div class="main-content">
+            <h2>Ihre Anwendung</h2>
+            <p>
+                Dies simuliert eine bestehende Webanwendung. Die Metadata Agent Webkomponente
+                ist in der rechten Sidebar eingebettet — kompakt, rahmenlos, ohne eigene Controls.
+            </p>
+            <p style="margin-top: 12px;">
+                Die Komponente passt sich an den verfügbaren Platz an und kann per JavaScript
+                gesteuert werden. Events wie <code>metadataChange</code> informieren die
+                Host-Anwendung über Änderungen.
+            </p>
+        </div>
+
+        <div class="sidebar">
+            <h3>Metadaten</h3>
+
+            <!--
+                Minimale Einbettung: layout="compact", borderless, kein Statusbar/Controls.
+                Siehe full.html für die vollständige Attribut-Dokumentation.
+            -->
+            <metadata-agent-canvas
+                id="canvas"
+                api-url="https://metadata-agent-api.vercel.app"
+                layout="compact"
+                context-name="default"
+                schema-version="latest"
+                input-mode="text"
+                show-input-area="true"
+                show-status-bar="false"
+                show-core-fields="true"
+                show-special-fields="true"
+                show-footer="false"
+                show-floating-controls="false"
+                show-field-actions="true"
+                show-upload-button="false"
+                show-page-mode="false"
+                show-content-type-only="false"
+                readonly="false"
+                borderless="true"
+                highlight-ai="true"
+                auto-extract="false">
+            </metadata-agent-canvas>
+        </div>
+    </div>
+
+    <!-- Widget Scripts -->
+    <script src="../dist/runtime.js" defer></script>
+    <script src="../dist/polyfills.js" defer></script>
+    <script src="../dist/main.js" defer></script>
+
+    <script>
+        const API_URL = 'https://metadata-agent-api.vercel.app';
+        const canvas = document.getElementById('canvas');
+        canvas.setAttribute('api-url', API_URL);
+
+        const SCHEMA_LABELS = {
+            'core.json': 'Kernmetadaten',
+            'event.json': 'Veranstaltung',
+            'education_offer.json': 'Bildungsangebot',
+            'learning_material.json': 'Lernmaterial',
+            'person.json': 'Person',
+            'organization.json': 'Organisation',
+            'tool_service.json': 'Tool / Service',
+            'occupation.json': 'Beruf',
+            'didactic_planning_tools.json': 'Didaktische Planungswerkzeuge',
+            'source.json': 'Quelle',
+            'prompt.json': 'Prompt'
+        };
+
+        async function loadContentTypes() {
+            const select = document.getElementById('ctSelect');
+            try {
+                const resp = await fetch(`${API_URL}/info/schemas/default/latest`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const schemas = await resp.json();
+
+                select.innerHTML = '<option value="">— Inhaltstyp wählen —</option>';
+                schemas.forEach(schema => {
+                    const label = SCHEMA_LABELS[schema.file] || schema.file.replace('.json', '');
+                    const opt = document.createElement('option');
+                    opt.value = schema.file;
+                    opt.textContent = label;
+                    select.appendChild(opt);
+                });
+                select.disabled = false;
+
+                select.addEventListener('change', () => {
+                    const file = select.value;
+                    if (file) canvas.contentType = file;
+                });
+            } catch (err) {
+                select.innerHTML = `<option value="">Fehler: ${err.message}</option>`;
+            }
+        }
+
+        function toggleCoreFields(btn) {
+            const isOn = btn.classList.toggle('on');
+            canvas.setAttribute('show-core-fields', isOn ? 'true' : 'false');
+        }
+
+        customElements.whenDefined('metadata-agent-canvas').then(() => {
+            setTimeout(() => loadContentTypes(), 800);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+{
+  "contextName": "default",
+  "schemaVersion": "v1.8.0",
+  "metadataset": "event.json",
+  "language": "de",
+  "exportedAt": "2026-02-11T09:55:08.422Z",
+  "metadata": {
+    "cclom:title": "Tage der Kammermusik 2026 in Weimar",
+    "cclom:general_description": "Die Tage der Kammermusik bieten eine Reihe von 12 Konzerten, bei denen junge Musikerinnen und Musiker die besondere Vielfalt und klangliche Schönheit des gemeinsamen Musizierens präsentieren. Die Veranstaltung findet am 10. Februar 2026 im Forum Seebach in Weimar statt und ist kostenfrei zugänglich. Veranstalter ist die Hochschule für Musik FRANZ LISZT Weimar.",
+    "cclom:general_keyword": [
+      "Kammermusik",
+      "Konzerte",
+      "Festivals",
+      "Musik",
+      "Musiker",
+      "Hochschule für Musik FRANZ LISZT Weimar"
+    ],
+    "ccm:wwwurl": "https://www.weimar.de/kultur/veranstaltungen/veranstaltungskalender/veranstaltung/tage-der-kammermusik-2026-02-10t16-00-00/",
+    "cm:author": [
+      "Hochschule für Musik FRANZ LISZT Weimar"
+    ],
+    "ccm:oeh_publisher_combined": "Hochschule für Musik FRANZ LISZT Weimar",
+    "ccm:educationalcontext": [
+      "http://w3id.org/openeduhub/vocabs/educationalContext/hochschule"
+    ],
+    "schema:eventSchedule": [
+      {
+        "startDate": "2026-02-10",
+        "endDate": "2026-02-10",
+        "byDay": [
+          "Tuesday"
+        ],
+        "byMonth": [
+          2
+        ],
+        "byMonthDay": [
+          10
+        ],
+        "byHour": [
+          16
+        ]
+      }
+    ],
+    "schema:openingHoursSpecification": [
+      {
+        "dayOfWeek": [
+          "TU"
+        ],
+        "opens": "16:00",
+        "validFrom": "2026-02-10"
+      }
+    ],
+    "schema:startDate": "2026-02-10T16:00",
+    "schema:endDate": "2026-02-10T16:00",
+    "schema:doorTime": "2026-02-10T16:00",
+    "schema:eventStatus": "https://schema.org/EventScheduled",
+    "schema:eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "schema:location": [
+      {
+        "name": "Forum Seebach",
+        "address": {
+          "streetAddress": "Tiefurter Allee 8",
+          "postalCode": "99425",
+          "addressLocality": "Weimar",
+          "addressRegion": null,
+          "addressCountry": "Deutschland"
+        },
+        "geo": {
+          "latitude": 50.9821673,
+          "longitude": 11.339563
+        }
+      }
+    ],
+    "schema:isAccessibleForFree": true,
+    "schema:actor": [
+      {
+        "name": "Hochschule für Musik FRANZ LISZT Weimar"
+      }
+    ],
+    "schema:organizer": [
+      {
+        "name": "Hochschule für Musik FRANZ LISZT Weimar"
+      }
+    ],
+    "schema:offers": [
+      {
+        "price": 0,
+        "url": "https://www.weimar.de/kultur/veranstaltungen/veranstaltungskalender/veranstaltung/tage-der-kammermusik-2026-02-10t16-00-00/",
+        "validFrom": "2026-02-10"
+      }
+    ],
+    "schema:teaches": [
+      "Erleben der Vielfalt und klanglichen Schönheit des gemeinsamen Musizierens junger Musikerinnen und Musiker",
+      "Verständnis für Kammermusik als Königsdisziplin der Musik",
+      "Erleben des musikalischen Dialogs zwischen wenigen Personen auf kleinem Raum",
+      "Erleben der unendlichen Dimensionen menschlichen Erlebens durch Musik"
+    ],
+    "schema:about": [
+      "Kammermusik",
+      "Konzerte",
+      "Festivals",
+      "Musik"
+    ]
+  },
+  "_origins": {
+    "cclom:title": "ai",
+    "cclom:general_description": "ai",
+    "cclom:general_keyword": "ai",
+    "ccm:wwwurl": "ai",
+    "cm:author": "ai",
+    "ccm:oeh_publisher_combined": "ai",
+    "ccm:educationalcontext": "ai",
+    "schema:eventSchedule": "ai",
+    "schema:eventSchedule.startDate": "ai",
+    "schema:eventSchedule.endDate": "ai",
+    "schema:eventSchedule.byDay": "ai",
+    "schema:eventSchedule.byMonth": "ai",
+    "schema:eventSchedule.byMonthDay": "ai",
+    "schema:eventSchedule.byHour": "ai",
+    "schema:openingHoursSpecification": "ai",
+    "schema:openingHoursSpecification.dayOfWeek": "ai",
+    "schema:openingHoursSpecification.opens": "ai",
+    "schema:openingHoursSpecification.validFrom": "ai",
+    "schema:startDate": "ai",
+    "schema:endDate": "ai",
+    "schema:doorTime": "ai",
+    "schema:eventStatus": "ai",
+    "schema:eventAttendanceMode": "ai",
+    "schema:location": "ai",
+    "schema:location.name": "ai",
+    "schema:location.address": "ai",
+    "schema:location.address.streetAddress": "ai",
+    "schema:location.address.postalCode": "ai",
+    "schema:location.address.addressLocality": "ai",
+    "schema:location.address.addressCountry": "ai",
+    "schema:location.geo": "ai",
+    "schema:location.geo.latitude": "ai",
+    "schema:location.geo.longitude": "ai",
+    "schema:isAccessibleForFree": "ai",
+    "schema:actor": "ai",
+    "schema:actor.name": "ai",
+    "schema:organizer": "ai",
+    "schema:organizer.name": "ai",
+    "schema:offers": "ai",
+    "schema:offers.price": "ai",
+    "schema:offers.url": "ai",
+    "schema:offers.validFrom": "ai",
+    "schema:teaches": "ai",
+    "schema:about": "ai"
+  }
+}

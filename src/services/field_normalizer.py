@@ -7,6 +7,8 @@ import re
 from typing import Any, Optional
 from datetime import date
 
+from ..utils.text_utils import levenshtein_distance
+
 
 class FieldNormalizer:
     """Normalizes field values based on schema definitions."""
@@ -171,7 +173,7 @@ class FieldNormalizer:
         if match:
             return match.group(1)
         
-        return None
+        return s  # Return original value instead of None to prevent data loss
     
     def _normalize_datetime(self, value: Any) -> Optional[str]:
         """Normalize datetime to ISO format."""
@@ -188,10 +190,10 @@ class FieldNormalizer:
         
         # Date only - add midnight
         date_normalized = self._normalize_date(s)
-        if date_normalized:
+        if date_normalized and date_normalized != s:
             return f"{date_normalized}T00:00"
         
-        return None
+        return s  # Return original value instead of None to prevent data loss
     
     def _normalize_time(self, value: Any) -> Optional[str]:
         """Normalize time to HH:MM format."""
@@ -207,7 +209,7 @@ class FieldNormalizer:
             if 0 <= hours <= 23 and 0 <= minutes <= 59:
                 return f"{hours:02d}:{minutes:02d}"
         
-        return None
+        return s  # Return original value instead of None to prevent data loss
     
     def _normalize_url(self, value: Any) -> Optional[str]:
         """Normalize URL - add https:// if missing."""
@@ -343,23 +345,7 @@ class FieldNormalizer:
     
     def _levenshtein_distance(self, a: str, b: str) -> int:
         """Calculate Levenshtein edit distance."""
-        if len(a) < len(b):
-            return self._levenshtein_distance(b, a)
-        
-        if len(b) == 0:
-            return len(a)
-        
-        previous_row = range(len(b) + 1)
-        for i, c1 in enumerate(a):
-            current_row = [i + 1]
-            for j, c2 in enumerate(b):
-                insertions = previous_row[j + 1] + 1
-                deletions = current_row[j] + 1
-                substitutions = previous_row[j] + (c1 != c2)
-                current_row.append(min(insertions, deletions, substitutions))
-            previous_row = current_row
-        
-        return previous_row[-1]
+        return levenshtein_distance(a, b)
     
     def normalize_day_of_week(self, value: str) -> str:
         """Convert day name to short code (MO, TU, etc.)."""

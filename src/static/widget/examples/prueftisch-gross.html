@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Agent – Prüftisch Groß</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Widget Styles -->
+    <link rel="stylesheet" href="../dist/styles.css">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f5f5f5;
+            padding: 24px;
+        }
+
+        .page-header {
+            max-width: 1400px;
+            margin: 0 auto 16px;
+        }
+
+        .page-header h1 { font-size: 22px; font-weight: 500; color: #1d1b20; }
+        .page-header p { color: #666; margin-top: 4px; font-size: 14px; }
+
+        /* ===== Content-Type Switcher (extern) ===== */
+        .content-type-bar {
+            max-width: 1400px;
+            margin: 0 auto 16px;
+            padding: 14px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .content-type-bar .label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #49454f;
+            margin-right: 4px;
+            white-space: nowrap;
+        }
+
+        .ct-select {
+            padding: 7px 12px;
+            border: 1px solid #c4c7c5;
+            border-radius: 8px;
+            background: white;
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+            color: #1d1b20;
+            cursor: pointer;
+            min-width: 220px;
+            transition: border-color 0.2s;
+        }
+
+        .ct-select:hover, .ct-select:focus {
+            border-color: #1976d2;
+            outline: none;
+        }
+
+        .toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border: 1px solid #c4c7c5;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+            color: #1d1b20;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toggle-btn:hover {
+            background: #e8f0fe;
+            border-color: #1976d2;
+        }
+
+        .toggle-btn.on {
+            background: #1976d2;
+            color: white;
+            border-color: #1976d2;
+        }
+
+        /* ===== Widget Container ===== */
+        .widget-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: transparent;
+            min-height: 600px;
+        }
+
+        metadata-agent-canvas {
+            display: block;
+            width: 100%;
+            min-height: 600px;
+        }
+
+        .info-box {
+            max-width: 1400px;
+            margin: 16px auto 0;
+            padding: 12px 16px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #2e7d32;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>Prüftisch Groß (2-Spalten)</h1>
+        <p>Prüf- und Bearbeitungsansicht im 2-Spalten-Layout mit extern steuerbarem Inhaltstyp. Lädt Beispiel-Metadaten aus JSON.</p>
+    </div>
+
+    <!-- Externer Content-Type Switcher + Optionen -->
+    <div class="content-type-bar">
+        <span class="label">Inhaltstyp:</span>
+        <select class="ct-select" id="ctSelect" disabled>
+            <option value="">Lade Inhaltstypen…</option>
+        </select>
+
+        <span class="label" style="margin-left: 16px;">Anzeige:</span>
+        <button class="toggle-btn on" id="toggleCore" onclick="toggleCoreFields(this)">
+            <span class="material-icons" style="font-size:16px">checklist</span> Kernfelder
+        </button>
+    </div>
+
+    <div class="widget-container">
+        <!--
+            Prüftisch Groß: layout="prueftisch-gross" (2-Spalten-Variante)
+            - readonly="false" → Bearbeiten erlaubt
+            - Alle internen UI-Elemente ausgeblendet
+            - Inhaltstyp wird extern per JavaScript gesteuert
+            Siehe full.html für die vollständige Attribut-Dokumentation.
+        -->
+        <metadata-agent-canvas
+            id="canvas"
+            api-url="https://metadata-agent-api.vercel.app"
+            layout="prueftisch-gross"
+            context-name="default"
+            schema-version="latest"
+            input-mode="text"
+            show-input-area="false"
+            show-status-bar="false"
+            show-core-fields="true"
+            show-special-fields="true"
+            show-footer="false"
+            show-floating-controls="false"
+            show-field-actions="true"
+            show-upload-button="false"
+            show-page-mode="false"
+            show-content-type-only="false"
+            readonly="false"
+            borderless="true"
+            highlight-ai="true"
+            auto-extract="false">
+        </metadata-agent-canvas>
+    </div>
+
+    <div class="info-box">
+        <strong>Hinweis:</strong> Die Inhaltstyp-Buttons oben steuern die Webkomponente von außen per JavaScript.
+        Der aktive Typ bestimmt, welche Schema-Felder angezeigt werden.
+        Die Metadaten wurden aus <code>metadata-2026-02-11.json</code> geladen und können bearbeitet werden.
+    </div>
+
+    <!-- Widget Scripts -->
+    <script src="../dist/runtime.js" defer></script>
+    <script src="../dist/polyfills.js" defer></script>
+    <script src="../dist/main.js" defer></script>
+
+    <script>
+        const API_URL = 'https://metadata-agent-api.vercel.app';
+        const canvas = document.getElementById('canvas');
+        canvas.setAttribute('api-url', API_URL);
+
+        let currentSchemaFile = null;
+
+        const SCHEMA_LABELS = {
+            'core.json': 'Kernmetadaten',
+            'event.json': 'Veranstaltung',
+            'education_offer.json': 'Bildungsangebot',
+            'learning_material.json': 'Lernmaterial',
+            'person.json': 'Person',
+            'organization.json': 'Organisation',
+            'tool_service.json': 'Tool / Service',
+            'occupation.json': 'Beruf',
+            'didactic_planning_tools.json': 'Didaktische Planungswerkzeuge',
+            'source.json': 'Quelle',
+            'prompt.json': 'Prompt'
+        };
+
+        async function loadContentTypes() {
+            const select = document.getElementById('ctSelect');
+            try {
+                const resp = await fetch(`${API_URL}/info/schemas/default/latest`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const schemas = await resp.json();
+
+                select.innerHTML = '<option value="">— Inhaltstyp wählen —</option>';
+                schemas.forEach(schema => {
+                    const label = SCHEMA_LABELS[schema.file] || schema.file.replace('.json', '');
+                    const opt = document.createElement('option');
+                    opt.value = schema.file;
+                    opt.textContent = label;
+                    select.appendChild(opt);
+                });
+                select.disabled = false;
+
+                select.addEventListener('change', () => {
+                    const file = select.value;
+                    if (file) {
+                        currentSchemaFile = file;
+                        canvas.contentType = file;
+                    }
+                });
+            } catch (err) {
+                select.innerHTML = `<option value="">Fehler: ${err.message}</option>`;
+            }
+        }
+
+        function toggleCoreFields(btn) {
+            const isOn = btn.classList.toggle('on');
+            canvas.setAttribute('show-core-fields', isOn ? 'true' : 'false');
+        }
+
+        /**
+         * Load example JSON metadata into the component
+         */
+        async function loadExampleData() {
+            try {
+                const resp = await fetch('metadata-2026-02-11.json');
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                canvas.metadataInput = data;
+            } catch (err) {
+                console.error('Failed to load example JSON:', err);
+            }
+        }
+
+        /**
+         * Initialize: wait for web component, then load content types + example data
+         */
+        customElements.whenDefined('metadata-agent-canvas').then(() => {
+            setTimeout(async () => {
+                await loadContentTypes();
+                await loadExampleData();
+            }, 800);
+        });
+    </script>
+
+</body>
+</html>

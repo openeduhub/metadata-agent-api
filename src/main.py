@@ -1,9 +1,13 @@
 """FastAPI application for metadata extraction."""
 import re
 import json
+import time
+from pathlib import Path
 from fastapi import FastAPI, HTTPException, Request, Body
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.utils import get_openapi
 from contextlib import asynccontextmanager
 
@@ -36,6 +40,8 @@ from .models.schemas import (
 from .services.input_source_service import get_input_source_service
 from .services.metadata_service import get_metadata_service
 from .services.repository_service import get_repository_service
+from .services.llm_service import get_llm_service
+from .services.field_normalizer import get_field_normalizer
 from .utils.schema_loader import (
     get_available_contexts,
     get_available_schemas,
@@ -116,7 +122,16 @@ async def lifespan(app: FastAPI):
     
     yield
     
-    # Shutdown
+    # Shutdown - close HTTP clients
+    from .services.llm_service import _llm_service
+    if _llm_service:
+        await _llm_service.close()
+    from .services.metadata_service import _metadata_service
+    if _metadata_service and _metadata_service.llm_service:
+        await _metadata_service.llm_service.close()
+    from .services.input_source_service import _input_source_service
+    if _input_source_service:
+        await _input_source_service.close()
     print("Shutting down...")
 
 
@@ -142,14 +157,205 @@ API-Key wird über den Header `X-API-Key` oder als Bearer Token übergeben.
     lifespan=lifespan,
 )
 
-# CORS middleware
+# Custom OpenAPI schema: inject request models that are referenced via $ref
+# but not auto-registered because endpoints use raw Request instead of Pydantic params
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+    # Inject missing request schemas
+    schemas = openapi_schema.setdefault("components", {}).setdefault("schemas", {})
+    for model in [GenerateRequest, DetectContentTypeRequest, ExtractFieldRequest,
+                  ValidateRequest, ExportMarkdownRequest, UploadRequest]:
+        model_schema = model.model_json_schema(ref_template="#/components/schemas/{model}")
+        # Extract $defs (sub-schemas like enums) and merge into top-level schemas
+        defs = model_schema.pop("$defs", {})
+        for def_name, def_schema in defs.items():
+            schemas.setdefault(def_name, def_schema)
+        schemas[model.__name__] = model_schema
+    app.openapi_schema = openapi_schema
+    return openapi_schema
+
+app.openapi = custom_openapi
+
+# CORS middleware - origins configurable via METADATA_AGENT_CORS_ORIGINS env var
+_cors_origins = [o.strip() for o in settings.cors_origins.split(",")] if settings.cors_origins != "*" else ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Gzip compression for all responses >= 500 bytes (widget JS/CSS + API JSON)
+app.add_middleware(GZipMiddleware, minimum_size=500)
+
+# ============================================================================
+# Widget Static Files
+# ============================================================================
+
+# Mount widget dist files if they exist
+_widget_dir = Path(__file__).parent / "static" / "widget"
+if _widget_dir.exists():
+    app.mount("/widget/assets", StaticFiles(directory=str(_widget_dir / "assets")), name="widget-assets") if (_widget_dir / "assets").exists() else None
+    app.mount("/widget/examples", StaticFiles(directory=str(_widget_dir / "examples"), html=True), name="widget-examples") if (_widget_dir / "examples").exists() else None
+    if (_widget_dir / "dist").exists():
+        app.mount("/widget/dist", StaticFiles(directory=str(_widget_dir / "dist")), name="widget-dist")
+
+
+@app.get(
+    "/widget/i18n/{lang}.json",
+    summary="Widget UI-Übersetzungen",
+    description="Liefert die UI-Übersetzungstexte für die Webkomponente. Unterstützte Sprachen: `de`, `en`.",
+    tags=["Widget"],
+)
+async def widget_i18n(lang: str):
+    """Serve i18n translation files for the web component."""
+    i18n_dir = Path(__file__).parent / "static" / "widget" / "assets" / "i18n"
+    file_path = i18n_dir / f"{lang}.json"
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail=f"Language '{lang}' not found. Available: de, en")
+    return JSONResponse(
+        content=json.loads(file_path.read_text(encoding="utf-8")),
+        headers={"Cache-Control": "public, max-age=3600"}
+    )
+
+
+@app.get(
+    "/widget/info",
+    summary="Widget-Einbindung (Web Component)",
+    description="""Informationen zur Einbindung der Metadata Agent Webkomponente in eigene Anwendungen.
+
+Gibt alle verfügbaren Varianten, die benötigten Script-URLs und Beispiel-Code zurück.
+""",
+    tags=["Widget"],
+)
+async def widget_info(request: Request):
+    """Return embedding info for the web component widget."""
+    base = str(request.base_url).rstrip("/")
+    dist_base = f"{base}/widget/dist"
+    examples_base = f"{base}/widget/examples"
+    
+    return {
+        "name": "metadata-agent-canvas",
+        "version": settings.app_version,
+        "description": "Angular Web Component zur Anzeige und Bearbeitung von Metadaten. "
+                       "Kann als <metadata-agent-canvas> Tag in beliebige Webanwendungen eingebettet werden.",
+        "dist_base_url": dist_base,
+        "scripts": {
+            "required": [
+                f"{dist_base}/runtime.js",
+                f"{dist_base}/polyfills.js",
+                f"{dist_base}/main.js",
+            ],
+            "styles": [
+                f"{dist_base}/styles.css",
+            ],
+            "fonts": [
+                "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap",
+                "https://fonts.googleapis.com/icon?family=Material+Icons",
+            ],
+        },
+        "variants": {
+            "full": {
+                "description": "Volle Webkomponente mit Eingabebereich, KI-Extraktion, Statusbar und allen Layouts. "
+                               "Für interaktive Metadaten-Erfassung und -Bearbeitung.",
+                "example_url": f"{examples_base}/full.html",
+                "snippet": (
+                    '<link rel="stylesheet" href="' + dist_base + '/styles.css">\n'
+                    '<script src="' + dist_base + '/runtime.js" defer></script>\n'
+                    '<script src="' + dist_base + '/polyfills.js" defer></script>\n'
+                    '<script src="' + dist_base + '/main.js" defer></script>\n\n'
+                    '<metadata-agent-canvas\n'
+                    '  api-url="' + base + '"\n'
+                    '  layout="default"\n'
+                    '  show-input="true"\n'
+                    '  show-status-bar="true"\n'
+                    '  show-controls="true">\n'
+                    '</metadata-agent-canvas>'
+                ),
+                "attributes": {
+                    "api-url": "URL der Metadata Agent API",
+                    "layout": "Layout-Variante: default, compact, minimal, detail",
+                    "context-name": "Schema-Kontext, z.B. 'default' oder 'redesign_26'",
+                    "show-input": "Eingabebereich anzeigen (true/false)",
+                    "show-status-bar": "Statusleiste anzeigen (true/false)",
+                    "show-controls": "Floating Controls anzeigen (true/false)",
+                    "show-core-fields": "Kernfelder anzeigen (true/false)",
+                    "show-special-fields": "Spezialfelder anzeigen (true/false)",
+                    "borderless": "Rahmenloser Modus (true/false)",
+                    "readonly": "Nur-Lese-Modus (true/false)",
+                    "highlight-ai": "KI-generierte Felder hervorheben (true/false)",
+                    "node-id": "edu-sharing Node-ID für automatische Extraktion",
+                    "source-url": "URL für automatische Text-Extraktion",
+                    "content-type": "Inhaltstyp setzen (Schema-Dateiname, z.B. 'event.json'). Per JS: canvas.contentType = 'event.json'",
+                    "metadata-input": "Vorab-Metadaten als JSON-Objekt. Per JS: canvas.metadataInput = {...}",
+                },
+            },
+            "detail": {
+                "description": "Nur-Lese Detailansicht. Mehrspaltig, ohne Eingabe. "
+                               "Für Repository-Detailseiten und Metadaten-Vorschau.",
+                "example_url": f"{examples_base}/detail.html",
+                "snippet": (
+                    '<link rel="stylesheet" href="' + dist_base + '/styles.css">\n'
+                    '<script src="' + dist_base + '/runtime.js" defer></script>\n'
+                    '<script src="' + dist_base + '/polyfills.js" defer></script>\n'
+                    '<script src="' + dist_base + '/main.js" defer></script>\n\n'
+                    '<metadata-agent-canvas\n'
+                    '  api-url="' + base + '"\n'
+                    '  layout="detail"\n'
+                    '  node-id="DEINE-NODE-ID"\n'
+                    '  readonly="true">\n'
+                    '</metadata-agent-canvas>'
+                ),
+            },
+            "minimal": {
+                "description": "Kompakte Variante ohne Statusbar und Controls. "
+                               "Für Einbettung in bestehende Formulare oder Sidebars.",
+                "example_url": f"{examples_base}/minimal.html",
+                "snippet": (
+                    '<link rel="stylesheet" href="' + dist_base + '/styles.css">\n'
+                    '<script src="' + dist_base + '/runtime.js" defer></script>\n'
+                    '<script src="' + dist_base + '/polyfills.js" defer></script>\n'
+                    '<script src="' + dist_base + '/main.js" defer></script>\n\n'
+                    '<metadata-agent-canvas\n'
+                    '  api-url="' + base + '"\n'
+                    '  layout="compact"\n'
+                    '  show-input="true"\n'
+                    '  show-status-bar="false"\n'
+                    '  show-controls="false"\n'
+                    '  borderless="true">\n'
+                    '</metadata-agent-canvas>'
+                ),
+            },
+        },
+        "events": {
+            "metadataChange": "Wird ausgelöst wenn sich Metadaten ändern. event.detail enthält die aktualisierten Felder.",
+            "metadataSubmit": "Wird ausgelöst wenn der Nutzer die Metadaten absendet. event.detail enthält alle Metadaten.",
+            "extractionComplete": "Wird nach Abschluss der KI-Extraktion ausgelöst.",
+            "contentTypeDetected": "Wird ausgelöst wenn der Inhaltstyp erkannt wurde.",
+        },
+        "examples": {
+            "full": f"{examples_base}/full.html",
+            "detail": f"{examples_base}/detail.html",
+            "minimal": f"{examples_base}/minimal.html",
+            "json_import": f"{examples_base}/json-import.html",
+            "prueftisch": f"{examples_base}/prueftisch.html",
+            "prueftisch_gross": f"{examples_base}/prueftisch-gross.html",
+            "metadatenpruefdialog": f"{examples_base}/metadatenpruefdialog.html",
+            "default": f"{examples_base}/default.html",
+            "interactive_test": f"{examples_base}/test.html",
+        },
+        "example_data": {
+            "metadata_json": f"{examples_base}/metadata-2026-02-11.json",
+        },
+    }
 
 
 # ============================================================================
@@ -375,33 +581,42 @@ async def detect_content_type(req: DetectContentTypeRequest):
     Returns the detected content type along with all available content types
     for the specified context and version.
     """
-    import time
     start_time = time.time()
     
     # Handle input source
     text = req.text
     if req.input_source != InputSource.TEXT:
-        input_service = InputSourceService()
+        input_service = get_input_source_service()
         try:
             if req.input_source == InputSource.URL:
                 if not req.source_url:
                     raise HTTPException(status_code=400, detail="source_url required for input_source='url'")
-                text, _ = await input_service.fetch_from_url(req.source_url, req.extraction_method.value)
+                text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language)
             elif req.input_source == InputSource.NODE_ID:
                 if not req.node_id:
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_id'")
-                text, _ = await input_service.fetch_from_node_id(req.node_id, req.repository.value)
+                input_data = await input_service.fetch_from_node_id(req.node_id, req.repository.value)
+                text = input_data.text
             elif req.input_source == InputSource.NODE_URL:
                 if not req.node_id:
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_url'")
-                text, _ = await input_service.fetch_from_node_url(
-                    req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value
+                input_data = await input_service.fetch_from_node_url(
+                    req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value,
+                    lang=req.language
                 )
+                text = input_data.text
+        except HTTPException:
+            raise
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Failed to fetch input: {str(e)}")
     
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty")
+    
+    # Truncate excessively long text to prevent exceeding LLM context window
+    MAX_TEXT_LENGTH = 500_000
+    if len(text) > MAX_TEXT_LENGTH:
+        text = text[:MAX_TEXT_LENGTH]
     
     # Resolve "latest" to actual version
     version = req.version
@@ -439,6 +654,10 @@ async def detect_content_type(req: DetectContentTypeRequest):
     detected_schema = await service.llm_service.detect_content_type(
         text, content_types, req.language
     )
+    
+    # Close non-default LLM service HTTP client to prevent leak
+    if req.llm_provider is not None or req.llm_model is not None:
+        await service.llm_service.close()
     
     # Find the detected content type info
     detected_info = None
@@ -628,7 +847,6 @@ async def extract_field(req: ExtractFieldRequest):
     The extraction uses the same LLM pipeline as /generate but for one field only.
     Normalization is applied by default (dates, vocabularies, etc.).
     """
-    import time
     start_time = time.time()
     
     # Handle input source
@@ -636,29 +854,50 @@ async def extract_field(req: ExtractFieldRequest):
     existing_metadata = req.existing_metadata or {}
     
     if req.input_source != InputSource.TEXT:
-        input_service = InputSourceService()
+        input_service = get_input_source_service()
         try:
             if req.input_source == InputSource.URL:
                 if not req.source_url:
                     raise HTTPException(status_code=400, detail="source_url required for input_source='url'")
-                text, _ = await input_service.fetch_from_url(req.source_url, req.extraction_method.value)
+                extracted_text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language)
+                text = f"Quell-URL / Source URL: {req.source_url}\n\n{extracted_text}"
             elif req.input_source == InputSource.NODE_ID:
                 if not req.node_id:
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_id'")
-                text, fetched_metadata = await input_service.fetch_from_node_id(req.node_id, req.repository.value)
-                existing_metadata = {**fetched_metadata, **existing_metadata} if fetched_metadata else existing_metadata
+                input_data = await input_service.fetch_from_node_id(req.node_id, req.repository.value)
+                # Prepend source URL if available (from ccm:wwwurl) so LLM can use it
+                if input_data.source_url:
+                    text = f"Quell-URL / Source URL: {input_data.source_url}\n\n{input_data.text}"
+                else:
+                    text = input_data.text
+                if input_data.existing_metadata:
+                    existing_metadata = {**input_data.existing_metadata, **existing_metadata}
             elif req.input_source == InputSource.NODE_URL:
                 if not req.node_id:
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_url'")
-                text, fetched_metadata = await input_service.fetch_from_node_url(
-                    req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value
+                input_data = await input_service.fetch_from_node_url(
+                    req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value,
+                    lang=req.language
                 )
-                existing_metadata = {**fetched_metadata, **existing_metadata} if fetched_metadata else existing_metadata
+                source_url_info = input_data.source_url or req.source_url
+                if source_url_info:
+                    text = f"Quell-URL / Source URL: {source_url_info}\n\n{input_data.text}"
+                else:
+                    text = input_data.text
+                if input_data.existing_metadata:
+                    existing_metadata = {**input_data.existing_metadata, **existing_metadata}
+        except HTTPException:
+            raise
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Failed to fetch input: {str(e)}")
     
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty")
+    
+    # Truncate excessively long text to prevent exceeding LLM context window
+    MAX_TEXT_LENGTH = 500_000
+    if len(text) > MAX_TEXT_LENGTH:
+        text = text[:MAX_TEXT_LENGTH]
     
     # Resolve "latest" to actual version
     version = req.version
@@ -696,9 +935,6 @@ async def extract_field(req: ExtractFieldRequest):
         )
     
     # Get LLM service with optional overrides
-    from .services.llm_service import get_llm_service
-    from .services.field_normalizer import get_field_normalizer
-    
     llm_service = get_llm_service(
         llm_provider=req.llm_provider,
         llm_model=req.llm_model
@@ -716,6 +952,10 @@ async def extract_field(req: ExtractFieldRequest):
         existing_value=existing_value,
         language=req.language,
     )
+    
+    # Close non-default LLM service HTTP client to prevent leak
+    if req.llm_provider is not None or req.llm_model is not None:
+        await llm_service.close()
     
     if error:
         raise HTTPException(status_code=500, detail=f"Extraction failed: {error}")
@@ -995,7 +1235,7 @@ async def generate_metadata(request: Request):
             data = {
                 "text": body_str,
                 "context": "default",
-                "version": "1.8.0",
+                "version": "latest",
                 "schema_file": "auto",
                 "language": "de",
                 "include_core": True,
@@ -1028,6 +1268,9 @@ async def generate_metadata(request: Request):
     text = req.text
     existing_metadata = req.existing_metadata or {}
     
+    # Extract _origins from existing_metadata (passed by web component)
+    origins = existing_metadata.pop("_origins", None) if existing_metadata else None
+    
     if req.input_source == InputSource.TEXT:
         # Direct text input
         if not text or not text.strip():
@@ -1059,7 +1302,11 @@ async def generate_metadata(request: Request):
                 node_id=req.node_id,
                 repository=req.repository.value
             )
-            text = input_data.text
+            # Prepend source URL if available (from ccm:wwwurl) so LLM can use it
+            if input_data.source_url:
+                text = f"Quell-URL / Source URL: {input_data.source_url}\n\n{input_data.text}"
+            else:
+                text = input_data.text
             # Merge fetched metadata with provided existing_metadata (provided takes precedence)
             existing_metadata = {**input_data.existing_metadata, **existing_metadata} if input_data.existing_metadata else existing_metadata
         except Exception as e:
@@ -1075,7 +1322,8 @@ async def generate_metadata(request: Request):
                 node_id=req.node_id,
                 repository=req.repository.value,
                 source_url=req.source_url or None,
-                extraction_method=req.extraction_method.value
+                extraction_method=req.extraction_method.value,
+                lang=req.language
             )
             # Prepend source URL to text so LLM can use it for ccm:wwwurl field
             source_url_info = input_data.source_url or req.source_url
@@ -1090,6 +1338,13 @@ async def generate_metadata(request: Request):
     
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="No text content available from input source")
+    
+    # Truncate excessively long text to prevent exceeding LLM context window
+    MAX_TEXT_LENGTH = 500_000  # ~125k tokens — generous limit for long web pages
+    if len(text) > MAX_TEXT_LENGTH:
+        original_len = len(text)
+        text = text[:MAX_TEXT_LENGTH]
+        print(f"⚠️ Text truncated from {original_len} to {MAX_TEXT_LENGTH} characters")
     
     # Resolve "latest" to actual version
     version = req.version
@@ -1116,7 +1371,12 @@ async def generate_metadata(request: Request):
         normalize_vocabularies=req.normalize,
         regenerate_fields=req.regenerate_fields,
         regenerate_empty=req.regenerate_empty,
+        origins=origins,
     )
+    
+    # Close non-default LLM service HTTP client to prevent leak
+    if req.llm_provider is not None or req.llm_model is not None:
+        await service.llm_service.close()
     
     # Build flat response (metadata fields at top level)
     response = {
@@ -1127,10 +1387,14 @@ async def generate_metadata(request: Request):
         "exportedAt": result["exportedAt"],
     }
     
-    # Add metadata fields directly (flat)
+    # Add metadata fields directly (flat) - skip empty default values
     for key, value in result.get("metadata", {}).items():
-        if value is not None:
+        if value is not None and value != "" and value != [] and value != {}:
             response[key] = value
+    
+    # Add _origins tracking (ai/user per field)
+    if result.get("_origins"):
+        response["_origins"] = result["_origins"]
     
     # Add processing info at the end
     response["processing"] = result["processing"]
@@ -1207,30 +1471,25 @@ async def validate_metadata(request: Request):
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
     
-    # If wrapped in "metadata" field, unwrap it
-    if "metadata" in data and isinstance(data["metadata"], dict):
-        metadata = data["metadata"]
-    else:
-        # Direct metadata (output from /generate)
-        metadata = data
+    # If direct metadata (no "metadata" wrapper), wrap it for Pydantic model
+    if "metadata" not in data or not isinstance(data.get("metadata"), dict):
+        data = {"metadata": data}
     
-    # Extract parameters from metadata
-    meta_context = metadata.pop("contextName", None)
-    meta_version = metadata.pop("schemaVersion", None) 
-    meta_schema = metadata.pop("metadataset", None)
-    metadata.pop("language", None)
-    metadata.pop("exportedAt", None)
-    metadata.pop("processing", None)
+    # Validate with Pydantic model
+    try:
+        req = ValidateRequest(**data)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"Validation error: {str(e)}")
     
-    context = meta_context or "default"
-    version = meta_version or "latest"
-    # Normalize version: strip leading "v" if present (e.g., "v1.8.0" -> "1.8.0")
+    # Use get_effective_params for clean parameter extraction
+    context, version, schema_file, metadata = req.get_effective_params()
+    
+    # Normalize version: strip leading "v" if present
     if version.startswith("v"):
         version = version[1:]
     # Resolve "latest" to actual version
     if version == "latest":
         version = get_latest_version(context)
-    schema_file = meta_schema or "auto"
     
     service = get_metadata_service()
     result = service.validate_metadata(
@@ -1310,36 +1569,25 @@ async def export_markdown(request: Request):
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
     
-    # Check for include_empty option
-    include_empty = False
-    if "include_empty" in data:
-        include_empty = data.pop("include_empty", False)
+    # If direct metadata (no "metadata" wrapper), wrap it for Pydantic model
+    if "metadata" not in data or not isinstance(data.get("metadata"), dict):
+        data = {"metadata": data}
     
-    # If wrapped in "metadata" field, unwrap it
-    if "metadata" in data and isinstance(data["metadata"], dict):
-        metadata = data["metadata"]
-    else:
-        # Direct metadata (output from /generate)
-        metadata = data
+    # Validate with Pydantic model
+    try:
+        req = ExportMarkdownRequest(**data)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"Validation error: {str(e)}")
     
-    # Extract parameters from metadata
-    meta_context = metadata.pop("contextName", None)
-    meta_version = metadata.pop("schemaVersion", None)
-    meta_schema = metadata.pop("metadataset", None)
-    meta_language = metadata.pop("language", None)
-    metadata.pop("exportedAt", None)
-    metadata.pop("processing", None)
+    # Use get_effective_params for clean parameter extraction
+    context, version, schema_file, language, metadata = req.get_effective_params()
     
-    context = meta_context or "default"
-    version = meta_version or "latest"
-    # Normalize version: strip leading "v" if present (e.g., "v1.8.0" -> "1.8.0")
+    # Normalize version: strip leading "v" if present
     if version.startswith("v"):
         version = version[1:]
     # Resolve "latest" to actual version
     if version == "latest":
         version = get_latest_version(context)
-    schema_file = meta_schema or "auto"
-    language = meta_language or "de"
     
     service = get_metadata_service()
     markdown = service.export_to_markdown(
@@ -1348,7 +1596,7 @@ async def export_markdown(request: Request):
         version=version,
         schema_file=schema_file,
         language=language,
-        include_empty=include_empty,
+        include_empty=req.include_empty,
     )
     
     return ExportMarkdownResponse(
@@ -1446,17 +1694,24 @@ async def upload_to_repository(request: Request):
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
     
-    # Extract options if present
-    repository = data.pop("repository", "staging")
-    check_duplicates = data.pop("check_duplicates", True)
-    start_workflow = data.pop("start_workflow", True)
+    # If direct metadata (no "metadata" wrapper), wrap it for Pydantic model
+    if "metadata" not in data or not isinstance(data.get("metadata"), dict):
+        # Extract upload options before wrapping
+        repository = data.pop("repository", "staging")
+        check_duplicates = data.pop("check_duplicates", True)
+        start_workflow = data.pop("start_workflow", True)
+        data = {
+            "metadata": data,
+            "repository": repository,
+            "check_duplicates": check_duplicates,
+            "start_workflow": start_workflow,
+        }
     
-    # If wrapped in "metadata" field, unwrap it
-    if "metadata" in data and isinstance(data["metadata"], dict):
-        metadata = data["metadata"]
-    else:
-        # Direct metadata (output from /generate)
-        metadata = data
+    # Validate with Pydantic model
+    try:
+        req = UploadRequest(**data)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"Validation error: {str(e)}")
     
     repo_service = get_repository_service()
     
@@ -1466,17 +1721,17 @@ async def upload_to_repository(request: Request):
             detail="Repository service not configured. Set WLO_GUEST_USERNAME and WLO_GUEST_PASSWORD environment variables."
         )
     
-    if repository not in ("staging", "prod", "production"):
+    if req.repository not in ("staging", "prod", "production"):
         raise HTTPException(
             status_code=400,
-            detail=f"Invalid repository: {repository}. Use 'staging' or 'prod'."
+            detail=f"Invalid repository: {req.repository}. Use 'staging' or 'prod'."
         )
     
     result = await repo_service.upload_metadata(
-        metadata=metadata,
-        repository=repository,
-        check_duplicates=check_duplicates,
-        start_workflow=start_workflow,
+        metadata=req.metadata,
+        repository=req.repository,
+        check_duplicates=req.check_duplicates,
+        start_workflow=req.start_workflow,
     )
     
     # Convert nested node dict to UploadedNodeInfo if present

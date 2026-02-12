@@ -8,6 +8,7 @@ from typing import Any, Optional
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from ..config import get_settings
+from ..utils.text_utils import levenshtein_distance
 
 
 class LLMService:
@@ -46,6 +47,11 @@ class LLMService:
         print(f"🤖 LLM Service initialized: {self.provider}")
         print(f"   Model: {self.model}")
         print(f"   API Base: {self.api_base}")
+    
+    async def close(self):
+        """Close the HTTP client."""
+        if self.http_client:
+            await self.http_client.aclose()
     
     async def _call_llm(
         self,
@@ -101,11 +107,11 @@ class LLMService:
                 error_text = response.text
                 raise Exception(f"LLM API error {response.status_code}: {error_text}")
                 
-            except httpx.TimeoutException:
+            except (httpx.TimeoutException, httpx.ConnectError, httpx.ReadError, httpx.RemoteProtocolError) as e:
                 if attempt < self.max_retries - 1:
                     await asyncio.sleep((attempt + 1) * self.settings.llm_retry_delay)
                     continue
-                raise Exception("LLM API timeout after retries")
+                raise Exception(f"LLM API connection failed after retries: {e}")
         
         raise Exception("LLM API failed after all retries")
     
@@ -1140,23 +1146,7 @@ IMPORTANT RULES:
     
     def _levenshtein_distance(self, a: str, b: str) -> int:
         """Calculate Levenshtein distance between two strings."""
-        if len(a) < len(b):
-            return self._levenshtein_distance(b, a)
-        
-        if len(b) == 0:
-            return len(a)
-        
-        previous_row = range(len(b) + 1)
-        for i, c1 in enumerate(a):
-            current_row = [i + 1]
-            for j, c2 in enumerate(b):
-                insertions = previous_row[j + 1] + 1
-                deletions = current_row[j] + 1
-                substitutions = previous_row[j] + (c1 != c2)
-                current_row.append(min(insertions, deletions, substitutions))
-            previous_row = current_row
-        
-        return previous_row[-1]
+        return levenshtein_distance(a, b)
     
     async def detect_content_type(
         self,
@@ -1167,6 +1157,9 @@ IMPORTANT RULES:
         """Detect the content type from text."""
         if not content_types:
             return "learning_material.json"
+        
+        # Truncate text for content type detection — only first ~5000 chars needed
+        detection_text = text[:5000] if len(text) > 5000 else text
         
         # Build options list
         options = []
@@ -1179,7 +1172,7 @@ IMPORTANT RULES:
             prompt = f"""Analysiere folgenden Text und bestimme den passenden Inhaltstyp:
 
 --- TEXT ---
-{text}
+{detection_text}
 --- ENDE ---
 
 Verfügbare Inhaltstypen:
@@ -1190,7 +1183,7 @@ Antworte mit JSON: {{"content_type": "<schema_file>"}}"""
             prompt = f"""Analyze the following text and determine the appropriate content type:
 
 --- TEXT ---
-{text}
+{detection_text}
 --- END ---
 
 Available content types:

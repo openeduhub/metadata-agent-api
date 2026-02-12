@@ -25,6 +25,12 @@ class InputSourceService:
     def __init__(self):
         self.settings = get_settings()
         self.timeout = httpx.Timeout(30.0, connect=10.0)
+        self.http_client = httpx.AsyncClient(timeout=self.timeout)
+    
+    async def close(self):
+        """Close the shared HTTP client."""
+        if self.http_client:
+            await self.http_client.aclose()
     
     def _get_repository_base_url(self, repository: str) -> str:
         """Get the base URL for the specified repository."""
@@ -62,22 +68,21 @@ class InputSourceService:
         
         logger.info(f"Fetching text from URL: {url} (method: {method})")
         
-        async with httpx.AsyncClient(timeout=self.timeout) as client:
-            response = await client.post(
-                api_url,
-                json=payload,
-                headers={"Content-Type": "application/json", "accept": "application/json"}
-            )
-            response.raise_for_status()
-            
-            data = response.json()
-            text = data.get("text", "")
-            
-            if not text:
-                raise ValueError(f"No text content extracted from URL: {url}")
-            
-            logger.info(f"Extracted {len(text)} characters from URL")
-            return text
+        response = await self.http_client.post(
+            api_url,
+            json=payload,
+            headers={"Content-Type": "application/json", "accept": "application/json"}
+        )
+        response.raise_for_status()
+        
+        data = response.json()
+        text = data.get("text", "")
+        
+        if not text:
+            raise ValueError(f"No text content extracted from URL: {url}")
+        
+        logger.info(f"Extracted {len(text)} characters from URL")
+        return text
     
     async def fetch_node_metadata(
         self,
@@ -99,15 +104,14 @@ class InputSourceService:
         
         logger.info(f"Fetching node metadata: {node_id} from {repository}")
         
-        async with httpx.AsyncClient(timeout=self.timeout) as client:
-            response = await client.get(
-                api_url,
-                headers={"accept": "application/json"}
-            )
-            response.raise_for_status()
-            
-            data = response.json()
-            return data.get("node", {})
+        response = await self.http_client.get(
+            api_url,
+            headers={"accept": "application/json"}
+        )
+        response.raise_for_status()
+        
+        data = response.json()
+        return data.get("node", {})
     
     async def fetch_node_text_content(
         self,
@@ -129,24 +133,23 @@ class InputSourceService:
         
         logger.info(f"Fetching node text content: {node_id} from {repository}")
         
-        async with httpx.AsyncClient(timeout=self.timeout) as client:
-            response = await client.get(
-                api_url,
-                headers={"accept": "application/json"}
-            )
-            response.raise_for_status()
-            
-            data = response.json()
-            
-            # Try text, then html, then raw
-            text = data.get("text") or data.get("html") or data.get("raw")
-            
-            if text:
-                logger.info(f"Fetched {len(text)} characters of text content from node")
-            else:
-                logger.info("No text content available for node")
-            
-            return text
+        response = await self.http_client.get(
+            api_url,
+            headers={"accept": "application/json"}
+        )
+        response.raise_for_status()
+        
+        data = response.json()
+        
+        # Try text, then html, then raw
+        text = data.get("text") or data.get("html") or data.get("raw")
+        
+        if text:
+            logger.info(f"Fetched {len(text)} characters of text content from node")
+        else:
+            logger.info("No text content available for node")
+        
+        return text
     
     def _convert_node_properties_to_metadata(self, properties: dict[str, Any]) -> dict[str, Any]:
         """
@@ -157,9 +160,14 @@ class InputSourceService:
         """
         metadata = {}
         
+        # cm: properties to keep (valid metadata fields)
+        CM_KEEP = {"cm:author"}
+        
         for key, value in properties.items():
             # Skip internal/system properties
-            if key.startswith("sys:") or key.startswith("cm:") or key.startswith("virtual:"):
+            if key.startswith("sys:") or key.startswith("virtual:"):
+                continue
+            if key.startswith("cm:") and key not in CM_KEEP:
                 continue
             
             # Skip DISPLAYNAME variants (we want the URI values)
@@ -247,7 +255,8 @@ class InputSourceService:
         node_id: str,
         repository: str = "staging",
         source_url: Optional[str] = None,
-        extraction_method: str = "simple"
+        extraction_method: str = "simple",
+        lang: str = "auto"
     ) -> InputData:
         """
         Fetch input data using NodeID for metadata and URL for text (fallback only).
@@ -293,7 +302,7 @@ class InputSourceService:
                 raise ValueError(f"No stored fulltext and no URL available for node {node_id}")
             logger.info(f"No stored fulltext, fetching from URL: {source_url}")
             try:
-                text = await self.fetch_from_url(source_url, extraction_method)
+                text = await self.fetch_from_url(source_url, extraction_method, lang=lang)
             except Exception as e:
                 # Final fallback: build text from metadata
                 logger.warning(f"URL extraction failed: {e}")
@@ -330,6 +339,12 @@ class InputSourceService:
         )
 
 
+_input_source_service: Optional[InputSourceService] = None
+
+
 def get_input_source_service() -> InputSourceService:
-    """Get input source service instance."""
-    return InputSourceService()
+    """Get singleton instance of input source service."""
+    global _input_source_service
+    if _input_source_service is None:
+        _input_source_service = InputSourceService()
+    return _input_source_service

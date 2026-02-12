@@ -85,9 +85,15 @@ def get_latest_version(context: str = "default") -> str:
         
         # 3. Fallback: highest semantic version
         if versions:
+            def _parse_version(v: str) -> list[int]:
+                try:
+                    return [int(x) for x in v.split(".")]
+                except ValueError:
+                    return [0]
+            
             sorted_versions = sorted(
                 versions.keys(),
-                key=lambda v: [int(x) for x in v.split(".")],
+                key=_parse_version,
                 reverse=True
             )
             return sorted_versions[0]

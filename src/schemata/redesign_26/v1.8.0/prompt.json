@@ -1,0 +1,827 @@
+{
+  "profileId": "type:prompt",
+  "version": "1.8.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "sdo": "https://schema.org/",
+    "ccm": "https://example.org/ccm/"
+  },
+  "groups": [
+    {
+      "id": "core",
+      "label": {
+        "de": "Prompt-Kern",
+        "en": "Prompt Core"
+      }
+    },
+    {
+      "id": "classification",
+      "label": {
+        "de": "Klassifikation",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "technical",
+      "label": {
+        "de": "Technische Parameter",
+        "en": "Technical Parameters"
+      }
+    },
+    {
+      "id": "usage",
+      "label": {
+        "de": "Nutzung & Lizenz",
+        "en": "Usage & License"
+      }
+    },
+    {
+      "id": "quality",
+      "label": {
+        "de": "Qualität & Rechtliches",
+        "en": "Quality & Legal"
+      }
+    },
+    {
+      "id": "relations",
+      "label": {
+        "de": "Verknüpfungen",
+        "en": "Relations"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "prompt:text",
+      "group": "core",
+      "label": {
+        "de": "Prompt-Text",
+        "en": "Prompt Text"
+      },
+      "description": {
+        "de": "Der eigentliche Prompt-Text / die Anweisung",
+        "en": "The actual prompt text / instruction"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:text",
+        "uri": "prompt:text",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:negativePrompt",
+      "group": "core",
+      "label": {
+        "de": "Negative Prompt",
+        "en": "Negative Prompt"
+      },
+      "description": {
+        "de": "Ausschlusskriterien oder negative Anweisungen",
+        "en": "Exclusion criteria or negative instructions"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:negativePrompt",
+        "uri": "prompt:negativePrompt",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:scenario",
+      "group": "core",
+      "label": {
+        "de": "Anwendungsszenario",
+        "en": "Application Scenario"
+      },
+      "description": {
+        "de": "In welchem Kontext wird der Prompt verwendet?",
+        "en": "In which context is the prompt used?"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:scenario",
+        "uri": "prompt:scenario",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Aufgaben erstellen",
+                "en": "Create Tasks"
+              }
+            },
+            {
+              "label": {
+                "de": "Prüfung konzipieren",
+                "en": "Design Assessment"
+              }
+            },
+            {
+              "label": {
+                "de": "KI-Tutor",
+                "en": "AI Tutor"
+              }
+            },
+            {
+              "label": {
+                "de": "Korrektur/Feedback",
+                "en": "Correction/Feedback"
+              }
+            },
+            {
+              "label": {
+                "de": "Metadaten-Generierung",
+                "en": "Metadata Generation"
+              }
+            },
+            {
+              "label": {
+                "de": "Rollenspiel/Simulation",
+                "en": "Role-play/Simulation"
+              }
+            },
+            {
+              "label": {
+                "de": "Quiz/Entscheidungsbaum",
+                "en": "Quiz/Decision Tree"
+              }
+            },
+            {
+              "label": {
+                "de": "Inhalt zusammenfassen",
+                "en": "Summarize Content"
+              }
+            },
+            {
+              "label": {
+                "de": "Klassifizieren",
+                "en": "Classify"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:function",
+      "group": "core",
+      "label": {
+        "de": "Funktion",
+        "en": "Function"
+      },
+      "description": {
+        "de": "Hauptfunktion oder Fähigkeit des Prompts",
+        "en": "Main function or capability of the prompt"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:function",
+        "uri": "prompt:function",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Textgenerierung",
+                "en": "Text Generation"
+              }
+            },
+            {
+              "label": {
+                "de": "Bildgenerierung",
+                "en": "Image Generation"
+              }
+            },
+            {
+              "label": {
+                "de": "Übersetzung",
+                "en": "Translation"
+              }
+            },
+            {
+              "label": {
+                "de": "Codegenerierung",
+                "en": "Code Generation"
+              }
+            },
+            {
+              "label": {
+                "de": "Datenauswertung",
+                "en": "Data Analysis"
+              }
+            },
+            {
+              "label": {
+                "de": "Textzusammenfassung",
+                "en": "Text Summarization"
+              }
+            },
+            {
+              "label": {
+                "de": "Klassifizierung",
+                "en": "Classification"
+              }
+            },
+            {
+              "label": {
+                "de": "Extraktion",
+                "en": "Extraction"
+              }
+            },
+            {
+              "label": {
+                "de": "Bewertung/Scoring",
+                "en": "Evaluation/Scoring"
+              }
+            },
+            {
+              "label": {
+                "de": "Anpassung/Adaptiv",
+                "en": "Adaptation/Adaptive"
+              }
+            },
+            {
+              "label": {
+                "de": "Chatbot/Interaktiv",
+                "en": "Chatbot/Interactive"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:promptType",
+      "group": "classification",
+      "label": {
+        "de": "Prompt-Typ",
+        "en": "Prompt Type"
+      },
+      "description": {
+        "de": "Untertyp des Prompts",
+        "en": "Subtype of the prompt"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:promptType",
+        "uri": "prompt:promptType",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Generativ",
+                "en": "Generative"
+              }
+            },
+            {
+              "label": {
+                "de": "Analytisch",
+                "en": "Analytical"
+              }
+            },
+            {
+              "label": {
+                "de": "Adaptiv",
+                "en": "Adaptive"
+              }
+            },
+            {
+              "label": {
+                "de": "Interaktiv",
+                "en": "Interactive"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:inputType",
+      "group": "core",
+      "label": {
+        "de": "Eingabeformat",
+        "en": "Input Format"
+      },
+      "description": {
+        "de": "Art der Eingabedaten",
+        "en": "Type of input data"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:inputType",
+        "uri": "prompt:inputType",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Text",
+                "en": "text"
+              }
+            },
+            {
+              "label": {
+                "de": "Bild",
+                "en": "image"
+              }
+            },
+            {
+              "label": {
+                "de": "Video",
+                "en": "video"
+              }
+            },
+            {
+              "label": {
+                "de": "Audio",
+                "en": "audio"
+              }
+            },
+            {
+              "label": {
+                "de": "Code",
+                "en": "code"
+              }
+            },
+            {
+              "label": {
+                "de": "Gemischt",
+                "en": "mixed"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:outputFormat",
+      "group": "core",
+      "label": {
+        "de": "Ausgabeformat",
+        "en": "Output Format"
+      },
+      "description": {
+        "de": "Art der generierten Ausgabe",
+        "en": "Type of generated output"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:outputFormat",
+        "uri": "prompt:outputFormat",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Text",
+                "en": "text"
+              }
+            },
+            {
+              "label": {
+                "de": "Bild",
+                "en": "image"
+              }
+            },
+            {
+              "label": {
+                "de": "Audio",
+                "en": "audio"
+              }
+            },
+            {
+              "label": {
+                "de": "Video",
+                "en": "video"
+              }
+            },
+            {
+              "label": {
+                "de": "Code",
+                "en": "code"
+              }
+            },
+            {
+              "label": {
+                "de": "Struktur",
+                "en": "structure"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:testedModels",
+      "group": "technical",
+      "label": {
+        "de": "Getestete KI-Modelle",
+        "en": "Tested AI Models"
+      },
+      "description": {
+        "de": "Mit welchen KI-Modellen wurde der Prompt getestet?",
+        "en": "Which AI models was the prompt tested with?"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:testedModels",
+        "uri": "prompt:testedModels",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:maxTokens",
+      "group": "technical",
+      "label": {
+        "de": "Max. Tokens",
+        "en": "Max. Tokens"
+      },
+      "description": {
+        "de": "Maximale Anzahl von Tokens für die Ausgabe",
+        "en": "Maximum number of tokens for output"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:maxTokens",
+        "uri": "prompt:maxTokens",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 1
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:temperature",
+      "group": "technical",
+      "label": {
+        "de": "Temperature",
+        "en": "Temperature"
+      },
+      "description": {
+        "de": "Kreativitätsparameter (0-2)",
+        "en": "Creativity parameter (0-2)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:temperature",
+        "uri": "prompt:temperature",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "min": 0,
+          "max": 2
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:topP",
+      "group": "technical",
+      "label": {
+        "de": "Top P",
+        "en": "Top P"
+      },
+      "description": {
+        "de": "Nucleus Sampling Parameter (0-1)",
+        "en": "Nucleus sampling parameter (0-1)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:topP",
+        "uri": "prompt:topP",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "min": 0,
+          "max": 1
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:license",
+      "group": "usage",
+      "label": {
+        "de": "Lizenz",
+        "en": "License"
+      },
+      "description": {
+        "de": "Lizenz unter der der Prompt veröffentlicht ist",
+        "en": "License under which the prompt is published"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:license",
+        "uri": "https://schema.org/license",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:creator",
+      "group": "usage",
+      "label": {
+        "de": "Ersteller:in",
+        "en": "Creator"
+      },
+      "description": {
+        "de": "Person oder Organisation, die den Prompt erstellt hat",
+        "en": "Person or organization that created the prompt"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:creator",
+        "uri": "https://schema.org/creator",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:isPartOfDataset",
+      "group": "relations",
+      "label": {
+        "de": "Teil von Dataset/Katalog",
+        "en": "Part of Dataset/Catalog"
+      },
+      "description": {
+        "de": "Gehört zu einem größeren Prompt-Katalog oder Dataset",
+        "en": "Belongs to a larger prompt catalog or dataset"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:isPartOfDataset",
+        "uri": "https://schema.org/isPartOf",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:legalCheck",
+      "group": "quality",
+      "label": {
+        "de": "Rechtliche Prüfung",
+        "en": "Legal Review"
+      },
+      "description": {
+        "de": "Status der rechtlichen Überprüfung (Urheberrecht, Jugendschutz, etc.)",
+        "en": "Status of legal review (copyright, youth protection, etc.)"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "prompt:legalCheck",
+        "uri": "prompt:legalCheck",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Geprüft - Unbedenklich",
+                "en": "Reviewed - OK"
+              }
+            },
+            {
+              "label": {
+                "de": "Geprüft - Einschränkungen",
+                "en": "Reviewed - Restrictions"
+              }
+            },
+            {
+              "label": {
+                "de": "Nicht geprüft",
+                "en": "Not Reviewed"
+              }
+            },
+            {
+              "label": {
+                "de": "Bedenklich",
+                "en": "Problematic"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "prompt:text": "",
+    "prompt:negativePrompt": "",
+    "prompt:scenario": "",
+    "prompt:function": "",
+    "prompt:promptType": "",
+    "prompt:inputType": "",
+    "prompt:outputFormat": "",
+    "prompt:testedModels": [],
+    "prompt:maxTokens": null,
+    "prompt:temperature": null,
+    "prompt:topP": null,
+    "schema:license": "",
+    "schema:creator": "",
+    "prompt:isPartOfDataset": "",
+    "prompt:legalCheck": ""
+  }
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Agent – Default Ansicht</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Widget Styles -->
+    <link rel="stylesheet" href="../dist/styles.css">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f5f5f5;
+            padding: 24px;
+        }
+
+        .page-header {
+            max-width: 1200px;
+            margin: 0 auto 16px;
+        }
+
+        .page-header h1 { font-size: 22px; font-weight: 500; color: #1d1b20; }
+        .page-header p { color: #666; margin-top: 4px; font-size: 14px; }
+
+        .widget-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 700px;
+        }
+
+        metadata-agent-canvas {
+            display: block;
+            width: 100%;
+            min-height: 700px;
+        }
+
+        .info-box {
+            max-width: 1200px;
+            margin: 16px auto 0;
+            padding: 12px 16px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #1565c0;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>Default Ansicht</h1>
+        <p>Volle Bearbeitungsansicht mit Texteingabe, KI-Extraktion, Statusbar und allen Steuerelementen.</p>
+    </div>
+
+    <div class="widget-container">
+        <!--
+            Default: layout="default"
+            Volle Ansicht mit Eingabebereich, Statusbar, Floating Controls.
+            Keine Daten vorgeladen – der Nutzer gibt Text/URL ein und startet die KI-Extraktion.
+            Siehe full.html für die vollständige Attribut-Dokumentation.
+        -->
+        <metadata-agent-canvas
+            id="canvas"
+            api-url="https://metadata-agent-api.vercel.app"
+            layout="default"
+            context-name="default"
+            schema-version="latest"
+            input-mode="text"
+            show-input-area="true"
+            show-status-bar="true"
+            show-core-fields="true"
+            show-special-fields="true"
+            show-footer="false"
+            show-floating-controls="true"
+            show-field-actions="true"
+            show-upload-button="false"
+            show-page-mode="false"
+            show-content-type-only="false"
+            readonly="false"
+            borderless="true"
+            highlight-ai="true"
+            auto-extract="false">
+        </metadata-agent-canvas>
+    </div>
+
+    <div class="info-box">
+        <strong>Hinweis:</strong> Text oder URL eingeben und auf „Extrahieren" klicken.
+        Die KI analysiert den Inhalt und füllt die Metadatenfelder automatisch aus.
+        Alle Felder können anschließend manuell bearbeitet werden.
+    </div>
+
+    <!-- Widget Scripts -->
+    <script src="../dist/runtime.js" defer></script>
+    <script src="../dist/polyfills.js" defer></script>
+    <script src="../dist/main.js" defer></script>
+
+    <script>
+        const API_URL = 'https://metadata-agent-api.vercel.app';
+        document.getElementById('canvas').setAttribute('api-url', API_URL);
+
+        // Listen for events
+        customElements.whenDefined('metadata-agent-canvas').then(() => {
+            const canvas = document.getElementById('canvas');
+
+            canvas.addEventListener('metadataChange', (e) => {
+                console.log('Metadata changed:', e.detail);
+            });
+
+            canvas.addEventListener('metadataSubmit', (e) => {
+                console.log('Metadata submitted:', e.detail);
+            });
+
+            canvas.addEventListener('extractionComplete', (e) => {
+                console.log('Extraction complete:', e.detail);
+            });
+        });
+    </script>
+
+</body>
+</html>

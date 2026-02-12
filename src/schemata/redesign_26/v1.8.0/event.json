@@ -1,0 +1,2372 @@
+{
+  "profileId": "type:event",
+  "version": "1.8.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "oeh": "http://w3id.org/openeduhub/vocabs/",
+    "skos": "http://www.w3.org/2004/02/skos/core#"
+  },
+  "groups": [
+    {
+      "id": "event-typification",
+      "label": {
+        "de": "Event-Typisierung",
+        "en": "Event typification"
+      }
+    },
+    {
+      "id": "schedule",
+      "label": {
+        "de": "Termin & Status",
+        "en": "Schedule & Status"
+      }
+    },
+    {
+      "id": "attendance",
+      "label": {
+        "de": "Teilnahme",
+        "en": "Attendance"
+      }
+    },
+    {
+      "id": "roles",
+      "label": {
+        "de": "Akteur:innen & Rollen",
+        "en": "Actors & Roles"
+      }
+    },
+    {
+      "id": "education",
+      "label": {
+        "de": "Bildungsdetails",
+        "en": "Educational Details"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "oeh:eventType",
+      "group": "event-typification",
+      "label": {
+        "de": "Veranstaltungstyp",
+        "en": "Event Type"
+      },
+      "description": {
+        "de": "Wähle/n oder erkenne die passenden Veranstaltungstypen (SKOS, hierarchisch).",
+        "en": "Select or identify the appropriate event types (SKOS, hierarchical)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "oeh:eventType",
+        "uri": "oeh:eventType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/eventType/",
+          "hierarchical": true,
+          "concepts": [
+            {
+              "label": {
+                "de": "Wissen & Kompetenzen entwickeln",
+                "en": "Developing knowledge & competencies"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
+            },
+            {
+              "label": {
+                "de": "Grundlagenvermittlung",
+                "en": "Basic instruction"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer"
+            },
+            {
+              "label": {
+                "de": "Vorlesung",
+                "en": "Lecture"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/lecture"
+            },
+            {
+              "label": {
+                "de": "Grundkurs",
+                "en": "Basic course"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/basic-course"
+            },
+            {
+              "label": {
+                "de": "Einführungsseminar",
+                "en": "Introductory seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/introductory-seminar"
+            },
+            {
+              "label": {
+                "de": "Webinar",
+                "en": "Webinar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/webinar"
+            },
+            {
+              "label": {
+                "de": "Online-Kurs",
+                "en": "Online Course"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-course"
+            },
+            {
+              "label": {
+                "de": "Vertiefung & Spezialisierung",
+                "en": "Deepening & specialization"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
+            },
+            {
+              "label": {
+                "de": "Fachseminar",
+                "en": "Subject seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-seminar"
+            },
+            {
+              "label": {
+                "de": "Masterseminar",
+                "en": "Master seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/master-seminar"
+            },
+            {
+              "label": {
+                "de": "Spezialistenkurs",
+                "en": "Specialist course"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-course"
+            },
+            {
+              "label": {
+                "de": "Expertenvortrag",
+                "en": "Expert Lecture"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/expert-lecture"
+            },
+            {
+              "label": {
+                "de": "Fachworkshop",
+                "en": "Specialized Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-workshop"
+            },
+            {
+              "label": {
+                "de": "Praktische Anwendung",
+                "en": "Practical Application"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Workshop",
+                "en": "Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/workshop"
+            },
+            {
+              "label": {
+                "de": "Übung/Tutorial",
+                "en": "Exercise/Tutorial"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/tutorial-exercise"
+            },
+            {
+              "label": {
+                "de": "Labor/Praktikum",
+                "en": "Labor/Internship"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/lab-internship"
+            },
+            {
+              "label": {
+                "de": "Online-Workshop",
+                "en": "Online Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-workshop"
+            },
+            {
+              "label": {
+                "de": "Feldarbeit",
+                "en": "Field Work"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/fieldwork"
+            },
+            {
+              "label": {
+                "de": "Exkursion",
+                "en": "Excursion"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/excursion"
+            },
+            {
+              "label": {
+                "de": "Schüler-AG",
+                "en": "Student Working Group"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-group"
+            },
+            {
+              "label": {
+                "de": "Ferienworkshop",
+                "en": "Holiday Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/holiday-workshop"
+            },
+            {
+              "label": {
+                "de": "Projektwoche",
+                "en": "Project Week"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/project-week"
+            },
+            {
+              "label": {
+                "de": "Forschung & Innovation",
+                "en": "Research & Innovation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/research-innovation"
+            },
+            {
+              "label": {
+                "de": "Kolloquium",
+                "en": "Colloquium"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/colloquium"
+            },
+            {
+              "label": {
+                "de": "Forschungsseminar",
+                "en": "Research Seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/research-seminar"
+            },
+            {
+              "label": {
+                "de": "Doktorandenseminar",
+                "en": "Doctoral Seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/doctoral-seminar"
+            },
+            {
+              "label": {
+                "de": "Forschungsworkshop",
+                "en": "Research Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/research-workshop"
+            },
+            {
+              "label": {
+                "de": "Innovationsworkshop",
+                "en": "Innovation Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/innovation-workshop"
+            },
+            {
+              "label": {
+                "de": "Information & Orientierung erhalten",
+                "en": "Receive Information & Orientation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/information-orientation"
+            },
+            {
+              "label": {
+                "de": "Überblick & Einführung",
+                "en": "Overview & Introduction"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/overview-introduction"
+            },
+            {
+              "label": {
+                "de": "Infoveranstaltung",
+                "en": "Information Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/info-event"
+            },
+            {
+              "label": {
+                "de": "Orientierungswoche",
+                "en": "Orientation Week"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-week"
+            },
+            {
+              "label": {
+                "de": "Tag der offenen Tür",
+                "en": "Open House"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/open-house"
+            },
+            {
+              "label": {
+                "de": "Info-Webinar",
+                "en": "Info Webinar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/info-webinar"
+            },
+            {
+              "label": {
+                "de": "Schnupperveranstaltung",
+                "en": "Taster Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/taster-event"
+            },
+            {
+              "label": {
+                "de": "Beratung & Entscheidungshilfe",
+                "en": "Consultation & Decision Support"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
+            },
+            {
+              "label": {
+                "de": "Studienberatung",
+                "en": "Study Counseling"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/study-counseling"
+            },
+            {
+              "label": {
+                "de": "Sprechstunde",
+                "en": "Office Hours"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/consultation-hours"
+            },
+            {
+              "label": {
+                "de": "Beratungsgespräch",
+                "en": "Consultation Meeting"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/counseling-session"
+            },
+            {
+              "label": {
+                "de": "Online-Beratung",
+                "en": "Online Consultation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-counseling"
+            },
+            {
+              "label": {
+                "de": "Karriereberatung",
+                "en": "Career Counseling"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/career-counseling"
+            },
+            {
+              "label": {
+                "de": "Laufbahnberatung",
+                "en": "Career Guidance"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/career-guidance"
+            },
+            {
+              "label": {
+                "de": "Marktüberblick & Angebote",
+                "en": "Market Overview & Offers"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings"
+            },
+            {
+              "label": {
+                "de": "Bildungsmesse",
+                "en": "Education Fair"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/education-fair"
+            },
+            {
+              "label": {
+                "de": "Hochschulmesse",
+                "en": "Higher Education Fair"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/university-fair"
+            },
+            {
+              "label": {
+                "de": "Karrieremesse",
+                "en": "Career Fair"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/career-fair"
+            },
+            {
+              "label": {
+                "de": "Virtuelle Messe",
+                "en": "Virtual Fair"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/virtual-fair"
+            },
+            {
+              "label": {
+                "de": "Anbieterpräsentation",
+                "en": "Provider Presentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/provider-presentation"
+            },
+            {
+              "label": {
+                "de": "Austausch & Vernetzung pflegen",
+                "en": "Maintain Exchange & Networking"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/exchange-networking"
+            },
+            {
+              "label": {
+                "de": "Fachlicher Austausch",
+                "en": "Professional Exchange"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Symposium",
+                "en": "Symposium"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/symposium"
+            },
+            {
+              "label": {
+                "de": "Fachtagung",
+                "en": "Specialist Conference"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-conference"
+            },
+            {
+              "label": {
+                "de": "Konferenz/Kongress",
+                "en": "Conference/Congress"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/conference-congress"
+            },
+            {
+              "label": {
+                "de": "Online-Konferenz",
+                "en": "Online Conference"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-conference"
+            },
+            {
+              "label": {
+                "de": "Panel",
+                "en": "Panel"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/panel"
+            },
+            {
+              "label": {
+                "de": "Roundtable",
+                "en": "Roundtable"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/roundtable"
+            },
+            {
+              "label": {
+                "de": "Forum",
+                "en": "Forum"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/forum"
+            },
+            {
+              "label": {
+                "de": "Debatte",
+                "en": "Debate"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/debate"
+            },
+            {
+              "label": {
+                "de": "Peer-Learning & Kollaboration",
+                "en": "Peer Learning & Collaboration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Arbeitsgruppe",
+                "en": "Working Group"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/working-group"
+            },
+            {
+              "label": {
+                "de": "Lerngruppe",
+                "en": "Learning Group"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/study-group"
+            },
+            {
+              "label": {
+                "de": "Barcamp",
+                "en": "Barcamp"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/barcamp"
+            },
+            {
+              "label": {
+                "de": "Unconference",
+                "en": "Unconference"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/unconference"
+            },
+            {
+              "label": {
+                "de": "Community-Workshop",
+                "en": "Community Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/community-workshop"
+            },
+            {
+              "label": {
+                "de": "Online-Community",
+                "en": "Online Community"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-community"
+            },
+            {
+              "label": {
+                "de": "Schüleraustausch",
+                "en": "Student Exchange"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-exchange"
+            },
+            {
+              "label": {
+                "de": "Lernpartnerschaft",
+                "en": "Learning Partnership"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/learning-partnership"
+            },
+            {
+              "label": {
+                "de": "Berufliche Vernetzung",
+                "en": "Professional Networking"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-networking"
+            },
+            {
+              "label": {
+                "de": "Alumni-Treffen",
+                "en": "Alumni Meeting"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/alumni-meeting"
+            },
+            {
+              "label": {
+                "de": "Branchentreffen",
+                "en": "Industry Meeting"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/industry-meeting"
+            },
+            {
+              "label": {
+                "de": "Professional Meetup",
+                "en": "Professional Meetup"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-meetup"
+            },
+            {
+              "label": {
+                "de": "Networking-Event",
+                "en": "Networking Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/networking-event"
+            },
+            {
+              "label": {
+                "de": "Virtual Networking",
+                "en": "Virtual Networking"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/virtual-networking"
+            },
+            {
+              "label": {
+                "de": "Leistung zeigen & bewerten lassen",
+                "en": "Demonstrate performance & have it assessed"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/performance-assessment"
+            },
+            {
+              "label": {
+                "de": "Formelle Prüfung & Zertifizierung",
+                "en": "Formal examination & certification"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
+            },
+            {
+              "label": {
+                "de": "Klausur/Examen",
+                "en": "Exam/Assessment"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/exam-written"
+            },
+            {
+              "label": {
+                "de": "Abschlussprüfung",
+                "en": "Final examination"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/final-exam"
+            },
+            {
+              "label": {
+                "de": "Online-Prüfung",
+                "en": "Online Exam"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-exam"
+            },
+            {
+              "label": {
+                "de": "Zertifizierungsprüfung",
+                "en": "Certification examination"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/certification-exam"
+            },
+            {
+              "label": {
+                "de": "Assessment",
+                "en": "Assessment"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/assessment"
+            },
+            {
+              "label": {
+                "de": "Präsentation & Demonstration",
+                "en": "Presentation & Demonstration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration"
+            },
+            {
+              "label": {
+                "de": "Studentenpräsentation",
+                "en": "Student Presentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-presentation"
+            },
+            {
+              "label": {
+                "de": "Abschlussarbeit-Verteidigung",
+                "en": "Thesis Defense"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/thesis-defense"
+            },
+            {
+              "label": {
+                "de": "Poster-Session",
+                "en": "Poster Session"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/poster-session"
+            },
+            {
+              "label": {
+                "de": "Demo Day",
+                "en": "Demo Day"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/demo-day"
+            },
+            {
+              "label": {
+                "de": "Online-Präsentation",
+                "en": "Online Presentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-presentation"
+            },
+            {
+              "label": {
+                "de": "Pitch",
+                "en": "Pitch"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/pitch"
+            },
+            {
+              "label": {
+                "de": "Projektpräsentation",
+                "en": "Project Presentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/project-presentation"
+            },
+            {
+              "label": {
+                "de": "Wettbewerb & Leistungsvergleich",
+                "en": "Competition & Performance Comparison"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
+            },
+            {
+              "label": {
+                "de": "Wissenschaftsolympiade",
+                "en": "Science Olympiad"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/science-olympiad"
+            },
+            {
+              "label": {
+                "de": "Studierendenwettbewerb",
+                "en": "Student Competition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-competition"
+            },
+            {
+              "label": {
+                "de": "Case Competition",
+                "en": "Case Competition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/case-competition"
+            },
+            {
+              "label": {
+                "de": "Hackathon (Wettbewerb)",
+                "en": "Hackathon (Competition)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/hackathon-comp"
+            },
+            {
+              "label": {
+                "de": "Debattierwettbewerb",
+                "en": "Debate Competition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/debate-competition"
+            },
+            {
+              "label": {
+                "de": "Schülerwettbewerb",
+                "en": "Student Competition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/school-competition"
+            },
+            {
+              "label": {
+                "de": "Gemeinschaft & Zugehörigkeit erleben",
+                "en": "Experience Community & Belonging"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/community-belonging"
+            },
+            {
+              "label": {
+                "de": "Feierliche Anlässe",
+                "en": "Ceremonial Occasions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions"
+            },
+            {
+              "label": {
+                "de": "Abschlussfeier/Graduation",
+                "en": "Graduation Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/graduation-ceremony"
+            },
+            {
+              "label": {
+                "de": "Preisverleihung",
+                "en": "Award Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/award-ceremony"
+            },
+            {
+              "label": {
+                "de": "Ehrung",
+                "en": "Honoring"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/honor-ceremony"
+            },
+            {
+              "label": {
+                "de": "Semesterabschlussfeier",
+                "en": "Semester Closing Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/semester-closing"
+            },
+            {
+              "label": {
+                "de": "Virtuelle Abschlussfeier",
+                "en": "Virtual Graduation Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/virtual-graduation"
+            },
+            {
+              "label": {
+                "de": "Integration & Willkommen",
+                "en": "Integration & Welcome"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
+            },
+            {
+              "label": {
+                "de": "Erstsemester-Begrüßung",
+                "en": "First Semester Welcome"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/freshman-welcome"
+            },
+            {
+              "label": {
+                "de": "Einführungsveranstaltung",
+                "en": "Introductory Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-event"
+            },
+            {
+              "label": {
+                "de": "Welcome Event",
+                "en": "Welcome Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/welcome-event"
+            },
+            {
+              "label": {
+                "de": "Online-Onboarding",
+                "en": "Online Onboarding"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-onboarding"
+            },
+            {
+              "label": {
+                "de": "Orientierungstage",
+                "en": "Orientation Days"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-days"
+            },
+            {
+              "label": {
+                "de": "Kennenlerncamp",
+                "en": "Getting to Know Camp"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-camp"
+            },
+            {
+              "label": {
+                "de": "Teambuilding-Event",
+                "en": "Team Building Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/teambuilding-event"
+            },
+            {
+              "label": {
+                "de": "Tradition & Gemeinschaft",
+                "en": "Tradition & Community"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/tradition-community"
+            },
+            {
+              "label": {
+                "de": "Jubiläumsfeier",
+                "en": "Anniversary Celebration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/anniversary-celebration"
+            },
+            {
+              "label": {
+                "de": "Traditionelle Veranstaltung",
+                "en": "Traditional Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/traditional-event"
+            },
+            {
+              "label": {
+                "de": "Community-Fest",
+                "en": "Community Festival"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/community-festival"
+            },
+            {
+              "label": {
+                "de": "Alumni-Fest",
+                "en": "Alumni Festival"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/alumni-festival"
+            },
+            {
+              "label": {
+                "de": "Institutioneller Festakt",
+                "en": "Institutional Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/institutional-ceremony"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:maximumAttendeeCapacity",
+      "group": "attendance",
+      "label": {
+        "de": "Max. Teilnehmendenzahl",
+        "en": "Max. number of participants"
+      },
+      "description": {
+        "de": "Gesamtkapazität (Integer).",
+        "en": "Total capacity (Integer)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:maximumAttendeeCapacity",
+        "uri": "https://schema.org/maximumAttendeeCapacity",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 0
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:maximumPhysicalAttendeeCapacity",
+      "group": "attendance",
+      "label": {
+        "de": "Maximale Präsenz-Teilnehmerzahl",
+        "en": "Maximum Physical Attendee Capacity"
+      },
+      "description": {
+        "de": "Maximale Anzahl der Personen, die physisch vor Ort teilnehmen können",
+        "en": "Maximum number of people who can attend physically on-site"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:maximumPhysicalAttendeeCapacity",
+        "uri": "https://schema.org/maximumPhysicalAttendeeCapacity",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 0
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:maximumVirtualAttendeeCapacity",
+      "group": "attendance",
+      "label": {
+        "de": "Maximale virtuelle Teilnehmerzahl",
+        "en": "Maximum Virtual Attendee Capacity"
+      },
+      "description": {
+        "de": "Maximale Anzahl der Personen, die virtuell/online teilnehmen können",
+        "en": "Maximum number of people who can attend virtually/online"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:maximumVirtualAttendeeCapacity",
+        "uri": "https://schema.org/maximumVirtualAttendeeCapacity",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 0
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:oeh_event_begin",
+      "group": "schedule",
+      "label": {
+        "de": "Start (Datum/Zeit)",
+        "en": "Start (Date/Time)"
+      },
+      "description": {
+        "de": "Startdatum/-zeit im ISO 8601-Format, z.B. 2026-09-15T20:00 oder 2026-09-15.",
+        "en": "Start date/time in ISO 8601 format, e.g. 2026-09-15T20:00 or 2026-09-15."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:startDate",
+        "uri": "https://schema.org/startDate",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}([Tt].+)?$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:oeh_event_end",
+      "group": "schedule",
+      "label": {
+        "de": "Ende (Datum/Zeit)",
+        "en": "End (Date/Time)"
+      },
+      "description": {
+        "de": "Enddatum/-zeit im ISO 8601-Format, z.B. 2026-09-30T23:00 oder 2026-09-30.",
+        "en": "End date/time in ISO 8601 format, e.g. 2026-09-30T23:00 or 2026-09-30."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:endDate",
+        "uri": "https://schema.org/endDate",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}([Tt].+)?$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:doorTime",
+      "group": "schedule",
+      "label": {
+        "de": "Einlass (Zeit)",
+        "en": "Entry (Time)"
+      },
+      "description": {
+        "de": "Einlass-Zeit im ISO 8601-Format, z.B. 2026-09-15T19:00.",
+        "en": "Entry time in ISO 8601 format, e.g. 2026-09-15T19:00."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:doorTime",
+        "uri": "https://schema.org/doorTime",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:eventStatus",
+      "group": "schedule",
+      "label": {
+        "de": "Status",
+        "en": "Status"
+      },
+      "description": {
+        "de": "Geplanter/abgesagter/verschobener Status.",
+        "en": "Planned/cancelled/postponed status."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:eventStatus",
+        "uri": "https://schema.org/eventStatus",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Geplant",
+                "en": "Scheduled"
+              },
+              "uri": "https://schema.org/EventScheduled",
+              "value": "https://schema.org/EventScheduled"
+            },
+            {
+              "label": {
+                "de": "Abgesagt",
+                "en": "Cancelled"
+              },
+              "uri": "https://schema.org/EventCancelled",
+              "value": "https://schema.org/EventCancelled"
+            },
+            {
+              "label": {
+                "de": "Verschoben",
+                "en": "Postponed"
+              },
+              "uri": "https://schema.org/EventPostponed",
+              "value": "https://schema.org/EventPostponed"
+            },
+            {
+              "label": {
+                "de": "Neu geplant",
+                "en": "Rescheduled"
+              },
+              "uri": "https://schema.org/EventRescheduled",
+              "value": "https://schema.org/EventRescheduled"
+            },
+            {
+              "label": {
+                "de": "Online verlegt",
+                "en": "Moved Online"
+              },
+              "uri": "https://schema.org/EventMovedOnline",
+              "value": "https://schema.org/EventMovedOnline"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "map_labels_to_uris": false
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:previousStartDate",
+      "group": "schedule",
+      "label": {
+        "de": "Vorheriger Start",
+        "en": "Previous Start"
+      },
+      "description": {
+        "de": "Vorherige Starts im ISO 8601-Format, z.B. 2026-08-15T20:00 (mehrere möglich).",
+        "en": "Previous starts in ISO 8601 format, e.g. 2026-08-15T20:00 (multiple)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:previousStartDate",
+        "uri": "https://schema.org/previousStartDate",
+        "datatype": "datetime",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}([Tt].+)?$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:duration",
+      "group": "schedule",
+      "label": {
+        "de": "Dauer",
+        "en": "Duration"
+      },
+      "description": {
+        "de": "ISO 8601 Dauer, z. B. P1D, PT90M.",
+        "en": "ISO 8601 duration, e.g. P1D, PT90M."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:duration",
+        "uri": "https://schema.org/duration",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^P(T(?=\\d)(\\d+H)?(\\d+M)?(\\d+S)?)?(\\d+D)?$|^P\\d+W$|^P\\d+M$|^P\\d+Y$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:eventAttendanceMode",
+      "group": "attendance",
+      "label": {
+        "de": "Teilnahmemodus",
+        "en": "Participation mode"
+      },
+      "description": {
+        "de": "Online, vor Ort oder gemischt.",
+        "en": "Online, on-site, or mixed."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:eventAttendanceMode",
+        "uri": "https://schema.org/eventAttendanceMode",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Online",
+                "en": "Online"
+              },
+              "uri": "https://schema.org/OnlineEventAttendanceMode"
+            },
+            {
+              "label": {
+                "de": "Vor Ort",
+                "en": "Offline"
+              },
+              "uri": "https://schema.org/OfflineEventAttendanceMode"
+            },
+            {
+              "label": {
+                "de": "Hybrid",
+                "en": "Mixed"
+              },
+              "uri": "https://schema.org/MixedEventAttendanceMode"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:location",
+      "group": "attendance",
+      "label": {
+        "de": "Ort",
+        "en": "Location"
+      },
+      "description": {
+        "de": "Ort als Place/Address oder virtuelle URL.",
+        "en": "Location as Place/Address or virtual URL."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:location",
+        "uri": "https://schema.org/location",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Place",
+              "label": {
+                "de": "Physischer Ort",
+                "en": "Physical Location"
+              },
+              "description": {
+                "de": "Physischer Ort wie Gebäude, Raum oder Veranstaltungsort mit Adresse und optional Koordinaten",
+                "en": "Physical location such as building, room, or venue with address and optional coordinates"
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name oder Bezeichnung des Objekts",
+                    "en": "Name or designation of the object"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "address",
+                  "label": {
+                    "de": "Adresse",
+                    "en": "Address"
+                  },
+                  "description": {
+                    "de": "Vollständige Postanschrift",
+                    "en": "Complete postal address"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "fields": [
+                    {
+                      "id": "streetAddress",
+                      "label": {
+                        "de": "Straße und Hausnummer",
+                        "en": "Street Address"
+                      },
+                      "description": {
+                        "de": "Straßenname und Hausnummer",
+                        "en": "Street name and house number"
+                      },
+                      "prompt": {
+                        "de": "",
+                        "en": ""
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "postalCode",
+                      "label": {
+                        "de": "Postleitzahl",
+                        "en": "Postal Code"
+                      },
+                      "description": {
+                        "de": "Postleitzahl (5-stellig)",
+                        "en": "Postal code (5 digits)"
+                      },
+                      "prompt": {
+                        "de": "",
+                        "en": ""
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "validation": {
+                          "pattern": "^[0-9]{4,10}$"
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressLocality",
+                      "label": {
+                        "de": "Stadt",
+                        "en": "City"
+                      },
+                      "description": {
+                        "de": "Stadt oder Gemeinde",
+                        "en": "City or municipality"
+                      },
+                      "prompt": {
+                        "de": "",
+                        "en": ""
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressRegion",
+                      "label": {
+                        "de": "Bundesland/Region",
+                        "en": "State/Region"
+                      },
+                      "description": {
+                        "de": "Bundesland, Region oder Staat",
+                        "en": "State, region, or province"
+                      },
+                      "prompt": {
+                        "de": "",
+                        "en": ""
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressCountry",
+                      "label": {
+                        "de": "Land",
+                        "en": "Country"
+                      },
+                      "description": {
+                        "de": "Land (Name oder ISO-Code wie \"DE\")",
+                        "en": "Country (name or ISO code like \"DE\")"
+                      },
+                      "prompt": {
+                        "de": "",
+                        "en": ""
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true,
+                          "case": "upper"
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    }
+                  ],
+                  "system": {
+                    "datatype": "object",
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "geo",
+                  "label": {
+                    "de": "Koordinaten",
+                    "en": "Coordinates"
+                  },
+                  "description": {
+                    "de": "Geografische Koordinaten (Breiten- und Längengrad)",
+                    "en": "Geographic coordinates (latitude and longitude)"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "fields": [
+                    {
+                      "id": "latitude",
+                      "label": {
+                        "de": "Breitengrad",
+                        "en": "Latitude"
+                      },
+                      "description": {
+                        "de": "Geografische Breite (-90 bis +90)",
+                        "en": "Geographic latitude (-90 to +90)"
+                      },
+                      "prompt": {
+                        "de": "",
+                        "en": ""
+                      },
+                      "system": {
+                        "datatype": "number",
+                        "validation": {
+                          "min": -90,
+                          "max": 90
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "longitude",
+                      "label": {
+                        "de": "Längengrad",
+                        "en": "Longitude"
+                      },
+                      "description": {
+                        "de": "Geografische Länge (-180 bis +180)",
+                        "en": "Geographic longitude (-180 to +180)"
+                      },
+                      "prompt": {
+                        "de": "",
+                        "en": ""
+                      },
+                      "system": {
+                        "datatype": "number",
+                        "validation": {
+                          "min": -180,
+                          "max": 180
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    }
+                  ],
+                  "system": {
+                    "datatype": "object",
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "sameAs",
+                  "label": {
+                    "de": "Verweis",
+                    "en": "Same As"
+                  },
+                  "description": {
+                    "de": "URI zu einer externen Referenz (z.B. Wikipedia, Wikidata)",
+                    "en": "URI to an external reference (e.g., Wikipedia, Wikidata)"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "VirtualLocation",
+              "label": {
+                "de": "Virtueller Ort",
+                "en": "Virtual Location"
+              },
+              "description": {
+                "de": "Virtueller Ort für Online-Veranstaltungen, Webinare oder digitale Meetings",
+                "en": "Virtual location for online events, webinars, or digital meetings"
+              },
+              "fields": [
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "Web-Adresse oder Link",
+                    "en": "Web address or link"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "validation": {
+                      "format": "url"
+                    },
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "PostalAddress",
+              "label": {
+                "de": "Postadresse",
+                "en": "Postal Address"
+              },
+              "description": {
+                "de": "Reine Postanschrift ohne Ortsnamen oder Gebäudebezeichnung",
+                "en": "Postal address without place name or building designation"
+              },
+              "fields": []
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:price",
+      "group": "attendance",
+      "label": {
+        "de": "Kostenfrei?",
+        "en": "Free of charge?"
+      },
+      "description": {
+        "de": "Gibt an, ob die Teilnahme kostenlos ist.",
+        "en": "Gibt an, ob die Teilnahme kostenlos ist."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:isAccessibleForFree",
+        "uri": "https://schema.org/isAccessibleForFree",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:organizer",
+      "group": "roles",
+      "label": {
+        "de": "Organisator:in(en)",
+        "en": "Organisator:in(en)"
+      },
+      "description": {
+        "de": "Organisation(en) oder Person(en), die das Event organisieren.",
+        "en": "Organisation(en) oder Person(en), die das Event organisieren."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:organizer",
+        "uri": "https://schema.org/organizer",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Organisator:in(en)",
+                "en": "Organisator:in(en)"
+              },
+              "description": {
+                "de": "Organisation(en) oder Person(en), die das Event organisieren.",
+                "en": "Organisation(en) oder Person(en), die das Event organisieren."
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name oder Bezeichnung",
+                    "en": "Name or designation"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL oder Webadresse",
+                    "en": "URL or web address"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "sameAs",
+                  "label": {
+                    "de": "Verweis",
+                    "en": "Reference"
+                  },
+                  "description": {
+                    "de": "Verweis auf externe Ressource oder Identifikator",
+                    "en": "Reference to external resource or identifier"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "sameAs",
+                    "uri": "https://schema.org/sameAs",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:performer",
+      "group": "roles",
+      "label": {
+        "de": "Mitwirkende/Performer",
+        "en": "Contributors/Performers"
+      },
+      "description": {
+        "de": "Performer:innen (z. B. Vortragende, Bands).",
+        "en": "Performers (e.g., speakers, bands)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:performer",
+        "uri": "https://schema.org/performer",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Mitwirkende/Performer",
+                "en": "Contributors/Performers"
+              },
+              "description": {
+                "de": "Performer:innen (z. B. Vortragende, Bands).",
+                "en": "Performers (e.g., speakers, bands)."
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name oder Bezeichnung",
+                    "en": "Name or designation"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL oder Webadresse",
+                    "en": "URL or web address"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:attendee",
+      "group": "roles",
+      "label": {
+        "de": "Teilnehmende (bekannt)",
+        "en": "Participants (known)"
+      },
+      "description": {
+        "de": "Optionale Nennung bekannter Teilnehmender (Org/Person).",
+        "en": "Optional mention of known participants (Org/Person)."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:attendee",
+        "uri": "https://schema.org/attendee",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Teilnehmende (bekannt)",
+                "en": "Participants (known)"
+              },
+              "description": {
+                "de": "Optionale Nennung bekannter Teilnehmender (Org/Person).",
+                "en": "Optional mention of known participants (Org/Person)."
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name oder Bezeichnung",
+                    "en": "Name or designation"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL oder Webadresse",
+                    "en": "URL or web address"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:offers",
+      "group": "attendance",
+      "label": {
+        "de": "Tickets/Preise",
+        "en": "Tickets/Prices"
+      },
+      "description": {
+        "de": "Ticket-/Angebotsinfos, z. B. Preis, Währung, URL.",
+        "en": "Ticket/offer information, e.g., price, currency, URL."
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:offers",
+        "uri": "https://schema.org/offers",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Offer",
+              "label": {
+                "de": "Tickets/Preise",
+                "en": "Tickets/Prices"
+              },
+              "description": {
+                "de": "Ticket-/Angebotsinfos, z. B. Preis, Währung, URL.",
+                "en": "Ticket/offer information, e.g., price, currency, URL."
+              },
+              "fields": [
+                {
+                  "id": "price",
+                  "label": {
+                    "de": "Preis",
+                    "en": "Price"
+                  },
+                  "description": {
+                    "de": "Preis oder Kosten",
+                    "en": "Price or cost"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "price",
+                    "uri": "https://schema.org/price",
+                    "datatype": "number",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "priceCurrency",
+                  "label": {
+                    "de": "Währung",
+                    "en": "Price Currency"
+                  },
+                  "description": {
+                    "de": "Währung (z.B. EUR, USD)",
+                    "en": "Currency (e.g., EUR, USD)"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "priceCurrency",
+                    "uri": "https://schema.org/priceCurrency",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true,
+                    "vocabulary": {
+                      "type": "closed",
+                      "concepts": [
+                        { "label": { "de": "Euro (EUR)", "en": "Euro (EUR)" }, "value": "EUR" },
+                        { "label": { "de": "US-Dollar (USD)", "en": "US Dollar (USD)" }, "value": "USD" },
+                        { "label": { "de": "Britisches Pfund (GBP)", "en": "British Pound (GBP)" }, "value": "GBP" },
+                        { "label": { "de": "Schweizer Franken (CHF)", "en": "Swiss Franc (CHF)" }, "value": "CHF" },
+                        { "label": { "de": "Japanischer Yen (JPY)", "en": "Japanese Yen (JPY)" }, "value": "JPY" },
+                        { "label": { "de": "Kanadischer Dollar (CAD)", "en": "Canadian Dollar (CAD)" }, "value": "CAD" },
+                        { "label": { "de": "Australischer Dollar (AUD)", "en": "Australian Dollar (AUD)" }, "value": "AUD" },
+                        { "label": { "de": "Chinesischer Yuan (CNY)", "en": "Chinese Yuan (CNY)" }, "value": "CNY" },
+                        { "label": { "de": "Schwedische Krone (SEK)", "en": "Swedish Krona (SEK)" }, "value": "SEK" },
+                        { "label": { "de": "Norwegische Krone (NOK)", "en": "Norwegian Krone (NOK)" }, "value": "NOK" },
+                        { "label": { "de": "Dänische Krone (DKK)", "en": "Danish Krone (DKK)" }, "value": "DKK" },
+                        { "label": { "de": "Polnischer Złoty (PLN)", "en": "Polish Złoty (PLN)" }, "value": "PLN" },
+                        { "label": { "de": "Tschechische Krone (CZK)", "en": "Czech Koruna (CZK)" }, "value": "CZK" },
+                        { "label": { "de": "Ungarischer Forint (HUF)", "en": "Hungarian Forint (HUF)" }, "value": "HUF" }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL oder Webadresse",
+                    "en": "URL or web address"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "availability",
+                  "label": {
+                    "de": "Verfügbarkeit",
+                    "en": "Availability"
+                  },
+                  "description": {
+                    "de": "Verfügbarkeit oder Bestand",
+                    "en": "Availability or stock status"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "availability",
+                    "uri": "https://schema.org/availability",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "validFrom",
+                  "label": {
+                    "de": "Gültig von",
+                    "en": "Valid From"
+                  },
+                  "description": {
+                    "de": "Gültig ab (Datum im Format YYYY-MM-DD, z.B. 2026-09-15)",
+                    "en": "Valid from (date in YYYY-MM-DD format, e.g. 2026-09-15)"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "validFrom",
+                    "uri": "https://schema.org/validFrom",
+                    "datatype": "date",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "validThrough",
+                  "label": {
+                    "de": "Gültig bis",
+                    "en": "Valid Through"
+                  },
+                  "description": {
+                    "de": "Gültig bis (Datum im Format YYYY-MM-DD, z.B. 2026-09-30)",
+                    "en": "Valid through (date in YYYY-MM-DD format, e.g. 2026-09-30)"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "validThrough",
+                    "uri": "https://schema.org/validThrough",
+                    "datatype": "date",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "acceptedPaymentMethod",
+                  "label": {
+                    "de": "accepted Payment Method",
+                    "en": "accepted Payment Method"
+                  },
+                  "description": {
+                    "de": "Akzeptierte Zahlungsmethoden",
+                    "en": "Accepted payment methods"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "acceptedPaymentMethod",
+                    "uri": "https://schema.org/acceptedPaymentMethod",
+                    "datatype": "array",
+                    "multiple": true,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true,
+                    "items": {
+                      "datatype": "string"
+                    }
+                  }
+                },
+                {
+                  "id": "paymentMethod",
+                  "label": {
+                    "de": "payment Method",
+                    "en": "payment Method"
+                  },
+                  "description": {
+                    "de": "Zahlungsmethode",
+                    "en": "Payment method"
+                  },
+                  "prompt": {
+                    "de": "",
+                    "en": ""
+                  },
+                  "system": {
+                    "path": "paymentMethod",
+                    "uri": "https://schema.org/paymentMethod",
+                    "datatype": "array",
+                    "multiple": true,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true,
+                    "items": {
+                      "datatype": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:competence",
+      "group": "education",
+      "label": {
+        "de": "Lernziele/Inhalte",
+        "en": "Learning objectives/Content"
+      },
+      "description": {
+        "de": "Welche Kompetenz/Outcome wird vermittelt?",
+        "en": "Which competency/outcome is being taught?"
+      },
+      "prompt": {
+        "de": "",
+        "en": ""
+      },
+      "system": {
+        "path": "schema:teaches",
+        "uri": "https://schema.org/teaches",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "items": {
+          "datatype": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "oeh:eventType": [],
+    "schema:startDate": "",
+    "schema:endDate": "",
+    "schema:doorTime": "",
+    "schema:eventStatus": "",
+    "schema:previousStartDate": [],
+    "schema:duration": "",
+    "schema:eventAttendanceMode": "",
+    "schema:location": [],
+    "schema:isAccessibleForFree": null,
+    "schema:maximumAttendeeCapacity": null,
+    "schema:maximumPhysicalAttendeeCapacity": null,
+    "schema:maximumVirtualAttendeeCapacity": null,
+    "schema:organizer": [],
+    "schema:performer": [],
+    "schema:attendee": [],
+    "schema:offers": [],
+    "schema:teaches": []
+  }
+}

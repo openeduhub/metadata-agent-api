@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Agent – Volle Webkomponente</title>
+
+    <!-- Fonts (Material Icons + Roboto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Widget Styles -->
+    <link rel="stylesheet" href="../dist/styles.css">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f5f5f5;
+            padding: 24px;
+        }
+
+        .page-header {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #333;
+        }
+
+        .page-header p {
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .widget-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 700px;
+        }
+
+        metadata-agent-canvas {
+            display: block;
+            width: 100%;
+            min-height: 700px;
+        }
+
+        .info-box {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            padding: 16px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #1565c0;
+        }
+
+        .info-box code {
+            background: rgba(0,0,0,0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>Metadata Agent Canvas</h1>
+        <p>Volle Webkomponente mit Eingabebereich, KI-Extraktion und allen Features.</p>
+    </div>
+
+    <div class="widget-container">
+        <!--
+            Metadata Agent Canvas – Volle Webkomponente
+            Alle Attribute können auch per JavaScript gesetzt werden:
+              document.querySelector('metadata-agent-canvas').layout = 'detail';
+
+            Verfügbare Attribute (alle optional außer api-url):
+            ═══════════════════════════════════════════════════
+            api-url             = URL der Metadata Agent API (Pflicht)
+            layout              = "default" | "compact" | "minimal" | "detail" | "plugin" | "dialog" | "prueftisch" | "prueftisch-gross"
+            context-name        = Schema-Kontext: "default" | "redesign_26"
+            schema-version      = Schema-Version: "1.8.0" | "latest"
+            columns             = Spaltenanzahl: 1 | 2 | 3 | 4 (nur für Detail-Layout relevant)
+            background-color    = CSS-Farbe für Hintergrund, z.B. "#f5f5f5"
+            input-mode          = Eingabemodus: "text" | "url" | "nodeId"
+
+            Sichtbarkeit (true/false):
+            show-input-area     = Eingabebereich anzeigen
+            show-status-bar     = Statusleiste mit Fortschritt anzeigen
+            show-core-fields    = Kernfelder (Titel, Beschreibung, Keywords) anzeigen
+            show-special-fields = Spezialfelder (Fach, Bildungsstufe etc.) anzeigen
+            show-footer         = Fußzeile anzeigen
+            show-floating-controls = Floating Controls (Content-Type-Selector) anzeigen
+            controls            = Alias für show-floating-controls (OEH-Kompatibilität)
+            show-field-actions  = Feld-Aktionsbuttons (Bearbeiten, KI-Generieren) anzeigen
+            show-upload-button  = Upload-Button in Floating Controls anzeigen
+            show-page-mode      = Seitenmodus-Umschalter anzeigen
+            show-content-type-only = Nur Content-Type-Selector in Controls zeigen
+
+            Verhalten:
+            readonly            = Nur-Lese-Modus (true/false)
+            viewer-mode         = Alias für readonly (Rückwärtskompatibilität)
+            borderless          = Rahmenloser Modus (true/false)
+            highlight-ai        = KI-generierte Felder farblich hervorheben (true/false, Standard: true)
+            auto-extract        = Automatisch extrahieren nach Laden (true/false)
+
+            Daten direkt setzen:
+            text                = Text direkt als Eingabe setzen
+            url                 = URL direkt als Eingabe setzen (löst URL-Modus aus)
+            metadata-input      = JSON-Objekt mit vorausgefüllten Metadaten (per JavaScript)
+            content-type        = Inhaltstyp setzen (Schema-Dateiname, z.B. 'event.json'). Per JS: canvas.contentType = 'event.json'
+
+            Events (JavaScript):
+            metadataChange      = Metadaten wurden geändert (event.detail = aktuelle Felder)
+            metadataSubmit      = Metadaten abgesendet (event.detail = alle Metadaten)
+            extractionComplete  = KI-Extraktion abgeschlossen
+            contentTypeDetected = Inhaltstyp erkannt
+            uploadResult        = Upload-Ergebnis (event.detail = {success, nodeId, error})
+            reloadFromPage      = Nutzer hat "Seite neu laden" geklickt
+        -->
+        <metadata-agent-canvas
+            id="canvas"
+            api-url="https://metadata-agent-api.vercel.app"
+            layout="default"
+            context-name="default"
+            schema-version="latest"
+            input-mode="text"
+            show-input-area="true"
+            show-status-bar="true"
+            show-core-fields="true"
+            show-special-fields="true"
+            show-footer="false"
+            show-floating-controls="true"
+            show-field-actions="true"
+            show-upload-button="false"
+            show-page-mode="false"
+            show-content-type-only="false"
+            readonly="false"
+            borderless="true"
+            highlight-ai="true"
+            auto-extract="false">
+        </metadata-agent-canvas>
+    </div>
+
+    <div class="info-box">
+        <strong>Hinweis:</strong> Die <code>api-url</code> wird automatisch auf den aktuellen Server gesetzt.
+        Bei Einbindung in andere Seiten muss die URL der Metadata Agent API angegeben werden,
+        z.B. <code>api-url="https://metadata-agent-api.vercel.app"</code>.
+    </div>
+
+    <!-- Widget Scripts (order matters: runtime → polyfills → main) -->
+    <script src="../dist/runtime.js" defer></script>
+    <script src="../dist/polyfills.js" defer></script>
+    <script src="../dist/main.js" defer></script>
+
+    <script>
+        // Auto-detect API URL from current page location
+        // API-URL: Vercel-Deployment als Standard, bei eigenem Hosting anpassen
+        const apiUrl = 'https://metadata-agent-api.vercel.app';
+        document.getElementById('canvas').setAttribute('api-url', apiUrl);
+
+        // Listen for events from the web component
+        customElements.whenDefined('metadata-agent-canvas').then(() => {
+            const canvas = document.getElementById('canvas');
+
+            canvas.addEventListener('metadataChange', (e) => {
+                console.log('Metadata changed:', e.detail);
+            });
+
+            canvas.addEventListener('metadataSubmit', (e) => {
+                console.log('Metadata submitted:', e.detail);
+            });
+
+            canvas.addEventListener('extractionComplete', (e) => {
+                console.log('Extraction complete:', e.detail);
+            });
+        });
+    </script>
+
+</body>
+</html>

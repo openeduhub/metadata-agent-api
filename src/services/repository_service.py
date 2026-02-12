@@ -1,25 +1,29 @@
 """Repository service for uploading metadata to WLO edu-sharing repository."""
 import base64
+import json
 from typing import Any, Optional
 import httpx
 
 
-# Repository configurations
-REPOSITORY_CONFIGS = {
-    "staging": {
-        "base_url": "https://repository.staging.openeduhub.net/edu-sharing",
-        "inbox_id": "21144164-30c0-4c01-ae16-264452197063",  # WLO-Uploadmanager Inbox
-    },
-    "prod": {
-        "base_url": "https://redaktion.openeduhub.net/edu-sharing",
-        "inbox_id": "21144164-30c0-4c01-ae16-264452197063",  # Same inbox ID
-    },
-    # Alias for backwards compatibility
-    "production": {
-        "base_url": "https://redaktion.openeduhub.net/edu-sharing",
-        "inbox_id": "21144164-30c0-4c01-ae16-264452197063",
+def _get_repository_configs() -> dict:
+    """Build repository configs using settings for inbox IDs."""
+    from ..config import get_settings
+    settings = get_settings()
+    return {
+        "staging": {
+            "base_url": "https://repository.staging.openeduhub.net/edu-sharing",
+            "inbox_id": settings.wlo_inbox_id_staging,
+        },
+        "prod": {
+            "base_url": "https://redaktion.openeduhub.net/edu-sharing",
+            "inbox_id": settings.wlo_inbox_id_prod,
+        },
+        # Alias for backwards compatibility
+        "production": {
+            "base_url": "https://redaktion.openeduhub.net/edu-sharing",
+            "inbox_id": settings.wlo_inbox_id_prod,
+        }
     }
-}
 
 
 class RepositoryService:
@@ -71,7 +75,7 @@ class RepositoryService:
         Returns:
             Upload result with nodeId, success status, etc.
         """
-        config = REPOSITORY_CONFIGS.get(repository)
+        config = _get_repository_configs().get(repository)
         if not config:
             return {
                 "success": False,
@@ -307,6 +311,7 @@ class RepositoryService:
         
         # Supported fields whitelist
         supported_fields = [
+            # Core metadata fields
             "cclom:title",
             "cclom:general_description",
             "cclom:general_keyword",
@@ -319,7 +324,24 @@ class RepositoryService:
             "ccm:commonlicense_cc_version",
             "ccm:oeh_publisher_combined",
             "cm:author",
+            # Event-specific fields
             "oeh:eventType",
+            "ccm:oeh_event_startDate",
+            "ccm:oeh_event_endDate",
+            "ccm:oeh_event_doorTime",
+            "ccm:oeh_event_duration",
+            "ccm:oeh_event_eventStatus",
+            "ccm:oeh_event_eventAttendanceMode",
+            "ccm:oeh_event_isAccessibleForFree",
+            "ccm:oeh_event_maximumAttendeeCapacity",
+            # Organization / Person fields
+            "ccm:lifecyclecontributer_author",
+            "ccm:lifecyclecontributer_publisher",
+            # Additional common fields
+            "ccm:oeh_lrt",
+            "ccm:curriculum",
+            "ccm:oeh_languageTarget",
+            "ccm:oeh_competence",
         ]
         
         # Filter and normalize
@@ -392,7 +414,6 @@ class RepositoryService:
             if "value" in item:
                 return item["value"]
             # For complex objects like address, serialize to JSON
-            import json
             return json.dumps(item, ensure_ascii=False)
         
         return str(item)

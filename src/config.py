@@ -66,6 +66,13 @@ class Settings(BaseSettings):
     wlo_guest_password: str = Field(default="", alias="WLO_GUEST_PASSWORD")
     wlo_repository_base_url: str = Field(default="", alias="WLO_REPOSITORY_BASE_URL")
     
+    # WLO Repository Inbox IDs (where new nodes are created)
+    wlo_inbox_id_staging: str = "21144164-30c0-4c01-ae16-264452197063"
+    wlo_inbox_id_prod: str = "21144164-30c0-4c01-ae16-264452197063"
+    
+    # CORS Settings
+    cors_origins: str = "*"  # Comma-separated origins, or '*' for all
+    
     model_config = {
         "env_prefix": "METADATA_AGENT_",
         "env_file": ".env",

@@ -6,6 +6,15 @@ from datetime import datetime, timezone
 from typing import Any, Optional
 
 from ..config import get_settings
+from ..utils.text_utils import levenshtein_distance
+from ..utils.schema_loader import (
+    load_schema, get_content_types, detect_schema_from_text,
+    get_ai_fillable_fields, get_schema_fields,
+)
+from .llm_service import get_llm_service
+from .geocoding_service import get_geocoding_service
+from .output_normalizer import get_output_normalizer
+from .field_normalizer import get_field_normalizer
 
 
 def parse_update_text(text: str) -> tuple[str, Optional[dict[str, Any]]]:
@@ -56,15 +65,6 @@ def parse_update_text(text: str) -> tuple[str, Optional[dict[str, Any]]]:
     return (text, None)
 
 
-from ..utils.schema_loader import (
-    load_schema,
-    get_ai_fillable_fields,
-    get_schema_fields,
-    get_content_types,
-    detect_schema_from_text,
-)
-
-
 def get_default_value_for_field(field: dict[str, Any]) -> Any:
     """
     Get the default empty value for a field based on its datatype.
@@ -107,11 +107,6 @@ def get_default_value_for_field(field: dict[str, Any]) -> Any:
         return ""
 
 
-from .llm_service import get_llm_service
-from .geocoding_service import get_geocoding_service
-from .output_normalizer import get_output_normalizer
-from .field_normalizer import get_field_normalizer
-
 
 class MetadataService:
     """Service for metadata extraction orchestration."""
@@ -134,7 +129,7 @@ class MetadataService:
         self,
         text: str,
         context: str = "default",
-        version: str = "1.8.0",
+        version: str = "latest",
         schema_file: str = "auto",
         existing_metadata: Optional[dict[str, Any]] = None,
         language: str = "de",
@@ -145,6 +140,7 @@ class MetadataService:
         normalize_vocabularies: bool = True,
         regenerate_fields: Optional[list[str]] = None,
         regenerate_empty: bool = False,
+        origins: Optional[dict[str, str]] = None,
     ) -> dict[str, Any]:
         """
         Generate metadata from text.
@@ -163,6 +159,7 @@ class MetadataService:
             normalize_vocabularies: Normalize vocabulary values using fuzzy matching
             regenerate_fields: List of field IDs to regenerate (re-extract)
             regenerate_empty: Re-extract fields that are empty in existing_metadata
+            origins: Existing field origins dict (field_id -> 'ai'|'user')
             
         Returns:
             Generated metadata with statistics
@@ -187,8 +184,9 @@ class MetadataService:
             text = actual_text
             warnings.append("Text-basierte Metadaten-Übergabe erkannt: [IST-STAND]/[UPDATE]")
         
-        # Get LLM config for response
-        llm_config = self.settings.get_llm_config()
+        # Get LLM info for response (use actual service provider/model, not defaults)
+        llm_provider_used = self.llm_service.provider
+        llm_model_used = self.llm_service.model
         
         # Detect schema if auto
         if schema_file == "auto":
@@ -225,7 +223,7 @@ class MetadataService:
             processing_time = int((time.time() - start_time) * 1000)
             return self._build_error_response(
                 context, version, schema_file, language, processing_time,
-                llm_config, f"Schema loading failed: {str(e)}"
+                llm_provider_used, llm_model_used, f"Schema loading failed: {str(e)}"
             )
         
         # Determine which fields to extract
@@ -270,16 +268,20 @@ class MetadataService:
         
         # Build flat metadata (just field_id: value)
         flat_metadata = {}
+        # Track field origins: 'ai' for LLM-extracted, 'user' for manually entered
+        field_origins = dict(origins) if origins else {}
+        
         if existing_metadata:
             # Copy existing but exclude meta fields
             for key, value in existing_metadata.items():
                 if not key.startswith("_"):
                     flat_metadata[key] = value
         
-        # Add extracted values (overwrites existing)
+        # Add extracted values (overwrites existing) and mark as AI-generated
         for field_id, value in extracted_values.items():
             if value is not None:
                 flat_metadata[field_id] = value
+                field_origins[field_id] = "ai"
         
         # Normalize field values based on schema
         if normalize_output:
@@ -302,10 +304,11 @@ class MetadataService:
                 warnings.append(f"Geocoding failed: {str(e)}")
         
         # Normalize output structure to match Canvas web component
-        try:
-            flat_metadata = self.output_normalizer.normalize_output(flat_metadata)
-        except Exception as e:
-            warnings.append(f"Output normalization warning: {str(e)}")
+        if normalize_output:
+            try:
+                flat_metadata = self.output_normalizer.normalize_output(flat_metadata)
+            except Exception as e:
+                warnings.append(f"Output normalization warning: {str(e)}")
         
         # Build ordered metadata with all schema fields (core first, then content-type)
         # This matches the web component's output format
@@ -349,6 +352,15 @@ class MetadataService:
         
         processing_time = int((time.time() - start_time) * 1000)
         
+        # Build final origins for all fields in ordered_metadata
+        final_origins = {}
+        for field_id in ordered_metadata:
+            if field_id in field_origins:
+                final_origins[field_id] = field_origins[field_id]
+            else:
+                # New fields without origin info: AI-extracted if in extracted_values, else unknown
+                final_origins[field_id] = "ai" if field_id in extracted_values else "user"
+        
         return {
             "contextName": context,
             "schemaVersion": version,
@@ -356,13 +368,14 @@ class MetadataService:
             "language": language,
             "exportedAt": datetime.now(timezone.utc).isoformat(),
             "metadata": ordered_metadata,
+            "_origins": final_origins,
             "processing": {
                 "success": True,
                 "fields_extracted": len([v for v in extracted_values.values() if v is not None]),
                 "fields_total": len(all_fields),
                 "processing_time_ms": processing_time,
-                "llm_provider": self.settings.llm_provider,
-                "llm_model": llm_config["model"],
+                "llm_provider": llm_provider_used,
+                "llm_model": llm_model_used,
                 "errors": errors,
                 "warnings": warnings,
             }
@@ -375,7 +388,8 @@ class MetadataService:
         schema_file: str,
         language: str,
         processing_time: int,
-        llm_config: dict,
+        llm_provider: str,
+        llm_model: str,
         error_message: str,
     ) -> dict[str, Any]:
         """Build error response in the new format."""
@@ -391,8 +405,8 @@ class MetadataService:
                 "fields_extracted": 0,
                 "fields_total": 0,
                 "processing_time_ms": processing_time,
-                "llm_provider": self.settings.llm_provider,
-                "llm_model": llm_config["model"],
+                "llm_provider": llm_provider,
+                "llm_model": llm_model,
                 "errors": [error_message],
                 "warnings": [],
             }
@@ -402,7 +416,7 @@ class MetadataService:
         self,
         metadata: dict[str, Any],
         context: str = "default",
-        version: str = "1.8.0",
+        version: str = "latest",
         schema_file: str = "auto",
     ) -> dict[str, Any]:
         """
@@ -418,19 +432,31 @@ class MetadataService:
         
         Returns validation results with errors and warnings.
         """
-        import re
         
         errors = []
         warnings = []
         
         # Detect schema from metadata if auto
         if schema_file == "auto":
-            schema_info = metadata.get("_schema", {})
-            schema_file = schema_info.get("file", "learning_material.json")
+            # Support new flat format (metadataset) and legacy format (_schema.file)
+            schema_file = metadata.get("metadataset") or metadata.get("_schema", {}).get("file", "learning_material.json")
         
         try:
             schema = load_schema(context, version, schema_file)
-            fields = schema.get("fields", [])
+            fields = list(schema.get("fields", []))
+            
+            # Also load core fields if schema is not core.json
+            # This ensures required core fields (e.g. cclom:title) are validated too
+            if schema_file != "core.json":
+                try:
+                    core_schema = load_schema(context, version, "core.json")
+                    core_field_ids = {f.get("id") for f in fields}
+                    for core_field in core_schema.get("fields", []):
+                        if core_field.get("id") not in core_field_ids:
+                            fields.append(core_field)
+                except Exception:
+                    pass  # Core schema not available - validate without it
+            
         except Exception as e:
             return {
                 "valid": False,
@@ -666,27 +692,10 @@ class MetadataService:
     
     def _levenshtein_distance(self, s1: str, s2: str) -> int:
         """Calculate Levenshtein distance between two strings."""
-        if len(s1) < len(s2):
-            return self._levenshtein_distance(s2, s1)
-        
-        if len(s2) == 0:
-            return len(s1)
-        
-        previous_row = range(len(s2) + 1)
-        for i, c1 in enumerate(s1):
-            current_row = [i + 1]
-            for j, c2 in enumerate(s2):
-                insertions = previous_row[j + 1] + 1
-                deletions = current_row[j] + 1
-                substitutions = previous_row[j] + (c1 != c2)
-                current_row.append(min(insertions, deletions, substitutions))
-            previous_row = current_row
-        
-        return previous_row[-1]
+        return levenshtein_distance(s1, s2)
     
     def _suggest_date_format(self, value: str) -> Optional[str]:
         """Try to parse date and suggest ISO format."""
-        import re
         
         # German months
         german_months = {
@@ -734,7 +743,6 @@ class MetadataService:
     
     def _suggest_datetime_format(self, value: str) -> Optional[str]:
         """Try to parse datetime and suggest ISO format."""
-        import re
         
         val = value.strip()
         
@@ -762,7 +770,6 @@ class MetadataService:
     
     def _suggest_time_format(self, value: str) -> Optional[str]:
         """Try to parse time and suggest HH:MM:SS format."""
-        import re
         
         val = value.strip()
         
@@ -855,7 +862,7 @@ class MetadataService:
         self,
         metadata: dict[str, Any],
         context: str = "default",
-        version: str = "1.8.0",
+        version: str = "latest",
         schema_file: str = "auto",
         language: str = "de",
         include_empty: bool = False,
@@ -866,8 +873,8 @@ class MetadataService:
         """
         # Detect schema from metadata if auto
         if schema_file == "auto":
-            schema_info = metadata.get("_schema", {})
-            schema_file = schema_info.get("file", "learning_material.json")
+            # Support new flat format (metadataset) and legacy format (_schema.file)
+            schema_file = metadata.get("metadataset") or metadata.get("_schema", {}).get("file", "learning_material.json")
         
         # Load core schema for core fields
         core_schema = None
@@ -1015,7 +1022,9 @@ class MetadataService:
             return ", ".join(self._format_single_value(v) for v in value)
         
         if isinstance(value, bool):
-            return "Ja" if value else "Nein" if language == "de" else "Yes" if value else "No"
+            if language == "de":
+                return "Ja" if value else "Nein"
+            return "Yes" if value else "No"
         
         # Check if vocabulary field for single value
         vocabulary = field.get("system", {}).get("vocabulary", {})

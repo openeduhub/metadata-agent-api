@@ -289,7 +289,7 @@ class ValidateRequest(BaseModel):
         
         # Final fallbacks if still None
         context = context or "default"
-        version = version or "1.8.0"
+        version = version or "latest"
         schema_file = schema_file or "auto"
         
         return context, version, schema_file, metadata
@@ -376,7 +376,7 @@ class ExportMarkdownRequest(BaseModel):
         
         # Final fallbacks
         context = context or "default"
-        version = version or "1.8.0"
+        version = version or "latest"
         schema_file = schema_file or "auto"
         language = language or "de"
         

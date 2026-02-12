@@ -1,0 +1,231 @@
+{
+  "COMMON": {
+    "LOADING": "Loading...",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "CLOSE": "Close",
+    "BACK": "Back",
+    "NEXT": "Next",
+    "CONFIRM": "Confirm",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "SEARCH": "Search",
+    "FILTER": "Filter",
+    "RESET": "Reset",
+    "DOWNLOAD": "Download",
+    "UPLOAD": "Upload"
+  },
+  "HEADER": {
+    "TITLE": "Metadata Agent",
+    "CLOSE": "Close",
+    "MODE": {
+      "BROWSER_EXTENSION": "Browser Extension",
+      "BOOKMARKLET": "Bookmarklet",
+      "STANDALONE": "Standalone"
+    },
+    "USER": {
+      "GUEST": "Guest",
+      "LOGGED_IN": "Logged In"
+    }
+  },
+  "SIDEBAR": {
+    "TITLE": "Sections",
+    "DESCRIPTION": "Description",
+    "TYPING": "Typology",
+    "PEDAGOGICAL": "Pedagogical",
+    "LICENSE": "License & Source",
+    "CURATION": "Curation",
+    "SECTION": "Section {{index}}"
+  },
+  "INPUT": {
+    "PLACEHOLDER": "Describe the resource you want to catalog...",
+    "URL_PLACEHOLDER": "Enter resource URL",
+    "NODE_ID_PLACEHOLDER": "Enter Node ID",
+    "START_EXTRACTION": "Start Extraction",
+    "EXTRACT_FROM_URL": "Extract from URL",
+    "EXTRACT_FROM_NODE": "Load from Node",
+    "EXTRACTING": "Extracting...",
+    "RESET": "Reset",
+    "MODE_TEXT": "Text",
+    "MODE_URL": "URL",
+    "MODE_NODE_ID": "Node ID",
+    "MODE_PAGE": "Webpage",
+    "EXTRACT_FROM_PAGE": "Reload page"
+  },
+  "CONTENT_TYPE": {
+    "LABEL": "Content Type",
+    "CHANGE": "CHANGE",
+    "SELECT": "Select Content Type",
+    "NOT_DETECTED": "Please select",
+    "CONFIDENCE": "Confidence"
+  },
+  "PROGRESS": {
+    "FIELDS": "Fields",
+    "REQUIRED": "Required",
+    "OPTIONAL": "Optional",
+    "PERCENTAGE": "Percent",
+    "FIELDS_FILLED": "fields filled",
+    "FIELDS_RECOGNIZED": "fields recognized"
+  },
+  "FIELD": {
+    "REQUIRED": "Required",
+    "OPTIONAL": "Optional",
+    "FILLED": "Filled",
+    "EMPTY": "Empty",
+    "EXTRACTING": "Extracting",
+    "ERROR": "Error",
+    "ADD_CHIP": "Add",
+    "REMOVE_CHIP": "Remove",
+    "SHOW_ON_MAP": "Show on OpenStreetMap",
+    "FIELD_INFO": "Field info",
+    "MULTIPLE_HINT": "Multiple values allowed. Choose from dropdown or enter values.",
+    "REQUIRED_HINT": "Required field – must be filled",
+    "VOCABULARY_CONTROLLED": "Use only terms from the controlled vocabulary.",
+    "VOCABULARY_OPEN": "Preferably use terms from the vocabulary.",
+    "ARRAY_PLACEHOLDER": "Enter comma-separated values",
+    "ARRAY_HINT": "Separate multiple values with comma",
+    "STATUS": {
+      "EMPTY": "Not yet filled",
+      "EXTRACTING": "Extracting...",
+      "FILLED": "Filled",
+      "ERROR": "Extraction error"
+    },
+    "BOOLEAN": {
+      "EMPTY": "Please select",
+      "TRUE": "Yes",
+      "FALSE": "No"
+    },
+    "RADIO": {
+      "NO_SELECTION": "no selection"
+    },
+    "MONTHDAY_PLACEHOLDER": "Add day (1-31)",
+    "DURATION_HINT": "Format: P1D (1 day), PT2H (2 hrs), PT30M (30 min)",
+    "URL_HINT": "Full URL including https://"
+  },
+  "WEEKDAYS": {
+    "MONDAY": "Monday",
+    "TUESDAY": "Tuesday",
+    "WEDNESDAY": "Wednesday",
+    "THURSDAY": "Thursday",
+    "FRIDAY": "Friday",
+    "SATURDAY": "Saturday",
+    "SUNDAY": "Sunday"
+  },
+  "MONTHS": {
+    "JANUARY": "January",
+    "FEBRUARY": "February",
+    "MARCH": "March",
+    "APRIL": "April",
+    "MAY": "May",
+    "JUNE": "June",
+    "JULY": "July",
+    "AUGUST": "August",
+    "SEPTEMBER": "September",
+    "OCTOBER": "October",
+    "NOVEMBER": "November",
+    "DECEMBER": "December"
+  },
+  "EMPTY_STATE": {
+    "TITLE": "Ready for Extraction",
+    "MESSAGE": "Enter a description and click \"Start Extraction\"",
+    "SELECT_CONTENT_TYPE": "Select a content type or start the extraction",
+    "NO_DATA": "No metadata available"
+  },
+  "CONTROLS": {
+    "SAVE": "Save",
+    "RESET": "Reset",
+    "DOWNLOAD": "Download",
+    "LOAD_JSON": "Open JSON",
+    "SAVE_JSON": "Save JSON",
+    "UPLOAD": "Upload to Repository",
+    "SUBMIT": "Send to Plugin"
+  },
+  "TOOLTIPS": {
+    "SUBMIT_SUGGESTION": "Submit Suggestion",
+    "DOWNLOAD_JSON": "Download JSON"
+  },
+  "FOOTER": {
+    "FIELDS_INFO": "of {{total}} fields filled",
+    "PROVIDER_INFO": "LLM Provider",
+    "SUBMIT_GUEST": "📮 Submit Suggestion",
+    "SUBMIT_LOGGED_IN": "📤 Publish",
+    "SUBMITTING": "⏳ Submitting...",
+    "REQUIRED_FIELDS_MISSING": "⚠️ Required Fields ({{filled}}/{{total}})",
+    "DOWNLOAD_JSON": "💾 Download JSON",
+    "SEND_TO_PLUGIN": "💾 Send to Plugin",
+    "SENDING": "⏳ Sending..."
+  },
+  "VALIDATION": {
+    "REQUIRED_FIELD": "This field is required",
+    "INVALID_FORMAT": "Invalid format",
+    "INVALID_URL": "Invalid URL",
+    "INVALID_EMAIL": "Invalid email address",
+    "INVALID_NUMBER": "Invalid number",
+    "INVALID_BOOLEAN": "Invalid boolean value (yes/no)",
+    "INVALID_DATE": "Invalid date (Format: YYYY-MM-DD)",
+    "INVALID_DATETIME": "Invalid date/time",
+    "MIN_LENGTH": "Minimum length: {{min}} characters",
+    "MAX_LENGTH": "Maximum length: {{max}} characters",
+    "MIN_VALUE": "Minimum value: {{min}}",
+    "MAX_VALUE": "Maximum value: {{max}}",
+    "VOCABULARY_CLOSED": "\"{{value}}\" is not a valid value. Please select from the list.",
+    "VOCABULARY_SUGGESTION": "This value is not in the vocabulary. Recommended: Select from the list.",
+    "INVALID_TIME": "Invalid time (Format: HH:MM)",
+    "INVALID_DURATION": "Invalid duration (Format: P1D, PT3H, \"2 hours\")",
+    "INVALID_JSON": "Invalid JSON format",
+    "EXPECTED_OBJECT": "Expected: object (not array or simple value)"
+  },
+  "ALERTS": {
+    "INPUT_REQUIRED": "Please enter a text.",
+    "FILL_REQUIRED_FIELDS": "Please fill in all required fields.",
+    "JSON_LOAD_ERROR": "Error loading JSON file. Please check the format.",
+    "REQUIRED_FIELDS_STATUS": "Please fill in all required fields. ({{filled}}/{{total}} completed)",
+    "METADATA_SENT": "✅ Publishing metadata...",
+    "SUGGESTION_SUBMITTED": "✅ Submitting suggestion...",
+    "RESET_CONFIRM": "Do you really want to reset all data?",
+    "CONFIRM_RESET": "Do you really want to reset all data?",
+    "SUBMIT_AGAIN": "Would you like to submit another suggestion?",
+    "VIEW_IN_REPO": "Would you like to view the existing entry in the repository?",
+    "SUCCESS": {
+      "TITLE": "✅ Successfully Submitted!",
+      "MESSAGE": "Your suggestion has been successfully submitted!",
+      "NODE_ID": "📋 Node ID:",
+      "STATUS": "🔍 Status: Under Review",
+      "REPOSITORY": "📊 Repository: WLO Staging",
+      "THANK_YOU": "Your contribution is now being reviewed by our team. Thank you! 🎉",
+      "VIEW_IN_REPO_BTN": "🔍 View in Repository"
+    },
+    "ERROR": {
+      "SUBMISSION_ERROR": "❌ Submission Error:",
+      "TECHNICAL_ERROR": "❌ Submission Error\n\nA technical error has occurred.\nPlease try again later.",
+      "TRY_AGAIN": "Please try again later or contact support.",
+      "DETAILS": "Details:"
+    },
+    "DUPLICATE": {
+      "TITLE": "⚠️ This URL already exists in the repository!",
+      "NODE_ID": "📋 Node ID:"
+    },
+    "UPLOAD_SUCCESS": "Upload successful! Node ID: {{nodeId}}",
+    "UPLOAD_DUPLICATE": "This URL already exists: \"{{title}}\"\n\nUpload anyway?",
+    "UPLOAD_ERROR": "Upload failed: {{error}}",
+    "PLUGIN": {
+      "SENT": "Successfully transferred!",
+      "MESSAGE": "The metadata has been passed to the browser plugin and will now be published to the repository."
+    }
+  },
+  "LANGUAGE": {
+    "SWITCH_TO_ENGLISH": "Switch to English",
+    "SWITCH_TO_GERMAN": "Zu Deutsch wechseln",
+    "CURRENT": "Language"
+  },
+  "LAYOUT": {
+    "DEFAULT": {
+      "NAME": "Default",
+      "DESCRIPTION": "Edit mode for Local, Bookmarklet, Browser Extension, Vercel"
+    },
+    "VIEWER": {
+      "NAME": "Viewer",
+      "DESCRIPTION": "Embed mode for Web Component (Read-only)"
+    }
+  }
+}

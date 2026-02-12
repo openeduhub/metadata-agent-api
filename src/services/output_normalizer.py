@@ -17,7 +17,7 @@ class OutputNormalizer:
         "thursday": "TH", "donnerstag": "TH", "do": "TH",
         "friday": "FR", "freitag": "FR", "fr": "FR",
         "saturday": "SA", "samstag": "SA", "sa": "SA",
-        "sunday": "SU", "sonntag": "SU", "so": "SO",
+        "sunday": "SU", "sonntag": "SU", "so": "SU",
         # Schema.org format
         "schema:monday": "MO", "schema:tuesday": "TU", 
         "schema:wednesday": "WE", "schema:thursday": "TH",
@@ -184,7 +184,7 @@ class OutputNormalizer:
                             d = date(int(year), int(month), int(day))
                             days = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
                             normalized["byDay"] = [days[d.weekday()]]
-                        except:
+                        except Exception:
                             pass
                 
                 if time_match:

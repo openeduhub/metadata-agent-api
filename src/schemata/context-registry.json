@@ -12,6 +12,13 @@
       "defaultVersion": "1.8.0",
       "path": "mds_oeh",
       "basedOn": "default@1.8.0"
+    },
+    "redesign_26": {
+      "name": "Redesign 26",
+      "description": "Neues Schema-Set (bereinigt).",
+      "defaultVersion": "1.8.0",
+      "path": "redesign_26",
+      "basedOn": "default@1.8.0"
     }
   },
   "defaultContext": "default"

@@ -9,13 +9,6 @@
   },
   "groups": [
     {
-      "id": "basic",
-      "label": {
-        "de": "Basis",
-        "en": "Basics"
-      }
-    },
-    {
       "id": "description",
       "label": {
         "de": "Beschreibung",
@@ -23,38 +16,24 @@
       }
     },
     {
-      "id": "publication",
+      "id": "typification",
       "label": {
-        "de": "Publikation",
-        "en": "Publication"
-      }
-    },
-    {
-      "id": "license",
-      "label": {
-        "de": "Lizenz",
-        "en": "License"
-      }
-    },
-    {
-      "id": "classification",
-      "label": {
-        "de": "Klassifikation",
-        "en": "Classification"
-      }
-    },
-    {
-      "id": "audience",
-      "label": {
-        "de": "Zielgruppe",
-        "en": "Audience"
+        "de": "Typisierung",
+        "en": "Typification"
       }
     },
     {
       "id": "education",
       "label": {
-        "de": "Bildungskontext",
-        "en": "Educational Context"
+        "de": "Pädagogisch/Didaktisch",
+        "en": "Educational"
+      }
+    },
+    {
+      "id": "license",
+      "label": {
+        "de": "Lizenz, Quelle, Mitwirkende",
+        "en": "License"
       }
     }
   ],
@@ -139,7 +118,7 @@
     },
     {
       "id": "cclom:general_keyword",
-      "group": "description",
+      "group": "typification",
       "label": {
         "de": "Schlagwörter",
         "en": "Keywords"
@@ -189,7 +168,7 @@
     },
     {
       "id": "ccm:wwwurl",
-      "group": "publication",
+      "group": "description",
       "label": {
         "de": "Web-URL",
         "en": "Web URL"
@@ -232,7 +211,7 @@
     },
     {
       "id": "preview:url",
-      "group": "publication",
+      "group": "description",
       "label": {
         "de": "URL des Vorschaubildes",
         "en": "Preview Image URL"
@@ -275,7 +254,7 @@
     },
     {
       "id": "cm:author",
-      "group": "publication",
+      "group": "license",
       "label": {
         "de": "Autor:in / Urheber:in",
         "en": "Author / Creator"
@@ -308,7 +287,7 @@
     },
     {
       "id": "ccm:oeh_publisher_combined",
-      "group": "publication",
+      "group": "license",
       "label": {
         "de": "Publisher / Herausgeber",
         "en": "Publisher"
@@ -494,7 +473,7 @@
     },
     {
       "id": "cclom:general_language",
-      "group": "classification",
+      "group": "description",
       "label": {
         "de": "Sprache",
         "en": "Language"
@@ -569,7 +548,7 @@
     },
     {
       "id": "ccm:oeh_flex_lrt",
-      "group": "classification",
+      "group": "typification",
       "label": {
         "de": "Inhaltsart(en)",
         "en": "Content Type(s)"
@@ -623,59 +602,11 @@
             },
             {
               "label": {
-                "de": "Lernmaterial",
-                "en": "Learning material"
-              },
-              "icon": "menu_book",
-              "schema_file": "learning_material.json"
-            },
-            {
-              "label": {
                 "de": "Bildungsgänge und Bildungsangebote",
                 "en": "Educational programmes and offerings"
               },
               "icon": "school",
               "schema_file": "education_offer.json"
-            },
-            {
-              "label": {
-                "de": "Berufsbilder",
-                "en": "Occupations"
-              },
-              "icon": "work",
-              "schema_file": "occupation.json"
-            },
-            {
-              "label": {
-                "de": "Prompts",
-                "en": "Prompts"
-              },
-              "icon": "chat",
-              "schema_file": "prompt.json"
-            },
-            {
-              "label": {
-                "de": "Tools Infrastrukturen & Services",
-                "en": "Tools, infrastructures & services"
-              },
-              "icon": "build",
-              "schema_file": "tool_service.json"
-            },
-            {
-              "label": {
-                "de": "Quelle",
-                "en": "Source"
-              },
-              "icon": "article",
-              "schema_file": "source.json"
-            },
-            {
-              "label": {
-                "de": "Didaktische Planungsinstrumente (Unterrichtsmethoden und -entwürfe)",
-                "en": "Didactic planning tools (teaching methods and lesson designs)"
-              },
-              "icon": "assignment",
-              "schema_file": "didactic_planning_tools.json"
             }
           ]
         },
@@ -780,7 +711,7 @@
     },
     {
       "id": "ccm:educationalcontext",
-      "group": "education",
+      "group": "typification",
       "label": {
         "de": "Bildungsstufe",
         "en": "Education Level"
@@ -907,7 +838,7 @@
     },
     {
       "id": "ccm:taxonid",
-      "group": "education",
+      "group": "typification",
       "label": {
         "de": "Fach",
         "en": "Subject"

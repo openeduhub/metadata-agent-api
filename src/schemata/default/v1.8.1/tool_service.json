@@ -1,0 +1,1695 @@
+{
+  "profileId": "core:tool_service",
+  "version": "1.8.1",
+  "@context": {
+    "schema": "https://schema.org/",
+    "sdo": "https://schema.org/",
+    "ccm": "https://example.org/ccm/",
+    "preview": "https://example.org/preview/"
+  },
+  "groups": [
+    {
+      "id": "classification",
+      "icon": "label",
+      "label": {
+        "de": "Klassifikation",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "technical",
+      "icon": "settings",
+      "label": {
+        "de": "Technik & Plattform",
+        "en": "Technology & Platform"
+      }
+    },
+    {
+      "id": "provider",
+      "icon": "business",
+      "label": {
+        "de": "Anbieter & Darstellung",
+        "en": "Providers & Representation"
+      }
+    },
+    {
+      "id": "pricing",
+      "icon": "sell",
+      "label": {
+        "de": "Kosten & Angebote",
+        "en": "Costs & Offers"
+      }
+    },
+    {
+      "id": "compliance",
+      "icon": "security",
+      "label": {
+        "de": "Compliance & Schutz",
+        "en": "Compliance & Protection"
+      }
+    },
+    {
+      "id": "audience",
+      "icon": "group",
+      "label": {
+        "de": "Zielgruppe",
+        "en": "Target Group"
+      }
+    },
+    {
+      "id": "usage",
+      "icon": "touch_app",
+      "label": {
+        "de": "Nutzung & Einsatz",
+        "en": "Usage & Application"
+      }
+    },
+    {
+      "id": "linkage",
+      "icon": "link",
+      "label": {
+        "de": "Verknüpfungen",
+        "en": "Connections"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "ccm:tool_schema_types",
+      "group": "classification",
+      "label": {
+        "de": "Schema.org-Typ(en)",
+        "en": "Schema.org Type(s)"
+      },
+      "description": {
+        "de": "Passende Typen (Mehrfachauswahl) wie SoftwareApplication, WebApplication, Service …",
+        "en": "Suitable types (multiple choice) such as SoftwareApplication, WebApplication, Service …"
+      },
+      "prompt": {
+        "de": "Schema.org-Typ(en). Verwende EXAKT: 'SoftwareApplication', 'WebApplication', 'MobileApplication', 'Service', 'WebAPI', 'APIReference', 'Product', 'DataFeed'.",
+        "en": "Schema.org type(s). Use EXACT: 'SoftwareApplication', 'WebApplication', 'MobileApplication', 'Service', 'WebAPI', 'APIReference', 'Product', 'DataFeed'."
+      },
+      "system": {
+        "path": "ccm:tool_schema_types",
+        "uri": "@type",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "https://schema.org/SoftwareApplication",
+              "label": {
+                "de": "SoftwareApplication",
+                "en": "SoftwareApplication"
+              }
+            },
+            {
+              "uri": "https://schema.org/WebApplication",
+              "label": {
+                "de": "WebApplication",
+                "en": "WebApplication"
+              }
+            },
+            {
+              "uri": "https://schema.org/MobileApplication",
+              "label": {
+                "de": "MobileApplication",
+                "en": "MobileApplication"
+              }
+            },
+            {
+              "uri": "https://schema.org/Service",
+              "label": {
+                "de": "Service",
+                "en": "Service"
+              }
+            },
+            {
+              "uri": "https://schema.org/WebAPI",
+              "label": {
+                "de": "WebAPI",
+                "en": "WebAPI"
+              }
+            },
+            {
+              "uri": "https://schema.org/APIReference",
+              "label": {
+                "de": "APIReference",
+                "en": "APIReference"
+              }
+            },
+            {
+              "uri": "https://schema.org/Product",
+              "label": {
+                "de": "Product",
+                "en": "Product"
+              }
+            },
+            {
+              "uri": "https://schema.org/DataFeed",
+              "label": {
+                "de": "DataFeed",
+                "en": "DataFeed"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "case": "title",
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:application_category",
+      "group": "classification",
+      "label": {
+        "de": "Anwendungskategorie",
+        "en": "Application Category"
+      },
+      "description": {
+        "de": "Funktionale Kategorie (Wissensmanagement, Kollaboration, Datenspeicherung …)",
+        "en": "Functional category (knowledge management, collaboration, data storage …)"
+      },
+      "prompt": {
+        "de": "Anwendungskategorie. Verwende EXAKT die Labels, z.B. 'Lernmanagement (LMS)', 'KI-Tools/Sprachmodelle', 'Zusammenarbeit & Kommunikation'.",
+        "en": "Application category. Use EXACT labels, e.g. 'Learning Management (LMS)', 'AI Tools/Language Models', 'Collaboration & Communication'."
+      },
+      "system": {
+        "path": "ccm:application_category",
+        "uri": "sdo:applicationCategory",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/lms",
+              "label": {
+                "de": "Lernmanagement (LMS)",
+                "en": "Learning Management (LMS)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/virtual-classroom",
+              "label": {
+                "de": "Virtuelles Klassenzimmer",
+                "en": "Virtual Classroom"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/video-conferencing",
+              "label": {
+                "de": "Videokonferenz",
+                "en": "Video Conferencing"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/collaboration-communication",
+              "label": {
+                "de": "Zusammenarbeit & Kommunikation",
+                "en": "Collaboration & Communication"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/authoring",
+              "label": {
+                "de": "Autorenwerkzeuge",
+                "en": "Authoring Tools"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/assessment-quiz",
+              "label": {
+                "de": "Assessment & Quiz",
+                "en": "Assessment & Quiz"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/whiteboard",
+              "label": {
+                "de": "Whiteboard / Zeichnen",
+                "en": "Whiteboard / Drawing"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/mindmapping",
+              "label": {
+                "de": "Mindmapping / Konzeptkarten",
+                "en": "Mindmapping / Concept Maps"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/coding-ide",
+              "label": {
+                "de": "Programmierung / IDE",
+                "en": "Coding / IDE"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/media-editing",
+              "label": {
+                "de": "Medienbearbeitung (Audio/Video/Bild)",
+                "en": "Media Editing (Audio/Video/Image)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/survey-feedback",
+              "label": {
+                "de": "Umfrage & Feedback",
+                "en": "Survey & Feedback"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/task-project-management",
+              "label": {
+                "de": "Aufgaben- & Projektmanagement",
+                "en": "Task & Project Management"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/knowledge-management",
+              "label": {
+                "de": "Wissensmanagement",
+                "en": "Knowledge Management"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/data-storage",
+              "label": {
+                "de": "Datenspeicherung & -verwaltung",
+                "en": "Data Storage & Management"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/e-portfolio",
+              "label": {
+                "de": "E-Portfolio",
+                "en": "E-Portfolio"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/plagiarism-check",
+              "label": {
+                "de": "Plagiatsprüfung",
+                "en": "Plagiarism Check"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/library-management",
+              "label": {
+                "de": "Bibliotheksverwaltung",
+                "en": "Library Management"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/ai-tools",
+              "label": {
+                "de": "KI-Tools / Sprachmodelle",
+                "en": "AI Tools / Language Models"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/accessibility",
+              "label": {
+                "de": "Barrierefreiheit / Inklusion",
+                "en": "Accessibility / Inclusion"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolCategory/simulation-vr",
+              "label": {
+                "de": "Simulation / VR / AR",
+                "en": "Simulation / VR / AR"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "case": "title"
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:platform",
+      "group": "technical",
+      "label": {
+        "de": "Plattform",
+        "en": "Platform"
+      },
+      "description": {
+        "de": "Zielplattform(en): Web, Desktop, Mobil, Embedded, VR/AR, Cross-Plattform.",
+        "en": "Target platform(s): Web, Desktop, Mobile, Embedded, VR/AR, Cross-Platform."
+      },
+      "prompt": {
+        "de": "Plattform. Verwende EXAKT: 'Webbrowser', 'Desktop', 'Mobil', 'Embedded', 'VR/AR', 'Cross-Plattform'.",
+        "en": "Platform. Use EXACT: 'Web browser', 'Desktop', 'Mobile', 'Embedded', 'VR/AR', 'Cross-platform'."
+      },
+      "system": {
+        "path": "ccm:platform",
+        "uri": "ccm:platform",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolPlatform/web-browser",
+              "label": {
+                "de": "Webbrowser",
+                "en": "Web browser"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolPlatform/desktop",
+              "label": {
+                "de": "Desktop",
+                "en": "Desktop"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolPlatform/mobile",
+              "label": {
+                "de": "Mobil",
+                "en": "Mobile"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolPlatform/embedded",
+              "label": {
+                "de": "Embedded",
+                "en": "Embedded"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolPlatform/vr-ar",
+              "label": {
+                "de": "VR/AR",
+                "en": "VR/AR"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolPlatform/cross-platform",
+              "label": {
+                "de": "Cross-Plattform",
+                "en": "Cross-platform"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:operatingSystem",
+      "group": "technical",
+      "label": {
+        "de": "Betriebssystem(e)",
+        "en": "Operating system(s)"
+      },
+      "description": {
+        "de": "Nur relevant, wenn keine reine Cloud-Software.",
+        "en": "Only relevant if not pure cloud software."
+      },
+      "prompt": {
+        "de": "Betriebssystem(e), z.B. 'Windows', 'macOS', 'Linux', 'iOS', 'Android'.",
+        "en": "Operating system(s), e.g. 'Windows', 'macOS', 'Linux', 'iOS', 'Android'."
+      },
+      "system": {
+        "path": "sdo:operatingSystem",
+        "uri": "sdo:operatingSystem",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "uppercase_os": false
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:deployment_model",
+      "group": "technical",
+      "label": {
+        "de": "Bereitstellungsmodell",
+        "en": "Deployment model"
+      },
+      "description": {
+        "de": "SaaS/Cloud, On-Premises, Selbst-Hosting.",
+        "en": "SaaS/Cloud, On-Premises, Self-Hosting."
+      },
+      "prompt": {
+        "de": "Bereitstellungsmodell. Verwende EXAKT: 'SaaS/Cloud', 'On-Premises', 'Selbst-Hosting' oder 'Hybrid'.",
+        "en": "Deployment model. Use EXACT: 'SaaS/Cloud', 'On-Premises', 'Self-hosting', or 'Hybrid'."
+      },
+      "system": {
+        "path": "ccm:deployment_model",
+        "uri": "ccm:deployment_model",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/deploymentModel/saas-cloud",
+              "label": {
+                "de": "SaaS/Cloud",
+                "en": "SaaS/Cloud"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/deploymentModel/on-premises",
+              "label": {
+                "de": "On-Premises",
+                "en": "On-Premises"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/deploymentModel/self-hosting",
+              "label": {
+                "de": "Selbst-Hosting",
+                "en": "Self-hosting"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/deploymentModel/hybrid",
+              "label": {
+                "de": "Hybrid",
+                "en": "Hybrid"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:softwareVersion",
+      "group": "technical",
+      "label": {
+        "de": "Version",
+        "en": "Version"
+      },
+      "description": {
+        "de": "Versionsnummer (z. B. 3.2.1).",
+        "en": "Version number (e.g. 3.2.1)."
+      },
+      "prompt": {
+        "de": "Versionsnummer, z.B. '3.2.1', '2024.1'.",
+        "en": "Version number, e.g. '3.2.1', '2024.1'."
+      },
+      "system": {
+        "path": "sdo:softwareVersion",
+        "uri": "sdo:softwareVersion",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^[0-9]+(\\.[0-9A-Za-z-]+)*$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:datePublished",
+      "group": "technical",
+      "label": {
+        "de": "Veröffentlichungs-/Release-Datum",
+        "en": "Release date"
+      },
+      "description": {
+        "de": "Datum der aktuellen Version oder Erstveröffentlichung im Format YYYY-MM-DD, z.B. 2024-03-15.",
+        "en": "Date of the current version or initial release in YYYY-MM-DD format, e.g. 2024-03-15."
+      },
+      "prompt": {
+        "de": "Release-Datum im Format YYYY-MM-DD, z.B. '2024-03-15'.",
+        "en": "Release date in YYYY-MM-DD format, e.g. '2024-03-15'."
+      },
+      "system": {
+        "path": "sdo:datePublished",
+        "uri": "sdo:datePublished",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:softwareRequirements",
+      "group": "technical",
+      "label": {
+        "de": "Software-/Systemanforderungen",
+        "en": "Software/System requirements"
+      },
+      "description": {
+        "de": "Kompatibilitäten, Abhängigkeiten, Mindestanforderungen.",
+        "en": "Compatibilities, dependencies, minimum requirements."
+      },
+      "prompt": {
+        "de": "Systemanforderungen, z.B. 'Chrome 90+', 'Node.js 18+', 'min. 4 GB RAM'.",
+        "en": "System requirements, e.g. 'Chrome 90+', 'Node.js 18+', 'min. 4 GB RAM'."
+      },
+      "system": {
+        "path": "sdo:softwareRequirements",
+        "uri": "sdo:softwareRequirements",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:permissions",
+      "group": "technical",
+      "label": {
+        "de": "Berechtigungen",
+        "en": "Permissions"
+      },
+      "description": {
+        "de": "Erforderliche App-/Systemberechtigungen.",
+        "en": "Required app/system permissions."
+      },
+      "prompt": {
+        "de": "Erforderliche Berechtigungen, z.B. 'Kamera', 'Mikrofon', 'Standort', 'Dateizugriff'.",
+        "en": "Required permissions, e.g. 'Camera', 'Microphone', 'Location', 'File access'."
+      },
+      "system": {
+        "path": "sdo:permissions",
+        "uri": "sdo:permissions",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:downloadUrl",
+      "group": "technical",
+      "label": {
+        "de": "Download-URL",
+        "en": "Download URL"
+      },
+      "description": {
+        "de": "Direkter Link zu Installationspaketen/Stores.",
+        "en": "Direct link to installation packages/stores."
+      },
+      "prompt": {
+        "de": "Download-URL(s), z.B. App-Store-Link oder Installationspaket.",
+        "en": "Download URL(s), e.g. app store link or installation package."
+      },
+      "system": {
+        "path": "sdo:downloadUrl",
+        "uri": "sdo:downloadUrl",
+        "datatype": "uri",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:installUrl",
+      "group": "technical",
+      "label": {
+        "de": "Installations-/Einrichtungs-URL",
+        "en": "Installation/setup URL"
+      },
+      "description": {
+        "de": "Setup-/Onboarding-Link.",
+        "en": "Setup/onboarding link."
+      },
+      "prompt": {
+        "de": "Setup-/Onboarding-URL, z.B. 'https://app.example.com/setup'.",
+        "en": "Setup/onboarding URL, e.g. 'https://app.example.com/setup'."
+      },
+      "system": {
+        "path": "sdo:installUrl",
+        "uri": "sdo:installUrl",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:provider",
+      "group": "provider",
+      "label": {
+        "de": "Anbieter",
+        "en": "Provider"
+      },
+      "description": {
+        "de": "Service-/Softwareanbieter (Organisation/Person).",
+        "en": "Service or software provider (organization/person)."
+      },
+      "prompt": {
+        "de": "Anbieter, z.B. 'Microsoft', 'Moodle Pty Ltd', 'Open-Source-Community'.",
+        "en": "Provider, e.g. 'Microsoft', 'Moodle Pty Ltd', 'open-source community'."
+      },
+      "system": {
+        "path": "sdo:provider",
+        "uri": "sdo:provider",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:brand",
+      "group": "provider",
+      "label": {
+        "de": "Marke/Brand",
+        "en": "Brand"
+      },
+      "description": {
+        "de": "Zugehörige Marke/Produktlinie.",
+        "en": "Associated brand/product line."
+      },
+      "prompt": {
+        "de": "Marke/Produktlinie, z.B. 'Microsoft 365', 'Google Workspace', 'Adobe Creative Cloud'.",
+        "en": "Brand/product line, e.g. 'Microsoft 365', 'Google Workspace', 'Adobe Creative Cloud'."
+      },
+      "system": {
+        "path": "sdo:brand",
+        "uri": "sdo:brand",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:logo",
+      "group": "provider",
+      "label": {
+        "de": "Logo-URL",
+        "en": "Logo URL"
+      },
+      "description": {
+        "de": "Bild-/SVG-URL des Logos.",
+        "en": "Image/SVG URL of the logo."
+      },
+      "prompt": {
+        "de": "Logo-URL (Bild/SVG), z.B. 'https://example.com/logo.svg'.",
+        "en": "Logo URL (image/SVG), e.g. 'https://example.com/logo.svg'."
+      },
+      "system": {
+        "path": "sdo:logo",
+        "uri": "sdo:logo",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+\\.(jpg|jpeg|png|svg|webp))$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:areaServed",
+      "group": "provider",
+      "label": {
+        "de": "Versorgungsgebiet",
+        "en": "Service area"
+      },
+      "description": {
+        "de": "Länder/Regionen, in denen Service/Produkt offiziell angeboten wird.",
+        "en": "Countries/regions where the service/product is officially offered."
+      },
+      "prompt": {
+        "de": "Versorgungsgebiet, z.B. 'Deutschland', 'EU', 'Weltweit'.",
+        "en": "Service area, e.g. 'Germany', 'EU', 'Worldwide'."
+      },
+      "system": {
+        "path": "sdo:areaServed",
+        "uri": "sdo:areaServed",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:isAccessibleForFree",
+      "group": "pricing",
+      "label": {
+        "de": "Kostenfrei zugänglich",
+        "en": "Free access"
+      },
+      "description": {
+        "de": "Ja/Nein (unabhängig von optionalen Premium-Angeboten).",
+        "en": "Yes/No (regardless of optional premium offers)."
+      },
+      "prompt": {
+        "de": "Kostenfrei nutzbar? true oder false.",
+        "en": "Free to use? true or false."
+      },
+      "system": {
+        "path": "sdo:isAccessibleForFree",
+        "uri": "sdo:isAccessibleForFree",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:offers",
+      "group": "pricing",
+      "label": {
+        "de": "Preismodelle/Angebote",
+        "en": "Pricing models/offers"
+      },
+      "description": {
+        "de": "Preis-/Tarifangaben (Offer/PriceSpecification) als JSON.",
+        "en": "Price/Tariff information (Offer/PriceSpecification) in JSON."
+      },
+      "prompt": {
+        "de": "Preismodelle als JSON (Offer/PriceSpecification).",
+        "en": "Pricing models as JSON (Offer/PriceSpecification)."
+      },
+      "system": {
+        "path": "sdo:offers",
+        "uri": "sdo:offers",
+        "datatype": "json",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": false
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:termsOfService",
+      "group": "pricing",
+      "label": {
+        "de": "Nutzungsbedingungen (ToS)",
+        "en": "Terms of Service (ToS)"
+      },
+      "description": {
+        "de": "URL der Nutzungsbedingungen.",
+        "en": "URL of the terms of service."
+      },
+      "prompt": {
+        "de": "URL der Nutzungsbedingungen, z.B. 'https://example.com/tos'.",
+        "en": "URL of the terms of service, e.g. 'https://example.com/tos'."
+      },
+      "system": {
+        "path": "sdo:termsOfService",
+        "uri": "sdo:termsOfService",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:privacy_policy",
+      "group": "compliance",
+      "label": {
+        "de": "Datenschutzerklärung",
+        "en": "Privacy Policy"
+      },
+      "description": {
+        "de": "URL zur Datenschutz-/Privacy-Policy.",
+        "en": "URL to the Privacy Policy."
+      },
+      "prompt": {
+        "de": "URL der Datenschutzerkl\u00e4rung, z.B. 'https://example.com/privacy'.",
+        "en": "URL of the privacy policy, e.g. 'https://example.com/privacy'."
+      },
+      "system": {
+        "path": "ccm:privacy_policy",
+        "uri": "ccm:privacy_policy",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:data_protection",
+      "group": "compliance",
+      "label": {
+        "de": "Datenschutz-Status",
+        "en": "Data Protection Status"
+      },
+      "description": {
+        "de": "Einschätzung/Status, z. B. DSGVO-Konformität, AVV vorhanden.",
+        "en": "Assessment/Status, e.g., GDPR compliance, AVV available."
+      },
+      "prompt": {
+        "de": "Datenschutz-Status. Verwende EXAKT: 'DSGVO-konform (Selbstauskunft)', 'AV-Vertrag vorhanden', 'Datenverarbeitung in EU/EWR', 'Datenverarbeitung au\u00dferhalb EU/EWR', 'Unklar/pr\u00fcfen'.",
+        "en": "Data protection status. Use EXACT: 'GDPR-compliant (self-disclosure)', 'Data Processing Agreement available', 'Data processing in EU/EEA', 'Data processing outside EU/EEA', 'Unclear/check'."
+      },
+      "system": {
+        "path": "ccm:data_protection",
+        "uri": "ccm:data_protection",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataProtection/gdpr-compliant",
+              "label": {
+                "de": "DSGVO-konform (Selbstauskunft)",
+                "en": "GDPR-compliant (self-disclosure)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataProtection/dpa-available",
+              "label": {
+                "de": "AV-Vertrag vorhanden",
+                "en": "Data Processing Agreement available"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataProtection/processing-eu-eea",
+              "label": {
+                "de": "Datenverarbeitung in EU/EWR",
+                "en": "Data processing in EU/EEA"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataProtection/processing-outside-eu",
+              "label": {
+                "de": "Datenverarbeitung au\u00dferhalb EU/EWR",
+                "en": "Data processing outside EU/EEA"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataProtection/unclear",
+              "label": {
+                "de": "Unklar/pr\u00fcfen",
+                "en": "Unclear/check"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:contentRating",
+      "group": "compliance",
+      "label": {
+        "de": "FSK/Content-Rating",
+        "en": "FSK/Content Rating"
+      },
+      "description": {
+        "de": "Alters-/Inhaltsfreigabe (z. B. FSK).",
+        "en": "Age/Content release (e.g., FSK)."
+      },
+      "prompt": {
+        "de": "Content-Rating, z.B. 'FSK 0', 'FSK 6', 'USK 12'.",
+        "en": "Content rating, e.g. 'FSK 0', 'FSK 6', 'USK 12'."
+      },
+      "system": {
+        "path": "sdo:contentRating",
+        "uri": "sdo:contentRating",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:isFamilyFriendly",
+      "group": "compliance",
+      "label": {
+        "de": "Familienfreundlich",
+        "en": "Family-friendly"
+      },
+      "description": {
+        "de": "Kennzeichnet familien-/jugendgeeignete Inhalte.",
+        "en": "Indicates family/youth-friendly content."
+      },
+      "prompt": {
+        "de": "Familienfreundlich? true oder false.",
+        "en": "Family-friendly? true or false."
+      },
+      "system": {
+        "path": "sdo:isFamilyFriendly",
+        "uri": "sdo:isFamilyFriendly",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:security",
+      "group": "compliance",
+      "label": {
+        "de": "IT-Sicherheit",
+        "en": "IT Security"
+      },
+      "description": {
+        "de": "Hinweise/Standards (z. B. ISO 27001, 2FA, SSO).",
+        "en": "Notes/Standards (e.g., ISO 27001, 2FA, SSO)."
+      },
+      "prompt": {
+        "de": "IT-Sicherheitshinweise, z.B. 'ISO 27001', '2FA', 'SSO', 'Ende-zu-Ende-Verschl\u00fcsselung'.",
+        "en": "IT security notes, e.g. 'ISO 27001', '2FA', 'SSO', 'end-to-end encryption'."
+      },
+      "system": {
+        "path": "ccm:security",
+        "uri": "ccm:security",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:interoperability",
+      "group": "compliance",
+      "label": {
+        "de": "Interoperabilität/Standards",
+        "en": "Interoperability/Standards"
+      },
+      "description": {
+        "de": "Unterstützte Standards/Protokolle (LTI, SCORM, xAPI, IMS …).",
+        "en": "Supported standards/protocols (LTI, SCORM, xAPI, IMS …)."
+      },
+      "prompt": {
+        "de": "Unterst\u00fctzte Standards, z.B. 'LTI 1.3', 'SCORM 2004', 'xAPI', 'IMS Global'.",
+        "en": "Supported standards, e.g. 'LTI 1.3', 'SCORM 2004', 'xAPI', 'IMS Global'."
+      },
+      "system": {
+        "path": "ccm:interoperability",
+        "uri": "ccm:interoperability",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:audience",
+      "group": "audience",
+      "label": {
+        "de": "Zielgruppen (Audience)",
+        "en": "Target Groups (Audience)"
+      },
+      "description": {
+        "de": "Anvisierte Nutzergruppen (Lehrende, Lernende, Admins …).",
+        "en": "Intended user groups (instructors, learners, admins …)."
+      },
+      "prompt": {
+        "de": "Zielgruppen. Verwende EXAKT: 'Lehrende', 'Lernende', 'Schüler/innen', 'Studierende', 'Eltern', 'Schulleitung', 'IT-Administration', 'Fortbildner/innen', 'Autor/innen'.",
+        "en": "Target groups. Use EXACT: 'Teachers', 'Learners', 'Students (K-12)', 'Students (Higher Ed)', 'Parents', 'School Leadership', 'IT Administration', 'Trainers', 'Authors'."
+      },
+      "system": {
+        "path": "sdo:audience",
+        "uri": "sdo:audience",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher",
+              "label": {
+                "de": "Lehrende",
+                "en": "Teachers"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner",
+              "label": {
+                "de": "Lernende",
+                "en": "Learners"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/student_k12",
+              "label": {
+                "de": "Sch\u00fcler/innen",
+                "en": "Students (K-12)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/student_higher_ed",
+              "label": {
+                "de": "Studierende",
+                "en": "Students (Higher Ed)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent",
+              "label": {
+                "de": "Eltern",
+                "en": "Parents"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/school_leadership",
+              "label": {
+                "de": "Schulleitung",
+                "en": "School Leadership"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/it_admin",
+              "label": {
+                "de": "IT-Administration",
+                "en": "IT Administration"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/trainer",
+              "label": {
+                "de": "Fortbildner/innen",
+                "en": "Trainers"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/author",
+              "label": {
+                "de": "Autor/innen",
+                "en": "Authors"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:use_cases",
+      "group": "usage",
+      "label": {
+        "de": "Verwendungszwecke",
+        "en": "Purposes"
+      },
+      "description": {
+        "de": "„Ich will …“ (z. B. Video schneiden, kooperativ schreiben).",
+        "en": "“I want to …” (e.g. edit video, write cooperatively)."
+      },
+      "prompt": {
+        "de": "Verwendungszwecke, z.B. 'Video schneiden', 'kooperativ schreiben', 'Quizze erstellen'.",
+        "en": "Use cases, e.g. 'edit video', 'write cooperatively', 'create quizzes'."
+      },
+      "system": {
+        "path": "ccm:use_cases",
+        "uri": "ccm:use_cases",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:modalities",
+      "group": "usage",
+      "label": {
+        "de": "Modalitäten",
+        "en": "Modalities"
+      },
+      "description": {
+        "de": "Analog/Digital, ben\u00f6tigte Software/Hardware, Online/Offline.",
+        "en": "Analog/Digital, required software/hardware, Online/Offline."
+      },
+      "prompt": {
+        "de": "Modalit\u00e4ten. Verwende EXAKT: 'Digital', 'Analog', 'Online', 'Offline', 'Ben\u00f6tigt Zusatzsoftware', 'Ben\u00f6tigt Zusatzhardware'.",
+        "en": "Modalities. Use EXACT: 'Digital', 'Analog', 'Online', 'Offline', 'Requires additional software', 'Requires additional hardware'."
+      },
+      "system": {
+        "path": "ccm:modalities",
+        "uri": "ccm:modalities",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolModality/digital",
+              "label": {
+                "de": "Digital",
+                "en": "Digital"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolModality/analog",
+              "label": {
+                "de": "Analog",
+                "en": "Analog"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolModality/online",
+              "label": {
+                "de": "Online",
+                "en": "Online"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolModality/offline",
+              "label": {
+                "de": "Offline",
+                "en": "Offline"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolModality/requires-additional-software",
+              "label": {
+                "de": "Ben\u00f6tigt Zusatzsoftware",
+                "en": "Requires additional software"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/toolModality/requires-additional-hardware",
+              "label": {
+                "de": "Ben\u00f6tigt Zusatzhardware",
+                "en": "Requires additional hardware"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:inLanguage",
+      "group": "technical",
+      "label": {
+        "de": "Sprache(n) der Benutzeroberfl\u00e4che",
+        "en": "User Interface Language(s)"
+      },
+      "description": {
+        "de": "Sprache(n), in denen die Benutzeroberfl\u00e4che des Tools verf\u00fcgbar ist.",
+        "en": "Language(s) in which the tool's user interface is available."
+      },
+      "prompt": {
+        "de": "Sprache(n) der Benutzeroberfl\u00e4che, z.B. 'de', 'en', 'fr', 'es'.",
+        "en": "UI language(s), e.g. 'de', 'en', 'fr', 'es'."
+      },
+      "system": {
+        "path": "schema:inLanguage",
+        "uri": "https://schema.org/inLanguage",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "lowercase": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:featureList",
+      "group": "technical",
+      "label": {
+        "de": "Funktions\u00fcbersicht",
+        "en": "Feature List"
+      },
+      "description": {
+        "de": "Wichtigste Funktionen und F\u00e4higkeiten des Tools (Stichpunkte).",
+        "en": "Key features and capabilities of the tool (bullet points)."
+      },
+      "prompt": {
+        "de": "Wichtigste Funktionen, z.B. 'Bildschirmfreigabe', 'Breakout-R\u00e4ume', 'Chat', 'Aufnahme', 'Whiteboard'.",
+        "en": "Key features, e.g. 'Screen sharing', 'Breakout rooms', 'Chat', 'Recording', 'Whiteboard'."
+      },
+      "system": {
+        "path": "schema:featureList",
+        "uri": "https://schema.org/featureList",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:open_source",
+      "group": "technical",
+      "label": {
+        "de": "Open Source",
+        "en": "Open Source"
+      },
+      "description": {
+        "de": "Gibt an, ob das Tool quelloffen (Open Source) ist.",
+        "en": "Indicates whether the tool is open source."
+      },
+      "prompt": {
+        "de": "Open Source? true oder false.",
+        "en": "Open source? true or false."
+      },
+      "system": {
+        "path": "ccm:open_source",
+        "uri": "ccm:open_source",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:accessibilityFeature",
+      "group": "compliance",
+      "label": {
+        "de": "Barrierefreiheit",
+        "en": "Accessibility Features"
+      },
+      "description": {
+        "de": "Unterst\u00fctzte Barrierefreiheits-Merkmale des Tools.",
+        "en": "Supported accessibility features of the tool."
+      },
+      "prompt": {
+        "de": "Barrierefreiheit. Verwende EXAKT: 'Screenreader-Unterst\u00fctzung', 'Tastaturnavigation', 'Untertitel/Captions', 'Hoher Kontrast', 'Vergr\u00f6\u00dferung', 'Leichte Sprache', 'Geb\u00e4rdensprache'.",
+        "en": "Accessibility. Use EXACT: 'Screen reader support', 'Keyboard navigation', 'Captions/Subtitles', 'High contrast', 'Magnification', 'Easy language', 'Sign language'."
+      },
+      "system": {
+        "path": "schema:accessibilityFeature",
+        "uri": "https://schema.org/accessibilityFeature",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/screen-reader",
+              "label": {
+                "de": "Screenreader-Unterst\u00fctzung",
+                "en": "Screen reader support"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/keyboard-navigation",
+              "label": {
+                "de": "Tastaturnavigation",
+                "en": "Keyboard navigation"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/captions",
+              "label": {
+                "de": "Untertitel/Captions",
+                "en": "Captions/Subtitles"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/high-contrast",
+              "label": {
+                "de": "Hoher Kontrast",
+                "en": "High contrast"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/magnification",
+              "label": {
+                "de": "Vergr\u00f6\u00dferung",
+                "en": "Magnification"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/easy-language",
+              "label": {
+                "de": "Leichte Sprache",
+                "en": "Easy language"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/sign-language",
+              "label": {
+                "de": "Geb\u00e4rdensprache",
+                "en": "Sign language"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:sameAs",
+      "group": "linkage",
+      "label": {
+        "de": "Identische Ressource (sameAs)",
+        "en": "Same Resource (sameAs)"
+      },
+      "description": {
+        "de": "URLs, die dasselbe Tool/denselben Service bezeichnen (z.B. Wikipedia, Wikidata, AlternativeTo).",
+        "en": "URLs identifying the same tool/service (e.g. Wikipedia, Wikidata, AlternativeTo)."
+      },
+      "prompt": {
+        "de": "URLs zu identischen Ressourcen, z.B. Wikipedia-Artikel, Wikidata-Eintrag, AlternativeTo-Seite.",
+        "en": "URLs to identical resources, e.g. Wikipedia article, Wikidata entry, AlternativeTo page."
+      },
+      "system": {
+        "path": "sdo:sameAs",
+        "uri": "https://schema.org/sameAs",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^https?://"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "sdo:relatedLink",
+      "group": "linkage",
+      "label": {
+        "de": "Verwandte Links",
+        "en": "Related Links"
+      },
+      "description": {
+        "de": "Links zu verwandten Ressourcen (Dokumentation, Tutorials, Community-Forum, Support).",
+        "en": "Links to related resources (documentation, tutorials, community forum, support)."
+      },
+      "prompt": {
+        "de": "Verwandte Links, z.B. Dokumentation, Tutorials, Community-Forum, Support-Seite.",
+        "en": "Related links, e.g. documentation, tutorials, community forum, support page."
+      },
+      "system": {
+        "path": "sdo:relatedLink",
+        "uri": "https://schema.org/relatedLink",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^https?://"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "ccm:tool_schema_types": [],
+    "ccm:application_category": [],
+    "ccm:platform": [],
+    "sdo:operatingSystem": [],
+    "ccm:deployment_model": "",
+    "sdo:softwareVersion": "",
+    "sdo:datePublished": "",
+    "sdo:softwareRequirements": [],
+    "sdo:permissions": [],
+    "sdo:downloadUrl": [],
+    "sdo:installUrl": "",
+    "schema:inLanguage": [],
+    "schema:featureList": [],
+    "ccm:open_source": null,
+    "sdo:provider": "",
+    "sdo:brand": "",
+    "sdo:logo": "",
+    "sdo:areaServed": [],
+    "sdo:isAccessibleForFree": null,
+    "sdo:offers": [],
+    "sdo:termsOfService": "",
+    "ccm:privacy_policy": "",
+    "ccm:data_protection": [],
+    "schema:accessibilityFeature": [],
+    "sdo:contentRating": "",
+    "sdo:isFamilyFriendly": null,
+    "ccm:security": [],
+    "ccm:interoperability": [],
+    "sdo:audience": [],
+    "ccm:use_cases": [],
+    "ccm:modalities": [],
+    "sdo:sameAs": [],
+    "sdo:relatedLink": []
+  }
+}

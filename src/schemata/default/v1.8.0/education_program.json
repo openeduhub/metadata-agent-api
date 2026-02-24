@@ -1,0 +1,1142 @@
+{
+  "profileId": "oeh:educationProgram",
+  "version": "1.8.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "oeh": "http://w3id.org/openeduhub/vocabs/"
+  },
+  "groups": [
+    {
+      "id": "classification",
+      "icon": "label",
+      "label": {
+        "de": "Klassifikation",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "program",
+      "icon": "info",
+      "label": {
+        "de": "Programmdetails",
+        "en": "Program Details"
+      }
+    },
+    {
+      "id": "schedule",
+      "icon": "calendar_today",
+      "label": {
+        "de": "Termine",
+        "en": "Schedule"
+      }
+    },
+    {
+      "id": "workload",
+      "icon": "schedule",
+      "label": {
+        "de": "Workload & Dauer",
+        "en": "Workload & Duration"
+      }
+    },
+    {
+      "id": "credits",
+      "icon": "star",
+      "label": {
+        "de": "Credits & Umfang",
+        "en": "Credits & Scope"
+      }
+    },
+    {
+      "id": "admissions",
+      "icon": "how_to_reg",
+      "label": {
+        "de": "Zugang & Bewerbung",
+        "en": "Admission & Application"
+      }
+    },
+    {
+      "id": "outcomes",
+      "icon": "emoji_events",
+      "label": {
+        "de": "Abschlüsse & Outcomes",
+        "en": "Degrees & Outcomes"
+      }
+    },
+    {
+      "id": "fees",
+      "icon": "payments",
+      "label": {
+        "de": "Kosten & Förderung",
+        "en": "Costs & Funding"
+      }
+    },
+    {
+      "id": "courses",
+      "icon": "view_list",
+      "label": {
+        "de": "Kurse & Module",
+        "en": "Courses & Modules"
+      }
+    },
+    {
+      "id": "provider",
+      "icon": "business",
+      "label": {
+        "de": "Anbieter & Standort",
+        "en": "Provider & Location"
+      }
+    },
+    {
+      "id": "pricing",
+      "icon": "sell",
+      "label": {
+        "de": "Preise & Angebote",
+        "en": "Prices & Offers"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "oeh:educationalOffering",
+      "group": "classification",
+      "label": {
+        "de": "Bildungsgang-Typ",
+        "en": "Education Program Type"
+      },
+      "description": {
+        "de": "Typ des Bildungsgangs (Studiengang, Ausbildung, Fortbildung etc.)",
+        "en": "Type of education program (degree, vocational, continuing education etc.)"
+      },
+      "prompt": {
+        "de": "Typ des Bildungsgangs. Verwende EXAKT die Labels, z.B. 'Studiengang', 'Duale Ausbildung', 'Bildungsprogramm'.",
+        "en": "Type of education program. Use EXACT labels, e.g. 'degree program', 'dual education', 'educational program'."
+      },
+      "system": {
+        "path": "oeh:educationalOffering",
+        "uri": "oeh:educationalOffering",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/educationalOffering/",
+          "hierarchical": true,
+          "concepts": [
+            {
+              "label": { "de": "Bildungsgang", "en": "educational pathway" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
+            },
+            {
+              "label": { "de": "Schulbildungsgang", "en": "school educational pathway" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
+            },
+            {
+              "label": { "de": "Grundschulbildung", "en": "primary education" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/primary-education",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-program"
+            },
+            {
+              "label": { "de": "Weiterführende Schule", "en": "secondary school" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/secondary-education",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-program"
+            },
+            {
+              "label": { "de": "Berufsvorbereitende Bildung", "en": "vocational preparatory education" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/career-preparation",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-program"
+            },
+            {
+              "label": { "de": "Ausbildungsgang", "en": "training pathway" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
+            },
+            {
+              "label": { "de": "Duale Ausbildung", "en": "dual education" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/dual-training",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program"
+            },
+            {
+              "label": { "de": "Schulische Berufsausbildung", "en": "school-based vocational training" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-based-training",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program"
+            },
+            {
+              "label": { "de": "Fachschulausbildung", "en": "technical school education" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/technical-college",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program"
+            },
+            {
+              "label": { "de": "Umschulung", "en": "retraining" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/retraining-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program"
+            },
+            {
+              "label": { "de": "Studiengang", "en": "degree program" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
+            },
+            {
+              "label": { "de": "Bachelor-Studiengang", "en": "Bachelor Program" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/bachelor-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
+            },
+            {
+              "label": { "de": "Master-Studiengang", "en": "Master Program" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/master-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
+            },
+            {
+              "label": { "de": "Staatsexamen-Studiengang", "en": "state examination degree program" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/state-exam-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
+            },
+            {
+              "label": { "de": "Diplom-/Magister-Studiengang", "en": "diploma/Magister degree program" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/diploma-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
+            },
+            {
+              "label": { "de": "Promotionsstudium", "en": "doctoral studies" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/doctoral-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
+            },
+            {
+              "label": { "de": "Bildungsprogramm", "en": "educational program" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/education-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
+            },
+            {
+              "label": { "de": "Fortbildung/Aufstiegsqualifikation", "en": "continuing education/qualification for advancement" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/continuing-education",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/education-program"
+            },
+            {
+              "label": { "de": "Aufstiegsfortbildung", "en": "advancement training" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/advancement-training",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/continuing-education"
+            },
+            {
+              "label": { "de": "Anpassungsfortbildung", "en": "adaptation training" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/adaptation-training",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/continuing-education"
+            },
+            {
+              "label": { "de": "Kammer-Zertifikat", "en": "chamber certificate" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/chamber-certificate",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/continuing-education"
+            },
+            {
+              "label": { "de": "Lehrgang/Kurs-Serie", "en": "Course/Program Series" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/course-series",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/education-program"
+            },
+            {
+              "label": { "de": "Mehrmoduliger Lehrgang", "en": "Multi-module Course" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/multimodule-course",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/course-series"
+            },
+            {
+              "label": { "de": "Branchenzertifizierung", "en": "Industry Certification" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/industry-certification",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/course-series"
+            },
+            {
+              "label": { "de": "Anbieter-Zertifikatskurs", "en": "Provider Certificate Course" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/provider-certificate",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/course-series"
+            },
+            {
+              "label": { "de": "Rehabilitative Programme", "en": "Rehabilitative Programs" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/rehabilitation-program",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
+            },
+            {
+              "label": { "de": "Berufliche Rehabilitation", "en": "Vocational Rehabilitation" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-rehabilitation",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/rehabilitation-program"
+            },
+            {
+              "label": { "de": "Nachqualifizierung", "en": "Further Qualification" },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/requalification",
+              "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/rehabilitation-program"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:concretenessType",
+      "group": "classification",
+      "label": {
+        "de": "Konkretheitsstufe",
+        "en": "Concreteness Type"
+      },
+      "description": {
+        "de": "Abstraktionsniveau (allgemein vs. konkret)",
+        "en": "Abstraction level (general vs. concrete)"
+      },
+      "prompt": {
+        "de": "Konkretheitsstufe. Verwende EXAKT: 'Allgemeine Programmbeschreibung' oder 'Konkretes Angebot'.",
+        "en": "Concreteness level. Use EXACT: 'General Program Description' or 'Concrete Offer'."
+      },
+      "system": {
+        "path": "oeh:concretenessType",
+        "uri": "oeh:concretenessType",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": { "de": "Allgemeine Programmbeschreibung", "en": "General Program Description" },
+              "uri": "http://w3id.org/openeduhub/vocabs/concretenessType/general"
+            },
+            {
+              "label": { "de": "Konkretes Angebot", "en": "Concrete Offer" },
+              "uri": "http://w3id.org/openeduhub/vocabs/concretenessType/concrete"
+            }
+          ]
+        },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:granularityLevel",
+      "group": "classification",
+      "label": {
+        "de": "Granularitätsstufe",
+        "en": "Granularity Level"
+      },
+      "description": {
+        "de": "Detaillierungsgrad (Bildungsgang, Modul, Kurs, Einheit)",
+        "en": "Level of detail (program, module, course, unit)"
+      },
+      "prompt": {
+        "de": "Granularitätsstufe. Verwende EXAKT: 'Bildungsgang', 'Modul', 'Kurs' oder 'Einheit'.",
+        "en": "Granularity level. Use EXACT: 'educational pathway', 'module', 'course', or 'unit'."
+      },
+      "system": {
+        "path": "oeh:granularityLevel",
+        "uri": "oeh:granularityLevel",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            { "label": { "de": "Bildungsgang", "en": "educational pathway" }, "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/program" },
+            { "label": { "de": "Modul", "en": "module" }, "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/module" },
+            { "label": { "de": "Kurs", "en": "course" }, "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/course" },
+            { "label": { "de": "Einheit", "en": "unit" }, "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/unit" }
+          ]
+        },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:educationalLevel",
+      "group": "classification",
+      "label": {
+        "de": "Bildungsniveau",
+        "en": "Educational Level"
+      },
+      "description": {
+        "de": "Angestrebtes Bildungsniveau (z.B. Bachelor, Master)",
+        "en": "Targeted educational level (e.g. Bachelor, Master)"
+      },
+      "prompt": {
+        "de": "Bildungsniveau, z.B. 'Bachelor', 'Master', 'Promotion', 'Berufliche Ausbildung'.",
+        "en": "Educational level, e.g. 'Bachelor', 'Master', 'Doctorate', 'Vocational Training'."
+      },
+      "system": {
+        "path": "schema:educationalLevel",
+        "uri": "https://schema.org/educationalLevel",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:availableLanguage",
+      "group": "program",
+      "label": {
+        "de": "Verfügbare Sprachen",
+        "en": "Available Languages"
+      },
+      "description": {
+        "de": "Sprachen, in denen das Programm angeboten wird",
+        "en": "Languages in which the program is offered"
+      },
+      "prompt": {
+        "de": "Sprachen des Programms, z.B. 'Deutsch', 'Englisch', 'Französisch'.",
+        "en": "Languages of the program, e.g. 'German', 'English', 'French'."
+      },
+      "system": {
+        "path": "schema:availableLanguage",
+        "uri": "https://schema.org/availableLanguage",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:programType",
+      "group": "program",
+      "label": {
+        "de": "Programm-Typ",
+        "en": "Program Type"
+      },
+      "description": {
+        "de": "Art des Programms (Präsenz, dual, berufsbegleitend etc.)",
+        "en": "Type of program (on-site, dual, part-time etc.)"
+      },
+      "prompt": {
+        "de": "Programmtyp, z.B. 'Präsenz', 'Fernstudium', 'dual', 'berufsbegleitend'.",
+        "en": "Program type, e.g. 'on-site', 'distance learning', 'dual', 'part-time'."
+      },
+      "system": {
+        "path": "schema:programType",
+        "uri": "schema:programType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:educationalProgramMode",
+      "group": "program",
+      "label": {
+        "de": "Programmmodus",
+        "en": "Program Mode"
+      },
+      "description": {
+        "de": "Modus (online, Präsenz, blended; Voll-/Teilzeit)",
+        "en": "Mode (online, on-site, blended; full-time/part-time)"
+      },
+      "prompt": {
+        "de": "Modus, z.B. 'online', 'Präsenz', 'blended', 'Vollzeit', 'Teilzeit'.",
+        "en": "Mode, e.g. 'online', 'on-site', 'blended', 'full-time', 'part-time'."
+      },
+      "system": {
+        "path": "schema:educationalProgramMode",
+        "uri": "schema:educationalProgramMode",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:applicationStartDate",
+      "group": "admissions",
+      "label": {
+        "de": "Bewerbungsstart",
+        "en": "Application Start"
+      },
+      "description": {
+        "de": "Ab wann Bewerbungen möglich sind (YYYY-MM-DD)",
+        "en": "Date from which applications are accepted (YYYY-MM-DD)"
+      },
+      "prompt": {
+        "de": "Bewerbungsstart im Format YYYY-MM-DD, z.B. '2026-01-15'.",
+        "en": "Application start date in YYYY-MM-DD format, e.g. '2026-01-15'."
+      },
+      "system": {
+        "path": "schema:applicationStartDate",
+        "uri": "schema:applicationStartDate",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": { "regex": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:applicationDeadline",
+      "group": "admissions",
+      "label": {
+        "de": "Bewerbungsschluss",
+        "en": "Application Deadline"
+      },
+      "description": {
+        "de": "Bewerbungsfrist (Datum oder Freitext)",
+        "en": "Application deadline (date or free text)"
+      },
+      "prompt": {
+        "de": "Bewerbungsschluss als Datum (YYYY-MM-DD) oder Freitext, z.B. '2026-07-15' oder 'Rolling Admission'.",
+        "en": "Application deadline as date (YYYY-MM-DD) or free text, e.g. '2026-07-15' or 'Rolling Admission'."
+      },
+      "system": {
+        "path": "schema:applicationDeadline",
+        "uri": "schema:applicationDeadline",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:startDate",
+      "group": "schedule",
+      "label": {
+        "de": "Programmstart",
+        "en": "Program Start"
+      },
+      "description": {
+        "de": "Startdatum (YYYY-MM-DD)",
+        "en": "Start date (YYYY-MM-DD)"
+      },
+      "prompt": {
+        "de": "Startdatum im Format YYYY-MM-DD, z.B. '2026-10-01'.",
+        "en": "Start date in YYYY-MM-DD format, e.g. '2026-10-01'."
+      },
+      "system": {
+        "path": "schema:startDate",
+        "uri": "schema:startDate",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": { "regex": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:endDate",
+      "group": "schedule",
+      "label": {
+        "de": "Programmende",
+        "en": "Program End"
+      },
+      "description": {
+        "de": "Enddatum (YYYY-MM-DD)",
+        "en": "End date (YYYY-MM-DD)"
+      },
+      "prompt": {
+        "de": "Enddatum im Format YYYY-MM-DD, z.B. '2029-09-30'.",
+        "en": "End date in YYYY-MM-DD format, e.g. '2029-09-30'."
+      },
+      "system": {
+        "path": "schema:endDate",
+        "uri": "schema:endDate",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": { "regex": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:timeToComplete",
+      "group": "workload",
+      "label": {
+        "de": "Regelstudienzeit / Dauer",
+        "en": "Standard Period of Study / Duration"
+      },
+      "description": {
+        "de": "Gesamtdauer bis Abschluss (ISO 8601 Duration)",
+        "en": "Total duration until completion (ISO 8601 Duration)"
+      },
+      "prompt": {
+        "de": "Regelstudienzeit als ISO 8601 Duration, z.B. 'P6M' (6 Monate), 'P3Y' (3 Jahre), 'P7S' (7 Semester).",
+        "en": "Standard duration as ISO 8601 Duration, e.g. 'P6M' (6 months), 'P3Y' (3 years), 'P7S' (7 semesters)."
+      },
+      "system": {
+        "path": "schema:timeToComplete",
+        "uri": "schema:timeToComplete",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": { "regex": "^P(T?\\d+[YMWDHS].*)?$" },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:termDuration",
+      "group": "workload",
+      "label": {
+        "de": "Dauer einer Studienperiode",
+        "en": "Duration of a Study Period"
+      },
+      "description": {
+        "de": "Dauer Semester/Quartal (ISO 8601)",
+        "en": "Duration semester/quarter (ISO 8601)"
+      },
+      "prompt": {
+        "de": "Periodendauer als ISO 8601, z.B. 'P6M' (Semester), 'P3M' (Quartal).",
+        "en": "Period duration as ISO 8601, e.g. 'P6M' (semester), 'P3M' (quarter)."
+      },
+      "system": {
+        "path": "schema:termDuration",
+        "uri": "schema:termDuration",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": { "regex": "^P(T?\\d+[YMWDHS].*)?$" },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:termsPerYear",
+      "group": "workload",
+      "label": {
+        "de": "Perioden pro Jahr",
+        "en": "Periods per Year"
+      },
+      "description": {
+        "de": "Studienperioden pro Jahr (z.B. 2 Semester)",
+        "en": "Study periods per year (e.g. 2 semesters)"
+      },
+      "prompt": {
+        "de": "Anzahl Studienperioden pro Jahr, z.B. 2 (Semester) oder 4 (Quartal).",
+        "en": "Number of study periods per year, e.g. 2 (semesters) or 4 (quarters)."
+      },
+      "system": {
+        "path": "schema:termsPerYear",
+        "uri": "schema:termsPerYear",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:numberOfCredits",
+      "group": "credits",
+      "label": {
+        "de": "Gesamt-Credits",
+        "en": "Total Credits"
+      },
+      "description": {
+        "de": "ECTS/Credits für das Programm",
+        "en": "ECTS/credits for the program"
+      },
+      "prompt": {
+        "de": "Gesamt-Credits (ECTS), z.B. 180 (Bachelor), 120 (Master).",
+        "en": "Total credits (ECTS), e.g. 180 (Bachelor), 120 (Master)."
+      },
+      "system": {
+        "path": "schema:numberOfCredits",
+        "uri": "schema:numberOfCredits",
+        "datatype": "integer",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:typicalCreditsPerTerm",
+      "group": "credits",
+      "label": {
+        "de": "Credits pro Periode (Vollzeit)",
+        "en": "Credits per Period (Full-time)"
+      },
+      "description": {
+        "de": "Typische Credits je Studienperiode",
+        "en": "Typical credits per study period"
+      },
+      "prompt": {
+        "de": "Credits pro Periode bei Vollzeit, z.B. 30 ECTS pro Semester.",
+        "en": "Credits per period for full-time, e.g. 30 ECTS per semester."
+      },
+      "system": {
+        "path": "schema:typicalCreditsPerTerm",
+        "uri": "schema:typicalCreditsPerTerm",
+        "datatype": "integer",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:maximumEnrollment",
+      "group": "admissions",
+      "label": {
+        "de": "Maximale Kohortengröße",
+        "en": "Maximum Cohort Size"
+      },
+      "description": {
+        "de": "Maximale Studierendenzahl im Programm",
+        "en": "Maximum number of students in the program"
+      },
+      "prompt": {
+        "de": "Maximale Teilnehmerzahl, z.B. 30, 50, 200.",
+        "en": "Maximum number of participants, e.g. 30, 50, 200."
+      },
+      "system": {
+        "path": "schema:maximumEnrollment",
+        "uri": "schema:maximumEnrollment",
+        "datatype": "integer",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:programPrerequisites",
+      "group": "admissions",
+      "label": {
+        "de": "Zugangsvoraussetzungen",
+        "en": "Admission Requirements"
+      },
+      "description": {
+        "de": "Voraussetzungen (z.B. Abitur, B2 Deutsch)",
+        "en": "Requirements (e.g. Abitur, B2 German)"
+      },
+      "prompt": {
+        "de": "Zugangsvoraussetzungen, z.B. 'Abitur', 'B2 Deutsch', 'Vorpraktikum 8 Wochen'.",
+        "en": "Admission requirements, e.g. 'Abitur', 'B2 German', '8-week preliminary internship'."
+      },
+      "system": {
+        "path": "schema:programPrerequisites",
+        "uri": "schema:programPrerequisites",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "fulltext": true },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:educationalCredentialAwarded",
+      "group": "outcomes",
+      "label": {
+        "de": "Verliehener Abschluss",
+        "en": "Awarded Qualification"
+      },
+      "description": {
+        "de": "Bezeichnung des Abschlusses/Zertifikats",
+        "en": "Designation of the qualification/certificate"
+      },
+      "prompt": {
+        "de": "Verliehener Abschluss, z.B. 'Bachelor of Science (B.Sc.)', 'IHK-Zertifikat', 'Staatlich anerkannter Erzieher'.",
+        "en": "Awarded qualification, e.g. 'Bachelor of Science (B.Sc.)', 'IHK Certificate', 'State-certified educator'."
+      },
+      "system": {
+        "path": "schema:educationalCredentialAwarded",
+        "uri": "schema:educationalCredentialAwarded",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:credentialCategory",
+      "group": "outcomes",
+      "label": {
+        "de": "Abschluss-Kategorie",
+        "en": "Credential Category"
+      },
+      "description": {
+        "de": "Kategorie des Abschlusses",
+        "en": "Category of the credential"
+      },
+      "prompt": {
+        "de": "Abschluss-Kategorie, z.B. 'Bachelor of Science', 'Master of Arts', 'Zertifikat'.",
+        "en": "Credential category, e.g. 'Bachelor of Science', 'Master of Arts', 'Certificate'."
+      },
+      "system": {
+        "path": "schema:credentialCategory",
+        "uri": "https://schema.org/credentialCategory",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:occupationalCategory",
+      "group": "outcomes",
+      "label": {
+        "de": "Berufskategorie",
+        "en": "Occupational Category"
+      },
+      "description": {
+        "de": "Berufsfelder, für die qualifiziert wird",
+        "en": "Occupational fields qualified for"
+      },
+      "prompt": {
+        "de": "Berufskategorien, z.B. 'IT', 'Pädagogik', 'Ingenieurwesen'.",
+        "en": "Occupational categories, e.g. 'IT', 'Education', 'Engineering'."
+      },
+      "system": {
+        "path": "schema:occupationalCategory",
+        "uri": "https://schema.org/occupationalCategory",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:financialAidEligible",
+      "group": "fees",
+      "label": {
+        "de": "Förder-/Finanzierungsmöglichkeiten",
+        "en": "Funding Options"
+      },
+      "description": {
+        "de": "Förderungen oder Stipendien",
+        "en": "Funding or scholarships"
+      },
+      "prompt": {
+        "de": "Fördermöglichkeiten, z.B. 'BAföG', 'Bildungsgutschein', 'Stipendium', 'Aufstiegs-BAföG'.",
+        "en": "Funding options, e.g. 'BAföG', 'Education voucher', 'Scholarship', 'Advancement BAföG'."
+      },
+      "system": {
+        "path": "schema:financialAidEligible",
+        "uri": "schema:financialAidEligible",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:hasCourse",
+      "group": "courses",
+      "label": {
+        "de": "Kurse im Programm",
+        "en": "Courses in the Program"
+      },
+      "description": {
+        "de": "Module/Kurse, die das Programm bilden",
+        "en": "Modules/courses that constitute the program"
+      },
+      "prompt": {
+        "de": "Kurse/Module des Programms mit Name, Kurscode und ggf. Voraussetzungen.",
+        "en": "Courses/modules of the program with name, course code, and prerequisites if applicable."
+      },
+      "system": {
+        "path": "schema:hasCourse",
+        "uri": "schema:hasCourse",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": { "de": "Kurse im Programm", "en": "Courses in the program" },
+              "description": { "de": "Module/Kurse des Programms", "en": "Modules/courses of the program" },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": { "de": "Name", "en": "Name" },
+                  "description": { "de": "Name des Kurses/Moduls", "en": "Name of the course/module" },
+                  "prompt": { "de": "Kursname, z.B. 'Einführung in die Informatik'.", "en": "Course name, e.g. 'Introduction to Computer Science'." },
+                  "system": { "path": "name", "uri": "https://schema.org/name", "datatype": "string", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true }
+                },
+                {
+                  "id": "schema:courseCode",
+                  "label": { "de": "Kurscode", "en": "Course Code" },
+                  "description": { "de": "Kurscode oder Kursnummer", "en": "Course code or number" },
+                  "prompt": { "de": "Kurscode, z.B. 'INF-101', 'MATH-200'.", "en": "Course code, e.g. 'INF-101', 'MATH-200'." },
+                  "system": { "path": "schema:courseCode", "uri": "https://schema.org/schema:courseCode", "datatype": "string", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true }
+                },
+                {
+                  "id": "schema:coursePrerequisites",
+                  "label": { "de": "Kursvoraussetzungen", "en": "Course Prerequisites" },
+                  "description": { "de": "Voraussetzungen für den Kurs", "en": "Prerequisites for the course" },
+                  "prompt": { "de": "Voraussetzungen, z.B. 'Mathematik I bestanden'.", "en": "Prerequisites, e.g. 'Mathematics I passed'." },
+                  "system": { "path": "schema:coursePrerequisites", "uri": "https://schema.org/schema:coursePrerequisites", "datatype": "array", "multiple": true, "required": false, "ask_user": true, "ai_fillable": true, "items": { "datatype": "string" } }
+                }
+              ]
+            }
+          ]
+        },
+        "index": { "fulltext": true },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:provider",
+      "group": "provider",
+      "label": {
+        "de": "Anbieter",
+        "en": "Provider"
+      },
+      "description": {
+        "de": "Organisation, die das Programm anbietet",
+        "en": "Organization offering the program"
+      },
+      "prompt": {
+        "de": "Anbieter, z.B. 'Universität Hamburg', 'IHK Berlin'.",
+        "en": "Provider, e.g. 'University of Hamburg', 'IHK Berlin'."
+      },
+      "system": {
+        "path": "schema:provider",
+        "uri": "schema:provider",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:location",
+      "group": "provider",
+      "label": {
+        "de": "Standort",
+        "en": "Location"
+      },
+      "description": {
+        "de": "Standort(e) des Programms",
+        "en": "Location(s) of the program"
+      },
+      "prompt": {
+        "de": "Standort(e) des Programms mit Adresse oder virtuellem Ort.",
+        "en": "Location(s) of the program with address or virtual location."
+      },
+      "system": {
+        "path": "schema:location",
+        "uri": "https://schema.org/location",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Place",
+              "label": { "de": "Physischer Ort", "en": "Physical Location" },
+              "description": { "de": "Physischer Ort mit Adresse und Koordinaten", "en": "Physical location with address and coordinates" },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": { "de": "Name", "en": "Name" },
+                  "description": { "de": "Name des Ortes", "en": "Name of the location" },
+                  "prompt": { "de": "Ortsname, z.B. 'Campus Mitte'.", "en": "Location name, e.g. 'Main Campus'." },
+                  "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true }
+                },
+                {
+                  "id": "sameAs",
+                  "label": { "de": "Verweis", "en": "Same As" },
+                  "description": { "de": "Externe URI-Referenz", "en": "External URI reference" },
+                  "prompt": { "de": "URI zu externer Referenz, z.B. Wikidata-Link.", "en": "URI to external reference, e.g. Wikidata link." },
+                  "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true }
+                },
+                {
+                  "id": "address",
+                  "label": { "de": "Adresse", "en": "Address" },
+                  "description": { "de": "Postanschrift", "en": "Postal address" },
+                  "prompt": { "de": "Postanschrift mit Straße, PLZ, Ort und Land.", "en": "Postal address with street, postal code, city, and country." },
+                  "fields": [
+                    { "id": "streetAddress", "label": { "de": "Straße", "en": "Street" }, "description": { "de": "Straße und Hausnummer", "en": "Street and house number" }, "prompt": { "de": "Straße, z.B. 'Unter den Linden 6'.", "en": "Street, e.g. 'Unter den Linden 6'." }, "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "postalCode", "label": { "de": "PLZ", "en": "Postal Code" }, "description": { "de": "Postleitzahl", "en": "Postal code" }, "prompt": { "de": "PLZ, z.B. '10117'.", "en": "Postal code, e.g. '10117'." }, "system": { "datatype": "string", "validation": { "pattern": "^[0-9]{4,10}$" }, "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "addressLocality", "label": { "de": "Stadt", "en": "City" }, "description": { "de": "Stadt oder Gemeinde", "en": "City or municipality" }, "prompt": { "de": "Stadt, z.B. 'Berlin'.", "en": "City, e.g. 'Berlin'." }, "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "addressRegion", "label": { "de": "Bundesland", "en": "State" }, "description": { "de": "Bundesland oder Region", "en": "State or region" }, "prompt": { "de": "Bundesland, z.B. 'Berlin', 'Bayern'.", "en": "State, e.g. 'Berlin', 'Bavaria'." }, "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "addressCountry", "label": { "de": "Land", "en": "Country" }, "description": { "de": "Land (ISO-Code)", "en": "Country (ISO code)" }, "prompt": { "de": "Ländercode, z.B. 'DE', 'AT', 'CH'.", "en": "Country code, e.g. 'DE', 'AT', 'CH'." }, "system": { "datatype": "string", "normalization": { "trim": true, "case": "upper" }, "required": false, "ask_user": true, "ai_fillable": true } }
+                  ],
+                  "system": { "datatype": "object", "required": false, "ask_user": true, "ai_fillable": true }
+                },
+                {
+                  "id": "geo",
+                  "label": { "de": "Koordinaten", "en": "Coordinates" },
+                  "description": { "de": "Breiten- und Längengrad", "en": "Latitude and longitude" },
+                  "prompt": { "de": "Geografische Koordinaten.", "en": "Geographic coordinates." },
+                  "fields": [
+                    { "id": "latitude", "label": { "de": "Breitengrad", "en": "Latitude" }, "description": { "de": "Breite (-90 bis +90)", "en": "Latitude (-90 to +90)" }, "prompt": { "de": "Breitengrad, z.B. 52.5200.", "en": "Latitude, e.g. 52.5200." }, "system": { "datatype": "number", "validation": { "min": -90, "max": 90 }, "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "longitude", "label": { "de": "Längengrad", "en": "Longitude" }, "description": { "de": "Länge (-180 bis +180)", "en": "Longitude (-180 to +180)" }, "prompt": { "de": "Längengrad, z.B. 13.4050.", "en": "Longitude, e.g. 13.4050." }, "system": { "datatype": "number", "validation": { "min": -180, "max": 180 }, "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } }
+                  ],
+                  "system": { "datatype": "object", "required": false, "ask_user": true, "ai_fillable": true }
+                }
+              ]
+            },
+            {
+              "@type": "VirtualLocation",
+              "label": { "de": "Virtueller Ort", "en": "Virtual Location" },
+              "description": { "de": "Online-Plattform oder virtueller Raum", "en": "Online platform or virtual space" },
+              "fields": [
+                {
+                  "id": "url",
+                  "label": { "de": "URL", "en": "URL" },
+                  "description": { "de": "Link zum virtuellen Ort", "en": "Link to the virtual location" },
+                  "prompt": { "de": "URL zum virtuellen Ort, z.B. Zoom-Link.", "en": "URL to the virtual location, e.g. Zoom link." },
+                  "system": { "datatype": "string", "validation": { "format": "url" }, "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:offers",
+      "group": "pricing",
+      "label": {
+        "de": "Preise/Angebote",
+        "en": "Prices/Offers"
+      },
+      "description": {
+        "de": "Preisinfos für das Programm",
+        "en": "Price information for the program"
+      },
+      "prompt": {
+        "de": "Preise mit Betrag, Währung und ggf. Link.",
+        "en": "Prices with amount, currency, and optional link."
+      },
+      "system": {
+        "path": "schema:offers",
+        "uri": "schema:offers",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": { "de": "Preise/Angebote", "en": "Prices/Offers" },
+              "description": { "de": "Preisinfos für das Programm", "en": "Price information for the program" },
+              "fields": [
+                { "id": "price", "label": { "de": "Preis", "en": "Price" }, "description": { "de": "Betrag", "en": "Amount" }, "prompt": { "de": "Preis als Zahl, z.B. 500, 1200.50.", "en": "Price as number, e.g. 500, 1200.50." }, "system": { "path": "price", "uri": "https://schema.org/price", "datatype": "number", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true } },
+                { "id": "priceCurrency", "label": { "de": "Währung", "en": "Currency" }, "description": { "de": "ISO 4217 Code", "en": "ISO 4217 code" }, "prompt": { "de": "Währungscode, z.B. 'EUR', 'USD', 'CHF'.", "en": "Currency code, e.g. 'EUR', 'USD', 'CHF'." }, "system": { "path": "priceCurrency", "uri": "https://schema.org/priceCurrency", "datatype": "string", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true } },
+                { "id": "url", "label": { "de": "URL", "en": "URL" }, "description": { "de": "Link zur Angebotsseite", "en": "Link to offer page" }, "prompt": { "de": "URL zur Angebotsseite.", "en": "URL to the offer page." }, "system": { "path": "url", "uri": "https://schema.org/url", "datatype": "string", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true } }
+              ]
+            }
+          ]
+        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "@type": ["schema:EducationalOccupationalProgram"],
+    "oeh:educationalOffering": [],
+    "oeh:concretenessType": "",
+    "oeh:granularityLevel": "",
+    "schema:educationalLevel": [],
+    "schema:availableLanguage": [],
+    "schema:programType": [],
+    "schema:educationalProgramMode": [],
+    "schema:applicationStartDate": "",
+    "schema:applicationDeadline": "",
+    "schema:startDate": "",
+    "schema:endDate": "",
+    "schema:timeToComplete": "",
+    "schema:termDuration": "",
+    "schema:termsPerYear": null,
+    "schema:numberOfCredits": null,
+    "schema:typicalCreditsPerTerm": null,
+    "schema:maximumEnrollment": null,
+    "schema:programPrerequisites": [],
+    "schema:educationalCredentialAwarded": [],
+    "schema:credentialCategory": [],
+    "schema:occupationalCategory": [],
+    "schema:financialAidEligible": [],
+    "schema:hasCourse": [],
+    "schema:provider": { "name": "", "url": "" },
+    "schema:location": [],
+    "schema:offers": []
+  }
+}

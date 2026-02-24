@@ -19,11 +19,8 @@ WORKDIR /app
 COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --from=builder /usr/local/bin /usr/local/bin
 
-# Copy application code
+# Copy application code (includes src/static/widget/ if present)
 COPY src/ ./src/
-
-# Copy widget static files (if present from build pipeline)
-COPY src/static/ ./src/static/
 
 # Create non-root user
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app

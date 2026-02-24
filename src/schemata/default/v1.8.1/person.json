@@ -1,0 +1,2313 @@
+{
+  "profileId": "core:person",
+  "version": "1.8.1",
+  "@context": {
+    "schema": "https://schema.org/",
+    "sdo": "https://schema.org/",
+    "ccm": "https://example.org/ccm/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#"
+  },
+  "groups": [
+    {
+      "id": "identity",
+      "icon": "badge",
+      "label": {
+        "de": "Identität & Namen",
+        "en": "Identity & Names"
+      }
+    },
+    {
+      "id": "contact",
+      "icon": "contacts",
+      "label": {
+        "de": "Kontakt & Präsenzen",
+        "en": "Contact & Presences"
+      }
+    },
+    {
+      "id": "life",
+      "icon": "cake",
+      "label": {
+        "de": "Lebensdaten",
+        "en": "Life Data"
+      }
+    },
+    {
+      "id": "work",
+      "icon": "work",
+      "label": {
+        "de": "Beruf & Organisation",
+        "en": "Profession & Organization"
+      }
+    },
+    {
+      "id": "edu",
+      "icon": "school",
+      "label": {
+        "de": "Bildung, Expertise & Leistungen",
+        "en": "Education, Expertise & Achievements"
+      }
+    },
+    {
+      "id": "roles",
+      "icon": "admin_panel_settings",
+      "label": {
+        "de": "Rollen (Open-eduHub)",
+        "en": "Roles (Open-eduHub)"
+      }
+    },
+    {
+      "id": "links",
+      "icon": "link",
+      "label": {
+        "de": "Verknüpfungen & IDs",
+        "en": "Connections & IDs"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "schema:name",
+      "group": "identity",
+      "label": {
+        "de": "Vollständiger Name",
+        "en": "Full Name"
+      },
+      "description": {
+        "de": "Anzeigename (zusammengesetzt aus Namensbestandteilen).",
+        "en": "Display Name (composed of name components)."
+      },
+      "prompt": {
+        "de": "Vollständiger Anzeigename der Person, z.B. 'Prof. Dr. Maria Müller'. Zusammengesetzt aus Titel, Vorname, Nachname.",
+        "en": "Full display name of the person, e.g. 'Prof. Dr. Maria Müller'. Composed of title, first name, last name."
+      },
+      "system": {
+        "path": "schema:name",
+        "uri": "sdo:name",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "collapseWhitespace": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:givenName",
+      "group": "identity",
+      "label": {
+        "de": "Vorname",
+        "en": "First name"
+      },
+      "description": {
+        "de": "Vorname(n)",
+        "en": "Given name(s)"
+      },
+      "prompt": {
+        "de": "Vorname(n) der Person, z.B. 'Maria', 'Hans-Peter'.",
+        "en": "First name(s) of the person, e.g. 'Maria', 'Hans-Peter'."
+      },
+      "system": {
+        "path": "schema:givenName",
+        "uri": "sdo:givenName",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:familyName",
+      "group": "identity",
+      "label": {
+        "de": "Nachname",
+        "en": "Last name"
+      },
+      "description": {
+        "de": "Familienname oder Nachname",
+        "en": "Family name or surname"
+      },
+      "prompt": {
+        "de": "Nachname der Person, z.B. 'Müller', 'Schmidt-Weber'.",
+        "en": "Last name of the person, e.g. 'Müller', 'Schmidt-Weber'."
+      },
+      "system": {
+        "path": "schema:familyName",
+        "uri": "sdo:familyName",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:additionalName",
+      "group": "identity",
+      "label": {
+        "de": "Weitere Namen (Mittel-/Künstlernamen, Pseudonyme)",
+        "en": "Additional names (middle names/stage names, pseudonyms)"
+      },
+      "description": {
+        "de": "Weitere Vornamen oder Zwischennamen",
+        "en": "Additional or middle name(s)"
+      },
+      "prompt": {
+        "de": "Weitere Namen wie Zweitnamen, Künstlernamen oder Pseudonyme.",
+        "en": "Additional names such as middle names, stage names, or pseudonyms."
+      },
+      "system": {
+        "path": "schema:additionalName",
+        "uri": "sdo:additionalName",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:honorificPrefix",
+      "group": "identity",
+      "label": {
+        "de": "Vorangestellter Namenszusatz (z. B. Dr.)",
+        "en": "Prefix (e.g. Dr.)"
+      },
+      "description": {
+        "de": "Titel vor dem Namen (z.B. Dr., Prof.)",
+        "en": "Title before name (e.g., Dr., Prof.)"
+      },
+      "prompt": {
+        "de": "Titel vor dem Namen, z.B. 'Dr.', 'Prof.', 'Prof. Dr.'.",
+        "en": "Title before the name, e.g. 'Dr.', 'Prof.', 'Prof. Dr.'."
+      },
+      "system": {
+        "path": "schema:honorificPrefix",
+        "uri": "sdo:honorificPrefix",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:honorificSuffix",
+      "group": "identity",
+      "label": {
+        "de": "Nachgestellter Namenszusatz (z. B. PhD)",
+        "en": "Post-nominal title (e.g., PhD)"
+      },
+      "description": {
+        "de": "Namenszusatz nach dem Namen (z.B. Jr., Sr.)",
+        "en": "Name suffix (e.g., Jr., Sr.)"
+      },
+      "prompt": {
+        "de": "Namenszusatz nach dem Namen, z.B. 'PhD', 'M.A.', 'Jr.'.",
+        "en": "Suffix after the name, e.g. 'PhD', 'M.A.', 'Jr.'."
+      },
+      "system": {
+        "path": "schema:honorificSuffix",
+        "uri": "sdo:honorificSuffix",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:email",
+      "group": "contact",
+      "label": {
+        "de": "E-Mail",
+        "en": "Email"
+      },
+      "description": {
+        "de": "E-Mail-Adresse",
+        "en": "Email address"
+      },
+      "prompt": {
+        "de": "E-Mail-Adresse(n) der Person, z.B. 'maria.mueller@uni-berlin.de'.",
+        "en": "Email address(es) of the person, e.g. 'maria.mueller@uni-berlin.de'."
+      },
+      "system": {
+        "path": "schema:email",
+        "uri": "sdo:email",
+        "datatype": "string",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "lowercase": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:telephone",
+      "group": "contact",
+      "label": {
+        "de": "Telefonnummer",
+        "en": "Phone number"
+      },
+      "description": {
+        "de": "Telefonnummer",
+        "en": "Telephone number"
+      },
+      "prompt": {
+        "de": "Telefonnummer(n) mit Vorwahl, z.B. '+49 30 12345678'.",
+        "en": "Phone number(s) with area code, e.g. '+49 30 12345678'."
+      },
+      "system": {
+        "path": "schema:telephone",
+        "uri": "sdo:telephone",
+        "datatype": "string",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:address",
+      "group": "contact",
+      "label": {
+        "de": "Adresse (optional)",
+        "en": "Address (optional)"
+      },
+      "description": {
+        "de": "Adresse oder Anschrift",
+        "en": "Address"
+      },
+      "prompt": {
+        "de": "Postanschrift der Person mit Straße, PLZ, Ort und Land.",
+        "en": "Postal address of the person with street, postal code, city, and country."
+      },
+      "system": {
+        "path": "schema:address",
+        "uri": "sdo:address",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": false,
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "PostalAddress",
+            "label": {
+              "de": "Adresse (optional)",
+              "en": "Address (optional)"
+            },
+            "description": {
+              "de": "Postanschrift der Person",
+              "en": "Postal address of the person"
+            },
+            "fields": [
+              {
+                "id": "streetAddress",
+                "label": {
+                  "de": "Straße und Hausnummer",
+                  "en": "Street Address"
+                },
+                "description": {
+                  "de": "Straße und Hausnummer",
+                  "en": "Street and house number"
+                },
+                "prompt": {
+                  "de": "Straße und Hausnummer, z.B. 'Unter den Linden 6'.",
+                  "en": "Street and house number, e.g. 'Unter den Linden 6'."
+                },
+                "system": {
+                  "path": "streetAddress",
+                  "uri": "https://schema.org/streetAddress",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "postalCode",
+                "label": {
+                  "de": "Postleitzahl",
+                  "en": "Postal Code"
+                },
+                "description": {
+                  "de": "Postleitzahl",
+                  "en": "Postal code"
+                },
+                "prompt": {
+                  "de": "Postleitzahl, z.B. '10117'.",
+                  "en": "Postal code, e.g. '10117'."
+                },
+                "system": {
+                  "path": "postalCode",
+                  "uri": "https://schema.org/postalCode",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressLocality",
+                "label": {
+                  "de": "Stadt",
+                  "en": "City"
+                },
+                "description": {
+                  "de": "Stadt oder Gemeinde",
+                  "en": "City or municipality"
+                },
+                "prompt": {
+                  "de": "Stadt, z.B. 'Berlin'.",
+                  "en": "City, e.g. 'Berlin'."
+                },
+                "system": {
+                  "path": "addressLocality",
+                  "uri": "https://schema.org/addressLocality",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressRegion",
+                "label": {
+                  "de": "Bundesland/Region",
+                  "en": "State/Region"
+                },
+                "description": {
+                  "de": "Bundesland oder Region",
+                  "en": "State or region"
+                },
+                "prompt": {
+                  "de": "Bundesland, z.B. 'Berlin', 'Bayern'.",
+                  "en": "State, e.g. 'Berlin', 'Bavaria'."
+                },
+                "system": {
+                  "path": "addressRegion",
+                  "uri": "https://schema.org/addressRegion",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressCountry",
+                "label": {
+                  "de": "Land",
+                  "en": "Country"
+                },
+                "description": {
+                  "de": "Land (ISO-Code)",
+                  "en": "Country (ISO code)"
+                },
+                "prompt": {
+                  "de": "Ländercode, z.B. 'DE', 'AT', 'CH'.",
+                  "en": "Country code, e.g. 'DE', 'AT', 'CH'."
+                },
+                "system": {
+                  "path": "addressCountry",
+                  "uri": "https://schema.org/addressCountry",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:contactPoint",
+      "group": "contact",
+      "label": {
+        "de": "Kontaktstelle(n)",
+        "en": "Contact point(s)"
+      },
+      "description": {
+        "de": "Kontaktstelle oder Ansprechpartner",
+        "en": "Contact point"
+      },
+      "prompt": {
+        "de": "Kontaktstellen der Person, z.B. Büro, Sprechstunde.",
+        "en": "Contact points of the person, e.g. office, consultation hours."
+      },
+      "system": {
+        "path": "schema:contactPoint",
+        "uri": "sdo:contactPoint",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "ContactPoint",
+            "label": {
+              "de": "Kontaktstelle(n)",
+              "en": "Contact point(s)"
+            },
+            "description": {
+              "de": "Kontaktstelle mit Typ, E-Mail, Telefon",
+              "en": "Contact point with type, email, phone"
+            },
+            "fields": [
+              {
+                "id": "contactType",
+                "label": {
+                  "de": "Kontakttyp",
+                  "en": "Contact Type"
+                },
+                "description": {
+                  "de": "Art der Kontaktstelle",
+                  "en": "Type of contact point"
+                },
+                "prompt": {
+                  "de": "Art der Kontaktstelle, z.B. 'Büro', 'Sprechstunde', 'Sekretariat'.",
+                  "en": "Type of contact point, e.g. 'Office', 'Consultation hours', 'Secretary'."
+                },
+                "system": {
+                  "path": "contactType",
+                  "uri": "https://schema.org/contactType",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "email",
+                "label": {
+                  "de": "E-Mail",
+                  "en": "Email"
+                },
+                "description": {
+                  "de": "E-Mail-Adresse",
+                  "en": "Email address"
+                },
+                "prompt": {
+                  "de": "E-Mail-Adresse dieser Kontaktstelle.",
+                  "en": "Email address of this contact point."
+                },
+                "system": {
+                  "path": "email",
+                  "uri": "https://schema.org/email",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "telephone",
+                "label": {
+                  "de": "Telefon",
+                  "en": "Telephone"
+                },
+                "description": {
+                  "de": "Telefonnummer",
+                  "en": "Phone number"
+                },
+                "prompt": {
+                  "de": "Telefonnummer dieser Kontaktstelle.",
+                  "en": "Phone number of this contact point."
+                },
+                "system": {
+                  "path": "telephone",
+                  "uri": "https://schema.org/telephone",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "Webseite der Kontaktstelle",
+                  "en": "Website of the contact point"
+                },
+                "prompt": {
+                  "de": "URL zur Kontaktseite.",
+                  "en": "URL to the contact page."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "areaServed",
+                "label": {
+                  "de": "Bediente Region",
+                  "en": "Area Served"
+                },
+                "description": {
+                  "de": "Zuständigkeitsgebiet",
+                  "en": "Area of responsibility"
+                },
+                "prompt": {
+                  "de": "Region oder Gebiet, z.B. 'Berlin', 'Deutschland'.",
+                  "en": "Region or area, e.g. 'Berlin', 'Germany'."
+                },
+                "system": {
+                  "path": "areaServed",
+                  "uri": "https://schema.org/areaServed",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "availableLanguage",
+                "label": {
+                  "de": "Verfügbare Sprachen",
+                  "en": "Available Languages"
+                },
+                "description": {
+                  "de": "Sprachen der Kontaktstelle",
+                  "en": "Languages of the contact point"
+                },
+                "prompt": {
+                  "de": "Verfügbare Sprachen, z.B. 'Deutsch, Englisch'.",
+                  "en": "Available languages, e.g. 'German, English'."
+                },
+                "system": {
+                  "path": "availableLanguage",
+                  "uri": "https://schema.org/availableLanguage",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:url",
+      "group": "contact",
+      "label": {
+        "de": "Persönliche Webseite/Profil",
+        "en": "Personal website/profile"
+      },
+      "description": {
+        "de": "URL oder Webadresse",
+        "en": "URL or web address"
+      },
+      "prompt": {
+        "de": "Persönliche Website oder Profilseite, z.B. 'https://www.uni-berlin.de/mueller'.",
+        "en": "Personal website or profile page, e.g. 'https://www.uni-berlin.de/mueller'."
+      },
+      "system": {
+        "path": "schema:url",
+        "uri": "sdo:url",
+        "datatype": "uri",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:sameAs",
+      "group": "contact",
+      "label": {
+        "de": "Soziale Medien / Externe Profile (sameAs)",
+        "en": "Social Media / External Profiles (sameAs)"
+      },
+      "description": {
+        "de": "Verweis auf externe Ressource oder Identifikator",
+        "en": "Reference to external resource or identifier"
+      },
+      "prompt": {
+        "de": "URLs zu Social-Media-Profilen und persönlichen Webpräsenzen, z.B. LinkedIn, Twitter/X, Mastodon, Wikipedia-Personenseite. NICHT für strukturierte Identifier wie ORCID oder GND – diese gehören in 'Identifier'.",
+        "en": "URLs to social media profiles and personal web presences, e.g. LinkedIn, Twitter/X, Mastodon, Wikipedia person page. NOT for structured identifiers like ORCID or GND – those belong in 'Identifier'."
+      },
+      "system": {
+        "path": "schema:sameAs",
+        "uri": "sdo:sameAs",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:image",
+      "group": "contact",
+      "label": {
+        "de": "Bild der Person (URL)",
+        "en": "Image of the person (URL)"
+      },
+      "description": {
+        "de": "Bild oder Foto",
+        "en": "Image or photo"
+      },
+      "prompt": {
+        "de": "URL zu einem Foto oder Bild der Person (jpg, png, webp).",
+        "en": "URL to a photo or image of the person (jpg, png, webp)."
+      },
+      "system": {
+        "path": "schema:image",
+        "uri": "sdo:image",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+\\.(jpg|jpeg|png|webp|gif))$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:birthDate",
+      "group": "life",
+      "label": {
+        "de": "Geburtsdatum (YYYY-MM-DD)",
+        "en": "Date of Birth (YYYY-MM-DD)"
+      },
+      "description": {
+        "de": "Geburtsdatum im Format YYYY-MM-DD, z.B. 1985-03-15",
+        "en": "Date of birth in YYYY-MM-DD format, e.g. 1985-03-15"
+      },
+      "prompt": {
+        "de": "Geburtsdatum im Format YYYY-MM-DD, z.B. '1985-03-15'. Auch Teilangaben möglich: '1985' oder '1985-03'.",
+        "en": "Date of birth in YYYY-MM-DD format, e.g. '1985-03-15'. Partial dates allowed: '1985' or '1985-03'."
+      },
+      "system": {
+        "path": "schema:birthDate",
+        "uri": "sdo:birthDate",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:birthPlace",
+      "group": "life",
+      "label": {
+        "de": "Geburtsort",
+        "en": "Place of Birth"
+      },
+      "description": {
+        "de": "Geburtsort",
+        "en": "Place of birth"
+      },
+      "prompt": {
+        "de": "Geburtsort der Person, z.B. 'Berlin', 'München, Deutschland'.",
+        "en": "Place of birth, e.g. 'Berlin', 'Munich, Germany'."
+      },
+      "system": {
+        "path": "schema:birthPlace",
+        "uri": "sdo:birthPlace",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:deathDate",
+      "group": "life",
+      "label": {
+        "de": "Sterbedatum (optional)",
+        "en": "Date of death (optional)"
+      },
+      "description": {
+        "de": "Todesdatum im Format YYYY-MM-DD, z.B. 2020-12-31",
+        "en": "Date of death in YYYY-MM-DD format, e.g. 2020-12-31"
+      },
+      "prompt": {
+        "de": "Sterbedatum im Format YYYY-MM-DD. Nur angeben, wenn die Person verstorben ist.",
+        "en": "Date of death in YYYY-MM-DD format. Only provide if the person is deceased."
+      },
+      "system": {
+        "path": "schema:deathDate",
+        "uri": "sdo:deathDate",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:deathPlace",
+      "group": "life",
+      "label": {
+        "de": "Sterbeort (optional)",
+        "en": "Place of death (optional)"
+      },
+      "description": {
+        "de": "Sterbeort",
+        "en": "Place of death"
+      },
+      "prompt": {
+        "de": "Sterbeort. Nur angeben, wenn die Person verstorben ist.",
+        "en": "Place of death. Only provide if the person is deceased."
+      },
+      "system": {
+        "path": "schema:deathPlace",
+        "uri": "sdo:deathPlace",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:gender",
+      "group": "life",
+      "label": {
+        "de": "Geschlecht (frei oder Schema-URI)",
+        "en": "Gender (free or schema URI)"
+      },
+      "description": {
+        "de": "Geschlecht",
+        "en": "Gender"
+      },
+      "prompt": {
+        "de": "Geschlecht der Person, z.B. 'male', 'female', 'diverse' oder Schema-URI.",
+        "en": "Gender of the person, e.g. 'male', 'female', 'diverse' or schema URI."
+      },
+      "system": {
+        "path": "schema:gender",
+        "uri": "sdo:gender",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:nationality",
+      "group": "life",
+      "label": {
+        "de": "Nationalität",
+        "en": "Nationality"
+      },
+      "description": {
+        "de": "Nationalität oder Staatsangehörigkeit",
+        "en": "Nationality or citizenship"
+      },
+      "prompt": {
+        "de": "Nationalität als ISO-Ländercode. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'Deutschland', 'Österreich'.",
+        "en": "Nationality as ISO country code. Use EXACT labels from the vocabulary, e.g. 'Germany', 'Austria'."
+      },
+      "system": {
+        "path": "schema:nationality",
+        "uri": "sdo:nationality",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "string"
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            { "label": { "de": "Deutschland", "en": "Germany" }, "value": "DE" },
+            { "label": { "de": "Österreich", "en": "Austria" }, "value": "AT" },
+            { "label": { "de": "Schweiz", "en": "Switzerland" }, "value": "CH" },
+            { "label": { "de": "Frankreich", "en": "France" }, "value": "FR" },
+            { "label": { "de": "Italien", "en": "Italy" }, "value": "IT" },
+            { "label": { "de": "Spanien", "en": "Spain" }, "value": "ES" },
+            { "label": { "de": "Portugal", "en": "Portugal" }, "value": "PT" },
+            { "label": { "de": "Niederlande", "en": "Netherlands" }, "value": "NL" },
+            { "label": { "de": "Belgien", "en": "Belgium" }, "value": "BE" },
+            { "label": { "de": "Luxemburg", "en": "Luxembourg" }, "value": "LU" },
+            { "label": { "de": "Vereinigtes Königreich", "en": "United Kingdom" }, "value": "GB" },
+            { "label": { "de": "Irland", "en": "Ireland" }, "value": "IE" },
+            { "label": { "de": "Polen", "en": "Poland" }, "value": "PL" },
+            { "label": { "de": "Tschechien", "en": "Czech Republic" }, "value": "CZ" },
+            { "label": { "de": "Slowakei", "en": "Slovakia" }, "value": "SK" },
+            { "label": { "de": "Ungarn", "en": "Hungary" }, "value": "HU" },
+            { "label": { "de": "Rumänien", "en": "Romania" }, "value": "RO" },
+            { "label": { "de": "Bulgarien", "en": "Bulgaria" }, "value": "BG" },
+            { "label": { "de": "Griechenland", "en": "Greece" }, "value": "GR" },
+            { "label": { "de": "Kroatien", "en": "Croatia" }, "value": "HR" },
+            { "label": { "de": "Slowenien", "en": "Slovenia" }, "value": "SI" },
+            { "label": { "de": "Dänemark", "en": "Denmark" }, "value": "DK" },
+            { "label": { "de": "Schweden", "en": "Sweden" }, "value": "SE" },
+            { "label": { "de": "Norwegen", "en": "Norway" }, "value": "NO" },
+            { "label": { "de": "Finnland", "en": "Finland" }, "value": "FI" },
+            { "label": { "de": "Russland", "en": "Russia" }, "value": "RU" },
+            { "label": { "de": "Ukraine", "en": "Ukraine" }, "value": "UA" },
+            { "label": { "de": "Türkei", "en": "Turkey" }, "value": "TR" },
+            { "label": { "de": "USA", "en": "United States" }, "value": "US" },
+            { "label": { "de": "Kanada", "en": "Canada" }, "value": "CA" },
+            { "label": { "de": "China", "en": "China" }, "value": "CN" },
+            { "label": { "de": "Japan", "en": "Japan" }, "value": "JP" },
+            { "label": { "de": "Südkorea", "en": "South Korea" }, "value": "KR" },
+            { "label": { "de": "Indien", "en": "India" }, "value": "IN" },
+            { "label": { "de": "Australien", "en": "Australia" }, "value": "AU" },
+            { "label": { "de": "Brasilien", "en": "Brazil" }, "value": "BR" },
+            { "label": { "de": "Mexiko", "en": "Mexico" }, "value": "MX" },
+            { "label": { "de": "Argentinien", "en": "Argentina" }, "value": "AR" }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:knowsLanguage",
+      "group": "life",
+      "label": {
+        "de": "Sprachkenntnisse (BCP-47, z. B. de, en-US)",
+        "en": "Language skills (BCP-47, e.g., de, en-US)"
+      },
+      "description": {
+        "de": "Gesprochene Sprachen",
+        "en": "Languages spoken"
+      },
+      "prompt": {
+        "de": "Sprachkenntnisse als BCP-47-Code. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'Deutsch', 'Englisch', 'Französisch'.",
+        "en": "Language skills as BCP-47 code. Use EXACT labels from the vocabulary, e.g. 'German', 'English', 'French'."
+      },
+      "system": {
+        "path": "schema:knowsLanguage",
+        "uri": "sdo:knowsLanguage",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "string"
+        },
+        "validation": {
+          "pattern": "^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$"
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            { "label": { "de": "Bulgarisch", "en": "Bulgarian" }, "value": "bg" },
+            { "label": { "de": "Dänisch", "en": "Danish" }, "value": "da" },
+            { "label": { "de": "Deutsch", "en": "German" }, "value": "de" },
+            { "label": { "de": "Englisch", "en": "English" }, "value": "en" },
+            { "label": { "de": "Estnisch", "en": "Estonian" }, "value": "et" },
+            { "label": { "de": "Finnisch", "en": "Finnish" }, "value": "fi" },
+            { "label": { "de": "Französisch", "en": "French" }, "value": "fr" },
+            { "label": { "de": "Griechisch", "en": "Greek" }, "value": "el" },
+            { "label": { "de": "Irisch", "en": "Irish" }, "value": "ga" },
+            { "label": { "de": "Italienisch", "en": "Italian" }, "value": "it" },
+            { "label": { "de": "Kroatisch", "en": "Croatian" }, "value": "hr" },
+            { "label": { "de": "Lettisch", "en": "Latvian" }, "value": "lv" },
+            { "label": { "de": "Litauisch", "en": "Lithuanian" }, "value": "lt" },
+            { "label": { "de": "Maltesisch", "en": "Maltese" }, "value": "mt" },
+            { "label": { "de": "Niederländisch", "en": "Dutch" }, "value": "nl" },
+            { "label": { "de": "Polnisch", "en": "Polish" }, "value": "pl" },
+            { "label": { "de": "Portugiesisch", "en": "Portuguese" }, "value": "pt" },
+            { "label": { "de": "Rumänisch", "en": "Romanian" }, "value": "ro" },
+            { "label": { "de": "Schwedisch", "en": "Swedish" }, "value": "sv" },
+            { "label": { "de": "Slowakisch", "en": "Slovak" }, "value": "sk" },
+            { "label": { "de": "Slowenisch", "en": "Slovenian" }, "value": "sl" },
+            { "label": { "de": "Spanisch", "en": "Spanish" }, "value": "es" },
+            { "label": { "de": "Tschechisch", "en": "Czech" }, "value": "cs" },
+            { "label": { "de": "Ungarisch", "en": "Hungarian" }, "value": "hu" },
+            { "label": { "de": "Norwegisch", "en": "Norwegian" }, "value": "no" },
+            { "label": { "de": "Russisch", "en": "Russian" }, "value": "ru" },
+            { "label": { "de": "Ukrainisch", "en": "Ukrainian" }, "value": "uk" },
+            { "label": { "de": "Türkisch", "en": "Turkish" }, "value": "tr" },
+            { "label": { "de": "Arabisch", "en": "Arabic" }, "value": "ar" },
+            { "label": { "de": "Persisch", "en": "Persian" }, "value": "fa" },
+            { "label": { "de": "Dari", "en": "Dari" }, "value": "prs" },
+            { "label": { "de": "Paschtu", "en": "Pashto" }, "value": "ps" },
+            { "label": { "de": "Chinesisch", "en": "Chinese" }, "value": "zh" },
+            { "label": { "de": "Japanisch", "en": "Japanese" }, "value": "ja" }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "lowercase_lang": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:jobTitle",
+      "group": "work",
+      "label": {
+        "de": "Berufsbezeichnung / Jobtitel",
+        "en": "Job title"
+      },
+      "description": {
+        "de": "Berufsbezeichnung oder Jobtitel",
+        "en": "Job title"
+      },
+      "prompt": {
+        "de": "Berufsbezeichnung oder Jobtitel, z.B. 'Professorin für Informatik', 'Lehrer'.",
+        "en": "Job title, e.g. 'Professor of Computer Science', 'Teacher'."
+      },
+      "system": {
+        "path": "schema:jobTitle",
+        "uri": "sdo:jobTitle",
+        "datatype": "string",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:hasOccupation",
+      "group": "work",
+      "label": {
+        "de": "Beruf / Tätigkeit (strukturiert)",
+        "en": "Occupation / Activity (structured)"
+      },
+      "description": {
+        "de": "Generischer Beruf oder berufliche Tätigkeit mit optionaler Kategorie, Kennung und Verlinkung",
+        "en": "Generic occupation or professional activity with optional category, identifier and link"
+      },
+      "prompt": {
+        "de": "Generische Berufsbezeichnung(en) der Person – NICHT den konkreten Jobtitel (der steht in 'Jobtitel'). Hier den allgemeinen Beruf angeben, z.B. 'Informatikerin', 'Physiker', 'Lehrerin'. Optional mit Berufskategorie (z.B. 'Bildung', 'IT'), Kennung (z.B. ISCO-Code, Wikidata-URI) und URL zum Berufsprofil.",
+        "en": "Generic occupation(s) of the person – NOT the specific job title (that goes in 'Job Title'). Enter the general occupation, e.g. 'Computer Scientist', 'Physicist', 'Teacher'. Optionally with occupational category (e.g. 'Education', 'IT'), identifier (e.g. ISCO code, Wikidata URI) and URL to the occupation profile."
+      },
+      "system": {
+        "path": "schema:hasOccupation",
+        "uri": "sdo:hasOccupation",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Occupation",
+            "label": {
+              "de": "Beruf / Tätigkeit (strukturiert)",
+              "en": "Occupation / Activity (structured)"
+            },
+            "description": {
+              "de": "Beruf mit Name, Kategorie, Kennung und URL",
+              "en": "Occupation with name, category, identifier and URL"
+            },
+            "fields": [
+              {
+                "id": "name",
+                "label": {
+                  "de": "Name",
+                  "en": "Name"
+                },
+                "description": {
+                  "de": "Generische Berufsbezeichnung",
+                  "en": "Generic occupation name"
+                },
+                "prompt": {
+                  "de": "Generische Berufsbezeichnung, z.B. 'Informatikerin', 'Lehrerin', 'Physiker'.",
+                  "en": "Generic occupation name, e.g. 'Computer Scientist', 'Teacher', 'Physicist'."
+                },
+                "system": {
+                  "path": "name",
+                  "uri": "https://schema.org/name",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "occupationalCategory",
+                "label": {
+                  "de": "Berufskategorie",
+                  "en": "Occupational Category"
+                },
+                "description": {
+                  "de": "Berufskategorie oder Berufsfeld",
+                  "en": "Occupational category or field"
+                },
+                "prompt": {
+                  "de": "Berufskategorie, z.B. 'Bildung', 'IT', 'Wissenschaft', 'Medizin'.",
+                  "en": "Occupational category, e.g. 'Education', 'IT', 'Science', 'Medicine'."
+                },
+                "system": {
+                  "path": "occupationalCategory",
+                  "uri": "https://schema.org/occupationalCategory",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "identifier",
+                "label": {
+                  "de": "Kennung (ISCO, Wikidata etc.)",
+                  "en": "Identifier (ISCO, Wikidata etc.)"
+                },
+                "description": {
+                  "de": "Externe Kennung oder URI des Berufs",
+                  "en": "External identifier or URI of the occupation"
+                },
+                "prompt": {
+                  "de": "Externe Kennung, z.B. ISCO-Code '2511' oder Wikidata-URI 'https://www.wikidata.org/wiki/Q82594'.",
+                  "en": "External identifier, e.g. ISCO code '2511' or Wikidata URI 'https://www.wikidata.org/wiki/Q82594'."
+                },
+                "system": {
+                  "path": "identifier",
+                  "uri": "https://schema.org/identifier",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL zum Berufsprofil",
+                  "en": "URL to occupation profile"
+                },
+                "description": {
+                  "de": "Link zu einer Berufsbeschreibung",
+                  "en": "Link to an occupation description"
+                },
+                "prompt": {
+                  "de": "URL zu einer Berufsbeschreibung, z.B. Berufenet, ESCO oder Wikipedia.",
+                  "en": "URL to an occupation description, e.g. O*NET, ESCO or Wikipedia."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:worksFor",
+      "group": "work",
+      "label": {
+        "de": "Arbeitgeber / Organisation",
+        "en": "Employer / Organization"
+      },
+      "description": {
+        "de": "Arbeitgeber oder Organisation",
+        "en": "Employer or organization"
+      },
+      "prompt": {
+        "de": "Arbeitgeber oder Organisation, bei der die Person beschäftigt ist.",
+        "en": "Employer or organization where the person works."
+      },
+      "system": {
+        "path": "schema:worksFor",
+        "uri": "sdo:worksFor",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Organization",
+            "label": {
+              "de": "Arbeitgeber / Organisation",
+              "en": "Employer / Organization"
+            },
+            "description": {
+              "de": "Arbeitgeber mit Name und URL",
+              "en": "Employer with name and URL"
+            },
+            "fields": [
+              {
+                "id": "name",
+                "label": {
+                  "de": "Name",
+                  "en": "Name"
+                },
+                "description": {
+                  "de": "Name des Arbeitgebers",
+                  "en": "Name of the employer"
+                },
+                "prompt": {
+                  "de": "Name des Arbeitgebers, z.B. 'Humboldt-Universität zu Berlin'.",
+                  "en": "Name of the employer, e.g. 'Humboldt University of Berlin'."
+                },
+                "system": {
+                  "path": "name",
+                  "uri": "https://schema.org/name",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "Website des Arbeitgebers",
+                  "en": "Website of the employer"
+                },
+                "prompt": {
+                  "de": "Website des Arbeitgebers.",
+                  "en": "Website of the employer."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:affiliation",
+      "group": "work",
+      "label": {
+        "de": "Zugehörigkeiten & Mitgliedschaften",
+        "en": "Affiliations & Memberships"
+      },
+      "description": {
+        "de": "Alle Organisationszugehörigkeiten, Mitgliedschaften und Netzwerke (außer dem Hauptarbeitgeber, der in 'Arbeitgeber' steht)",
+        "en": "All organizational affiliations, memberships and networks (except the main employer, which goes in 'Employer')"
+      },
+      "prompt": {
+        "de": "Alle Organisationen, denen die Person angehört, bei denen sie Mitglied ist oder mit denen sie verbunden ist – AUSSER dem Hauptarbeitgeber (der steht in 'Arbeitgeber'). Inkl. Fachgesellschaften, Netzwerke, Beiräte, Vereine etc. Optional mit Rolle und URL. Beispiele: [{'name': 'GEW', 'roleName': 'Mitglied'}, {'name': 'Wikimedia Deutschland', 'url': 'https://www.wikimedia.de'}].",
+        "en": "All organizations the person is affiliated with, member of, or connected to – EXCEPT the main employer (that goes in 'Employer'). Incl. professional societies, networks, advisory boards, associations etc. Optionally with role and URL. Examples: [{'name': 'GEW', 'roleName': 'Member'}, {'name': 'Wikimedia Germany', 'url': 'https://www.wikimedia.de'}]."
+      },
+      "system": {
+        "path": "schema:affiliation",
+        "uri": "sdo:affiliation",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Organization",
+            "label": {
+              "de": "Zugehörigkeiten & Mitgliedschaften",
+              "en": "Affiliations & Memberships"
+            },
+            "description": {
+              "de": "Organisation mit Name, Rolle und URL",
+              "en": "Organization with name, role and URL"
+            },
+            "fields": [
+              {
+                "id": "name",
+                "label": {
+                  "de": "Name",
+                  "en": "Name"
+                },
+                "description": {
+                  "de": "Name der Organisation",
+                  "en": "Name of the organization"
+                },
+                "prompt": {
+                  "de": "Name der Organisation, z.B. 'GEW', 'Deutsche Physikalische Gesellschaft', 'Wikimedia Deutschland'.",
+                  "en": "Name of the organization, e.g. 'GEW', 'German Physical Society', 'Wikimedia Germany'."
+                },
+                "system": {
+                  "path": "name",
+                  "uri": "https://schema.org/name",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "roleName",
+                "label": {
+                  "de": "Rolle / Funktion",
+                  "en": "Role / Function"
+                },
+                "description": {
+                  "de": "Rolle der Person in der Organisation",
+                  "en": "Role of the person in the organization"
+                },
+                "prompt": {
+                  "de": "Rolle oder Funktion, z.B. 'Mitglied', 'Beirat', 'Vorstandsmitglied', 'Botschafter'.",
+                  "en": "Role or function, e.g. 'Member', 'Advisory Board', 'Board Member', 'Ambassador'."
+                },
+                "system": {
+                  "path": "roleName",
+                  "uri": "https://schema.org/roleName",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "Website der Organisation",
+                  "en": "Website of the organization"
+                },
+                "prompt": {
+                  "de": "Website der Organisation.",
+                  "en": "Website of the organization."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:alumniOf",
+      "group": "work",
+      "label": {
+        "de": "Alumni von (Organisation/Institution)",
+        "en": "Alumni of (Organization/Institution)"
+      },
+      "description": {
+        "de": "Ehemalige Zugehörigkeit (Alumni)",
+        "en": "Former affiliation (alumni)"
+      },
+      "prompt": {
+        "de": "Bildungseinrichtung(en), an denen die Person studiert oder gelernt hat.",
+        "en": "Educational institution(s) where the person studied or trained."
+      },
+      "system": {
+        "path": "schema:alumniOf",
+        "uri": "sdo:alumniOf",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "EducationalOrganization",
+            "label": {
+              "de": "Alumni von (Organisation/Institution)",
+              "en": "Alumni of (Organization/Institution)"
+            },
+            "description": {
+              "de": "Bildungseinrichtung mit Name und URL",
+              "en": "Educational institution with name and URL"
+            },
+            "fields": [
+              {
+                "id": "name",
+                "label": {
+                  "de": "Name",
+                  "en": "Name"
+                },
+                "description": {
+                  "de": "Name der Einrichtung",
+                  "en": "Name of the institution"
+                },
+                "prompt": {
+                  "de": "Name der Bildungseinrichtung, z.B. 'Universität Hamburg', 'TU München'.",
+                  "en": "Name of the institution, e.g. 'University of Hamburg', 'TU Munich'."
+                },
+                "system": {
+                  "path": "name",
+                  "uri": "https://schema.org/name",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "Website der Einrichtung",
+                  "en": "Website of the institution"
+                },
+                "prompt": {
+                  "de": "Website der Bildungseinrichtung.",
+                  "en": "Website of the educational institution."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:workLocation",
+      "group": "work",
+      "label": {
+        "de": "Arbeitsort (Ort/Kontaktpunkt)",
+        "en": "Work location (Location/Contact point)"
+      },
+      "description": {
+        "de": "Arbeitsort oder Standort",
+        "en": "Work location"
+      },
+      "prompt": {
+        "de": "Arbeitsort mit Name und Adresse, z.B. 'Universität Berlin, Unter den Linden 6'.",
+        "en": "Work location with name and address, e.g. 'University of Berlin, Unter den Linden 6'."
+      },
+      "system": {
+        "path": "schema:workLocation",
+        "uri": "sdo:workLocation",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Place",
+            "label": {
+              "de": "Arbeitsort (Ort/Kontaktpunkt)",
+              "en": "Work location (Location/Contact point)"
+            },
+            "description": {
+              "de": "Ort mit Name und Adresse",
+              "en": "Place with name and address"
+            },
+            "fields": [
+              {
+                "id": "name",
+                "label": {
+                  "de": "Name",
+                  "en": "Name"
+                },
+                "description": {
+                  "de": "Name des Arbeitsortes",
+                  "en": "Name of the work location"
+                },
+                "prompt": {
+                  "de": "Name des Arbeitsortes, z.B. 'Humboldt-Universität, Hauptgebäude'.",
+                  "en": "Name of the work location, e.g. 'Humboldt University, Main Building'."
+                },
+                "system": {
+                  "path": "name",
+                  "uri": "https://schema.org/name",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "address",
+                "label": {
+                  "de": "Adresse",
+                  "en": "Address"
+                },
+                "description": {
+                  "de": "Adresse des Arbeitsortes",
+                  "en": "Address of the work location"
+                },
+                "prompt": {
+                  "de": "Adresse des Arbeitsortes, z.B. 'Unter den Linden 6, 10099 Berlin'.",
+                  "en": "Address of the work location, e.g. 'Unter den Linden 6, 10099 Berlin'."
+                },
+                "system": {
+                  "path": "address",
+                  "uri": "https://schema.org/address",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ccm:expertise",
+      "group": "edu",
+      "label": {
+        "de": "Expertise, Schwerpunkte & Tätigkeitsfelder",
+        "en": "Expertise, Focus Areas & Fields of Activity"
+      },
+      "description": {
+        "de": "Fachliche Expertise, Arbeitsschwerpunkte, Forschungsgebiete und Tätigkeitsfelder der Person",
+        "en": "Professional expertise, focus areas, research fields and activity areas of the person"
+      },
+      "prompt": {
+        "de": "Sammle alle fachlichen Kompetenzen, Arbeitsschwerpunkte, Forschungsgebiete und Tätigkeitsfelder in einer gemeinsamen Liste. Verwende prägnante Stichworte. Beispiele: ['Digitale Bildung', 'OER-Erstellung', 'Künstliche Intelligenz', 'MINT-Didaktik', 'Medienkompetenz', 'Lehrerfortbildung'].",
+        "en": "Collect all professional competencies, focus areas, research fields and activity areas in a single list. Use concise keywords. Examples: ['Digital Education', 'OER Creation', 'Artificial Intelligence', 'STEM Didactics', 'Media Literacy', 'Teacher Training']."
+      },
+      "system": {
+        "path": "ccm:expertise",
+        "uri": "ccm:expertise",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:services_offered",
+      "group": "edu",
+      "label": {
+        "de": "Angebotene Leistungen (Mentoring, Vorträge, …)",
+        "en": "Offered Services (Mentoring, Lectures, …)"
+      },
+      "description": {
+        "de": "Angebotene Dienstleistungen",
+        "en": "Services offered"
+      },
+      "prompt": {
+        "de": "Angebotene Leistungen, z.B. 'Mentoring', 'Workshops', 'Vorträge', 'Beratung'.",
+        "en": "Services offered, e.g. 'Mentoring', 'Workshops', 'Lectures', 'Consulting'."
+      },
+      "system": {
+        "path": "ccm:services_offered",
+        "uri": "ccm:services_offered",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:publications",
+      "group": "edu",
+      "label": {
+        "de": "Publikationen (Kurztitel oder Objekt/URL)",
+        "en": "Publications (Short Titles or Object/URL)"
+      },
+      "description": {
+        "de": "Veröffentlichungen oder Publikationen",
+        "en": "Publications"
+      },
+      "prompt": {
+        "de": "Publikationen mit Titel und optional URL, z.B. Bücher, Paper, Artikel.",
+        "en": "Publications with title and optional URL, e.g. books, papers, articles."
+      },
+      "system": {
+        "path": "ccm:publications",
+        "uri": "schema:citation",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "allowed_item_types": [
+          "string",
+          "object"
+        ],
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "CreativeWork",
+              "label": {
+                "de": "Publikationen (Kurztitel oder Objekt/URL)",
+                "en": "Publications (Short Titles or Object/URL)"
+              },
+              "description": {
+                "de": "Publikation mit Name und URL",
+                "en": "Publication with name and URL"
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Titel der Publikation",
+                    "en": "Title of the publication"
+                  },
+                  "prompt": {
+                    "de": "Titel der Publikation, z.B. 'Open Educational Resources in der Praxis'.",
+                    "en": "Title of the publication, e.g. 'Open Educational Resources in Practice'."
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "Link zur Publikation",
+                    "en": "Link to the publication"
+                  },
+                  "prompt": {
+                    "de": "URL zur Publikation, z.B. DOI-Link oder Verlagsseite.",
+                    "en": "URL to the publication, e.g. DOI link or publisher page."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccm:person_kind",
+      "group": "roles",
+      "label": {
+        "de": "Rolle(n) der Person",
+        "en": "Role(s) of the person"
+      },
+      "description": {
+        "de": "Art der Person (z.B. Einzelperson, Gruppe)",
+        "en": "Type of person (e.g., individual, group)"
+      },
+      "prompt": {
+        "de": "Rolle(n) der Person. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'Lehrperson', 'Wissenschaftler/in', 'E-Learning-Experte'.",
+        "en": "Role(s) of the person. Use EXACT labels from the vocabulary, e.g. 'teacher', 'Scientist/Researcher', 'E-Learning expert'."
+      },
+      "system": {
+        "path": "ccm:person_kind",
+        "uri": "sdo:additionalType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Berater/in",
+                "en": "Consultant"
+              }
+            },
+            {
+              "label": {
+                "de": "Bibliothekar/in",
+                "en": "Librarian"
+              }
+            },
+            {
+              "label": {
+                "de": "E-Learning-Experte",
+                "en": "E-Learning expert"
+              }
+            },
+            {
+              "label": {
+                "de": "Entwickler/in",
+                "en": "Developer"
+              }
+            },
+            {
+              "label": {
+                "de": "Instruktionsdesigner/in",
+                "en": "Instructional Designer"
+              }
+            },
+            {
+              "label": {
+                "de": "Lehrperson",
+                "en": "teacher"
+              }
+            },
+            {
+              "label": {
+                "de": "OER-Befürworter/in",
+                "en": "OER Advocate"
+              }
+            },
+            {
+              "label": {
+                "de": "Politische/r Entscheidungsträger/in",
+                "en": "Policy Maker"
+              }
+            },
+            {
+              "label": {
+                "de": "Schüler/in",
+                "en": "Student"
+              }
+            },
+            {
+              "label": {
+                "de": "Student/in",
+                "en": "Student"
+              }
+            },
+            {
+              "label": {
+                "de": "Wissenschaftler/in",
+                "en": "Scientist/Researcher"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:identifier",
+      "group": "links",
+      "label": {
+        "de": "Identifier (z. B. ORCID, UUID, interne ID)",
+        "en": "Identifier (e.g., ORCID, UUID, internal ID)"
+      },
+      "description": {
+        "de": "Eindeutige Kennung oder Identifikator",
+        "en": "Unique identifier"
+      },
+      "prompt": {
+        "de": "Eindeutige Kennungen wie ORCID, UUID oder interne IDs mit Typ und Wert.",
+        "en": "Unique identifiers such as ORCID, UUID, or internal IDs with type and value."
+      },
+      "system": {
+        "path": "schema:identifier",
+        "uri": "sdo:identifier",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "allowed_item_types": [
+          "string",
+          "object",
+          "uri"
+        ],
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "PropertyValue",
+              "label": {
+                "de": "Identifier (z. B. ORCID, UUID, interne ID)",
+                "en": "Identifier (e.g., ORCID, UUID, internal ID)"
+              },
+              "description": {
+                "de": "Identifikator mit Typ und Wert",
+                "en": "Identifier with type and value"
+              },
+              "fields": [
+                {
+                  "id": "propertyID",
+                  "label": {
+                    "de": "Kennung-Typ",
+                    "en": "Property ID"
+                  },
+                  "description": {
+                    "de": "Art der Kennung (z.B. ORCID, DOI)",
+                    "en": "Type of identifier (e.g., ORCID, DOI)"
+                  },
+                  "prompt": {
+                    "de": "Art der Kennung, z.B. 'ORCID', 'DOI', 'GND'.",
+                    "en": "Type of identifier, e.g. 'ORCID', 'DOI', 'GND'."
+                  },
+                  "system": {
+                    "path": "propertyID",
+                    "uri": "https://schema.org/propertyID",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "value",
+                  "label": {
+                    "de": "Wert",
+                    "en": "Value"
+                  },
+                  "description": {
+                    "de": "Wert der Kennung",
+                    "en": "Value of the identifier"
+                  },
+                  "prompt": {
+                    "de": "Wert der Kennung, z.B. '0000-0002-1825-0097'.",
+                    "en": "Value of the identifier, e.g. '0000-0002-1825-0097'."
+                  },
+                  "system": {
+                    "path": "value",
+                    "uri": "https://schema.org/value",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL der Kennung",
+                    "en": "URL of the identifier"
+                  },
+                  "prompt": {
+                    "de": "URL zur Kennung, z.B. 'https://orcid.org/0000-0002-1825-0097'.",
+                    "en": "URL to the identifier, e.g. 'https://orcid.org/0000-0002-1825-0097'."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccm:linked_event",
+      "group": "links",
+      "label": {
+        "de": "Verknüpfte Veranstaltungen (Teilnahme/Leitung)",
+        "en": "Linked events (participation/leadership)"
+      },
+      "description": {
+        "de": "Verknüpfte Veranstaltungen",
+        "en": "Linked events"
+      },
+      "prompt": {
+        "de": "Veranstaltungen, an denen die Person teilnimmt oder die sie leitet.",
+        "en": "Events the person participates in or leads."
+      },
+      "system": {
+        "path": "ccm:linked_event",
+        "uri": "schema:performerIn",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Event",
+            "label": {
+              "de": "Verknüpfte Veranstaltungen (Teilnahme/Leitung)",
+              "en": "Linked events (participation/leadership)"
+            },
+            "description": {
+              "de": "Veranstaltung mit Name, URL und Rolle",
+              "en": "Event with name, URL, and role"
+            },
+            "fields": [
+              {
+                "id": "name",
+                "label": {
+                  "de": "Name",
+                  "en": "Name"
+                },
+                "description": {
+                  "de": "Name der Veranstaltung",
+                  "en": "Name of the event"
+                },
+                "prompt": {
+                  "de": "Name der Veranstaltung, z.B. 'OER-Konferenz 2024'.",
+                  "en": "Name of the event, e.g. 'OER Conference 2024'."
+                },
+                "system": {
+                  "path": "name",
+                  "uri": "https://schema.org/name",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "Website der Veranstaltung",
+                  "en": "Website of the event"
+                },
+                "prompt": {
+                  "de": "URL zur Veranstaltungsseite.",
+                  "en": "URL to the event page."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "roleName",
+                "label": {
+                  "de": "Rollenname",
+                  "en": "Role Name"
+                },
+                "description": {
+                  "de": "Rolle bei der Veranstaltung",
+                  "en": "Role at the event"
+                },
+                "prompt": {
+                  "de": "Rolle der Person, z.B. 'Referent', 'Moderatorin', 'Teilnehmer'.",
+                  "en": "Role of the person, e.g. 'Speaker', 'Moderator', 'Participant'."
+                },
+                "system": {
+                  "path": "roleName",
+                  "uri": "https://schema.org/roleName",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ccm:linked_source",
+      "group": "links",
+      "label": {
+        "de": "Verknüpfte Quelle (Kanal/Repository)",
+        "en": "Linked Source (Channel/Repository)"
+      },
+      "description": {
+        "de": "Verknüpfte Quellen oder Ressourcen",
+        "en": "Linked sources or resources"
+      },
+      "prompt": {
+        "de": "Verknüpfte Quellen wie Kanäle, Repositories oder Plattformen.",
+        "en": "Linked sources such as channels, repositories, or platforms."
+      },
+      "system": {
+        "path": "ccm:linked_source",
+        "uri": "schema:subjectOf",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "WebSite",
+            "label": {
+              "de": "Verknüpfte Quelle (Kanal/Repository)",
+              "en": "Linked Source (Channel/Repository)"
+            },
+            "description": {
+              "de": "Quelle mit URL und Name",
+              "en": "Source with URL and name"
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "URL der Quelle",
+                  "en": "URL of the source"
+                },
+                "prompt": {
+                  "de": "URL der Quelle, z.B. YouTube-Kanal oder Repository.",
+                  "en": "URL of the source, e.g. YouTube channel or repository."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "name",
+                "label": {
+                  "de": "Name",
+                  "en": "Name"
+                },
+                "description": {
+                  "de": "Name der Quelle",
+                  "en": "Name of the source"
+                },
+                "prompt": {
+                  "de": "Name der Quelle, z.B. 'YouTube-Kanal Bildung Digital'.",
+                  "en": "Name of the source, e.g. 'YouTube Channel Digital Education'."
+                },
+                "system": {
+                  "path": "name",
+                  "uri": "https://schema.org/name",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "output_template": {
+    "schema:name": "",
+    "schema:givenName": "",
+    "schema:familyName": "",
+    "schema:additionalName": [],
+    "schema:honorificPrefix": "",
+    "schema:honorificSuffix": "",
+    "schema:email": [],
+    "schema:telephone": [],
+    "schema:address": {},
+    "schema:contactPoint": [],
+    "schema:url": [],
+    "schema:sameAs": [],
+    "schema:image": "",
+    "schema:birthDate": "",
+    "schema:birthPlace": "",
+    "schema:deathDate": "",
+    "schema:deathPlace": "",
+    "schema:gender": "",
+    "schema:nationality": [],
+    "schema:knowsLanguage": [],
+    "schema:jobTitle": [],
+    "schema:hasOccupation": [],
+    "schema:worksFor": [],
+    "schema:affiliation": [],
+    "schema:alumniOf": [],
+    "schema:workLocation": {},
+    "ccm:expertise": [],
+    "ccm:services_offered": [],
+    "ccm:publications": [],
+    "ccm:person_kind": [],
+    "schema:identifier": [],
+    "ccm:linked_event": [],
+    "ccm:linked_source": []
+  }
+}

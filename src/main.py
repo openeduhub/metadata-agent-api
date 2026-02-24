@@ -26,6 +26,10 @@ from .models.schemas import (
     UploadRequest,
     UploadResponse,
     UploadedNodeInfo,
+    FieldUploadError,
+    VerifyRequest,
+    VerifyResponse,
+    FieldDiff,
     DetectContentTypeRequest,
     DetectContentTypeResponse,
     ContentTypeInfo,
@@ -259,7 +263,7 @@ async def widget_info(request: Request):
             ],
             "fonts": [
                 "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap",
-                "https://fonts.googleapis.com/icon?family=Material+Icons",
+                "https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined",
             ],
         },
         "variants": {
@@ -415,7 +419,7 @@ async def get_schemata_info():
 ## Path-Parameter
 
 - **context**: Schema-Kontext, z.B. `default`
-- **version**: Schema-Version, z.B. `1.8.0` oder `latest`
+- **version**: Schema-Version, z.B. `1.8.1` oder `latest`
 
 ## Response
 
@@ -453,7 +457,7 @@ async def get_schemas_for_version(context: str, version: str):
 ## Path-Parameter
 
 - **context**: Schema-Kontext, z.B. `default`
-- **version**: Schema-Version, z.B. `1.8.0`
+- **version**: Schema-Version, z.B. `1.8.1`
 - **schema_file**: Schema-Datei, z.B. `event.json`, `core.json`
 
 ## Response
@@ -496,8 +500,16 @@ async def get_schema_definition(context: str, version: str, schema_file: str):
 
 | Wert | Beschreibung |
 |------|-------------|
-| `simple` | Schnelle HTML-Extraktion (Standard) |
-| `browser` | Vollständiges Browser-Rendering für JS-Seiten |
+| `simple` | Schnelle HTML-Extraktion |
+| `browser` | Vollständiges Browser-Rendering für JS-Seiten (Standard) |
+
+## Output Format (output_format)
+
+| Wert | Beschreibung |
+|------|-------------|
+| `markdown` | Markdown-Format (Standard) |
+| `txt` | Reiner Text |
+| `html` | Rohes HTML |
 
 ## Repository (repository)
 
@@ -524,7 +536,8 @@ async def get_schema_definition(context: str, version: str, schema_file: str):
                                 "input_source": "text",
                                 "text": "Workshop 'KI in der Bildung' am 15. März 2025 in Berlin.\nLernen Sie die Grundlagen der künstlichen Intelligenz kennen.",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "",
                                 "repository": "staging",
                                 "context": "default",
@@ -541,7 +554,8 @@ async def get_schema_definition(context: str, version: str, schema_file: str):
                                 "input_source": "url",
                                 "text": "",
                                 "source_url": "https://www.wirlernenonline.de",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "",
                                 "repository": "staging",
                                 "context": "default",
@@ -558,7 +572,8 @@ async def get_schema_definition(context: str, version: str, schema_file: str):
                                 "input_source": "node_id",
                                 "text": "",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "cbf66543-fb90-4e69-a392-03f305139e3f",
                                 "repository": "staging",
                                 "context": "default",
@@ -591,7 +606,7 @@ async def detect_content_type(req: DetectContentTypeRequest):
             if req.input_source == InputSource.URL:
                 if not req.source_url:
                     raise HTTPException(status_code=400, detail="source_url required for input_source='url'")
-                text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language)
+                text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language, output_format=req.output_format.value)
             elif req.input_source == InputSource.NODE_ID:
                 if not req.node_id:
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_id'")
@@ -602,7 +617,7 @@ async def detect_content_type(req: DetectContentTypeRequest):
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_url'")
                 input_data = await input_service.fetch_from_node_url(
                     req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value,
-                    lang=req.language
+                    lang=req.language, output_format=req.output_format.value
                 )
                 text = input_data.text
         except HTTPException:
@@ -717,8 +732,16 @@ async def detect_content_type(req: DetectContentTypeRequest):
 
 | Wert | Beschreibung |
 |------|-------------|
-| `simple` | Schnelle HTML-Extraktion (Standard) |
-| `browser` | Vollständiges Browser-Rendering für JS-Seiten |
+| `simple` | Schnelle HTML-Extraktion |
+| `browser` | Vollständiges Browser-Rendering für JS-Seiten (Standard) |
+
+## Output Format (output_format)
+
+| Wert | Beschreibung |
+|------|-------------|
+| `markdown` | Markdown-Format (Standard) |
+| `txt` | Reiner Text |
+| `html` | Rohes HTML |
 
 ## Repository (repository)
 
@@ -752,7 +775,8 @@ async def detect_content_type(req: DetectContentTypeRequest):
                                 "input_source": "text",
                                 "text": "Workshop 'KI in der Bildung' am 15. März 2025 in Berlin.",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "",
                                 "repository": "staging",
                                 "context": "default",
@@ -773,7 +797,8 @@ async def detect_content_type(req: DetectContentTypeRequest):
                                 "input_source": "url",
                                 "text": "",
                                 "source_url": "https://www.wirlernenonline.de",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "",
                                 "repository": "staging",
                                 "context": "default",
@@ -794,7 +819,8 @@ async def detect_content_type(req: DetectContentTypeRequest):
                                 "input_source": "node_id",
                                 "text": "",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "cbf66543-fb90-4e69-a392-03f305139e3f",
                                 "repository": "staging",
                                 "context": "default",
@@ -815,7 +841,8 @@ async def detect_content_type(req: DetectContentTypeRequest):
                                 "input_source": "text",
                                 "text": "Der Workshop wurde auf den 20. März 2025 verschoben.",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "",
                                 "repository": "staging",
                                 "context": "default",
@@ -859,7 +886,7 @@ async def extract_field(req: ExtractFieldRequest):
             if req.input_source == InputSource.URL:
                 if not req.source_url:
                     raise HTTPException(status_code=400, detail="source_url required for input_source='url'")
-                extracted_text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language)
+                extracted_text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language, output_format=req.output_format.value)
                 text = f"Quell-URL / Source URL: {req.source_url}\n\n{extracted_text}"
             elif req.input_source == InputSource.NODE_ID:
                 if not req.node_id:
@@ -877,7 +904,7 @@ async def extract_field(req: ExtractFieldRequest):
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_url'")
                 input_data = await input_service.fetch_from_node_url(
                     req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value,
-                    lang=req.language
+                    lang=req.language, output_format=req.output_format.value
                 )
                 source_url_info = input_data.source_url or req.source_url
                 if source_url_info:
@@ -1027,8 +1054,16 @@ async def extract_field(req: ExtractFieldRequest):
 
 | Wert | Beschreibung |
 |------|-------------|
-| `simple` | Schnelle HTML-Extraktion (Standard) |
-| `browser` | Vollständiges Browser-Rendering für JS-Seiten |
+| `simple` | Schnelle HTML-Extraktion |
+| `browser` | Vollständiges Browser-Rendering für JS-Seiten (Standard) |
+
+## Output Format (output_format)
+
+| Wert | Beschreibung |
+|------|-------------|
+| `markdown` | Markdown-Format (Standard) |
+| `txt` | Reiner Text |
+| `html` | Rohes HTML |
 
 ## Repository (repository)
 
@@ -1040,7 +1075,7 @@ async def extract_field(req: ExtractFieldRequest):
 ## Schema-Optionen
 
 - **context**: Schema-Kontext, z.B. `default`, `mds_oeh`
-- **version**: Schema-Version, `latest` (Standard) oder spezifisch z.B. `1.8.0`
+- **version**: Schema-Version, `latest` (Standard) oder spezifisch z.B. `1.8.1`
 - **schema_file**: `auto` (automatische Erkennung), oder spezifisch z.B. `event.json`
 
 ## Extraktions-Optionen
@@ -1075,7 +1110,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "input_source": "text",
                                 "text": "Workshop 'KI in der Bildung' am 15. März 2025 in Berlin.\nLernen Sie die Grundlagen der künstlichen Intelligenz kennen.",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "",
                                 "repository": "staging",
                                 "existing_metadata": {},
@@ -1100,7 +1136,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "input_source": "url",
                                 "text": "",
                                 "source_url": "https://www.wirlernenonline.de",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "",
                                 "repository": "staging",
                                 "existing_metadata": {},
@@ -1125,7 +1162,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "input_source": "node_id",
                                 "text": "",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "cbf66543-fb90-4e69-a392-03f305139e3f",
                                 "repository": "staging",
                                 "existing_metadata": {},
@@ -1150,7 +1188,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "input_source": "node_url",
                                 "text": "",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "cbf66543-fb90-4e69-a392-03f305139e3f",
                                 "repository": "staging",
                                 "existing_metadata": {},
@@ -1175,7 +1214,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "input_source": "text",
                                 "text": "Workshop 'KI in der Bildung' am 15. März 2025 in Berlin.",
                                 "source_url": "",
-                                "extraction_method": "simple",
+                                "extraction_method": "browser",
+                                "output_format": "markdown",
                                 "node_id": "",
                                 "repository": "staging",
                                 "existing_metadata": {
@@ -1285,7 +1325,8 @@ async def generate_metadata(request: Request):
             extracted_text = await input_service.fetch_from_url(
                 url=req.source_url,
                 method=req.extraction_method.value,
-                lang=req.language
+                lang=req.language,
+                output_format=req.output_format.value
             )
             # Prepend source URL to text so LLM can use it for ccm:wwwurl field
             text = f"Quell-URL / Source URL: {req.source_url}\n\n{extracted_text}"
@@ -1323,7 +1364,8 @@ async def generate_metadata(request: Request):
                 repository=req.repository.value,
                 source_url=req.source_url or None,
                 extraction_method=req.extraction_method.value,
-                lang=req.language
+                lang=req.language,
+                output_format=req.output_format.value
             )
             # Prepend source URL to text so LLM can use it for ccm:wwwurl field
             source_url_info = input_data.source_url or req.source_url
@@ -1436,7 +1478,7 @@ Kopiere einfach den kompletten Output von `/generate` direkt hier rein – Conte
                             "description": "Kopiere einfach den kompletten Output von /generate hier rein",
                             "value": {
                                 "contextName": "default",
-                                "schemaVersion": "1.8.0",
+                                "schemaVersion": "1.8.1",
                                 "metadataset": "event.json",
                                 "language": "de",
                                 "cclom:title": "Workshop KI in der Bildung",
@@ -1537,7 +1579,7 @@ Das generierte Markdown enthält:
                             "description": "Kopiere einfach den kompletten Output von /generate hier rein",
                             "value": {
                                 "contextName": "default",
-                                "schemaVersion": "1.8.0",
+                                "schemaVersion": "1.8.1",
                                 "metadataset": "event.json",
                                 "language": "de",
                                 "cclom:title": "Workshop KI in der Bildung",
@@ -1652,7 +1694,7 @@ Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
                             "description": "Kopiere den Output von /generate hier rein. Optional: repository, check_duplicates, start_workflow",
                             "value": {
                                 "contextName": "default",
-                                "schemaVersion": "1.8.0",
+                                "schemaVersion": "1.8.1",
                                 "metadataset": "event.json",
                                 "cclom:title": "Workshop KI in der Bildung",
                                 "ccm:wwwurl": "https://example.com/workshop",
@@ -1700,11 +1742,13 @@ async def upload_to_repository(request: Request):
         repository = data.pop("repository", "staging")
         check_duplicates = data.pop("check_duplicates", True)
         start_workflow = data.pop("start_workflow", True)
+        source = data.pop("source", None)
         data = {
             "metadata": data,
             "repository": repository,
             "check_duplicates": check_duplicates,
             "start_workflow": start_workflow,
+            "source": source,
         }
     
     # Validate with Pydantic model
@@ -1727,17 +1771,33 @@ async def upload_to_repository(request: Request):
             detail=f"Invalid repository: {req.repository}. Use 'staging' or 'prod'."
         )
     
+    # Extract context/version from metadata for schema-driven field resolution
+    context = req.metadata.get("contextName", "default")
+    version = req.metadata.get("schemaVersion", "latest")
+    
+    # Apply source override if provided
+    if req.source:
+        req.metadata["ccm:oeh_publisher_combined"] = req.source
+    
     result = await repo_service.upload_metadata(
         metadata=req.metadata,
         repository=req.repository,
         check_duplicates=req.check_duplicates,
         start_workflow=req.start_workflow,
+        context=context,
+        version=version,
     )
     
     # Convert nested node dict to UploadedNodeInfo if present
     node_info = None
     if result.get("node"):
         node_info = UploadedNodeInfo(**result["node"])
+    
+    # Convert field errors to Pydantic models
+    field_errors = None
+    raw_errors = result.get("field_errors")
+    if raw_errors:
+        field_errors = [FieldUploadError(**e) for e in raw_errors]
     
     return UploadResponse(
         success=result.get("success", False),
@@ -1746,6 +1806,148 @@ async def upload_to_repository(request: Request):
         node=node_info,
         error=result.get("error"),
         step=result.get("step"),
+        fields_written=result.get("fields_written"),
+        fields_skipped=result.get("fields_skipped"),
+        field_errors=field_errors,
+    )
+
+
+# ============================================================================
+# Upload Verification Endpoint
+# ============================================================================
+
+@app.post(
+    "/upload/verify/{node_id}",
+    response_model=VerifyResponse,
+    summary="Upload-Ergebnis prüfen (SOLL/IST-Vergleich)",
+    description="""Liest die Metadaten eines Nodes aus dem Repository und vergleicht sie optional mit den erwarteten Werten.
+
+## Nutzung
+
+**Nur lesen** (ohne Body): Gibt die aktuellen Metadaten des Nodes zurück.
+
+**SOLL/IST-Vergleich** (mit Body): Vergleicht die erwarteten Metadaten (z.B. Output von `/generate`) mit den tatsächlich geschriebenen Werten.
+
+## Diff-Status pro Feld
+
+| Status | Bedeutung |
+|--------|-----------|
+| `match` | Wert stimmt überein |
+| `mismatch` | Wert weicht ab (SOLL ≠ IST) |
+| `missing_in_repo` | Feld wurde erwartet, ist aber nicht im Repository |
+| `extra_in_repo` | Feld ist im Repository, war aber nicht erwartet |
+| `not_written` | Feld war nicht repo-fähig (virtual:, schema:, oder kein repo_field) |
+
+## Summary
+
+Zählt die Anzahl der Felder pro Status-Kategorie.
+""",
+    openapi_extra={
+        "requestBody": {
+            "required": False,
+            "content": {
+                "application/json": {
+                    "schema": {"$ref": "#/components/schemas/VerifyRequest"},
+                    "examples": {
+                        "nur_lesen": {
+                            "summary": "1. Nur Metadaten lesen",
+                            "description": "Gibt die aktuellen Repository-Metadaten zurück (kein Vergleich).",
+                            "value": {
+                                "repository": "staging"
+                            }
+                        },
+                        "mit_vergleich": {
+                            "summary": "2. SOLL/IST-Vergleich",
+                            "description": "Kopiere den Output von /generate als expected_metadata rein.",
+                            "value": {
+                                "expected_metadata": {
+                                    "contextName": "default",
+                                    "schemaVersion": "1.8.1",
+                                    "metadataset": "event.json",
+                                    "cclom:title": "Workshop KI in der Bildung",
+                                    "ccm:wwwurl": "https://example.com/workshop",
+                                    "ccm:taxonid": "http://w3id.org/openeduhub/vocabs/discipline/12002"
+                                },
+                                "repository": "staging"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+)
+async def verify_upload(node_id: str, request: Request):
+    """
+    Verify uploaded metadata by reading it back from the repository.
+    
+    Optionally compares against expected metadata to produce a field-level diff.
+    """
+    repo_service = get_repository_service()
+    
+    if not repo_service:
+        raise HTTPException(
+            status_code=503,
+            detail="Repository service not configured. Set WLO_GUEST_USERNAME and WLO_GUEST_PASSWORD environment variables."
+        )
+    
+    # Parse optional body
+    expected_metadata = None
+    repository = "staging"
+    context = "default"
+    version = "latest"
+    
+    try:
+        raw_body = await request.body()
+        if raw_body and raw_body.strip():
+            body_str = raw_body.decode("utf-8")
+            data = json.loads(sanitize_json_string(body_str))
+            
+            req = VerifyRequest(**data)
+            expected_metadata = req.expected_metadata
+            repository = req.repository
+            
+            # Extract context/version from expected metadata if available
+            if expected_metadata:
+                context = expected_metadata.get("contextName", "default")
+                version = expected_metadata.get("schemaVersion", "latest")
+    except json.JSONDecodeError:
+        pass  # No body or invalid JSON → just read
+    except Exception:
+        pass
+    
+    if repository not in ("staging", "prod", "production"):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid repository: {repository}. Use 'staging' or 'prod'."
+        )
+    
+    result = await repo_service.verify_node(
+        node_id=node_id,
+        repository=repository,
+        expected_metadata=expected_metadata,
+        context=context,
+        version=version,
+    )
+    
+    if not result.get("success"):
+        raise HTTPException(
+            status_code=502,
+            detail=result.get("error", "Failed to verify node")
+        )
+    
+    # Build response
+    diff_list = None
+    if result.get("diff"):
+        diff_list = [FieldDiff(**d) for d in result["diff"]]
+    
+    return VerifyResponse(
+        success=True,
+        node_id=node_id,
+        repository=repository,
+        actual_metadata=result["actual_metadata"],
+        diff=diff_list,
+        summary=result.get("summary"),
     )
 
 

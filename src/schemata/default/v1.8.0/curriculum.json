@@ -1,0 +1,682 @@
+{
+  "profileId": "oeh:curriculum",
+  "version": "1.8.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "oeh": "http://w3id.org/openeduhub/vocabs/"
+  },
+  "groups": [
+    {
+      "id": "classification",
+      "icon": "label",
+      "label": {
+        "de": "Klassifikation",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "scope",
+      "icon": "zoom_out_map",
+      "label": {
+        "de": "Geltungsbereich",
+        "en": "Scope"
+      }
+    },
+    {
+      "id": "authority",
+      "icon": "account_balance",
+      "label": {
+        "de": "Herausgeber & Zuständigkeit",
+        "en": "Authority & Jurisdiction"
+      }
+    },
+    {
+      "id": "validity",
+      "icon": "event_available",
+      "label": {
+        "de": "Gültigkeit & Version",
+        "en": "Validity & Version"
+      }
+    },
+    {
+      "id": "content",
+      "icon": "menu_book",
+      "label": {
+        "de": "Inhalte & Kompetenzen",
+        "en": "Content & Competencies"
+      }
+    },
+    {
+      "id": "references",
+      "icon": "link",
+      "label": {
+        "de": "Verweise & Dokumente",
+        "en": "References & Documents"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "oeh:curriculumType",
+      "group": "classification",
+      "label": {
+        "de": "Dokumenttyp",
+        "en": "Document Type"
+      },
+      "description": {
+        "de": "Art des curricularen Dokuments",
+        "en": "Type of curricular document"
+      },
+      "prompt": {
+        "de": "Typ des Dokuments. Verwende EXAKT die Labels, z.B. 'Lehrplan', 'Rahmenplan', 'Bildungsstandard', 'Kerncurriculum'.",
+        "en": "Type of document. Use EXACT labels, e.g. 'Curriculum', 'Framework Plan', 'Educational Standard', 'Core Curriculum'."
+      },
+      "system": {
+        "path": "oeh:curriculumType",
+        "uri": "oeh:curriculumType",
+        "datatype": "string",
+        "multiple": false,
+        "required": true,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "vocabulary": {
+          "type": "closed",
+          "hierarchical": true,
+          "concepts": [
+            { "label": { "de": "Schulcurriculum", "en": "School Curriculum" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Lehrplan", "en": "Curriculum" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/lehrplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Rahmenplan", "en": "Framework Plan" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/rahmenplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Rahmenlehrplan", "en": "Framework Curriculum" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/rahmenlehrplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Kerncurriculum", "en": "Core Curriculum" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/kerncurriculum", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Bildungsplan", "en": "Education Plan" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/bildungsplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Fachanforderungen", "en": "Subject Requirements" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/fachanforderungen", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Berufliches Ordnungsmittel", "en": "Vocational Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation" },
+            { "label": { "de": "Ausbildungsordnung", "en": "Training Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/ausbildungsordnung", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation" },
+            { "label": { "de": "Ausbildungsrahmenplan", "en": "Training Framework Plan" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/ausbildungsrahmenplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation" },
+            { "label": { "de": "Prüfungsordnung", "en": "Examination Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/pruefungsordnung", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation" },
+            { "label": { "de": "Hochschulordnung", "en": "Higher Education Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation" },
+            { "label": { "de": "Modulhandbuch", "en": "Module Handbook" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/modulhandbuch", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation" },
+            { "label": { "de": "Studienordnung", "en": "Study Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/studienordnung", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation" },
+            { "label": { "de": "Übergreifendes Rahmenwerk", "en": "Cross-cutting Framework" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework" },
+            { "label": { "de": "Bildungsstandard", "en": "Educational Standard" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/bildungsstandard", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework" },
+            { "label": { "de": "Orientierungsrahmen", "en": "Orientation Framework" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/orientierungsrahmen", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework" },
+            { "label": { "de": "Kompetenzrahmen", "en": "Competency Framework" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/kompetenzrahmen", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework" }
+          ]
+        },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:curriculumSubject",
+      "group": "scope",
+      "label": {
+        "de": "Fach / Fachbereich",
+        "en": "Subject / Subject Area"
+      },
+      "description": {
+        "de": "Fach oder Fachbereich des Lehrplans",
+        "en": "Subject or subject area of the curriculum"
+      },
+      "prompt": {
+        "de": "Fach/Fachbereich, z.B. 'Mathematik', 'Deutsch', 'Informatik', 'Sachunterricht', 'fächerübergreifend'.",
+        "en": "Subject/area, e.g. 'Mathematics', 'German', 'Computer Science', 'General Studies', 'cross-curricular'."
+      },
+      "system": {
+        "path": "oeh:curriculumSubject",
+        "uri": "oeh:curriculumSubject",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:educationalLevel",
+      "group": "scope",
+      "label": {
+        "de": "Bildungsstufe",
+        "en": "Educational Level"
+      },
+      "description": {
+        "de": "Bildungsstufe(n), für die der Lehrplan gilt",
+        "en": "Educational level(s) the curriculum applies to"
+      },
+      "prompt": {
+        "de": "Bildungsstufe(n), z.B. 'Primarstufe', 'Sekundarstufe I', 'Sekundarstufe II', 'Berufliche Bildung', 'Hochschule'.",
+        "en": "Educational level(s), e.g. 'Primary', 'Lower Secondary', 'Upper Secondary', 'Vocational', 'Higher Education'."
+      },
+      "system": {
+        "path": "schema:educationalLevel",
+        "uri": "https://schema.org/educationalLevel",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:gradeRange",
+      "group": "scope",
+      "label": {
+        "de": "Jahrgangsstufen",
+        "en": "Grade Range"
+      },
+      "description": {
+        "de": "Jahrgangsstufen, für die der Lehrplan gilt",
+        "en": "Grade levels the curriculum applies to"
+      },
+      "prompt": {
+        "de": "Jahrgangsstufen, z.B. '1-4', '5-10', '11-13', 'Vorschule'.",
+        "en": "Grade range, e.g. '1-4', '5-10', '11-13', 'Preschool'."
+      },
+      "system": {
+        "path": "oeh:gradeRange",
+        "uri": "oeh:gradeRange",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:schoolType",
+      "group": "scope",
+      "label": {
+        "de": "Schulform",
+        "en": "School Type"
+      },
+      "description": {
+        "de": "Schulform(en), für die der Lehrplan gilt",
+        "en": "School type(s) the curriculum applies to"
+      },
+      "prompt": {
+        "de": "Schulform(en), z.B. 'Gymnasium', 'Realschule', 'Gesamtschule', 'Grundschule', 'Berufsschule'.",
+        "en": "School type(s), e.g. 'Gymnasium', 'Realschule', 'Comprehensive School', 'Primary School', 'Vocational School'."
+      },
+      "system": {
+        "path": "oeh:schoolType",
+        "uri": "oeh:schoolType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:jurisdictionLevel",
+      "group": "authority",
+      "label": {
+        "de": "Regelungsebene",
+        "en": "Jurisdiction Level"
+      },
+      "description": {
+        "de": "Ebene der Zuständigkeit (Bund, Land, Schule etc.)",
+        "en": "Level of jurisdiction (federal, state, school etc.)"
+      },
+      "prompt": {
+        "de": "Regelungsebene. Verwende EXAKT: 'Bund', 'Land', 'Kommune' oder 'Schule/Einrichtung'.",
+        "en": "Jurisdiction level. Use EXACT: 'Federal', 'State', 'Municipal', or 'School/Institution'."
+      },
+      "system": {
+        "path": "oeh:jurisdictionLevel",
+        "uri": "oeh:jurisdictionLevel",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            { "label": { "de": "Bund", "en": "Federal" }, "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/federal" },
+            { "label": { "de": "Land", "en": "State" }, "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/state" },
+            { "label": { "de": "Kommune", "en": "Municipal" }, "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/municipal" },
+            { "label": { "de": "Schule/Einrichtung", "en": "School/Institution" }, "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/institution" }
+          ]
+        },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:jurisdiction",
+      "group": "authority",
+      "label": {
+        "de": "Zuständiges Bundesland / Gebiet",
+        "en": "Responsible State / Territory"
+      },
+      "description": {
+        "de": "Bundesland oder Gebiet, für das der Lehrplan gilt",
+        "en": "State or territory the curriculum applies to"
+      },
+      "prompt": {
+        "de": "Bundesland/Gebiet, z.B. 'Niedersachsen', 'Berlin-Brandenburg', 'bundesweit (KMK)'.",
+        "en": "State/territory, e.g. 'Lower Saxony', 'Berlin-Brandenburg', 'nationwide (KMK)'."
+      },
+      "system": {
+        "path": "oeh:jurisdiction",
+        "uri": "oeh:jurisdiction",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:creator",
+      "group": "authority",
+      "label": {
+        "de": "Herausgeber",
+        "en": "Publisher / Authority"
+      },
+      "description": {
+        "de": "Herausgebende Behörde oder Institution",
+        "en": "Publishing authority or institution"
+      },
+      "prompt": {
+        "de": "Herausgeber, z.B. 'KMK', 'Niedersächsisches Kultusministerium', 'Senatsverwaltung für Bildung Berlin'.",
+        "en": "Publisher, e.g. 'KMK', 'Ministry of Education Lower Saxony', 'Senate Department for Education Berlin'."
+      },
+      "system": {
+        "path": "schema:creator",
+        "uri": "https://schema.org/creator",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:datePublished",
+      "group": "validity",
+      "label": {
+        "de": "Veröffentlichungsdatum",
+        "en": "Publication Date"
+      },
+      "description": {
+        "de": "Datum der Veröffentlichung (YYYY-MM-DD oder YYYY)",
+        "en": "Date of publication (YYYY-MM-DD or YYYY)"
+      },
+      "prompt": {
+        "de": "Veröffentlichungsdatum, z.B. '2023-08-01' oder '2023'.",
+        "en": "Publication date, e.g. '2023-08-01' or '2023'."
+      },
+      "system": {
+        "path": "schema:datePublished",
+        "uri": "https://schema.org/datePublished",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:validFrom",
+      "group": "validity",
+      "label": {
+        "de": "Gültig ab",
+        "en": "Valid From"
+      },
+      "description": {
+        "de": "Beginn der Gültigkeit (YYYY-MM-DD oder YYYY)",
+        "en": "Start of validity (YYYY-MM-DD or YYYY)"
+      },
+      "prompt": {
+        "de": "Gültig ab, z.B. '2024-08-01' oder 'Schuljahr 2024/25'.",
+        "en": "Valid from, e.g. '2024-08-01' or 'School year 2024/25'."
+      },
+      "system": {
+        "path": "schema:validFrom",
+        "uri": "https://schema.org/validFrom",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:expires",
+      "group": "validity",
+      "label": {
+        "de": "Gültig bis",
+        "en": "Valid Until"
+      },
+      "description": {
+        "de": "Ende der Gültigkeit (falls befristet)",
+        "en": "End of validity (if limited)"
+      },
+      "prompt": {
+        "de": "Gültig bis, z.B. '2030-07-31' oder 'unbefristet'.",
+        "en": "Valid until, e.g. '2030-07-31' or 'indefinite'."
+      },
+      "system": {
+        "path": "schema:expires",
+        "uri": "https://schema.org/expires",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:version",
+      "group": "validity",
+      "label": {
+        "de": "Version / Fassung",
+        "en": "Version / Edition"
+      },
+      "description": {
+        "de": "Versionsnummer oder Fassung",
+        "en": "Version number or edition"
+      },
+      "prompt": {
+        "de": "Version/Fassung, z.B. '2.0', 'Fassung 2024', 'Entwurf'.",
+        "en": "Version/edition, e.g. '2.0', 'Edition 2024', 'Draft'."
+      },
+      "system": {
+        "path": "schema:version",
+        "uri": "https://schema.org/version",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:competencyAreas",
+      "group": "content",
+      "label": {
+        "de": "Kompetenzbereiche",
+        "en": "Competency Areas"
+      },
+      "description": {
+        "de": "Kompetenzbereiche, die der Lehrplan abdeckt",
+        "en": "Competency areas covered by the curriculum"
+      },
+      "prompt": {
+        "de": "Kompetenzbereiche, z.B. 'Kommunizieren', 'Modellieren', 'Problemlösen', 'Sprechen und Zuhören', 'Medienkompetenz'.",
+        "en": "Competency areas, e.g. 'Communication', 'Modeling', 'Problem Solving', 'Speaking and Listening', 'Media Literacy'."
+      },
+      "system": {
+        "path": "oeh:competencyAreas",
+        "uri": "oeh:competencyAreas",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:learningObjectives",
+      "group": "content",
+      "label": {
+        "de": "Zentrale Lernziele",
+        "en": "Key Learning Objectives"
+      },
+      "description": {
+        "de": "Übergeordnete Lernziele des Lehrplans",
+        "en": "Overarching learning objectives of the curriculum"
+      },
+      "prompt": {
+        "de": "Zentrale Lernziele als Freitext-Liste, z.B. 'Grundrechenarten sicher beherrschen', 'Texte analysieren und interpretieren'.",
+        "en": "Key learning objectives as free-text list, e.g. 'Master basic arithmetic', 'Analyze and interpret texts'."
+      },
+      "system": {
+        "path": "oeh:learningObjectives",
+        "uri": "oeh:learningObjectives",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "fulltext": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:contentAreas",
+      "group": "content",
+      "label": {
+        "de": "Inhaltsbereiche / Themenfelder",
+        "en": "Content Areas / Topics"
+      },
+      "description": {
+        "de": "Zentrale Inhaltsbereiche oder Themenfelder",
+        "en": "Central content areas or topic fields"
+      },
+      "prompt": {
+        "de": "Inhaltsbereiche, z.B. 'Zahlen und Operationen', 'Raum und Form', 'Literatur', 'Medienerziehung'.",
+        "en": "Content areas, e.g. 'Numbers and Operations', 'Space and Shape', 'Literature', 'Media Education'."
+      },
+      "system": {
+        "path": "oeh:contentAreas",
+        "uri": "oeh:contentAreas",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:crossCuttingThemes",
+      "group": "content",
+      "label": {
+        "de": "Querschnittsthemen",
+        "en": "Cross-Cutting Themes"
+      },
+      "description": {
+        "de": "Fächerübergreifende Querschnittsthemen",
+        "en": "Cross-curricular themes"
+      },
+      "prompt": {
+        "de": "Querschnittsthemen, z.B. 'Bildung für nachhaltige Entwicklung', 'Digitale Bildung', 'Demokratieerziehung', 'Inklusion'.",
+        "en": "Cross-cutting themes, e.g. 'Education for Sustainable Development', 'Digital Education', 'Democracy Education', 'Inclusion'."
+      },
+      "system": {
+        "path": "oeh:crossCuttingThemes",
+        "uri": "oeh:crossCuttingThemes",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:inLanguage",
+      "group": "scope",
+      "label": {
+        "de": "Sprache",
+        "en": "Language"
+      },
+      "description": {
+        "de": "Sprache des Dokuments",
+        "en": "Language of the document"
+      },
+      "prompt": {
+        "de": "Sprache des Dokuments, z.B. 'Deutsch', 'Englisch'.",
+        "en": "Language of the document, e.g. 'German', 'English'."
+      },
+      "system": {
+        "path": "schema:inLanguage",
+        "uri": "https://schema.org/inLanguage",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "keyword": true },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:isBasedOn",
+      "group": "references",
+      "label": {
+        "de": "Basiert auf / Bezugsdokumente",
+        "en": "Based On / Reference Documents"
+      },
+      "description": {
+        "de": "Übergeordnete Dokumente oder Standards",
+        "en": "Parent documents or standards"
+      },
+      "prompt": {
+        "de": "Bezugsdokumente, z.B. 'KMK-Bildungsstandards Mathematik 2022', 'Europäischer Referenzrahmen'.",
+        "en": "Reference documents, e.g. 'KMK Educational Standards Mathematics 2022', 'Common European Framework'."
+      },
+      "system": {
+        "path": "schema:isBasedOn",
+        "uri": "https://schema.org/isBasedOn",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": { "fulltext": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:url",
+      "group": "references",
+      "label": {
+        "de": "URL zum Dokument",
+        "en": "Document URL"
+      },
+      "description": {
+        "de": "Link zum offiziellen Dokument",
+        "en": "Link to the official document"
+      },
+      "prompt": {
+        "de": "URL zum offiziellen Dokument (PDF oder Webseite).",
+        "en": "URL to the official document (PDF or webpage)."
+      },
+      "system": {
+        "path": "schema:url",
+        "uri": "https://schema.org/url",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": { "format": "url" },
+        "normalization": { "trim": true },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:sameAs",
+      "group": "references",
+      "label": {
+        "de": "Weitere Verweise",
+        "en": "Additional References"
+      },
+      "description": {
+        "de": "Weitere URIs zu externen Referenzen",
+        "en": "Additional URIs to external references"
+      },
+      "prompt": {
+        "de": "Weitere Links, z.B. Wikidata, Wikipedia, Bildungsserver-Einträge.",
+        "en": "Additional links, e.g. Wikidata, Wikipedia, education server entries."
+      },
+      "system": {
+        "path": "schema:sameAs",
+        "uri": "https://schema.org/sameAs",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "@type": ["oeh:Curriculum"],
+    "oeh:curriculumType": "",
+    "oeh:curriculumSubject": [],
+    "schema:educationalLevel": [],
+    "oeh:gradeRange": "",
+    "oeh:schoolType": [],
+    "oeh:jurisdictionLevel": "",
+    "oeh:jurisdiction": [],
+    "schema:creator": "",
+    "schema:datePublished": "",
+    "schema:validFrom": "",
+    "schema:expires": "",
+    "schema:version": "",
+    "oeh:competencyAreas": [],
+    "oeh:learningObjectives": [],
+    "oeh:contentAreas": [],
+    "oeh:crossCuttingThemes": [],
+    "schema:inLanguage": "",
+    "schema:isBasedOn": [],
+    "schema:url": "",
+    "schema:sameAs": []
+  }
+}

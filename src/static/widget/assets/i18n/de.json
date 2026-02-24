@@ -98,6 +98,9 @@
     "RADIO": {
       "NO_SELECTION": "keine Angabe"
     },
+    "VOCAB_FILTER": "Filtern...",
+    "VOCAB_NO_RESULTS": "Keine Treffer",
+    "VOCAB_OPEN_PICKER": "Vokabular durchsuchen",
     "MONTHDAY_PLACEHOLDER": "Tag (1-31) hinzufügen",
     "DURATION_HINT": "Format: P1D (1 Tag), PT2H (2 Std), PT30M (30 Min)",
     "URL_HINT": "Vollständige URL inkl. https://"

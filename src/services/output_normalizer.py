@@ -62,10 +62,8 @@ class OutputNormalizer:
         if "schema:about" in result:
             result["schema:about"] = self._normalize_about(result["schema:about"])
         
-        # DateTime: ensure consistent format (without seconds)
-        for date_field in ["schema:startDate", "schema:endDate", "schema:doorTime"]:
-            if date_field in result and result[date_field]:
-                result[date_field] = self._normalize_datetime(result[date_field])
+        # Note: DateTime normalization is handled generically by FieldNormalizer
+        # based on the field's datatype. No hardcoded field lists needed here.
         
         return result
     
@@ -259,21 +257,6 @@ class OutputNormalizer:
         
         return result
     
-    def _normalize_datetime(self, dt: Any) -> Optional[str]:
-        """Normalize datetime to format without seconds: YYYY-MM-DDTHH:MM"""
-        if not dt:
-            return dt
-        
-        if not isinstance(dt, str):
-            return str(dt)
-        
-        # Remove seconds if present
-        # Format: 2025-12-02T19:30:00 -> 2025-12-02T19:30
-        match = re.match(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})", dt)
-        if match:
-            return match.group(1)
-        
-        return dt
 
 
 # Singleton instance

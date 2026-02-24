@@ -1,0 +1,3288 @@
+{
+  "profileId": "type:event",
+  "version": "1.8.1",
+  "@context": {
+    "schema": "https://schema.org/",
+    "oeh": "http://w3id.org/openeduhub/vocabs/",
+    "skos": "http://www.w3.org/2004/02/skos/core#"
+  },
+  "groups": [
+    {
+      "id": "event-typification",
+      "icon": "category",
+      "label": {
+        "de": "Event-Typisierung",
+        "en": "Event typification"
+      }
+    },
+    {
+      "id": "schedule",
+      "icon": "calendar_today",
+      "label": {
+        "de": "Termin & Status",
+        "en": "Schedule & Status"
+      }
+    },
+    {
+      "id": "attendance",
+      "icon": "group",
+      "label": {
+        "de": "Teilnahme",
+        "en": "Attendance"
+      }
+    },
+    {
+      "id": "roles",
+      "icon": "badge",
+      "label": {
+        "de": "Akteur:innen & Rollen",
+        "en": "Actors & Roles"
+      }
+    },
+    {
+      "id": "education",
+      "icon": "school",
+      "label": {
+        "de": "Bildungsdetails",
+        "en": "Educational Details"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "oeh:eventType",
+      "group": "event-typification",
+      "label": {
+        "de": "Veranstaltungstyp",
+        "en": "Event Type"
+      },
+      "description": {
+        "de": "Veranstaltungstyp(en) auswählen",
+        "en": "Select event type(s)"
+      },
+      "prompt": {
+        "de": "Bestimme den/die passenden Veranstaltungstyp(en) aus dem hierarchischen SKOS-Vokabular. Wähle NUR aus den vorgegebenen URIs. Wähle möglichst spezifische Typen (z.B. 'Webinar' statt nur 'Wissen & Kompetenzen entwickeln'). Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/eventType/workshop'] (Workshop), ['http://w3id.org/openeduhub/vocabs/eventType/webinar', 'http://w3id.org/openeduhub/vocabs/eventType/online-course'] (Webinar + Online-Kurs), ['http://w3id.org/openeduhub/vocabs/eventType/professional-conference'] (Fachtagung).",
+        "en": "Determine the appropriate event type(s) from the hierarchical SKOS vocabulary. Choose ONLY from provided URIs. Prefer specific types (e.g., 'Webinar' rather than just 'Developing knowledge & competencies'). Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/eventType/workshop'] (Workshop), ['http://w3id.org/openeduhub/vocabs/eventType/webinar', 'http://w3id.org/openeduhub/vocabs/eventType/online-course'] (Webinar + Online Course), ['http://w3id.org/openeduhub/vocabs/eventType/professional-conference'] (Conference)."
+      },
+      "system": {
+        "path": "oeh:eventType",
+        "uri": "oeh:eventType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/eventType/",
+          "hierarchical": true,
+          "concepts": [
+            {
+              "label": {
+                "de": "Wissen & Kompetenzen entwickeln",
+                "en": "Developing knowledge & competencies"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
+            },
+            {
+              "label": {
+                "de": "Grundlagenvermittlung",
+                "en": "Basic instruction"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
+            },
+            {
+              "label": {
+                "de": "Vorlesung",
+                "en": "Lecture"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/lecture",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer"
+            },
+            {
+              "label": {
+                "de": "Grundkurs",
+                "en": "Basic course"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/basic-course",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer"
+            },
+            {
+              "label": {
+                "de": "Einführungsseminar",
+                "en": "Introductory seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/introductory-seminar",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer"
+            },
+            {
+              "label": {
+                "de": "Webinar",
+                "en": "Webinar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/webinar",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer"
+            },
+            {
+              "label": {
+                "de": "Online-Kurs",
+                "en": "Online Course"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-course",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer"
+            },
+            {
+              "label": {
+                "de": "Vertiefung & Spezialisierung",
+                "en": "Deepening & specialization"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
+            },
+            {
+              "label": {
+                "de": "Fachseminar",
+                "en": "Subject seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-seminar",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
+            },
+            {
+              "label": {
+                "de": "Masterseminar",
+                "en": "Master seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/master-seminar",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
+            },
+            {
+              "label": {
+                "de": "Spezialistenkurs",
+                "en": "Specialist course"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-course",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
+            },
+            {
+              "label": {
+                "de": "Expertenvortrag",
+                "en": "Expert Lecture"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/expert-lecture",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
+            },
+            {
+              "label": {
+                "de": "Fachworkshop",
+                "en": "Specialized Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-workshop",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
+            },
+            {
+              "label": {
+                "de": "Praktische Anwendung",
+                "en": "Practical Application"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/practical-application",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
+            },
+            {
+              "label": {
+                "de": "Workshop",
+                "en": "Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/workshop",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Übung/Tutorial",
+                "en": "Exercise/Tutorial"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/tutorial-exercise",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Labor/Praktikum",
+                "en": "Labor/Internship"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/lab-internship",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Online-Workshop",
+                "en": "Online Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-workshop",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Feldarbeit",
+                "en": "Field Work"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/fieldwork",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Exkursion",
+                "en": "Excursion"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/excursion",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Schüler-AG",
+                "en": "Student Working Group"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-group",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Ferienworkshop",
+                "en": "Holiday Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/holiday-workshop",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Projektwoche",
+                "en": "Project Week"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/project-week",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
+            },
+            {
+              "label": {
+                "de": "Forschung & Innovation",
+                "en": "Research & Innovation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/research-innovation",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
+            },
+            {
+              "label": {
+                "de": "Kolloquium",
+                "en": "Colloquium"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/colloquium",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/research-innovation"
+            },
+            {
+              "label": {
+                "de": "Forschungsseminar",
+                "en": "Research Seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/research-seminar",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/research-innovation"
+            },
+            {
+              "label": {
+                "de": "Doktorandenseminar",
+                "en": "Doctoral Seminar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/doctoral-seminar",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/research-innovation"
+            },
+            {
+              "label": {
+                "de": "Forschungsworkshop",
+                "en": "Research Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/research-workshop",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/research-innovation"
+            },
+            {
+              "label": {
+                "de": "Innovationsworkshop",
+                "en": "Innovation Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/innovation-workshop",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/research-innovation"
+            },
+            {
+              "label": {
+                "de": "Information & Orientierung erhalten",
+                "en": "Receive Information & Orientation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/information-orientation"
+            },
+            {
+              "label": {
+                "de": "Überblick & Einführung",
+                "en": "Overview & Introduction"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/overview-introduction",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/information-orientation"
+            },
+            {
+              "label": {
+                "de": "Infoveranstaltung",
+                "en": "Information Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/info-event",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/overview-introduction"
+            },
+            {
+              "label": {
+                "de": "Orientierungswoche",
+                "en": "Orientation Week"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-week",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/overview-introduction"
+            },
+            {
+              "label": {
+                "de": "Tag der offenen Tür",
+                "en": "Open House"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/open-house",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/overview-introduction"
+            },
+            {
+              "label": {
+                "de": "Info-Webinar",
+                "en": "Info Webinar"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/info-webinar",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/overview-introduction"
+            },
+            {
+              "label": {
+                "de": "Schnupperveranstaltung",
+                "en": "Taster Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/taster-event",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/overview-introduction"
+            },
+            {
+              "label": {
+                "de": "Beratung & Entscheidungshilfe",
+                "en": "Consultation & Decision Support"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/information-orientation"
+            },
+            {
+              "label": {
+                "de": "Studienberatung",
+                "en": "Study Counseling"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/study-counseling",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
+            },
+            {
+              "label": {
+                "de": "Sprechstunde",
+                "en": "Office Hours"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/consultation-hours",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
+            },
+            {
+              "label": {
+                "de": "Beratungsgespräch",
+                "en": "Consultation Meeting"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/counseling-session",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
+            },
+            {
+              "label": {
+                "de": "Online-Beratung",
+                "en": "Online Consultation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-counseling",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
+            },
+            {
+              "label": {
+                "de": "Karriereberatung",
+                "en": "Career Counseling"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/career-counseling",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
+            },
+            {
+              "label": {
+                "de": "Laufbahnberatung",
+                "en": "Career Guidance"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/career-guidance",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
+            },
+            {
+              "label": {
+                "de": "Marktüberblick & Angebote",
+                "en": "Market Overview & Offers"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/information-orientation"
+            },
+            {
+              "label": {
+                "de": "Bildungsmesse",
+                "en": "Education Fair"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/education-fair",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings"
+            },
+            {
+              "label": {
+                "de": "Hochschulmesse",
+                "en": "Higher Education Fair"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/university-fair",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings"
+            },
+            {
+              "label": {
+                "de": "Karrieremesse",
+                "en": "Career Fair"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/career-fair",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings"
+            },
+            {
+              "label": {
+                "de": "Virtuelle Messe",
+                "en": "Virtual Fair"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/virtual-fair",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings"
+            },
+            {
+              "label": {
+                "de": "Anbieterpräsentation",
+                "en": "Provider Presentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/provider-presentation",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings"
+            },
+            {
+              "label": {
+                "de": "Austausch & Vernetzung pflegen",
+                "en": "Maintain Exchange & Networking"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/exchange-networking"
+            },
+            {
+              "label": {
+                "de": "Fachlicher Austausch",
+                "en": "Professional Exchange"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/exchange-networking"
+            },
+            {
+              "label": {
+                "de": "Symposium",
+                "en": "Symposium"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/symposium",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Fachtagung",
+                "en": "Specialist Conference"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-conference",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Konferenz/Kongress",
+                "en": "Conference/Congress"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/conference-congress",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Online-Konferenz",
+                "en": "Online Conference"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-conference",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Panel",
+                "en": "Panel"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/panel",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Roundtable",
+                "en": "Roundtable"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/roundtable",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Forum",
+                "en": "Forum"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/forum",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Debatte",
+                "en": "Debate"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/debate",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
+            },
+            {
+              "label": {
+                "de": "Peer-Learning & Kollaboration",
+                "en": "Peer Learning & Collaboration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/exchange-networking"
+            },
+            {
+              "label": {
+                "de": "Arbeitsgruppe",
+                "en": "Working Group"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/working-group",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Lerngruppe",
+                "en": "Learning Group"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/study-group",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Barcamp",
+                "en": "Barcamp"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/barcamp",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Unconference",
+                "en": "Unconference"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/unconference",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Community-Workshop",
+                "en": "Community Workshop"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/community-workshop",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Online-Community",
+                "en": "Online Community"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-community",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Schüleraustausch",
+                "en": "Student Exchange"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-exchange",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Lernpartnerschaft",
+                "en": "Learning Partnership"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/learning-partnership",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
+            },
+            {
+              "label": {
+                "de": "Berufliche Vernetzung",
+                "en": "Professional Networking"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-networking",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/exchange-networking"
+            },
+            {
+              "label": {
+                "de": "Alumni-Treffen",
+                "en": "Alumni Meeting"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/alumni-meeting",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-networking"
+            },
+            {
+              "label": {
+                "de": "Branchentreffen",
+                "en": "Industry Meeting"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/industry-meeting",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-networking"
+            },
+            {
+              "label": {
+                "de": "Professional Meetup",
+                "en": "Professional Meetup"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-meetup",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-networking"
+            },
+            {
+              "label": {
+                "de": "Networking-Event",
+                "en": "Networking Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/networking-event",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-networking"
+            },
+            {
+              "label": {
+                "de": "Virtual Networking",
+                "en": "Virtual Networking"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/virtual-networking",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-networking"
+            },
+            {
+              "label": {
+                "de": "Leistung zeigen & bewerten lassen",
+                "en": "Demonstrate performance & have it assessed"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/performance-assessment"
+            },
+            {
+              "label": {
+                "de": "Formelle Prüfung & Zertifizierung",
+                "en": "Formal examination & certification"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/performance-assessment"
+            },
+            {
+              "label": {
+                "de": "Klausur/Examen",
+                "en": "Exam/Assessment"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/exam-written",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
+            },
+            {
+              "label": {
+                "de": "Abschlussprüfung",
+                "en": "Final examination"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/final-exam",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
+            },
+            {
+              "label": {
+                "de": "Online-Prüfung",
+                "en": "Online Exam"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-exam",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
+            },
+            {
+              "label": {
+                "de": "Zertifizierungsprüfung",
+                "en": "Certification examination"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/certification-exam",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
+            },
+            {
+              "label": {
+                "de": "Assessment",
+                "en": "Assessment"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/assessment",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
+            },
+            {
+              "label": {
+                "de": "Präsentation & Demonstration",
+                "en": "Presentation & Demonstration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/performance-assessment"
+            },
+            {
+              "label": {
+                "de": "Studentenpräsentation",
+                "en": "Student Presentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-presentation",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration"
+            },
+            {
+              "label": {
+                "de": "Abschlussarbeit-Verteidigung",
+                "en": "Thesis Defense"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/thesis-defense",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration"
+            },
+            {
+              "label": {
+                "de": "Poster-Session",
+                "en": "Poster Session"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/poster-session",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration"
+            },
+            {
+              "label": {
+                "de": "Demo Day",
+                "en": "Demo Day"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/demo-day",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration"
+            },
+            {
+              "label": {
+                "de": "Online-Präsentation",
+                "en": "Online Presentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-presentation",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration"
+            },
+            {
+              "label": {
+                "de": "Pitch",
+                "en": "Pitch"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/pitch",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration"
+            },
+            {
+              "label": {
+                "de": "Projektpräsentation",
+                "en": "Project Presentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/project-presentation",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/presentation-demonstration"
+            },
+            {
+              "label": {
+                "de": "Wettbewerb & Leistungsvergleich",
+                "en": "Competition & Performance Comparison"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/performance-assessment"
+            },
+            {
+              "label": {
+                "de": "Wissenschaftsolympiade",
+                "en": "Science Olympiad"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/science-olympiad",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
+            },
+            {
+              "label": {
+                "de": "Studierendenwettbewerb",
+                "en": "Student Competition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-competition",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
+            },
+            {
+              "label": {
+                "de": "Case Competition",
+                "en": "Case Competition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/case-competition",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
+            },
+            {
+              "label": {
+                "de": "Hackathon (Wettbewerb)",
+                "en": "Hackathon (Competition)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/hackathon-comp",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
+            },
+            {
+              "label": {
+                "de": "Debattierwettbewerb",
+                "en": "Debate Competition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/debate-competition",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
+            },
+            {
+              "label": {
+                "de": "Schülerwettbewerb",
+                "en": "Student Competition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/school-competition",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
+            },
+            {
+              "label": {
+                "de": "Gemeinschaft & Zugehörigkeit erleben",
+                "en": "Experience Community & Belonging"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/community-belonging"
+            },
+            {
+              "label": {
+                "de": "Feierliche Anlässe",
+                "en": "Ceremonial Occasions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/community-belonging"
+            },
+            {
+              "label": {
+                "de": "Abschlussfeier/Graduation",
+                "en": "Graduation Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/graduation-ceremony",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions"
+            },
+            {
+              "label": {
+                "de": "Preisverleihung",
+                "en": "Award Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/award-ceremony",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions"
+            },
+            {
+              "label": {
+                "de": "Ehrung",
+                "en": "Honoring"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/honor-ceremony",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions"
+            },
+            {
+              "label": {
+                "de": "Semesterabschlussfeier",
+                "en": "Semester Closing Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/semester-closing",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions"
+            },
+            {
+              "label": {
+                "de": "Virtuelle Abschlussfeier",
+                "en": "Virtual Graduation Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/virtual-graduation",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions"
+            },
+            {
+              "label": {
+                "de": "Integration & Willkommen",
+                "en": "Integration & Welcome"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/community-belonging"
+            },
+            {
+              "label": {
+                "de": "Erstsemester-Begrüßung",
+                "en": "First Semester Welcome"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/freshman-welcome",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
+            },
+            {
+              "label": {
+                "de": "Einführungsveranstaltung",
+                "en": "Introductory Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-event",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
+            },
+            {
+              "label": {
+                "de": "Welcome Event",
+                "en": "Welcome Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/welcome-event",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
+            },
+            {
+              "label": {
+                "de": "Online-Onboarding",
+                "en": "Online Onboarding"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-onboarding",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
+            },
+            {
+              "label": {
+                "de": "Orientierungstage",
+                "en": "Orientation Days"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-days",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
+            },
+            {
+              "label": {
+                "de": "Kennenlerncamp",
+                "en": "Getting to Know Camp"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-camp",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
+            },
+            {
+              "label": {
+                "de": "Teambuilding-Event",
+                "en": "Team Building Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/teambuilding-event",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
+            },
+            {
+              "label": {
+                "de": "Tradition & Gemeinschaft",
+                "en": "Tradition & Community"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/tradition-community",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/community-belonging"
+            },
+            {
+              "label": {
+                "de": "Jubiläumsfeier",
+                "en": "Anniversary Celebration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/anniversary-celebration",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/tradition-community"
+            },
+            {
+              "label": {
+                "de": "Traditionelle Veranstaltung",
+                "en": "Traditional Event"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/traditional-event",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/tradition-community"
+            },
+            {
+              "label": {
+                "de": "Community-Fest",
+                "en": "Community Festival"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/community-festival",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/tradition-community"
+            },
+            {
+              "label": {
+                "de": "Alumni-Fest",
+                "en": "Alumni Festival"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/alumni-festival",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/tradition-community"
+            },
+            {
+              "label": {
+                "de": "Institutioneller Festakt",
+                "en": "Institutional Ceremony"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/eventType/institutional-ceremony",
+              "broader": "http://w3id.org/openeduhub/vocabs/eventType/tradition-community"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:maximumAttendeeCapacity",
+      "group": "attendance",
+      "label": {
+        "de": "Max. Teilnehmendenzahl",
+        "en": "Max. number of participants"
+      },
+      "description": {
+        "de": "Max. Teilnehmerzahl",
+        "en": "Max. attendees"
+      },
+      "prompt": {
+        "de": "Extrahiere die maximale Gesamtzahl der Teilnehmenden (Präsenz + Online zusammen). Nur eine ganze Zahl, keine Bereiche oder Schätzungen. Wenn 'begrenzt auf 50 Plätze' oder 'ähnlich' erwähnt wird, extrahiere die Zahl. Wenn keine Kapazität angegeben: null. Beispiele: 200, 50, 30.",
+        "en": "Extract the maximum total number of attendees (in-person + online combined). Only a whole number, no ranges or estimates. If 'limited to 50 seats' or similar is mentioned, extract the number. If no capacity stated: null. Examples: 200, 50, 30."
+      },
+      "system": {
+        "path": "schema:maximumAttendeeCapacity",
+        "uri": "https://schema.org/maximumAttendeeCapacity",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 0
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:maximumPhysicalAttendeeCapacity",
+      "group": "attendance",
+      "label": {
+        "de": "Maximale Präsenz-Teilnehmerzahl",
+        "en": "Maximum Physical Attendee Capacity"
+      },
+      "description": {
+        "de": "Max. Vor-Ort-Plätze",
+        "en": "Max. on-site seats"
+      },
+      "prompt": {
+        "de": "Extrahiere die maximale Anzahl der Personen, die physisch vor Ort teilnehmen können. Nur ganzzahlig. Nur befüllen, wenn explizit eine Präsenz-Kapazität getrennt von der Online-Kapazität genannt wird. Beispiele: 100, 30.",
+        "en": "Extract the maximum number of people who can attend physically on-site. Integer only. Only populate if an in-person capacity is explicitly stated separately from online capacity. Examples: 100, 30."
+      },
+      "system": {
+        "path": "schema:maximumPhysicalAttendeeCapacity",
+        "uri": "https://schema.org/maximumPhysicalAttendeeCapacity",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 0
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:maximumVirtualAttendeeCapacity",
+      "group": "attendance",
+      "label": {
+        "de": "Maximale virtuelle Teilnehmerzahl",
+        "en": "Maximum Virtual Attendee Capacity"
+      },
+      "description": {
+        "de": "Max. Online-Plätze",
+        "en": "Max. online seats"
+      },
+      "prompt": {
+        "de": "Extrahiere die maximale Anzahl der Personen, die virtuell/online teilnehmen können. Nur ganzzahlig. Nur befüllen, wenn explizit eine Online-Kapazität getrennt von der Präsenz-Kapazität genannt wird. Beispiele: 500, 100.",
+        "en": "Extract the maximum number of people who can attend virtually/online. Integer only. Only populate if an online capacity is explicitly stated separately from in-person capacity. Examples: 500, 100."
+      },
+      "system": {
+        "path": "schema:maximumVirtualAttendeeCapacity",
+        "uri": "https://schema.org/maximumVirtualAttendeeCapacity",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 0
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:oeh_event_begin",
+      "group": "schedule",
+      "label": {
+        "de": "Start (Datum/Zeit)",
+        "en": "Start (Date/Time)"
+      },
+      "description": {
+        "de": "z.B. 2026-09-15T20:00:00.000Z",
+        "en": "e.g. 2026-09-15T20:00:00.000Z"
+      },
+      "prompt": {
+        "de": "Extrahiere das Startdatum und ggf. die Startzeit der Veranstaltung. Konvertiere IMMER ins vollständige ISO 8601-Format mit UTC-Zeitzone: YYYY-MM-DDTHH:mm:ss.000Z. Wenn nur ein Datum ohne Uhrzeit angegeben ist, verwende T00:00:00.000Z. Achte auf deutsche Datumsformate (TT.MM.JJJJ) und wandle korrekt um. Beispiele: '2026-09-15T20:00:00.000Z' (bei '15.09.2026, 20:00 Uhr'), '2026-03-01T00:00:00.000Z' (bei '1. März 2026'), '2026-10-10T09:30:00.000Z' (bei '10.10.2026 ab 9:30').",
+        "en": "Extract the start date and optionally start time of the event. ALWAYS convert to full ISO 8601 format with UTC timezone: YYYY-MM-DDTHH:mm:ss.000Z. If only a date without time is given, use T00:00:00.000Z. Watch for European date formats (DD.MM.YYYY) and convert correctly. Examples: '2026-09-15T20:00:00.000Z' (for 'Sep 15, 2026 at 8pm'), '2026-03-01T00:00:00.000Z' (for 'March 1, 2026'), '2026-10-10T09:30:00.000Z' (for '10/10/2026 starting 9:30am')."
+      },
+      "system": {
+        "path": "ccm:oeh_event_begin",
+        "uri": "ccm:oeh_event_begin",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": true
+      }
+    },
+    {
+      "id": "ccm:oeh_event_end",
+      "group": "schedule",
+      "label": {
+        "de": "Ende (Datum/Zeit)",
+        "en": "End (Date/Time)"
+      },
+      "description": {
+        "de": "z.B. 2026-09-30T23:00:00.000Z",
+        "en": "e.g. 2026-09-30T23:00:00.000Z"
+      },
+      "prompt": {
+        "de": "Extrahiere das Enddatum und ggf. die Endzeit der Veranstaltung. Konvertiere IMMER ins vollständige ISO 8601-Format mit UTC-Zeitzone: YYYY-MM-DDTHH:mm:ss.000Z. Wenn nur ein Datum ohne Uhrzeit angegeben ist, verwende T00:00:00.000Z. Wenn nur eine Endzeit ohne Datum ('bis 18:00') angegeben ist, verwende das Startdatum. Beispiele: '2026-09-15T22:00:00.000Z' (bei 'bis 22 Uhr'), '2026-09-30T00:00:00.000Z' (bei 'endet am 30.09.2026'), '2026-10-12T17:00:00.000Z' (bei '12.10., 17:00 Uhr Ende').",
+        "en": "Extract the end date and optionally end time of the event. ALWAYS convert to full ISO 8601 format with UTC timezone: YYYY-MM-DDTHH:mm:ss.000Z. If only a date without time is given, use T00:00:00.000Z. If only an end time without date is given ('until 6pm'), use the start date. Examples: '2026-09-15T22:00:00.000Z' (for 'until 10pm'), '2026-09-30T00:00:00.000Z' (for 'ends Sep 30, 2026'), '2026-10-12T17:00:00.000Z' (for 'Oct 12, 5pm end')."
+      },
+      "system": {
+        "path": "ccm:oeh_event_end",
+        "uri": "ccm:oeh_event_end",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": true
+      }
+    },
+    {
+      "id": "schema:doorTime",
+      "group": "schedule",
+      "label": {
+        "de": "Einlass (Zeit)",
+        "en": "Entry (Time)"
+      },
+      "description": {
+        "de": "Einlasszeit im Format HH:MM, z.B. 19:00",
+        "en": "Entry time in HH:MM format, e.g. 19:00"
+      },
+      "prompt": {
+        "de": "Extrahiere die Einlasszeit (VOR Veranstaltungsbeginn) als reine Uhrzeit im Format HH:MM. Nur befüllen, wenn eine separate Einlasszeit erwähnt wird (z.B. 'Einlass ab 19:00', 'Türöffnung 18:30'). Beispiele: '19:00', '08:30', '17:45'.",
+        "en": "Extract the door/entry time (BEFORE event start) as pure time in HH:MM format. Only populate if a separate entry time is mentioned (e.g., 'doors open at 7pm', 'registration from 8:30'). Examples: '19:00', '08:30', '17:45'."
+      },
+      "system": {
+        "path": "schema:doorTime",
+        "uri": "https://schema.org/doorTime",
+        "datatype": "time",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^\\d{2}:\\d{2}$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:eventStatus",
+      "group": "schedule",
+      "label": {
+        "de": "Status",
+        "en": "Status"
+      },
+      "description": {
+        "de": "Status auswählen",
+        "en": "Select status"
+      },
+      "prompt": {
+        "de": "Erkenne den Status der Veranstaltung. Suche nach 'abgesagt', 'verschoben', 'neuer Termin', 'findet online statt'. Wenn normal angekündigt: EventScheduled. Beispiele: 'https://schema.org/EventScheduled' (geplant), 'https://schema.org/EventCancelled' (abgesagt), 'https://schema.org/EventPostponed' (verschoben).",
+        "en": "Detect the event status. Look for 'cancelled', 'postponed', 'new date', 'moved online'. If normally announced: EventScheduled. Examples: 'https://schema.org/EventScheduled', 'https://schema.org/EventCancelled', 'https://schema.org/EventPostponed'."
+      },
+      "system": {
+        "path": "schema:eventStatus",
+        "uri": "https://schema.org/eventStatus",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Geplant",
+                "en": "Scheduled"
+              },
+              "uri": "https://schema.org/EventScheduled",
+              "value": "https://schema.org/EventScheduled"
+            },
+            {
+              "label": {
+                "de": "Abgesagt",
+                "en": "Cancelled"
+              },
+              "uri": "https://schema.org/EventCancelled",
+              "value": "https://schema.org/EventCancelled"
+            },
+            {
+              "label": {
+                "de": "Verschoben",
+                "en": "Postponed"
+              },
+              "uri": "https://schema.org/EventPostponed",
+              "value": "https://schema.org/EventPostponed"
+            },
+            {
+              "label": {
+                "de": "Neu geplant",
+                "en": "Rescheduled"
+              },
+              "uri": "https://schema.org/EventRescheduled",
+              "value": "https://schema.org/EventRescheduled"
+            },
+            {
+              "label": {
+                "de": "Online verlegt",
+                "en": "Moved Online"
+              },
+              "uri": "https://schema.org/EventMovedOnline",
+              "value": "https://schema.org/EventMovedOnline"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "map_labels_to_uris": false
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:duration",
+      "group": "schedule",
+      "label": {
+        "de": "Dauer",
+        "en": "Duration"
+      },
+      "description": {
+        "de": "z.B. 2 Stunden, 90 Minuten, 3 Tage",
+        "en": "e.g. 2 hours, 90 minutes, 3 days"
+      },
+      "prompt": {
+        "de": "Extrahiere die Dauer der Veranstaltung und konvertiere ins ISO 8601-Duration-Format. Umrechnungen: Minuten → PTxM, Stunden → PTxH, Tage → PxD, Wochen → PxW. Kombinationen möglich: PT1H30M. Beispiele: 'PT90M' (bei '90 Minuten' oder '1,5 Stunden'), 'PT2H' (bei '2 Stunden'), 'P3D' (bei '3-tägig').",
+        "en": "Extract the event duration and convert to ISO 8601 duration format. Conversions: minutes → PTxM, hours → PTxH, days → PxD, weeks → PxW. Combinations allowed: PT1H30M. Examples: 'PT90M' (for '90 minutes'), 'PT2H' (for '2 hours'), 'P3D' (for '3-day event')."
+      },
+      "system": {
+        "path": "schema:duration",
+        "uri": "https://schema.org/duration",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^P(T(?=\\d)(\\d+H)?(\\d+M)?(\\d+S)?)?(\\d+D)?$|^P\\d+W$|^P\\d+M$|^P\\d+Y$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:recordedIn",
+      "group": "schedule",
+      "label": {
+        "de": "Aufzeichnung (URL)",
+        "en": "Recording (URL)"
+      },
+      "description": {
+        "de": "Link zur Aufzeichnung der Veranstaltung",
+        "en": "Link to the event recording"
+      },
+      "prompt": {
+        "de": "Extrahiere die URL zur Aufzeichnung der Veranstaltung (Video, Podcast, Mediathek). Suche nach 'Aufzeichnung', 'Recording', 'Mitschnitt', 'Video verfügbar', YouTube-/Vimeo-Links. Nur eine URL. Beispiele: 'https://www.youtube.com/watch?v=abc123', 'https://mediathek.example.de/event/2026', 'https://vimeo.com/123456'.",
+        "en": "Extract the URL to the event recording (video, podcast, media library). Look for 'recording', 'watch again', 'replay', YouTube/Vimeo links. Only one URL. Examples: 'https://www.youtube.com/watch?v=abc123', 'https://mediathek.example.de/event/2026', 'https://vimeo.com/123456'."
+      },
+      "system": {
+        "path": "schema:recordedIn",
+        "uri": "https://schema.org/recordedIn",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "format": "url"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:eventAttendanceMode",
+      "group": "attendance",
+      "label": {
+        "de": "Teilnahmemodus",
+        "en": "Participation mode"
+      },
+      "description": {
+        "de": "Online / Vor Ort / Hybrid",
+        "en": "Online / On-site / Hybrid"
+      },
+      "prompt": {
+        "de": "Erkenne den Teilnahmemodus. Suche nach Hinweisen: 'online', 'virtuell', 'Zoom/Teams' → Online; 'vor Ort', 'Präsenz', Adresse → Vor Ort; 'hybrid', 'Präsenz und online' → Hybrid. Gib den schema.org-URI zurück. Beispiele: 'https://schema.org/OnlineEventAttendanceMode', 'https://schema.org/OfflineEventAttendanceMode', 'https://schema.org/MixedEventAttendanceMode'.",
+        "en": "Detect the attendance mode. Look for hints: 'online', 'virtual', 'Zoom/Teams' → Online; 'on-site', 'in-person', address → Offline; 'hybrid', 'in-person and online' → Mixed. Return the schema.org URI. Examples: 'https://schema.org/OnlineEventAttendanceMode', 'https://schema.org/OfflineEventAttendanceMode', 'https://schema.org/MixedEventAttendanceMode'."
+      },
+      "system": {
+        "path": "schema:eventAttendanceMode",
+        "uri": "https://schema.org/eventAttendanceMode",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Online",
+                "en": "Online"
+              },
+              "uri": "https://schema.org/OnlineEventAttendanceMode"
+            },
+            {
+              "label": {
+                "de": "Vor Ort",
+                "en": "Offline"
+              },
+              "uri": "https://schema.org/OfflineEventAttendanceMode"
+            },
+            {
+              "label": {
+                "de": "Hybrid",
+                "en": "Mixed"
+              },
+              "uri": "https://schema.org/MixedEventAttendanceMode"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:location",
+      "group": "attendance",
+      "label": {
+        "de": "Ort",
+        "en": "Location"
+      },
+      "description": {
+        "de": "Veranstaltungsort",
+        "en": "Event venue"
+      },
+      "prompt": {
+        "de": "Extrahiere den/die Veranstaltungsort(e). Unterscheide: Physischer Ort (@type: Place) mit Name, Adresse (Straße, PLZ, Stadt, Land) und ggf. Koordinaten; Virtueller Ort (@type: VirtualLocation) mit URL (z.B. Zoom-/Teams-Link). Bei hybriden Events beide Typen extrahieren. Gib ein Array von Objekten zurück. Beispiele: [{'@type': 'Place', 'name': 'Messe Berlin', 'address': {'streetAddress': 'Messedamm 22', 'postalCode': '14055', 'addressLocality': 'Berlin'}}], [{'@type': 'VirtualLocation', 'url': 'https://zoom.us/j/123'}].",
+        "en": "Extract the event location(s). Distinguish: Physical location (@type: Place) with name, address (street, postal code, city, country) and optional coordinates; Virtual location (@type: VirtualLocation) with URL (e.g., Zoom/Teams link). For hybrid events extract both types. Return an array of objects. Examples: [{'@type': 'Place', 'name': 'Convention Center', 'address': {'streetAddress': '123 Main St', 'postalCode': '10001', 'addressLocality': 'New York'}}], [{'@type': 'VirtualLocation', 'url': 'https://zoom.us/j/123'}]."
+      },
+      "system": {
+        "path": "schema:location",
+        "uri": "https://schema.org/location",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Place",
+              "label": {
+                "de": "Physischer Ort",
+                "en": "Physical Location"
+              },
+              "description": {
+                "de": "Physischer Ort wie Gebäude, Raum oder Veranstaltungsort mit Adresse und optional Koordinaten",
+                "en": "Physical location such as building, room, or venue with address and optional coordinates"
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name des Veranstaltungsortes",
+                    "en": "Name of the venue"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere den Namen des Veranstaltungsortes (Gebäude, Halle, Raum). Beispiele: 'Messe Berlin', 'Audimax TU München', 'Kongresszentrum Davos'.",
+                    "en": "Extract the venue name (building, hall, room). Examples: 'Convention Center', 'University Main Hall', 'Congress Center'."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "address",
+                  "label": {
+                    "de": "Adresse",
+                    "en": "Address"
+                  },
+                  "description": {
+                    "de": "Postanschrift",
+                    "en": "Postal address"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere die vollständige Postanschrift des Veranstaltungsortes und zerlege sie in Einzelfelder (Straße, PLZ, Stadt, Region, Land).",
+                    "en": "Extract the full postal address of the venue and split into subfields (street, postal code, city, region, country)."
+                  },
+                  "fields": [
+                    {
+                      "id": "streetAddress",
+                      "label": {
+                        "de": "Straße und Hausnummer",
+                        "en": "Street Address"
+                      },
+                      "description": {
+                        "de": "z.B. Messedamm 22",
+                        "en": "e.g. 123 Main St"
+                      },
+                      "prompt": {
+                        "de": "Extrahiere Straßenname und Hausnummer. Beispiele: 'Messedamm 22', 'Friedrichstraße 43-45', 'Am Hauptbahnhof 1'.",
+                        "en": "Extract street name and house number. Examples: '123 Main St', 'Friedrichstrasse 43-45', 'Am Hauptbahnhof 1'."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "postalCode",
+                      "label": {
+                        "de": "Postleitzahl",
+                        "en": "Postal Code"
+                      },
+                      "description": {
+                        "de": "z.B. 14055",
+                        "en": "e.g. 14055"
+                      },
+                      "prompt": {
+                        "de": "Extrahiere die Postleitzahl. Nur Ziffern, 4-10 Stellen. Beispiele: '14055', '10117', '8001'.",
+                        "en": "Extract the postal code. Digits only, 4-10 digits. Examples: '14055', '10117', '8001'."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "validation": {
+                          "pattern": "^[0-9]{4,10}$"
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressLocality",
+                      "label": {
+                        "de": "Stadt",
+                        "en": "City"
+                      },
+                      "description": {
+                        "de": "z.B. Berlin",
+                        "en": "e.g. Berlin"
+                      },
+                      "prompt": {
+                        "de": "Extrahiere den Ortsnamen. Beispiele: 'Berlin', 'Hamburg', 'München'.",
+                        "en": "Extract the city name. Examples: 'Berlin', 'Hamburg', 'Munich'."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressRegion",
+                      "label": {
+                        "de": "Bundesland/Region",
+                        "en": "State/Region"
+                      },
+                      "description": {
+                        "de": "z.B. Berlin, Bayern",
+                        "en": "e.g. Berlin, Bavaria"
+                      },
+                      "prompt": {
+                        "de": "Extrahiere das Bundesland oder die Region. Beispiele: 'Berlin', 'Bayern', 'Nordrhein-Westfalen'.",
+                        "en": "Extract the state or region. Examples: 'Berlin', 'Bavaria', 'North Rhine-Westphalia'."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressCountry",
+                      "label": {
+                        "de": "Land",
+                        "en": "Country"
+                      },
+                      "description": {
+                        "de": "z.B. DE, AT, CH",
+                        "en": "e.g. DE, AT, CH"
+                      },
+                      "prompt": {
+                        "de": "Extrahiere das Land als ISO 3166-1 Alpha-2-Code (2 Buchstaben, Großbuchstaben). Wandle Landesnamen um. Beispiele: 'DE' (Deutschland), 'AT' (Österreich), 'CH' (Schweiz).",
+                        "en": "Extract the country as ISO 3166-1 alpha-2 code (2 uppercase letters). Convert country names. Examples: 'DE' (Germany), 'AT' (Austria), 'CH' (Switzerland)."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true,
+                          "case": "upper"
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    }
+                  ],
+                  "system": {
+                    "datatype": "object",
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "geo",
+                  "label": {
+                    "de": "Koordinaten",
+                    "en": "Coordinates"
+                  },
+                  "description": {
+                    "de": "Breiten-/Längengrad",
+                    "en": "Lat/Lon"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere geografische Koordinaten des Veranstaltungsortes, falls vorhanden. Nur bei expliziter Angabe oder wenn aus Adresse ableitbar.",
+                    "en": "Extract geographic coordinates of the venue if available. Only if explicitly stated or derivable from address."
+                  },
+                  "fields": [
+                    {
+                      "id": "latitude",
+                      "label": {
+                        "de": "Breitengrad",
+                        "en": "Latitude"
+                      },
+                      "description": {
+                        "de": "z.B. 52.5200",
+                        "en": "e.g. 52.5200"
+                      },
+                      "prompt": {
+                        "de": "Breitengrad als Dezimalzahl (-90 bis +90). Beispiele: 52.5200 (Berlin), 48.1351 (München), 47.3769 (Zürich).",
+                        "en": "Latitude as decimal number (-90 to +90). Examples: 52.5200 (Berlin), 48.1351 (Munich), 47.3769 (Zurich)."
+                      },
+                      "system": {
+                        "datatype": "number",
+                        "validation": {
+                          "min": -90,
+                          "max": 90
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "longitude",
+                      "label": {
+                        "de": "Längengrad",
+                        "en": "Longitude"
+                      },
+                      "description": {
+                        "de": "z.B. 13.4050",
+                        "en": "e.g. 13.4050"
+                      },
+                      "prompt": {
+                        "de": "Längengrad als Dezimalzahl (-180 bis +180). Beispiele: 13.4050 (Berlin), 11.5820 (München), 8.5417 (Zürich).",
+                        "en": "Longitude as decimal number (-180 to +180). Examples: 13.4050 (Berlin), 11.5820 (Munich), 8.5417 (Zurich)."
+                      },
+                      "system": {
+                        "datatype": "number",
+                        "validation": {
+                          "min": -180,
+                          "max": 180
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    }
+                  ],
+                  "system": {
+                    "datatype": "object",
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "sameAs",
+                  "label": {
+                    "de": "Verweis",
+                    "en": "Same As"
+                  },
+                  "description": {
+                    "de": "z.B. Wikipedia-/Wikidata-Link",
+                    "en": "e.g. Wikipedia/Wikidata link"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere eine URI zu einer externen Referenz des Ortes (Wikipedia, Wikidata, Google Maps). Beispiele: 'https://de.wikipedia.org/wiki/Messe_Berlin', 'https://www.wikidata.org/wiki/Q800731'.",
+                    "en": "Extract a URI to an external reference for the venue (Wikipedia, Wikidata, Google Maps). Examples: 'https://en.wikipedia.org/wiki/Messe_Berlin', 'https://www.wikidata.org/wiki/Q800731'."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "VirtualLocation",
+              "label": {
+                "de": "Virtueller Ort",
+                "en": "Virtual Location"
+              },
+              "description": {
+                "de": "Virtueller Ort für Online-Veranstaltungen, Webinare oder digitale Meetings",
+                "en": "Virtual location for online events, webinars, or digital meetings"
+              },
+              "fields": [
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "z.B. https://zoom.us/j/123",
+                    "en": "e.g. https://zoom.us/j/123"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere die URL für die Online-Teilnahme (Zoom, Teams, WebEx, YouTube-Stream etc.). Beispiele: 'https://zoom.us/j/123456', 'https://teams.microsoft.com/l/meetup-join/...', 'https://www.youtube.com/watch?v=abc'.",
+                    "en": "Extract the URL for online participation (Zoom, Teams, WebEx, YouTube stream, etc.). Examples: 'https://zoom.us/j/123456', 'https://teams.microsoft.com/l/meetup-join/...', 'https://www.youtube.com/watch?v=abc'."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "validation": {
+                      "format": "url"
+                    },
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "PostalAddress",
+              "label": {
+                "de": "Postadresse",
+                "en": "Postal Address"
+              },
+              "description": {
+                "de": "Reine Postanschrift ohne Ortsnamen oder Gebäudebezeichnung",
+                "en": "Postal address without place name or building designation"
+              },
+              "fields": []
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:price",
+      "group": "attendance",
+      "label": {
+        "de": "Preis",
+        "en": "Price"
+      },
+      "description": {
+        "de": "Kostenpflichtig?",
+        "en": "Requires payment?"
+      },
+      "prompt": {
+        "de": "Bestimme, ob die Veranstaltung kostenpflichtig ist. Wähle GENAU eine der vorgegebenen URIs. 'kostenfrei', 'kostenlos', 'gratis', 'Eintritt frei' → 'http://w3id.org/openeduhub/vocabs/price/no'. Preisangaben, 'Teilnahmegebühr', 'kostenpflichtig' → 'http://w3id.org/openeduhub/vocabs/price/yes'. Freemium, 'In-App-Käufe', 'Premium-Version' → 'http://w3id.org/openeduhub/vocabs/price/yes_for_additional'. Beispiele: 'http://w3id.org/openeduhub/vocabs/price/no' (bei 'Eintritt frei'), 'http://w3id.org/openeduhub/vocabs/price/yes' (bei 'Teilnahmegebühr 25€').",
+        "en": "Determine if the event requires payment. Choose EXACTLY one of the given URIs. 'free', 'no charge', 'complimentary' → 'http://w3id.org/openeduhub/vocabs/price/no'. Prices, 'registration fee', 'paid' → 'http://w3id.org/openeduhub/vocabs/price/yes'. Freemium, 'in-app purchases', 'premium version' → 'http://w3id.org/openeduhub/vocabs/price/yes_for_additional'. Examples: 'http://w3id.org/openeduhub/vocabs/price/no' (for 'free admission'), 'http://w3id.org/openeduhub/vocabs/price/yes' (for 'registration fee €25')."
+      },
+      "system": {
+        "path": "ccm:price",
+        "uri": "ccm:price",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "source": "http://w3id.org/openeduhub/vocabs/price/",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/price/no",
+              "label": {
+                "de": "nein",
+                "en": "no"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/price/yes",
+              "label": {
+                "de": "ja",
+                "en": "yes"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/price/yes_for_additional",
+              "label": {
+                "de": "zusätzliche Inhalte / Features per Kauf möglich",
+                "en": "additional content / features purchasable"
+              }
+            }
+          ]
+        },
+        "repo_field": true
+      }
+    },
+    {
+      "id": "oeh:targetGroup",
+      "group": "attendance",
+      "label": {
+        "de": "Zielgruppe",
+        "en": "Target Group"
+      },
+      "description": {
+        "de": "An wen richtet sich die Veranstaltung?",
+        "en": "Who is the event aimed at?"
+      },
+      "prompt": {
+        "de": "Zielgruppe(n) der Veranstaltung. Suche nach Angaben wie 'für Lehrkräfte', 'Studierende', 'Schulleitungen', 'Eltern', 'Berufstätige', 'Quereinsteiger', 'pädagogische Fachkräfte'. Gib als JSON-Array zurück. Beispiele: ['Lehrkräfte', 'Pädagogische Fachkräfte'], ['Studierende', 'Doktoranden'], ['Schulleitungen', 'Bildungsverantwortliche'].",
+        "en": "Target group(s) of the event. Look for indications like 'for teachers', 'students', 'school leaders', 'parents', 'professionals', 'career changers', 'educational staff'. Return as JSON array. Examples: ['Teachers', 'Educational staff'], ['Students', 'PhD candidates'], ['School leaders', 'Education managers']."
+      },
+      "system": {
+        "path": "oeh:targetGroup",
+        "uri": "oeh:targetGroup",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:inLanguage",
+      "group": "attendance",
+      "label": {
+        "de": "Veranstaltungssprache(n)",
+        "en": "Event Language(s)"
+      },
+      "description": {
+        "de": "Sprache(n), in der/denen die Veranstaltung durchgeführt wird",
+        "en": "Language(s) the event is conducted in"
+      },
+      "prompt": {
+        "de": "Extrahiere die Sprache(n), in der/denen die Veranstaltung durchgeführt wird. Verwende ISO 639-1-Codes (2 Buchstaben, klein). Suche nach 'Sprache:', 'in englischer Sprache', 'auf Deutsch', 'bilingual'. Gib als JSON-Array zurück. Beispiele: ['de'], ['en'], ['de', 'en'], ['de', 'en', 'fr'].",
+        "en": "Extract the language(s) the event is conducted in. Use ISO 639-1 codes (2 lowercase letters). Look for 'Language:', 'in English', 'in German', 'bilingual'. Return as JSON array. Examples: ['de'], ['en'], ['de', 'en'], ['de', 'en', 'fr']."
+      },
+      "system": {
+        "path": "schema:inLanguage",
+        "uri": "https://schema.org/inLanguage",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "case": "lower"
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:organizer",
+      "group": "roles",
+      "label": {
+        "de": "Organisator:in(en)",
+        "en": "Organisator:in(en)"
+      },
+      "description": {
+        "de": "Organisator:in(nen)",
+        "en": "Organizer(s)"
+      },
+      "prompt": {
+        "de": "Extrahiere die organisierenden Personen oder Institutionen. Suche nach 'veranstaltet von', 'organisiert durch', 'Veranstalter:', Impressum. Gib strukturierte Objekte mit Name und ggf. URL zurück. Beispiele: [{'name': 'Universität Hamburg'}], [{'name': 'Deutsche Gesellschaft für Erziehungswissenschaft', 'url': 'https://www.dgfe.de'}].",
+        "en": "Extract organizing persons or institutions. Look for 'organized by', 'hosted by', 'organizer:', imprint. Return structured objects with name and optional URL. Examples: [{'name': 'University of Hamburg'}], [{'name': 'German Education Society', 'url': 'https://www.dgfe.de'}]."
+      },
+      "system": {
+        "path": "schema:organizer",
+        "uri": "https://schema.org/organizer",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Organisator:in(en)",
+                "en": "Organizer(s)"
+              },
+              "description": {
+                "de": "Organisation(en) oder Person(en), die das Event organisieren.",
+                "en": "Organization(s) or person(s) organizing the event."
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name der Organisation/Person",
+                    "en": "Name of organization/person"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere den vollständigen Namen des Organisators (Person oder Institution). Beispiele: 'Universität Hamburg', 'Deutsche Gesellschaft für Erziehungswissenschaft', 'Prof. Dr. Müller'.",
+                    "en": "Extract the full name of the organizer (person or institution). Examples: 'University of Hamburg', 'German Education Society', 'Prof. Dr. Mueller'."
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "z.B. https://www.example.org",
+                    "en": "e.g. https://www.example.org"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere die Webseite des Organisators. Beispiele: 'https://www.uni-hamburg.de', 'https://www.dgfe.de'.",
+                    "en": "Extract the organizer's website. Examples: 'https://www.uni-hamburg.de', 'https://www.dgfe.de'."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "sameAs",
+                  "label": {
+                    "de": "Verweis",
+                    "en": "Reference"
+                  },
+                  "description": {
+                    "de": "z.B. Wikipedia-/Wikidata-Link",
+                    "en": "e.g. Wikipedia/Wikidata link"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere eine URI zu einer externen Referenz des Organisators (Wikipedia, Wikidata). Beispiele: 'https://de.wikipedia.org/wiki/Universität_Hamburg', 'https://www.wikidata.org/wiki/Q156725'.",
+                    "en": "Extract a URI to an external reference for the organizer (Wikipedia, Wikidata). Examples: 'https://en.wikipedia.org/wiki/University_of_Hamburg', 'https://www.wikidata.org/wiki/Q156725'."
+                  },
+                  "system": {
+                    "path": "sameAs",
+                    "uri": "https://schema.org/sameAs",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:performer",
+      "group": "roles",
+      "label": {
+        "de": "Mitwirkende/Performer",
+        "en": "Contributors/Performers"
+      },
+      "description": {
+        "de": "Vortragende / Mitwirkende",
+        "en": "Speakers / performers"
+      },
+      "prompt": {
+        "de": "Extrahiere Vortragende, Referent:innen, Sprecher:innen oder Performer:innen. Suche nach 'Referent:', 'Speaker:', 'Vortrag von', Programm-Listings. Gib strukturierte Objekte mit Name und ggf. URL zurück. Beispiele: [{'name': 'Prof. Dr. Anna Müller'}], [{'name': 'Dr. Max Weber', 'url': 'https://uni.de/weber'}].",
+        "en": "Extract speakers, presenters, or performers. Look for 'speaker:', 'presented by', program listings. Return structured objects with name and optional URL. Examples: [{'name': 'Prof. Dr. Anna Mueller'}], [{'name': 'Dr. Max Weber', 'url': 'https://uni.de/weber'}]."
+      },
+      "system": {
+        "path": "schema:performer",
+        "uri": "https://schema.org/performer",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Mitwirkende/Performer",
+                "en": "Contributors/Performers"
+              },
+              "description": {
+                "de": "Performer:innen (z. B. Vortragende, Bands).",
+                "en": "Performers (e.g., speakers, bands)."
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name der Person/Gruppe",
+                    "en": "Name of person/group"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere den vollständigen Namen des/der Vortragenden oder Mitwirkenden. Beispiele: 'Prof. Dr. Anna Müller', 'Keynote: Dr. Max Weber', 'Band: Die Fantastischen Vier'.",
+                    "en": "Extract the full name of the speaker or performer. Examples: 'Prof. Dr. Anna Mueller', 'Keynote: Dr. Max Weber', 'Band: Die Fantastischen Vier'."
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "z.B. https://uni.de/person",
+                    "en": "e.g. https://uni.de/person"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere die Webseite oder das Profil des/der Mitwirkenden. Beispiele: 'https://uni.de/prof-mueller', 'https://www.linkedin.com/in/maxweber'.",
+                    "en": "Extract the website or profile of the performer. Examples: 'https://uni.de/prof-mueller', 'https://www.linkedin.com/in/maxweber'."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:attendee",
+      "group": "roles",
+      "label": {
+        "de": "Teilnehmende (bekannt)",
+        "en": "Participants (known)"
+      },
+      "description": {
+        "de": "Bekannte Teilnehmende",
+        "en": "Known attendees"
+      },
+      "prompt": {
+        "de": "Extrahiere namentlich genannte Teilnehmende oder teilnehmende Organisationen. Nur explizit erwähnte Personen/Organisationen. Gib strukturierte Objekte mit Name und ggf. URL zurück. Beispiele: [{'name': 'Ministerium für Bildung'}], [{'name': 'Dr. Lisa Schmidt', 'url': 'https://example.com'}].",
+        "en": "Extract explicitly named attendees or participating organizations. Only persons/organizations mentioned by name. Return structured objects with name and optional URL. Examples: [{'name': 'Ministry of Education'}], [{'name': 'Dr. Lisa Schmidt', 'url': 'https://example.com'}]."
+      },
+      "system": {
+        "path": "schema:attendee",
+        "uri": "https://schema.org/attendee",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Teilnehmende (bekannt)",
+                "en": "Participants (known)"
+              },
+              "description": {
+                "de": "Optionale Nennung bekannter Teilnehmender (Org/Person).",
+                "en": "Optional mention of known participants (Org/Person)."
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name der Person/Organisation",
+                    "en": "Name of person/organization"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere den Namen des/der bekannten Teilnehmenden (Person oder Organisation). Nur explizit erwähnte Namen. Beispiele: 'Ministerium für Bildung', 'Dr. Lisa Schmidt'.",
+                    "en": "Extract the name of the known attendee (person or organization). Only explicitly mentioned names. Examples: 'Ministry of Education', 'Dr. Lisa Schmidt'."
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "z.B. https://www.example.org",
+                    "en": "e.g. https://www.example.org"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere die Webseite des Teilnehmenden, falls vorhanden. Beispiele: 'https://www.bmbf.de', 'https://www.example.com/profil'.",
+                    "en": "Extract the attendee's website if available. Examples: 'https://www.bmbf.de', 'https://www.example.com/profile'."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:offers",
+      "group": "attendance",
+      "label": {
+        "de": "Tickets/Preise",
+        "en": "Tickets/Prices"
+      },
+      "description": {
+        "de": "Ticket- / Preisinfos",
+        "en": "Ticket / price info"
+      },
+      "prompt": {
+        "de": "Extrahiere Ticket- und Preisangaben. Suche nach Preisen, Gebühren, Ticketlinks, Verkäufern. Gib strukturierte Offer-Objekte mit Preis, Währung und ggf. URL zurück. Beispiele: [{'price': 25, 'priceCurrency': 'EUR', 'url': 'https://tickets.example.com'}], [{'price': 0, 'priceCurrency': 'EUR'}] (bei 'kostenfrei').",
+        "en": "Extract ticket and pricing information. Look for prices, fees, ticket links, vendors. Return structured Offer objects with price, currency, and optional URL. Examples: [{'price': 25, 'priceCurrency': 'EUR', 'url': 'https://tickets.example.com'}], [{'price': 0, 'priceCurrency': 'EUR'}] (for 'free')."
+      },
+      "system": {
+        "path": "schema:offers",
+        "uri": "https://schema.org/offers",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Offer",
+              "label": {
+                "de": "Tickets/Preise",
+                "en": "Tickets/Prices"
+              },
+              "description": {
+                "de": "Ticket-/Angebotsinfos, z. B. Preis, Währung, URL.",
+                "en": "Ticket/offer information, e.g., price, currency, URL."
+              },
+              "fields": [
+                {
+                  "id": "price",
+                  "label": {
+                    "de": "Preis",
+                    "en": "Price"
+                  },
+                  "description": {
+                    "de": "z.B. 25.00",
+                    "en": "e.g. 25.00"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere den Ticketpreis als Dezimalzahl. Nur der numerische Wert ohne Währungssymbol. 0 bei kostenlos. Beispiele: 25.00, 0, 149.99.",
+                    "en": "Extract the ticket price as decimal number. Only the numeric value without currency symbol. 0 if free. Examples: 25.00, 0, 149.99."
+                  },
+                  "system": {
+                    "path": "price",
+                    "uri": "https://schema.org/price",
+                    "datatype": "number",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "priceCurrency",
+                  "label": {
+                    "de": "Währung",
+                    "en": "Price Currency"
+                  },
+                  "description": {
+                    "de": "Währung auswählen",
+                    "en": "Select currency"
+                  },
+                  "prompt": {
+                    "de": "Bestimme die Währung des Preises aus dem geschlossenen Vokabular. Standard für DACH-Raum: EUR. Suche nach €, $, CHF, etc. Wähle den passenden ISO 4217-Code. Beispiele: 'EUR' (bei € oder Euro), 'CHF' (bei Schweizer Franken), 'USD' (bei $ oder Dollar).",
+                    "en": "Determine the price currency from the closed vocabulary. Default for DACH region: EUR. Look for €, $, CHF, etc. Select the matching ISO 4217 code. Examples: 'EUR' (for € or Euro), 'CHF' (for Swiss Franc), 'USD' (for $ or Dollar)."
+                  },
+                  "system": {
+                    "path": "priceCurrency",
+                    "uri": "https://schema.org/priceCurrency",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true,
+                    "vocabulary": {
+                      "type": "closed",
+                      "concepts": [
+                        {
+                          "label": {
+                            "de": "Euro (EUR)",
+                            "en": "Euro (EUR)"
+                          },
+                          "value": "EUR"
+                        },
+                        {
+                          "label": {
+                            "de": "US-Dollar (USD)",
+                            "en": "US Dollar (USD)"
+                          },
+                          "value": "USD"
+                        },
+                        {
+                          "label": {
+                            "de": "Britisches Pfund (GBP)",
+                            "en": "British Pound (GBP)"
+                          },
+                          "value": "GBP"
+                        },
+                        {
+                          "label": {
+                            "de": "Schweizer Franken (CHF)",
+                            "en": "Swiss Franc (CHF)"
+                          },
+                          "value": "CHF"
+                        },
+                        {
+                          "label": {
+                            "de": "Japanischer Yen (JPY)",
+                            "en": "Japanese Yen (JPY)"
+                          },
+                          "value": "JPY"
+                        },
+                        {
+                          "label": {
+                            "de": "Kanadischer Dollar (CAD)",
+                            "en": "Canadian Dollar (CAD)"
+                          },
+                          "value": "CAD"
+                        },
+                        {
+                          "label": {
+                            "de": "Australischer Dollar (AUD)",
+                            "en": "Australian Dollar (AUD)"
+                          },
+                          "value": "AUD"
+                        },
+                        {
+                          "label": {
+                            "de": "Chinesischer Yuan (CNY)",
+                            "en": "Chinese Yuan (CNY)"
+                          },
+                          "value": "CNY"
+                        },
+                        {
+                          "label": {
+                            "de": "Schwedische Krone (SEK)",
+                            "en": "Swedish Krona (SEK)"
+                          },
+                          "value": "SEK"
+                        },
+                        {
+                          "label": {
+                            "de": "Norwegische Krone (NOK)",
+                            "en": "Norwegian Krone (NOK)"
+                          },
+                          "value": "NOK"
+                        },
+                        {
+                          "label": {
+                            "de": "Dänische Krone (DKK)",
+                            "en": "Danish Krone (DKK)"
+                          },
+                          "value": "DKK"
+                        },
+                        {
+                          "label": {
+                            "de": "Polnischer Złoty (PLN)",
+                            "en": "Polish Złoty (PLN)"
+                          },
+                          "value": "PLN"
+                        },
+                        {
+                          "label": {
+                            "de": "Tschechische Krone (CZK)",
+                            "en": "Czech Koruna (CZK)"
+                          },
+                          "value": "CZK"
+                        },
+                        {
+                          "label": {
+                            "de": "Ungarischer Forint (HUF)",
+                            "en": "Hungarian Forint (HUF)"
+                          },
+                          "value": "HUF"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "z.B. https://tickets.example.com",
+                    "en": "e.g. https://tickets.example.com"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere die URL zur Ticketbuchung oder Anmeldung. Beispiele: 'https://tickets.example.com/event123', 'https://www.eventbrite.de/e/12345'.",
+                    "en": "Extract the URL for ticket booking or registration. Examples: 'https://tickets.example.com/event123', 'https://www.eventbrite.de/e/12345'."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "availability",
+                  "label": {
+                    "de": "Verfügbarkeit",
+                    "en": "Availability"
+                  },
+                  "description": {
+                    "de": "z.B. Verfügbar, Ausverkauft",
+                    "en": "e.g. InStock, SoldOut"
+                  },
+                  "prompt": {
+                    "de": "Erkenne die Ticketverfügbarkeit. Verwende schema.org ItemAvailability-Werte. Suche nach 'ausverkauft', 'noch Plätze', 'Vorverkauf'. Beispiele: 'https://schema.org/InStock' (verfügbar), 'https://schema.org/SoldOut' (ausverkauft), 'https://schema.org/PreOrder' (Vorverkauf).",
+                    "en": "Detect ticket availability. Use schema.org ItemAvailability values. Look for 'sold out', 'seats available', 'pre-order'. Examples: 'https://schema.org/InStock' (available), 'https://schema.org/SoldOut' (sold out), 'https://schema.org/PreOrder' (pre-order)."
+                  },
+                  "system": {
+                    "path": "availability",
+                    "uri": "https://schema.org/availability",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "acceptedPaymentMethod",
+                  "label": {
+                    "de": "Akzeptierte Zahlungsmethoden",
+                    "en": "Accepted Payment Methods"
+                  },
+                  "description": {
+                    "de": "z.B. Kreditkarte, PayPal, Überweisung",
+                    "en": "e.g. Credit card, PayPal, Bank transfer"
+                  },
+                  "prompt": {
+                    "de": "Extrahiere akzeptierte Zahlungsmethoden. Suche nach 'Zahlung per', 'Bezahlung mit', 'akzeptiert'. Gib als JSON-Array zurück. Beispiele: ['Kreditkarte', 'PayPal'], ['Überweisung'], ['Kreditkarte', 'PayPal', 'Rechnung'].",
+                    "en": "Extract accepted payment methods. Look for 'payment by', 'accepts'. Return as JSON array. Examples: ['Credit card', 'PayPal'], ['Bank transfer'], ['Credit card', 'PayPal', 'Invoice']."
+                  },
+                  "system": {
+                    "path": "acceptedPaymentMethod",
+                    "uri": "https://schema.org/acceptedPaymentMethod",
+                    "datatype": "array",
+                    "multiple": true,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true,
+                    "items": {
+                      "datatype": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:about",
+      "group": "education",
+      "label": {
+        "de": "Themengebiet / Fachgebiet",
+        "en": "Subject Area / Topic"
+      },
+      "description": {
+        "de": "Fachliche Einordnung oder Themenbereich der Veranstaltung",
+        "en": "Subject classification or topic area of the event"
+      },
+      "prompt": {
+        "de": "Themen- oder Fachgebiet(e) der Veranstaltung. Suche nach Fachbereichsnamen, Themenfeldern oder inhaltlichen Schwerpunkten. Gib als JSON-Array zurück. Beispiele: ['Digitale Bildung', 'Medienkompetenz'], ['Künstliche Intelligenz', 'Schulentwicklung'], ['Inklusion'], ['Nachhaltigkeit', 'BNE'].",
+        "en": "Subject or topic area(s) of the event. Look for department names, topic fields, or content focus areas. Return as JSON array. Examples: ['Digital Education', 'Media Literacy'], ['Artificial Intelligence', 'School Development'], ['Inclusion'], ['Sustainability', 'ESD']."
+      },
+      "system": {
+        "path": "schema:about",
+        "uri": "https://schema.org/about",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:competence",
+      "group": "education",
+      "label": {
+        "de": "Kompetenzen (KMK)",
+        "en": "Competencies (KMK)"
+      },
+      "description": {
+        "de": "Kompetenzen in der digitalen Welt",
+        "en": "Digital competencies (KMK framework)"
+      },
+      "prompt": {
+        "de": "Ordne die Veranstaltung den passenden KMK-Kompetenzen zu. Analysiere Lernziele, Inhalte und Beschreibung. Wähle die zutreffenden URIs aus der Vokabularliste. Mehrfachauswahl möglich. Verwende die EXAKTEN Labels wie vorgegeben. Beispiele: Bei einer Veranstaltung zu Fake News → '6.1. Medien analysieren und bewerten'; bei einem Workshop zu kollaborativem Arbeiten → '2.2. Zusammenarbeiten'.",
+        "en": "Map the event to matching KMK competencies. Analyze learning objectives, content and description. Select matching URIs from the vocabulary list. Multiple selection possible. Use EXACT labels as given. Examples: For a fake news event → '6.1. Medien analysieren und bewerten'; for a collaborative workshop → '2.2. Zusammenarbeiten'."
+      },
+      "system": {
+        "path": "ccm:competence",
+        "uri": "ccm:competence",
+        "datatype": "string",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "source": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3",
+              "label": {
+                "de": "1. Suchen, Verarbeiten und Aufbewahren"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF",
+              "label": {
+                "de": "1.1. Suchen und Filtern"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A2364094-DE21-4367-A79F-44FF27A1B9B8",
+              "label": {
+                "de": "1.1.1. Arbeits- und Suchinteressen klären und festlegen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C605B54F-AC2C-4EC6-8A37-280105E82275",
+              "label": {
+                "de": "1.1.2. Suchstrategien nutzen und weiterentwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C15F878A-C6FA-489F-8136-6FCFA195DD1A",
+              "label": {
+                "de": "1.1.3. In verschiedenen digitalen Umgebungen suchen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/CDB1F735-52F5-4ABE-A059-F07D5863108D",
+              "label": {
+                "de": "1.1.4. Relevante Quellen identifizieren und zusammenführen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C",
+              "label": {
+                "de": "1.2. Auswerten und Bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F9B03D28-DBAE-4414-A3DC-19021AB827CB",
+              "label": {
+                "de": "1.2.1. Informationen und Daten analysieren, interpretieren und kritisch bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/104B23E8-18E7-4D1C-B814-239403DCE6D9",
+              "label": {
+                "de": "1.2.2. Informationsquellen analysieren und kritisch bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E",
+              "label": {
+                "de": "1.3. Speichern und Abrufen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A44B1A87-940C-42B6-9695-FD67874217B0",
+              "label": {
+                "de": "1.3.1. Informationen und Daten sicher speichern, wiederfinden und von verschiedenen Orten abrufen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D308E815-D384-4339-A741-F564E6DF9385",
+              "label": {
+                "de": "1.3.2. Informationen und Daten zusammenfassen, organisieren und strukturiert aufbewahren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D",
+              "label": {
+                "de": "2. Kommunizieren und Kooperieren"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A",
+              "label": {
+                "de": "2.1. Interagieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/E819AC9F-1498-44F7-BCDF-924EA89A7623",
+              "label": {
+                "de": "2.1.1. Mit Hilfe verschiedener digitaler Kommunikationsmöglichkeiten kommunizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A5BC1AA6-96B4-4F45-89A9-24A30F066912",
+              "label": {
+                "de": "2.1.2. Digitale Kommunikationsmöglichkeiten zielgerichtet- und situationsgerecht auswählen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B",
+              "label": {
+                "de": "2.2. Teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/68673305-1281-4B6C-80CB-644F35006FFE",
+              "label": {
+                "de": "2.2.1. Dateien, Informationen und Links teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/CA1C5B3B-CBEF-4D08-9B62-D5FA996058A0",
+              "label": {
+                "de": "2.2.2. Referenzierungspraxis beherrschen (Quellenangaben)"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB",
+              "label": {
+                "de": "2.3. Zusammenarbeiten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/632CFA45-8F42-4561-BE41-A29FE8217293",
+              "label": {
+                "de": "2.3.1. Digitale Werkzeuge für die Zusammenarbeit bei der Zusammenführung von Informationen, Daten und Ressourcen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C36FCDCD-D849-40FE-8A41-FB4CC54CADB6",
+              "label": {
+                "de": "2.3.2. Digitale Werkzeuge bei der gemeinsamen Erarbeitung von Dokumenten nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512",
+              "label": {
+                "de": "2.4. Umgangsregeln kennen und einhalten (Netiquette)"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F820983A-3FB8-43C7-8C6C-9FF8B08AD2EC",
+              "label": {
+                "de": "2.4.1. Verhaltensregeln bei digitaler Interaktion und Kooperation kennen und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/B612B3B4-4F02-4ED5-AF31-7CD5433F5B59",
+              "label": {
+                "de": "2.4.2. Kommunikation der jeweiligen Umgebung anpassen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A1FA8E56-68F2-473F-852C-8199261D87BD",
+              "label": {
+                "de": "2.4.3. Ethische Prinzipien bei der Kommunikation kennen und berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/309B4EAB-648E-4406-B2CB-01116572A061",
+              "label": {
+                "de": "2.4.4. Kulturelle Vielfalt in digitalen Umgebungen berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0",
+              "label": {
+                "de": "2.5. An der Gesellschaft aktiv teilhaben"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7CDB7AF6-7424-4C81-A5D2-E5AFD4430AB6",
+              "label": {
+                "de": "2.5.1. Öffentliche und private Dienste nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9A0CCB59-BD3F-44E1-A6FE-E80CC45B98E7",
+              "label": {
+                "de": "2.5.2. Medienerfahrungen weitergeben und in kommunikative Prozesse einbringen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/E1F6B5E8-41FB-4633-89EC-E4D1C9600DDD",
+              "label": {
+                "de": "2.5.3. Als selbstbestimmter Bürger aktiv an der Gesellschaft teilhaben"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548",
+              "label": {
+                "de": "3. Produzieren und Präsentieren"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273",
+              "label": {
+                "de": "3.1. Entwickeln und Produzieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/1BDC7D01-DF22-431A-B44B-E8CE1A390EDA",
+              "label": {
+                "de": "3.1.1. Mehrere technische Bearbeitungswerkzeuge kennen und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/BF623466-AF3C-40F8-9789-05DA8A8F8853",
+              "label": {
+                "de": "3.1.2. Eine Produktion planen und in verschiedenen Formaten gestalten, präsentieren, veröffentlichen oder teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4",
+              "label": {
+                "de": "3.2. Weiterverarbeiten und Integrieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/61CCC9B1-C16E-4AE3-ABD1-A017F0BA7AF3",
+              "label": {
+                "de": "3.2.1. Inhalte in verschiedenen Formaten bearbeiten, zusammenführen, präsentieren und veröffentlichen oder teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3B2E4217-4626-4A8C-BC59-895B7A8D3C98",
+              "label": {
+                "de": "3.2.2. Informationen, Inhalte und vorhandene digitale Produkte weiterverarbeiten und in bestehendes Wissen integrieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A",
+              "label": {
+                "de": "3.3. Rechtliche Vorgaben beachten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2EE8DA61-509D-4018-A148-297FEC67B895",
+              "label": {
+                "de": "3.3.1. Bedeutung von Urheberrecht und geistigem Eigentum kennen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7FDDE6D6-790A-4478-9877-3A6E47F207B8",
+              "label": {
+                "de": "3.3.2. Urheber- und Nutzungsrechte (Lizenzen) bei eigenen und fremden Werken berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/811BF793-18A9-4832-B782-E0B7A7DB2BC5",
+              "label": {
+                "de": "3.3.3. Persönlichkeitsrechte beachten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE",
+              "label": {
+                "de": "4. Schützen und sicher agieren"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085",
+              "label": {
+                "de": "4.1. Sicher in digitalen Umgebungen agieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A1A49BE0-DB4C-467A-A566-CC915A4A56A9",
+              "label": {
+                "de": "4.1.1. Risiken und Gefahren in digitalen Umgebungen kennen, reflektieren und berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/85D319FD-B33D-45BF-9376-AA874AD87A62",
+              "label": {
+                "de": "4.1.2. Strategien zum Schutz entwickeln und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68",
+              "label": {
+                "de": "4.2. Persönliche Daten und Privatsphäre schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/52CF6472-FE18-4B74-9EF2-A18C28B30068",
+              "label": {
+                "de": "4.2.1. Maßnahmen für Datensicherheit und gegen Datenmissbrauch berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/0CAB3A2C-47F5-48B1-AD33-0245C77284F2",
+              "label": {
+                "de": "4.2.2. Privatsphäre in digitalen Umgebungen durch geeignete Maßnahmen schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/78326259-4504-43CF-BDC7-47F764E1C855",
+              "label": {
+                "de": "4.2.3. Sicherheitseinstellungen ständig aktualisieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/64F1F6D7-84BD-4760-96E3-E7713502F895",
+              "label": {
+                "de": "4.2.4. Jugendschutz- und Verbraucherschutzmaßnahmen berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA",
+              "label": {
+                "de": "4.3. Gesundheit schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2AD9AD1D-D0F0-4AD6-BAC3-C51439218587",
+              "label": {
+                "de": "4.3.1. Suchtgefahren vermeiden, sich selbst und andere vor möglichen Gefahren schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D46ED466-3D3E-4195-A195-6E9067570736",
+              "label": {
+                "de": "4.3.2. Digitale Technologien gesundheitsbewusst nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/8F53454E-E4CA-4F0D-BF61-D2EB12E6DCEB",
+              "label": {
+                "de": "4.3.3. Digitale Technologien für soziales Wohlergehen und Eingliederung nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2D8E0507-682A-4C2F-9B28-D7722382D29E",
+              "label": {
+                "de": "4.4. Natur und Umwelt schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3C638851-D9E1-47CF-9B00-75BF24893731",
+              "label": {
+                "de": "4.4.1. Umweltauswirkungen digitaler Technologien berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2D8E0507-682A-4C2F-9B28-D7722382D29E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5",
+              "label": {
+                "de": "5. Problemlösen und Handeln"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6",
+              "label": {
+                "de": "5.1. Technische Probleme lösen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4E719615-723B-43FF-AEBB-8E2974F9A92C",
+              "label": {
+                "de": "5.1.1. Anforderungen an digitale Umgebungen formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A2A33EF5-13F2-4631-B37D-211276B683B3",
+              "label": {
+                "de": "5.1.2. Technische Probleme identifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/598E80C9-ECC8-44DC-B758-5D41212F6638",
+              "label": {
+                "de": "5.1.3. Bedarfe für Lösungen ermitteln und Lösungsstrategien entwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900",
+              "label": {
+                "de": "5.2. Werkzeuge bedarfsgerecht einsetzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3DFAF9C-4AF2-42E5-92C6-8DC9BA9704F8",
+              "label": {
+                "de": "5.2.1. Eine Vielzahl von digitalen Werkzeugen kennen und kreativ anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9A93A0D2-6845-4B5B-BE15-77C60FEFF08A",
+              "label": {
+                "de": "5.2.2. Anforderungen an digitale Werkzeuge formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F561FA09-D206-46F9-AE18-B94B46622EAE",
+              "label": {
+                "de": "5.2.3. Passende Werkzeuge zur Lösung identifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C8DE2124-6D7D-4C01-8B0B-49EA65A6A907",
+              "label": {
+                "de": "5.2.4. Digitale Umgebungen und Werkzeuge zum persönlichen Gebrauch anpassen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5",
+              "label": {
+                "de": "5.3. Eigene Defizite ermitteln und nach Lösungen suchen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C55FD672-7077-42BE-995A-51DD3F60477C",
+              "label": {
+                "de": "5.3.1. Eigene Defizite bei der Nutzung digitaler Werkzeuge erkennen und Strategien zur Beseitigung entwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/394F0F9D-C69C-4946-9FEE-DC0F875B506B",
+              "label": {
+                "de": "5.3.2. Eigene Strategien zur Problemlösung mit anderen teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB",
+              "label": {
+                "de": "5.4. Digitale Werkzeuge und Medien zum Lernen, Arbeiten und Problemlösen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/129EE303-928D-44FB-B374-D7C6D61FC099",
+              "label": {
+                "de": "5.4.1. Effektive digitale Lernmöglichkeiten finden, bewerten und nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/79CA2484-463D-4F47-BBB5-A6AC51B39239",
+              "label": {
+                "de": "5.4.2. Persönliches System von vernetzten Lernressourcen selbst organisieren können"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A",
+              "label": {
+                "de": "5.5. Algorithmen erkennen und formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/59A93980-F744-4A43-8AA1-485C9AB68C5F",
+              "label": {
+                "de": "5.5.1. Funktionsweisen und grundlegende Prinzipien der digitalen Welt kennen und verstehen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FBB20399-B88B-4E83-936B-8D6EF398E2F1",
+              "label": {
+                "de": "5.5.2. Algorithmische Strukturen in genutzten digitalen Tools erkennen und formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5174CA86-EA58-4D3A-AF1D-02D2459A5D89",
+              "label": {
+                "de": "5.5.3. Eine strukturierte, algorithmische Sequenz zur Lösung eines Problems planen und verwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E",
+              "label": {
+                "de": "6. Analysieren und Reflektieren"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05",
+              "label": {
+                "de": "6.1. Medien analysieren und bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F90D7B23-D6CA-4EE8-8CB6-2474F876F0F4",
+              "label": {
+                "de": "6.1.1. Gestaltungsmittel von digitalen Medienangeboten kennen und bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C37DF8BD-4822-4A6F-83EB-4D2C84222201",
+              "label": {
+                "de": "6.1.2. Interessengeleitete Setzung, Verbreitung und Dominanz von Themen in digitalen Umgebungen erkennen und beurteilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2CB82A2C-008E-42FE-8724-E99A7E35154A",
+              "label": {
+                "de": "6.1.3. Wirkungen von Medien in der digitalen Welt analysieren und konstruktiv damit umgehen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0",
+              "label": {
+                "de": "6.2. Medien in der digitalen Welt verstehen und reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/94FBCE7E-268E-4D16-B780-457764B68DB2",
+              "label": {
+                "de": "6.2.1. Vielfalt in der digitalen Medienlandschaft kennen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A19EF92-5E68-4B69-937A-B15FC19B7804",
+              "label": {
+                "de": "6.2.2. Chancen und Risiken des Mediengebrauchs in unterschiedlichen Lebensbereichen erkennen, eigenen Mediengebrauch reflektieren und ggf. modifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9ACDA1DF-860E-4882-BB6B-552D9713A821",
+              "label": {
+                "de": "6.2.3. Vorteile und Risiken von Geschäftsaktivitäten und Services im Internet analysieren und beurteilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F17150BD-7D87-443C-932B-D314D1201776",
+              "label": {
+                "de": "6.2.4. Wirtschaftliche Bedeutung der digitalen Medien und digitaler Technologien kennen und sie für eigene Geschäftsideen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/0ECB0609-D0EB-4D7A-8425-85CC91132C0E",
+              "label": {
+                "de": "6.2.5. Die Bedeutung von digitalen Medien für die politische Meinungsbildung und Entscheidungsfindung kennen und nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F7D9AD75-7E30-454E-B97A-6625B3620DAD",
+              "label": {
+                "de": "6.2.6. Potenziale der Digitalisierung im Sinne sozialer Integration und sozialer Teilhabe erkennen, analysieren und reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            }
+          ],
+          "hierarchical": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": true
+      }
+    },
+    {
+      "id": "schema:teaches",
+      "group": "education",
+      "label": {
+        "de": "Lernziele / Vermittelte Kompetenzen",
+        "en": "Learning Objectives / Competencies Taught"
+      },
+      "description": {
+        "de": "Was wird in dieser Veranstaltung vermittelt? Lernziele, Kompetenzen, Fähigkeiten.",
+        "en": "What is taught in this event? Learning objectives, competencies, skills."
+      },
+      "prompt": {
+        "de": "Lernziele oder vermittelte Kompetenzen der Veranstaltung. Suche nach 'Sie lernen...', 'Ziele:', 'Kompetenzen:', 'Nach der Veranstaltung können Sie...', 'Inhalte:'. Gib als JSON-Array zurück. Beispiele: ['Grundlagen der Medienbildung', 'Einsatz von KI im Unterricht'], ['Gesprächsführung', 'Konfliktlösung'], ['Programmierung in Python', 'Datenanalyse'].",
+        "en": "Learning objectives or competencies taught at the event. Look for 'You will learn...', 'Objectives:', 'Competencies:', 'After the event you can...', 'Topics:'. Return as JSON array. Examples: ['Media education basics', 'Using AI in teaching'], ['Communication skills', 'Conflict resolution'], ['Python programming', 'Data analysis']."
+      },
+      "system": {
+        "path": "schema:teaches",
+        "uri": "https://schema.org/teaches",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "oeh:eventType": [],
+    "ccm:oeh_event_begin": "",
+    "ccm:oeh_event_end": "",
+    "schema:doorTime": "",
+    "schema:eventStatus": "",
+    "schema:duration": "",
+    "schema:recordedIn": "",
+    "schema:eventAttendanceMode": "",
+    "schema:location": [],
+    "ccm:price": "",
+    "oeh:targetGroup": [],
+    "schema:inLanguage": [],
+    "schema:maximumAttendeeCapacity": null,
+    "schema:maximumPhysicalAttendeeCapacity": null,
+    "schema:maximumVirtualAttendeeCapacity": null,
+    "schema:organizer": [],
+    "schema:performer": [],
+    "schema:attendee": [],
+    "schema:offers": [],
+    "schema:about": [],
+    "ccm:competence": [],
+    "schema:teaches": []
+  }
+}

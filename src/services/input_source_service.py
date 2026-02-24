@@ -41,8 +41,9 @@ class InputSourceService:
     async def fetch_from_url(
         self,
         url: str,
-        method: str = "simple",
-        lang: str = "auto"
+        method: str = "browser",
+        lang: str = "auto",
+        output_format: str = "markdown"
     ) -> str:
         """
         Fetch text content from URL via text extraction API.
@@ -62,7 +63,7 @@ class InputSourceService:
             "method": method,
             "browser_location": None,
             "lang": lang,
-            "output_format": "markdown",
+            "output_format": output_format,
             "preference": "none"
         }
         
@@ -255,8 +256,9 @@ class InputSourceService:
         node_id: str,
         repository: str = "staging",
         source_url: Optional[str] = None,
-        extraction_method: str = "simple",
-        lang: str = "auto"
+        extraction_method: str = "browser",
+        lang: str = "auto",
+        output_format: str = "markdown"
     ) -> InputData:
         """
         Fetch input data using NodeID for metadata and URL for text (fallback only).
@@ -302,7 +304,7 @@ class InputSourceService:
                 raise ValueError(f"No stored fulltext and no URL available for node {node_id}")
             logger.info(f"No stored fulltext, fetching from URL: {source_url}")
             try:
-                text = await self.fetch_from_url(source_url, extraction_method, lang=lang)
+                text = await self.fetch_from_url(source_url, extraction_method, lang=lang, output_format=output_format)
             except Exception as e:
                 # Final fallback: build text from metadata
                 logger.warning(f"URL extraction failed: {e}")

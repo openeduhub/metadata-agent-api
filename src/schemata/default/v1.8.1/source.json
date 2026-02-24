@@ -1,0 +1,1420 @@
+{
+  "profileId": "core:source",
+  "version": "1.8.1",
+  "@context": {
+    "schema": "https://schema.org/",
+    "sdo": "https://schema.org/",
+    "ccm": "https://example.org/ccm/",
+    "harv": "https://example.org/harvesting/",
+    "inherit": "https://example.org/inheritance/"
+  },
+  "groups": [
+    {
+      "id": "typing",
+      "icon": "category",
+      "label": {
+        "de": "Typisierung",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "linkage",
+      "icon": "link",
+      "label": {
+        "de": "Quellen-Verknüpfungen",
+        "en": "Source Links"
+      }
+    },
+    {
+      "id": "harvesting",
+      "icon": "cloud_download",
+      "label": {
+        "de": "Erschließung (Crawl/Import)",
+        "en": "Indexing (Crawl/Import)"
+      }
+    },
+    {
+      "id": "inheritance",
+      "icon": "account_tree",
+      "label": {
+        "de": "Vererbung (Top-Down/Bottom-Up)",
+        "en": "Inheritance (Top-Down/Bottom-Up)"
+      }
+    },
+    {
+      "id": "governance",
+      "icon": "admin_panel_settings",
+      "label": {
+        "de": "Verantwortung & Verwaltung",
+        "en": "Responsibility & Management"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "ccm:source_kind",
+      "group": "typing",
+      "label": {
+        "de": "Quellentyp (Untertyp)",
+        "en": "Source Type (Subtype)"
+      },
+      "description": {
+        "de": "Spezifischer Untertyp der Quelle.",
+        "en": "Specific Subtype of the Source."
+      },
+      "prompt": {
+        "de": "Quellentyp. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'Repository', 'Portal', 'Stream/RSS'.",
+        "en": "Source type. Use EXACT labels from the vocabulary, e.g. 'Repository', 'Portal', 'Stream/RSS'."
+      },
+      "system": {
+        "path": "ccm:source_kind",
+        "uri": "sdo:additionalType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/collection-channel",
+              "label": {
+                "de": "Kollektion/Kanal",
+                "en": "Collection/Channel"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/dictionary",
+              "label": {
+                "de": "Wörterbuch",
+                "en": "Dictionary"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/portal",
+              "label": {
+                "de": "Portal",
+                "en": "Portal"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/stream-rss",
+              "label": {
+                "de": "Stream/RSS",
+                "en": "Stream/RSS"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/encyclopedia",
+              "label": {
+                "de": "Lexikon/Enzyklopädie",
+                "en": "Lexicon/Encyclopedia"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/database",
+              "label": {
+                "de": "Datenbank",
+                "en": "Database"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/repository",
+              "label": {
+                "de": "Repository",
+                "en": "Repository"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/search-engine",
+              "label": {
+                "de": "Suchmaschine",
+                "en": "Search Engine"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceKind/referatory",
+              "label": {
+                "de": "Referatory",
+                "en": "Referatory"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:schema_types_declared",
+      "group": "typing",
+      "label": {
+        "de": "Schema.org-Typen",
+        "en": "Schema.org Types"
+      },
+      "description": {
+        "de": "Explizite schema.org-Typen der Quelle.",
+        "en": "Explicit schema.org Types of the Source."
+      },
+      "prompt": {
+        "de": "Schema.org-Typen. Verwende EXAKT: 'WebSite', 'DataFeed', 'DataCatalog', 'Dataset', 'CreativeWork', 'Service', 'ScholarlyArticle'.",
+        "en": "Schema.org types. Use EXACT: 'WebSite', 'DataFeed', 'DataCatalog', 'Dataset', 'CreativeWork', 'Service', 'ScholarlyArticle'."
+      },
+      "system": {
+        "path": "ccm:schema_types_declared",
+        "uri": "@type",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "https://schema.org/CreativeWork",
+              "label": {
+                "de": "CreativeWork",
+                "en": "CreativeWork"
+              }
+            },
+            {
+              "uri": "https://schema.org/DataFeed",
+              "label": {
+                "de": "DataFeed",
+                "en": "DataFeed"
+              }
+            },
+            {
+              "uri": "https://schema.org/DataCatalog",
+              "label": {
+                "de": "DataCatalog",
+                "en": "DataCatalog"
+              }
+            },
+            {
+              "uri": "https://schema.org/Dataset",
+              "label": {
+                "de": "Dataset",
+                "en": "Dataset"
+              }
+            },
+            {
+              "uri": "https://schema.org/WebSite",
+              "label": {
+                "de": "WebSite",
+                "en": "WebSite"
+              }
+            },
+            {
+              "uri": "https://schema.org/Service",
+              "label": {
+                "de": "Service",
+                "en": "Service"
+              }
+            },
+            {
+              "uri": "https://schema.org/ScholarlyArticle",
+              "label": {
+                "de": "ScholarlyArticle",
+                "en": "ScholarlyArticle"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:source_item_count",
+      "group": "typing",
+      "label": {
+        "de": "Ungefähre Anzahl Ressourcen",
+        "en": "Approximate Number of Resources"
+      },
+      "description": {
+        "de": "Geschätzte Anzahl der verwalteten Bildungsressourcen in dieser Quelle.",
+        "en": "Estimated number of educational resources managed by this source."
+      },
+      "prompt": {
+        "de": "Ungefähre Anzahl der verwalteten Ressourcen, z.B. '50000' oder '1200'.",
+        "en": "Approximate number of managed resources, e.g. '50000' or '1200'."
+      },
+      "system": {
+        "path": "ccm:source_item_count",
+        "uri": "sdo:size",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:source_quality",
+      "group": "typing",
+      "label": {
+        "de": "Qualitätssicherung / Kuration",
+        "en": "Quality Assurance / Curation"
+      },
+      "description": {
+        "de": "Art der Qualitätssicherung der Inhalte dieser Quelle.",
+        "en": "Type of quality assurance for the content of this source."
+      },
+      "prompt": {
+        "de": "Qualitätssicherung. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'Redaktionell kuratiert', 'Peer-reviewed', 'Community-geprüft'.",
+        "en": "Quality assurance. Use EXACT labels from the vocabulary, e.g. 'Editorially curated', 'Peer-reviewed', 'Community-reviewed'."
+      },
+      "system": {
+        "path": "ccm:source_quality",
+        "uri": "ccm:source_quality",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceQuality/editorially-curated",
+              "label": {
+                "de": "Redaktionell kuratiert",
+                "en": "Editorially curated"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceQuality/peer-reviewed",
+              "label": {
+                "de": "Peer-reviewed",
+                "en": "Peer-reviewed"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceQuality/community-reviewed",
+              "label": {
+                "de": "Community-geprüft",
+                "en": "Community-reviewed"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceQuality/automated-qa",
+              "label": {
+                "de": "Automatisierte QS",
+                "en": "Automated QA"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/sourceQuality/unchecked",
+              "label": {
+                "de": "Ungeprüft",
+                "en": "Unchecked"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:isBasedOn",
+      "group": "linkage",
+      "label": {
+        "de": "Basiert auf (Objekt)",
+        "en": "Based on (Object)"
+      },
+      "description": {
+        "de": "Verweis auf Original/Fork/Remix als CreativeWork.",
+        "en": "Reference to original/fork/remix as CreativeWork."
+      },
+      "prompt": {
+        "de": "Verweis auf Original, Fork oder Remix als Objekt mit URL.",
+        "en": "Reference to original, fork, or remix as object with URL."
+      },
+      "system": {
+        "path": "schema:isBasedOn",
+        "uri": "sdo:isBasedOn",
+        "datatype": "object",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "CreativeWork",
+            "label": {
+              "de": "Basiert auf (Objekt)",
+              "en": "Based on (Object)"
+            },
+            "description": {
+              "de": "Verweis auf Original/Fork/Remix als CreativeWork.",
+              "en": "Reference to original/fork/remix as CreativeWork."
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "URL des Originalwerks",
+                  "en": "URL of the original work"
+                },
+                "prompt": {
+                  "de": "URL des Originals, z.B. 'https://github.com/org/repo'.",
+                  "en": "URL of the original, e.g. 'https://github.com/org/repo'."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:provider",
+      "group": "linkage",
+      "label": {
+        "de": "Bereitstellende Plattform (Provider)",
+        "en": "Providing Platform (Provider)"
+      },
+      "description": {
+        "de": "Plattform/Repository/LMS, das Inhalte bereitstellt.",
+        "en": "Platform/Repository/LMS that provides content."
+      },
+      "prompt": {
+        "de": "Plattform, die Inhalte bereitstellt, z.B. 'WirLernenOnline', 'Moodle-Instanz'.",
+        "en": "Platform providing content, e.g. 'WirLernenOnline', 'Moodle instance'."
+      },
+      "system": {
+        "path": "schema:provider",
+        "uri": "sdo:provider",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Organization",
+            "label": {
+              "de": "Bereitstellende Plattform (Provider)",
+              "en": "Providing Platform (Provider)"
+            },
+            "description": {
+              "de": "Plattform/Repository/LMS, das Inhalte bereitstellt.",
+              "en": "Platform/Repository/LMS that provides content."
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "URL der Plattform",
+                  "en": "URL of the platform"
+                },
+                "prompt": {
+                  "de": "URL der Plattform, z.B. 'https://wirlernenonline.de'.",
+                  "en": "URL of the platform, e.g. 'https://wirlernenonline.de'."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:publisher",
+      "group": "linkage",
+      "label": {
+        "de": "Publisher dieser Fassung",
+        "en": "Publisher of this version"
+      },
+      "description": {
+        "de": "Wer veröffentlicht die konkrete Fassung?",
+        "en": "Who publishes the specific version?"
+      },
+      "prompt": {
+        "de": "Publisher dieser Fassung, z.B. 'Landesbildungsserver Baden-W\u00fcrttemberg'.",
+        "en": "Publisher of this version, e.g. 'State Education Server Baden-W\u00fcrttemberg'."
+      },
+      "system": {
+        "path": "schema:publisher",
+        "uri": "sdo:publisher",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Organization",
+            "label": {
+              "de": "Publisher dieser Fassung",
+              "en": "Publisher of this version"
+            },
+            "description": {
+              "de": "Wer veröffentlicht die konkrete Fassung?",
+              "en": "Who publishes the specific version?"
+            },
+            "fields": [
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL",
+                  "en": "URL"
+                },
+                "description": {
+                  "de": "URL des Publishers",
+                  "en": "URL of the publisher"
+                },
+                "prompt": {
+                  "de": "URL des Publishers, z.B. 'https://bildungsserver-bw.de'.",
+                  "en": "URL of the publisher, e.g. 'https://bildungsserver-bw.de'."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:citation",
+      "group": "linkage",
+      "label": {
+        "de": "Zitierung/Literatur",
+        "en": "Citation/Literature"
+      },
+      "description": {
+        "de": "Formale Quellenangabe(n) oder verlinkte Werke.",
+        "en": "Formal source citation(s) or linked works."
+      },
+      "prompt": {
+        "de": "Quellenangaben oder verlinkte Werke als Text oder Objekt mit URL.",
+        "en": "Source citations or linked works as text or object with URL."
+      },
+      "system": {
+        "path": "schema:citation",
+        "uri": "sdo:citation",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "allowed_item_types": [
+          "string",
+          "object"
+        ],
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "CreativeWork",
+              "label": {
+                "de": "Zitierung/Literatur",
+                "en": "Citation/Literature"
+              },
+              "description": {
+                "de": "Formale Quellenangabe(n) oder verlinkte Werke.",
+                "en": "Formal source citation(s) or linked works."
+              },
+              "fields": [
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL der zitierten Quelle",
+                    "en": "URL of the cited source"
+                  },
+                  "prompt": {
+                    "de": "URL der Quelle, z.B. 'https://doi.org/10.1234/example'.",
+                    "en": "URL of the source, e.g. 'https://doi.org/10.1234/example'."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "uri",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "schema:mainEntityOfPage",
+      "group": "linkage",
+      "label": {
+        "de": "Kanonische Detailseite",
+        "en": "Canonical detail page"
+      },
+      "description": {
+        "de": "URL der kanonischen Detailseite des Werks.",
+        "en": "URL of the canonical detail page of the work."
+      },
+      "prompt": {
+        "de": "Kanonische URL der Detailseite, z.B. 'https://example.org/resource/123'.",
+        "en": "Canonical URL of the detail page, e.g. 'https://example.org/resource/123'."
+      },
+      "system": {
+        "path": "schema:mainEntityOfPage",
+        "uri": "sdo:mainEntityOfPage",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:sameAs",
+      "group": "linkage",
+      "label": {
+        "de": "Stabile Identifikatoren",
+        "en": "Stable Identifiers"
+      },
+      "description": {
+        "de": "Stabile Referenzen (DOI, Handle, Wikidata, GitHub, …).",
+        "en": "Stable references (DOI, Handle, Wikidata, GitHub, …)."
+      },
+      "prompt": {
+        "de": "Stabile URIs, z.B. DOI, Handle, Wikidata-URI, GitHub-URL.",
+        "en": "Stable URIs, e.g. DOI, Handle, Wikidata URI, GitHub URL."
+      },
+      "system": {
+        "path": "schema:sameAs",
+        "uri": "sdo:sameAs",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:mode",
+      "group": "harvesting",
+      "label": {
+        "de": "Erschließungsform",
+        "en": "Access Method"
+      },
+      "description": {
+        "de": "Welcher Spider/Crawler oder manuell erschlossen?",
+        "en": "Which spider/crawler or manually indexed?"
+      },
+      "prompt": {
+        "de": "Erschlie\u00dfungsform. Verwende EXAKT: 'crawler:generic', 'crawler:rss', 'crawler:api' oder 'Manuell'.",
+        "en": "Access method. Use EXACT: 'crawler:generic', 'crawler:rss', 'crawler:api', or 'manual'."
+      },
+      "system": {
+        "path": "harv:mode",
+        "uri": "harv:mode",
+        "datatype": "string",
+        "multiple": false,
+        "required": true,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingMode/crawler-generic",
+              "label": {
+                "de": "crawler:generic",
+                "en": "crawler:generic"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingMode/crawler-rss",
+              "label": {
+                "de": "crawler:rss",
+                "en": "crawler:rss"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingMode/crawler-api",
+              "label": {
+                "de": "crawler:api",
+                "en": "crawler:api"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingMode/manual",
+              "label": {
+                "de": "Manuell",
+                "en": "manual"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "lowercase": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:status",
+      "group": "harvesting",
+      "label": {
+        "de": "Erschließungsstatus",
+        "en": "Access Status"
+      },
+      "description": {
+        "de": "Aktueller Status der Erschließung.",
+        "en": "Current status of the indexing."
+      },
+      "prompt": {
+        "de": "Erschlie\u00dfungsstatus. Verwende EXAKT: 'Geplant', 'Laufend', 'Erfolgreich', 'Fehlgeschlagen' oder 'Pausiert'.",
+        "en": "Access status. Use EXACT: 'planned', 'running', 'succeeded', 'failed', or 'paused'."
+      },
+      "system": {
+        "path": "harv:status",
+        "uri": "harv:status",
+        "datatype": "string",
+        "multiple": false,
+        "required": true,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingStatus/planned",
+              "label": {
+                "de": "Geplant",
+                "en": "planned"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingStatus/running",
+              "label": {
+                "de": "Laufend",
+                "en": "running"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingStatus/succeeded",
+              "label": {
+                "de": "Erfolgreich",
+                "en": "succeeded"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingStatus/failed",
+              "label": {
+                "de": "Fehlgeschlagen",
+                "en": "failed"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingStatus/paused",
+              "label": {
+                "de": "Pausiert",
+                "en": "paused"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:last_run",
+      "group": "harvesting",
+      "label": {
+        "de": "Letzter Lauf",
+        "en": "Last run"
+      },
+      "description": {
+        "de": "Zeitpunkt des letzten Crawl/Imports (ISO-8601).",
+        "en": "Timestamp of the last crawl/import (ISO-8601)."
+      },
+      "prompt": {
+        "de": "Zeitpunkt des letzten Crawl/Imports als ISO-8601, z.B. '2026-01-15T10:30:00Z'.",
+        "en": "Timestamp of the last crawl/import as ISO-8601, e.g. '2026-01-15T10:30:00Z'."
+      },
+      "system": {
+        "path": "harv:last_run",
+        "uri": "harv:last_run",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": false,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:next_run",
+      "group": "harvesting",
+      "label": {
+        "de": "Nächster Lauf",
+        "en": "Next run"
+      },
+      "description": {
+        "de": "Geplanter nächster Crawl/Import (ISO-8601).",
+        "en": "Scheduled next crawl/import (ISO-8601)."
+      },
+      "prompt": {
+        "de": "Geplanter n\u00e4chster Lauf als ISO-8601, z.B. '2026-02-01T06:00:00Z'.",
+        "en": "Scheduled next run as ISO-8601, e.g. '2026-02-01T06:00:00Z'."
+      },
+      "system": {
+        "path": "harv:next_run",
+        "uri": "harv:next_run",
+        "datatype": "datetime",
+        "multiple": false,
+        "required": false,
+        "ask_user": false,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:scope",
+      "group": "harvesting",
+      "label": {
+        "de": "Erschließungsumfang",
+        "en": "Scope of indexing"
+      },
+      "description": {
+        "de": "Alle Inhalte oder ausgewählte Teilmengen?",
+        "en": "All content or selected subsets?"
+      },
+      "prompt": {
+        "de": "Erschlie\u00dfungsumfang. Verwende EXAKT: 'Alle' oder 'Teilmenge'.",
+        "en": "Scope of indexing. Use EXACT: 'all' or 'subset'."
+      },
+      "system": {
+        "path": "harv:scope",
+        "uri": "harv:scope",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingScope/all",
+              "label": {
+                "de": "Alle",
+                "en": "all"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/harvestingScope/subset",
+              "label": {
+                "de": "Teilmenge",
+                "en": "subset"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:storage_context",
+      "group": "harvesting",
+      "label": {
+        "de": "Speicherort",
+        "en": "Storage location"
+      },
+      "description": {
+        "de": "Ablageort der erschlossenen Daten (Kontext/Ordner).",
+        "en": "Location of the accessed data (context/folder)."
+      },
+      "prompt": {
+        "de": "Speicherort/Kontext der erschlossenen Daten, z.B. '/sources/wlo/oer'.",
+        "en": "Storage location/context of the indexed data, e.g. '/sources/wlo/oer'."
+      },
+      "system": {
+        "path": "harv:storage_context",
+        "uri": "harv:storage_context",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:api_type",
+      "group": "harvesting",
+      "label": {
+        "de": "Schnittstellentyp (API)",
+        "en": "Interface Type (API)"
+      },
+      "description": {
+        "de": "Technischer Typ der Datenschnittstelle für den Zugriff auf die Quelle.",
+        "en": "Technical type of the data interface for accessing the source."
+      },
+      "prompt": {
+        "de": "Schnittstellentyp. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'OAI-PMH', 'REST API', 'RSS/Atom'.",
+        "en": "Interface type. Use EXACT labels from the vocabulary, e.g. 'OAI-PMH', 'REST API', 'RSS/Atom'."
+      },
+      "system": {
+        "path": "harv:api_type",
+        "uri": "harv:api_type",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/oai-pmh",
+              "label": {
+                "de": "OAI-PMH",
+                "en": "OAI-PMH"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/rest-api",
+              "label": {
+                "de": "REST API",
+                "en": "REST API"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/graphql",
+              "label": {
+                "de": "GraphQL",
+                "en": "GraphQL"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/rss-atom",
+              "label": {
+                "de": "RSS/Atom",
+                "en": "RSS/Atom"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/sitemap",
+              "label": {
+                "de": "Sitemap/XML",
+                "en": "Sitemap/XML"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/sparql",
+              "label": {
+                "de": "SPARQL",
+                "en": "SPARQL"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/ckan",
+              "label": {
+                "de": "CKAN",
+                "en": "CKAN"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/lti",
+              "label": {
+                "de": "LTI",
+                "en": "LTI"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/apiType/web-scraping",
+              "label": {
+                "de": "Web Scraping",
+                "en": "Web Scraping"
+              }
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:endpoint_url",
+      "group": "harvesting",
+      "label": {
+        "de": "API-Endpunkt-URL",
+        "en": "API Endpoint URL"
+      },
+      "description": {
+        "de": "URL des technischen Endpunkts für den Datenzugriff.",
+        "en": "URL of the technical endpoint for data access."
+      },
+      "prompt": {
+        "de": "API-Endpunkt-URL, z.B. 'https://example.org/oai/request' oder 'https://api.example.org/v1/resources'.",
+        "en": "API endpoint URL, e.g. 'https://example.org/oai/request' or 'https://api.example.org/v1/resources'."
+      },
+      "system": {
+        "path": "harv:endpoint_url",
+        "uri": "harv:endpoint_url",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "harv:data_format",
+      "group": "harvesting",
+      "label": {
+        "de": "Datenformat",
+        "en": "Data Format"
+      },
+      "description": {
+        "de": "Format der gelieferten Metadaten.",
+        "en": "Format of the delivered metadata."
+      },
+      "prompt": {
+        "de": "Datenformat. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'JSON-LD', 'XML/LOM', 'Dublin Core'.",
+        "en": "Data format. Use EXACT labels from the vocabulary, e.g. 'JSON-LD', 'XML/LOM', 'Dublin Core'."
+      },
+      "system": {
+        "path": "harv:data_format",
+        "uri": "harv:data_format",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataFormat/json-ld",
+              "label": {
+                "de": "JSON-LD",
+                "en": "JSON-LD"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataFormat/xml-lom",
+              "label": {
+                "de": "XML/LOM",
+                "en": "XML/LOM"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataFormat/dublin-core",
+              "label": {
+                "de": "Dublin Core",
+                "en": "Dublin Core"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataFormat/lrmi",
+              "label": {
+                "de": "LRMI",
+                "en": "LRMI"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataFormat/rdf-xml",
+              "label": {
+                "de": "RDF/XML",
+                "en": "RDF/XML"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataFormat/csv",
+              "label": {
+                "de": "CSV",
+                "en": "CSV"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataFormat/json-api",
+              "label": {
+                "de": "JSON (proprietär)",
+                "en": "JSON (proprietary)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/dataFormat/html-microdata",
+              "label": {
+                "de": "HTML + Microdata/RDFa",
+                "en": "HTML + Microdata/RDFa"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "inherit:topdown_fields",
+      "group": "inheritance",
+      "label": {
+        "de": "Top-Down-Vererbung",
+        "en": "Top-Down inheritance"
+      },
+      "description": {
+        "de": "Welche Felder sollen standardmäßig an Inhalte vererbt werden?",
+        "en": "Which fields should be inherited to content by default?"
+      },
+      "prompt": {
+        "de": "Felder f\u00fcr Top-Down-Vererbung. Verwende EXAKT: 'Disziplin', 'Schlagw\u00f6rter', 'Lizenz', 'Anzeigen', 'Kosten', 'Anmeldung erforderlich'.",
+        "en": "Fields for top-down inheritance. Use EXACT: 'discipline', 'keywords', 'license', 'ads', 'cost', 'login_required'."
+      },
+      "system": {
+        "path": "inherit:topdown_fields",
+        "uri": "inherit:topdown_fields",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/discipline",
+              "label": {
+                "de": "Disziplin",
+                "en": "discipline"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/keywords",
+              "label": {
+                "de": "Schlagwörter",
+                "en": "keywords"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/license",
+              "label": {
+                "de": "Lizenz",
+                "en": "license"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/ads",
+              "label": {
+                "de": "Anzeigen",
+                "en": "ads"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/cost",
+              "label": {
+                "de": "Kosten",
+                "en": "cost"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/login_required",
+              "label": {
+                "de": "Anmeldung erforderlich",
+                "en": "login_required"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "inherit:bottomup_facets",
+      "group": "inheritance",
+      "label": {
+        "de": "Bottom-Up-Aggregation",
+        "en": "Bottom-Up aggregation"
+      },
+      "description": {
+        "de": "Welche Facetten werden aus Inhalten an der Quelle aggregiert angezeigt?",
+        "en": "Which facets are aggregated from content at the source?"
+      },
+      "prompt": {
+        "de": "Facetten f\u00fcr Bottom-Up-Aggregation. Verwende EXAKT: 'Disziplin', 'Schlagw\u00f6rter', 'Lizenz', 'Bildungsniveau', 'Zielgruppe', 'Kosten', 'Anmeldung erforderlich'.",
+        "en": "Facets for bottom-up aggregation. Use EXACT: 'discipline', 'keywords', 'license', 'educationalLevel', 'audience', 'cost', 'login_required'."
+      },
+      "system": {
+        "path": "inherit:bottomup_facets",
+        "uri": "inherit:bottomup_facets",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/discipline",
+              "label": {
+                "de": "Disziplin",
+                "en": "discipline"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/keywords",
+              "label": {
+                "de": "Schlagwörter",
+                "en": "keywords"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/license",
+              "label": {
+                "de": "Lizenz",
+                "en": "license"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/educationalLevel",
+              "label": {
+                "de": "Bildungsniveau",
+                "en": "educationalLevel"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/audience",
+              "label": {
+                "de": "Zielgruppe",
+                "en": "audience"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/cost",
+              "label": {
+                "de": "Kosten",
+                "en": "cost"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/inheritableField/login_required",
+              "label": {
+                "de": "Anmeldung erforderlich",
+                "en": "login_required"
+              }
+            }
+          ]
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:editorial_owner",
+      "group": "governance",
+      "label": {
+        "de": "Verantwortliche Redaktion",
+        "en": "Responsible editorial team"
+      },
+      "description": {
+        "de": "Intern verantwortliche Redaktion/Gruppe.",
+        "en": "Internally responsible editorial team/group."
+      },
+      "prompt": {
+        "de": "Verantwortliche Redaktion oder Gruppe, z.B. 'Fachredaktion MINT', 'Team Qualit\u00e4tssicherung'.",
+        "en": "Responsible editorial team or group, e.g. 'STEM Editorial Team', 'Quality Assurance Team'."
+      },
+      "system": {
+        "path": "ccm:editorial_owner",
+        "uri": "ccm:editorial_owner",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "ccm:source_kind": [],
+    "ccm:schema_types_declared": [],
+    "ccm:source_item_count": null,
+    "ccm:source_quality": [],
+    "schema:isBasedOn": [],
+    "schema:provider": {},
+    "schema:publisher": {},
+    "schema:citation": [],
+    "schema:mainEntityOfPage": "",
+    "schema:sameAs": [],
+    "harv:mode": "",
+    "harv:status": "",
+    "harv:last_run": "",
+    "harv:next_run": "",
+    "harv:scope": "",
+    "harv:storage_context": "",
+    "harv:api_type": "",
+    "harv:endpoint_url": "",
+    "harv:data_format": [],
+    "inherit:topdown_fields": [],
+    "inherit:bottomup_facets": [],
+    "ccm:editorial_owner": ""
+  }
+}

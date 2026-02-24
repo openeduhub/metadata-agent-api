@@ -32,10 +32,11 @@ def load_manifest(context: str) -> dict[str, Any]:
 
 
 def resolve_version(context: str, version: str) -> str:
-    """Resolve 'latest' to actual version number."""
+    """Resolve 'latest' to actual version number. Strips 'v' prefix if present."""
     if version.lower() == "latest":
         return get_latest_version(context)
-    return version
+    # Strip 'v' prefix — directory path already adds it
+    return version.lstrip("v")
 
 
 @lru_cache(maxsize=100)
@@ -100,7 +101,7 @@ def get_latest_version(context: str = "default") -> str:
         
         return "1.0.0"
     except Exception:
-        return "1.8.0"  # Hardcoded fallback
+        return "1.8.1"  # Hardcoded fallback
 
 
 def get_available_contexts() -> list[dict[str, Any]]:
@@ -240,3 +241,45 @@ def get_ai_fillable_fields(context: str, version: str, schema_file: str) -> list
         f for f in fields
         if f.get("system", {}).get("ai_fillable", True)
     ]
+
+
+def get_repo_fields(context: str, version: str, schema_file: Optional[str] = None) -> set[str]:
+    """
+    Get all field IDs that have repo_field=true from core.json + optional special schema.
+    
+    Args:
+        context: Schema context (e.g. 'default')
+        version: Schema version (e.g. '1.8.1' or 'latest')
+        schema_file: Optional special schema (e.g. 'event.json')
+    
+    Returns:
+        Set of field IDs (system.path) that should be written to the repository.
+    """
+    repo_field_ids: set[str] = set()
+    
+    # Always load core.json
+    try:
+        core_fields = get_schema_fields(context, version, "core.json")
+        for field in core_fields:
+            system = field.get("system", {})
+            if system.get("repo_field", False):
+                field_id = system.get("path") or field.get("id")
+                if field_id:
+                    repo_field_ids.add(field_id)
+    except Exception:
+        pass
+    
+    # Load special schema if provided (and not core.json itself)
+    if schema_file and schema_file != "core.json":
+        try:
+            special_fields = get_schema_fields(context, version, schema_file)
+            for field in special_fields:
+                system = field.get("system", {})
+                if system.get("repo_field", False):
+                    field_id = system.get("path") or field.get("id")
+                    if field_id:
+                        repo_field_ids.add(field_id)
+        except Exception:
+            pass
+    
+    return repo_field_ids

@@ -1,0 +1,900 @@
+{
+  "profileId": "type:learning_material",
+  "version": "1.8.1",
+  "@context": {
+    "schema": "https://schema.org/",
+    "oeh": "http://w3id.org/openeduhub/vocabs/",
+    "skos": "http://www.w3.org/2004/02/skos/core#"
+  },
+  "groups": [
+    {
+      "id": "classification",
+      "icon": "label",
+      "label": {
+        "de": "Klassifikation",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "didactics",
+      "icon": "psychology",
+      "label": {
+        "de": "Didaktik",
+        "en": "Didactics"
+      }
+    },
+    {
+      "id": "requirements",
+      "icon": "checklist",
+      "label": {
+        "de": "Anforderungen & Voraussetzungen",
+        "en": "Requirements & Prerequisites"
+      }
+    },
+    {
+      "id": "assessment",
+      "icon": "verified",
+      "label": {
+        "de": "Assessment & Zertifizierung",
+        "en": "Assessment & Certification"
+      }
+    },
+    {
+      "id": "accessibility",
+      "icon": "accessibility",
+      "label": {
+        "de": "Barrierefreiheit",
+        "en": "Accessibility"
+      }
+    },
+    {
+      "id": "costs",
+      "icon": "payments",
+      "label": {
+        "de": "Kosten",
+        "en": "Costs"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "oeh:new_lrt",
+      "group": "classification",
+      "label": {
+        "de": "Lernressourcentyp",
+        "en": "Learning Resource Type"
+      },
+      "description": {
+        "de": "Lernressourcentyp(e) aus dem SKOS-Vokabular. Nutze ausschließlich die Vokabular-Labels in exakt gleicher Schreibweise, einschließlich Mehrwort-Bezeichnungen oder Klammern.",
+        "en": "Learning resource type(s) from the SKOS vocabulary. Use the vocabulary labels exactly as listed, including multi-word labels and parentheses."
+      },
+      "prompt": {
+        "de": "Lernressourcentyp(en) aus dem SKOS-Vokabular. Verwende EXAKT die Labels, z.B. 'Video', 'Arbeitsblatt', 'Simulation', 'Kurs'.",
+        "en": "Learning resource type(s) from the SKOS vocabulary. Use EXACT labels, e.g. 'Video', 'Worksheet', 'Simulation', 'Course'."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "oeh:new_lrt",
+        "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/new_lrt/",
+          "concepts": []
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:study_subjects",
+      "group": "classification",
+      "label": {
+        "de": "Studienfächer",
+        "en": "Study Subjects"
+      },
+      "description": {
+        "de": "Zugeordnete Studienfächer aus der Destatis-Hochschulfächersystematik. Nutze ausschließlich die Vokabular-Labels in exakt gleicher Schreibweise, einschließlich Mehrwort-Bezeichnungen oder Klammern.",
+        "en": "Assigned study subjects from the Destatis higher education classification. Use the vocabulary labels exactly as listed, including multi-word labels and parentheses."
+      },
+      "prompt": {
+        "de": "Studienfächer aus der Destatis-Systematik. Verwende EXAKT die Labels, z.B. 'Informatik', 'Mathematik', 'Erziehungswissenschaft'.",
+        "en": "Study subjects from the Destatis classification. Use EXACT labels, e.g. 'Computer Science', 'Mathematics', 'Education Science'."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "oeh:study_subjects",
+        "uri": "http://w3id.org/openeduhub/vocabs/hochschulfaechersystematik/",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/hochschulfaechersystematik/",
+          "concepts": []
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:didactic_method",
+      "group": "didactics",
+      "label": {
+        "de": "Didaktische Methode",
+        "en": "Didactic Method"
+      },
+      "description": {
+        "de": "Verwendete didaktische Methode(n) als SKOS-Konzepte",
+        "en": "Used didactic method(s) as SKOS concepts"
+      },
+      "prompt": {
+        "de": "Didaktische Methode(n), z.B. 'Projektarbeit', 'Flipped Classroom', 'Gruppenarbeit', 'Selbstgesteuertes Lernen'.",
+        "en": "Didactic method(s), e.g. 'project work', 'flipped classroom', 'group work', 'self-directed learning'."
+      },
+      "system": {
+        "path": "oeh:didactic_method",
+        "uri": "oeh:didactic_method",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/didactic_method/",
+          "concepts": []
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:delivery_mode",
+      "group": "didactics",
+      "label": {
+        "de": "Durchführungsmodus",
+        "en": "Delivery Mode"
+      },
+      "description": {
+        "de": "Durchführungsmodus der Nutzung bzw. des Angebots",
+        "en": "Mode of delivery or usage"
+      },
+      "prompt": {
+        "de": "Durchführungsmodus. Verwende EXAKT: 'online', 'praesenz' oder 'blended'.",
+        "en": "Delivery mode. Use EXACT: 'online', 'in-person', or 'blended'."
+      },
+      "system": {
+        "path": "oeh:delivery_mode",
+        "uri": "oeh:delivery_mode",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "online",
+                "en": "online"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/deliveryMode/online"
+            },
+            {
+              "label": {
+                "de": "praesenz",
+                "en": "in-person"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/deliveryMode/praesenz"
+            },
+            {
+              "label": {
+                "de": "blended",
+                "en": "blended"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/deliveryMode/blended"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:typical_age_range",
+      "group": "didactics",
+      "label": {
+        "de": "Typischer Altersbereich",
+        "en": "Typical Age Range"
+      },
+      "description": {
+        "de": "Typischer Altersbereich im Format 'min-max', z. B. '10-12'",
+        "en": "Typical age range in format 'min-max', e.g. '10-12'"
+      },
+      "prompt": {
+        "de": "Altersbereich im Format 'min-max', z.B. '10-12', '16-18', '18-99'.",
+        "en": "Age range in format 'min-max', e.g. '10-12', '16-18', '18-99'."
+      },
+      "system": {
+        "path": "oeh:typical_age_range",
+        "uri": "https://schema.org/typicalAgeRange",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^[0-9]{1,2}-[0-9]{1,2}$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:time_required",
+      "group": "didactics",
+      "label": {
+        "de": "Bearbeitungsaufwand",
+        "en": "Time Required"
+      },
+      "description": {
+        "de": "Geschätzter Bearbeitungsaufwand als ISO 8601 Dauer (z. B. 'PT45M', 'P2D')",
+        "en": "Estimated time required as ISO 8601 duration (e.g. 'PT45M', 'P2D')"
+      },
+      "prompt": {
+        "de": "Bearbeitungsaufwand als ISO 8601, z.B. 'PT45M' (45 Min.), 'PT2H' (2 Std.), 'P2D' (2 Tage).",
+        "en": "Time required as ISO 8601, e.g. 'PT45M' (45 min.), 'PT2H' (2 hrs.), 'P2D' (2 days)."
+      },
+      "system": {
+        "path": "oeh:time_required",
+        "uri": "https://schema.org/timeRequired",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^P(T(?=.)(\\d+H)?(\\d+M)?(\\d+S)?)$|^P(\\d+W)$|^P(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:group_size_min",
+      "group": "didactics",
+      "label": {
+        "de": "Gruppengröße (Min.)",
+        "en": "Group Size (Min.)"
+      },
+      "description": {
+        "de": "Minimale geeignete Gruppengröße in Personen",
+        "en": "Minimum suitable group size in persons"
+      },
+      "prompt": {
+        "de": "Minimale Gruppengroesse, z.B. 1, 2, 4.",
+        "en": "Minimum group size, e.g. 1, 2, 4."
+      },
+      "system": {
+        "path": "oeh:group_size_min",
+        "uri": "oeh:group_size_min",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 1
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:group_size_max",
+      "group": "didactics",
+      "label": {
+        "de": "Gruppengröße (Max.)",
+        "en": "Group Size (Max.)"
+      },
+      "description": {
+        "de": "Maximale geeignete Gruppengröße in Personen",
+        "en": "Maximum suitable group size in persons"
+      },
+      "prompt": {
+        "de": "Maximale Gruppengroesse, z.B. 6, 30, 200.",
+        "en": "Maximum group size, e.g. 6, 30, 200."
+      },
+      "system": {
+        "path": "oeh:group_size_max",
+        "uri": "oeh:group_size_max",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 1
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:prerequisites",
+      "group": "requirements",
+      "label": {
+        "de": "Vorkenntnisse/Voraussetzungen",
+        "en": "Prerequisites"
+      },
+      "description": {
+        "de": "Vorkenntnisse oder Voraussetzungen",
+        "en": "Prerequisites or requirements"
+      },
+      "prompt": {
+        "de": "Vorkenntnisse, z.B. 'Grundlagen Programmierung', 'Mathematik Sek I', 'Keine'.",
+        "en": "Prerequisites, e.g. 'Basic programming', 'Secondary math', 'None'."
+      },
+      "system": {
+        "path": "oeh:prerequisites",
+        "uri": "oeh:prerequisites",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:required_tools",
+      "group": "requirements",
+      "label": {
+        "de": "Erforderliche Tools/Software",
+        "en": "Required Tools/Software"
+      },
+      "description": {
+        "de": "Erforderliche Tools oder Software",
+        "en": "Required tools or software"
+      },
+      "prompt": {
+        "de": "Benötigte Tools/Software, z.B. 'GeoGebra', 'Python 3', 'Taschenrechner'.",
+        "en": "Required tools/software, e.g. 'GeoGebra', 'Python 3', 'Calculator'."
+      },
+      "system": {
+        "path": "oeh:required_tools",
+        "uri": "oeh:required_tools",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:assessment_type",
+      "group": "assessment",
+      "label": {
+        "de": "Bewertungs-/Prüfungsform",
+        "en": "Assessment Type"
+      },
+      "description": {
+        "de": "Verwendete Bewertungs- oder Prüfungsform(en)",
+        "en": "Used assessment or examination type(s)"
+      },
+      "prompt": {
+        "de": "Bewertungsform. Verwende EXAKT: 'selbsttest', 'klausur', 'projektbewertung', 'peer_review', 'mündlich', 'praxis'.",
+        "en": "Assessment type. Use EXACT: 'self-test', 'exam', 'project evaluation', 'peer review', 'oral', 'practical'."
+      },
+      "system": {
+        "path": "oeh:assessment_type",
+        "uri": "oeh:assessment_type",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "selbsttest",
+                "en": "self-test"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/selbsttest"
+            },
+            {
+              "label": {
+                "de": "klausur",
+                "en": "exam"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/klausur"
+            },
+            {
+              "label": {
+                "de": "projektbewertung",
+                "en": "project evaluation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/projektbewertung"
+            },
+            {
+              "label": {
+                "de": "peer_review",
+                "en": "peer review"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/peer_review"
+            },
+            {
+              "label": {
+                "de": "mündlich",
+                "en": "oral"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/muendlich"
+            },
+            {
+              "label": {
+                "de": "praxis",
+                "en": "practical"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/praxis"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:offers_certificate",
+      "group": "assessment",
+      "label": {
+        "de": "Bietet Zertifikat",
+        "en": "Offers Certificate"
+      },
+      "description": {
+        "de": "Gibt an, ob ein Zertifikat oder eine Bescheinigung angeboten wird",
+        "en": "Indicates whether a certificate or credential is offered"
+      },
+      "prompt": {
+        "de": "Wird ein Zertifikat angeboten? true oder false.",
+        "en": "Is a certificate offered? true or false."
+      },
+      "system": {
+        "path": "oeh:offers_certificate",
+        "uri": "oeh:offers_certificate",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:certificate_name",
+      "group": "assessment",
+      "label": {
+        "de": "Zertifikatsname",
+        "en": "Certificate Name"
+      },
+      "description": {
+        "de": "Name des angebotenen Zertifikats",
+        "en": "Name of the offered certificate"
+      },
+      "prompt": {
+        "de": "Name des Zertifikats, z.B. 'ECDL', 'Cambridge Certificate B2', 'Teilnahmebescheinigung'.",
+        "en": "Certificate name, e.g. 'ECDL', 'Cambridge Certificate B2', 'Certificate of Participation'."
+      },
+      "system": {
+        "path": "oeh:certificate_name",
+        "uri": "oeh:certificate_name",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:accessibility_features",
+      "group": "accessibility",
+      "label": {
+        "de": "Barrierefreiheitsmerkmale",
+        "en": "Accessibility Features"
+      },
+      "description": {
+        "de": "Verfügbare Barrierefreiheitsmerkmale",
+        "en": "Available accessibility features"
+      },
+      "prompt": {
+        "de": "Barrierefreiheitsmerkmale. Verwende EXAKT: 'Untertitel', 'Transkript', 'Audiobeschreibung', 'Alternativtext', 'Gebärdensprache', 'Hoher Kontrast', 'Tastaturnavigation', 'Lange Beschreibung', 'Geschlossene Untertitel'.",
+        "en": "Accessibility features. Use EXACT: 'captions', 'transcript', 'audio description', 'alt text', 'sign language', 'high contrast', 'keyboard navigation', 'long description', 'closed captions'."
+      },
+      "system": {
+        "path": "oeh:accessibility_features",
+        "uri": "https://schema.org/accessibilityFeature",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Untertitel",
+                "en": "captions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/captions"
+            },
+            {
+              "label": {
+                "de": "Transkript",
+                "en": "transcript"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/transcript"
+            },
+            {
+              "label": {
+                "de": "Audiobeschreibung",
+                "en": "audio description"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/audioDescription"
+            },
+            {
+              "label": {
+                "de": "Alternativtext",
+                "en": "alt text"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/alternativeText"
+            },
+            {
+              "label": {
+                "de": "Gebärdensprache",
+                "en": "sign language"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/signLanguage"
+            },
+            {
+              "label": {
+                "de": "Hoher Kontrast",
+                "en": "high contrast"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/highContrast"
+            },
+            {
+              "label": {
+                "de": "Tastaturnavigation",
+                "en": "keyboard navigation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/keyboardNavigation"
+            },
+            {
+              "label": {
+                "de": "Lange Beschreibung",
+                "en": "long description"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/longDescription"
+            },
+            {
+              "label": {
+                "de": "Geschlossene Untertitel",
+                "en": "closed captions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/closedCaptions"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:accessibility_hazards",
+      "group": "accessibility",
+      "label": {
+        "de": "Barrierefreiheits-Gefahren",
+        "en": "Accessibility Hazards"
+      },
+      "description": {
+        "de": "Potenzielle Gefahren oder Probleme für bestimmte Nutzergruppen",
+        "en": "Potential hazards or issues for certain user groups"
+      },
+      "prompt": {
+        "de": "Barrierefreiheits-Gefahren. Verwende EXAKT: 'Blitzen', 'Bewegungssimulation', 'Automatisches Audio'.",
+        "en": "Accessibility hazards. Use EXACT: 'flashing', 'motion simulation', 'audio auto'."
+      },
+      "system": {
+        "path": "oeh:accessibility_hazards",
+        "uri": "https://schema.org/accessibilityHazard",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Blitzen",
+                "en": "flashing"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityHazard/flashing"
+            },
+            {
+              "label": {
+                "de": "Bewegungssimulation",
+                "en": "motion simulation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityHazard/motionSimulation"
+            },
+            {
+              "label": {
+                "de": "Automatisches Audio",
+                "en": "audio auto"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityHazard/audioAuto"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:accessibility_conformance",
+      "group": "accessibility",
+      "label": {
+        "de": "Barrierefreiheits-Konformität",
+        "en": "Accessibility Conformance"
+      },
+      "description": {
+        "de": "Konformitätsstufe nach WCAG",
+        "en": "Conformance level according to WCAG"
+      },
+      "prompt": {
+        "de": "WCAG-Konformität. Verwende EXAKT: 'wcag20_a', 'wcag20_aa', 'wcag21_aa' oder 'none'.",
+        "en": "WCAG conformance. Use EXACT: 'WCAG 2.0 Level A', 'WCAG 2.0 Level AA', 'WCAG 2.1 Level AA', or 'none'."
+      },
+      "system": {
+        "path": "oeh:accessibility_conformance",
+        "uri": "oeh:accessibility_conformance",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "wcag20_a",
+                "en": "WCAG 2.0 Level A"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityConformance/wcag20_a"
+            },
+            {
+              "label": {
+                "de": "wcag20_aa",
+                "en": "WCAG 2.0 Level AA"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityConformance/wcag20_aa"
+            },
+            {
+              "label": {
+                "de": "wcag21_aa",
+                "en": "WCAG 2.1 Level AA"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityConformance/wcag21_aa"
+            },
+            {
+              "label": {
+                "de": "none",
+                "en": "none"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityConformance/none"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:cost_amount",
+      "group": "costs",
+      "label": {
+        "de": "Kostenbetrag",
+        "en": "Cost Amount"
+      },
+      "description": {
+        "de": "Kostenbetrag (falls nicht OER-kostenfrei)",
+        "en": "Cost amount (if not OER-free)"
+      },
+      "prompt": {
+        "de": "Kostenbetrag als Zahl, z.B. 0, 9.99, 49.90. Ohne Währungssymbol.",
+        "en": "Cost amount as number, e.g. 0, 9.99, 49.90. Without currency symbol."
+      },
+      "system": {
+        "path": "oeh:cost_amount",
+        "uri": "https://schema.org/price",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "min": 0
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:cost_currency",
+      "group": "costs",
+      "label": {
+        "de": "Währung",
+        "en": "Currency"
+      },
+      "description": {
+        "de": "Währung als ISO 4217 Code (z. B. EUR, USD)",
+        "en": "Currency as ISO 4217 code (e.g. EUR, USD)"
+      },
+      "prompt": {
+        "de": "Währungscode (ISO 4217), z.B. 'EUR', 'USD', 'CHF'.",
+        "en": "Currency code (ISO 4217), e.g. 'EUR', 'USD', 'CHF'."
+      },
+      "system": {
+        "path": "oeh:cost_currency",
+        "uri": "https://schema.org/priceCurrency",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^[A-Z]{3}$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "case": "upper"
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "oeh:new_lrt": [],
+    "oeh:study_subjects": [],
+    "oeh:didactic_method": [],
+    "oeh:delivery_mode": "",
+    "oeh:typical_age_range": "",
+    "oeh:time_required": "",
+    "oeh:group_size_min": null,
+    "oeh:group_size_max": null,
+    "oeh:prerequisites": [],
+    "oeh:required_tools": [],
+    "oeh:assessment_type": [],
+    "oeh:offers_certificate": null,
+    "oeh:certificate_name": "",
+    "oeh:accessibility_features": [],
+    "oeh:accessibility_hazards": [],
+    "oeh:accessibility_conformance": "",
+    "oeh:cost_amount": null,
+    "oeh:cost_currency": ""
+  }
+}

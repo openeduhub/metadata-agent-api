@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # =========================================
   # Default: B-API OpenAI (recommended)

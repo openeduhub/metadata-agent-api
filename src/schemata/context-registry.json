@@ -3,7 +3,7 @@
     "default": {
       "name": "WLO/OEH Standard",
       "description": "Vollständiges Schema-Set für Wirlernenonline / Open Edu Hub",
-      "defaultVersion": "1.8.0",
+      "defaultVersion": "1.8.1",
       "path": "default"
     },
     "mds_oeh": {

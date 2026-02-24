@@ -1,0 +1,3819 @@
+{
+  "profileId": "oeh:organizationLocation",
+  "version": "1.8.1",
+  "@context": {
+    "schema": "https://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "oeh": "http://w3id.org/openeduhub/vocabs/"
+  },
+  "groups": [
+    {
+      "id": "base",
+      "icon": "info",
+      "label": {
+        "de": "Basisangaben",
+        "en": "Basic Information"
+      }
+    },
+    {
+      "id": "classification",
+      "icon": "label",
+      "label": {
+        "de": "Typ & Status",
+        "en": "Type & Status"
+      }
+    },
+    {
+      "id": "identity",
+      "icon": "article",
+      "label": {
+        "de": "Profil & Beschreibung",
+        "en": "Profile & Description"
+      }
+    },
+    {
+      "id": "web",
+      "icon": "language",
+      "label": {
+        "de": "Web & Profile",
+        "en": "Web & Profiles"
+      }
+    },
+    {
+      "id": "contact",
+      "icon": "contacts",
+      "label": {
+        "de": "Kontakt & Service",
+        "en": "Contact & Service"
+      }
+    },
+    {
+      "id": "location",
+      "icon": "place",
+      "label": {
+        "de": "Ort & Adresse",
+        "en": "Location & Address"
+      }
+    },
+    {
+      "id": "geo",
+      "icon": "map",
+      "label": {
+        "de": "Anreise & Karten",
+        "en": "Arrival & Maps"
+      }
+    },
+    {
+      "id": "hours",
+      "icon": "schedule",
+      "label": {
+        "de": "Öffnungszeiten & Zugang",
+        "en": "Opening Hours & Access"
+      }
+    },
+    {
+      "id": "visitor",
+      "icon": "storefront",
+      "label": {
+        "de": "Besuch & Angebote",
+        "en": "Visit & Offers"
+      }
+    },
+    {
+      "id": "org",
+      "icon": "account_tree",
+      "label": {
+        "de": "Struktur & Netzwerk",
+        "en": "Structure & Network"
+      }
+    },
+    {
+      "id": "service",
+      "icon": "public",
+      "label": {
+        "de": "Region & Wirkung",
+        "en": "Region & Impact"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "schema:name",
+      "group": "base",
+      "label": {
+        "de": "Name",
+        "en": "Name"
+      },
+      "description": {
+        "de": "Name der Organisation oder des Lernorts",
+        "en": "Name of the organization or learning location"
+      },
+      "prompt": {
+        "de": "Extrahiere den offiziellen oder gebräuchlichen Namen der Organisation, Einrichtung oder des Lernorts. Suche im Seitentitel, Logo-Text, Impressum oder 'Über uns'-Bereich. Gib den vollständigen Namen zurück, keine Abkürzungen (außer die Abkürzung IST der offizielle Name). Beispiele: 'Deutsches Museum', 'Volkshochschule Frankfurt am Main', 'Fraunhofer-Institut für Digitale Medientechnologie'.",
+        "en": "Extract the official or common name of the organization, institution, or learning location. Look in page title, logo text, imprint, or 'About us' section. Return the full name, no abbreviations (unless the abbreviation IS the official name). Examples: 'Deutsches Museum', 'Volkshochschule Frankfurt am Main', 'Fraunhofer-Institut für Digitale Medientechnologie'."
+      },
+      "system": {
+        "path": "schema:name",
+        "uri": "https://schema.org/name",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:legalName",
+      "group": "base",
+      "label": {
+        "de": "Rechtlicher Name",
+        "en": "Legal Name"
+      },
+      "description": {
+        "de": "Eingetragener Name (falls abweichend)",
+        "en": "Registered name (if different)"
+      },
+      "prompt": {
+        "de": "Extrahiere den offiziell eingetragenen Rechtsnamen, falls er vom gebräuchlichen Namen abweicht. Suche im Impressum, in rechtlichen Hinweisen oder im Handelsregister-Eintrag. Nur angeben, wenn tatsächlich anders als schema:name. Beispiele: 'Deutsches Museum von Meisterwerken der Naturwissenschaft und Technik', 'Stiftung Haus der Geschichte der Bundesrepublik Deutschland'.",
+        "en": "Extract the officially registered legal name if it differs from the common name. Look in imprint, legal notices, or commercial register entries. Only provide if actually different from schema:name. Examples: 'Deutsches Museum von Meisterwerken der Naturwissenschaft und Technik', 'Stiftung Haus der Geschichte der Bundesrepublik Deutschland'."
+      },
+      "system": {
+        "path": "schema:legalName",
+        "uri": "https://schema.org/legalName",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        }
+      }
+    },
+    {
+      "id": "oeh:locationType",
+      "group": "classification",
+      "label": {
+        "de": "Ort-/Organisationstyp",
+        "en": "Location/Organization Type"
+      },
+      "description": {
+        "de": "Typ des Ortes oder der Organisation",
+        "en": "Type of place or organization"
+      },
+      "prompt": {
+        "de": "Ordne die Organisation/den Ort einem oder mehreren Typen aus der Vokabularliste zu. Analysiere die Selbstbeschreibung, Rechtsform und Angebote. Mehrfachauswahl möglich. Verwende die EXAKTEN Labels wie vorgegeben. Beispiele: Ein naturkundliches Museum → 'Museum'; eine gemeinnützige Bildungsinitiative → 'Grassroots-Initiative' oder 'soziales Unternehmen oder NRO'; eine Universitätsbibliothek → 'Hochschule' + 'Bibliothek'.",
+        "en": "Map the organization/place to one or more types from the vocabulary list. Analyze the self-description, legal form, and offerings. Multiple selection possible. Use EXACT labels as given. Examples: A natural history museum → 'Museum'; a non-profit education initiative → 'Grassroots-Initiative' or 'soziales Unternehmen oder NRO'; a university library → 'Hochschule' + 'Bibliothek'."
+      },
+      "system": {
+        "path": "oeh:locationType",
+        "uri": "oeh:locationType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Lernort",
+                "en": "Learning location"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "Kindergarten/-betreuung",
+                "en": "Kindergarten/-care"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/0d08a1e9-09d4-4024-9b5c-7e4028e28ce5",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "Schule",
+                "en": "School"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/1d0965c1-4a3e-4228-a600-bfa1d267e4d9",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "berufsbildende Schule",
+                "en": "vocational school"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/729b6724-1dd6-476e-b871-44383ac11ef3",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "Akademien",
+                "en": "academies"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/D8622b3f-9d18-4560-b053-e00543c42aef",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "Hochschule",
+                "en": "university"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/424e1f91-c859-4c9a-be2a-e788fea01cb8",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "Lernorte für Erwachsenen- und Weiterbildung",
+                "en": "learning locations for adult education and further training"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/88b2d697-4f1b-42de-b6b3-f5f331edb9bd",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "berufsbildender Betrieb",
+                "en": "vocational enterprise"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/D2eb8b66-7a56-4210-9f99-195fea13fe3b",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "außerschulischer Lernort",
+                "en": "non-school learning location"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "Museum",
+                "en": "museum"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/f253619d-187b-4668-b942-67885f6f2463",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Ausstellung",
+                "en": "exhibition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/b5084513-743e-4959-aace-e479c4619f96",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Theater",
+                "en": "theater"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/e3a6c4b5-8f2d-4d3a-9a6f-1c5a3d6f7c8d",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Konzerthaus",
+                "en": "concert hall"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/238a3978-7411-4421-9769-8729fe17432e",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Gedenkstätte",
+                "en": "Memorial"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/7c9f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c8e",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Historischer Ort",
+                "en": "Historic Site"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/6b6dc6e4-b5b1-4c09-ae91-35843f0dcf72",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Science-Center",
+                "en": "Science Center"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/2b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c90",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Planetarium",
+                "en": "Planetarium"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/1b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c91",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Sternwarte",
+                "en": "Observatory"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/8fb4c08e-e257-419e-aef0-b000aeaa5934",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Wissenschaftliches Institut",
+                "en": "Research Institute"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/6b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c92",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Wasserkraftwerk",
+                "en": "Hydropower Plant"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/3b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c93",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Windpark",
+                "en": "Wind Farm"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/7a280235-2a86-43c2-bf09-5ea57c64e867",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Naturschutzgebiet",
+                "en": "Nature Reserve"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/9b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c94",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Nationalpark",
+                "en": "National Park"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/fddbb063-87cf-4002-9045-69d200d412b3",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Bauernhof",
+                "en": "Farm"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/5b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c95",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Umweltzentrum",
+                "en": "Environmental Center"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/a02054c4-8338-4ba1-a733-bc0941cad919",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Botanischer Garten",
+                "en": "Botanical Garden"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/2b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c96",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Zoo",
+                "en": "Zoo"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/1b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c97",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Aquarium",
+                "en": "Aquarium"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/1ac0d75a-37a8-48bf-a5ea-a474d1850c5e",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Feuerwehrstation",
+                "en": "Fire Station"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/9b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c9a",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Polizeistation",
+                "en": "Police Station"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/125f19db-aca5-44a7-b9f7-01cd36114e64",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Maker Space",
+                "en": "Maker Space"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/5b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c9b",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Repair Café",
+                "en": "Repair Café"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/02d0425c-b864-471c-9603-a55d0bdf8e16",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Bibliothek",
+                "en": "Library"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/2b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c9c",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Archiv",
+                "en": "Archive"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/e7589a9b-914d-48e5-8c7f-6e908f1872d0",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Co-Working-Space",
+                "en": "Co-Working Space"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/1b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c9d",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Fernsehanstalt oder Radiostation",
+                "en": "Television station or radio station"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/6b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c9e",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "Sportstätte",
+                "en": "Sports facility"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/3b6f2d3c-4f6f-4a5f-9b3c-1c5a3d6f7c9f",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/20249da5-09de-4f1e-90cb-34d07c58e377"
+            },
+            {
+              "label": {
+                "de": "außerbetrieblicher Lernort",
+                "en": "non-company learning location"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/B017b5b7-5581-4dee-b728-af19e1e91f32",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "staatlicher Bildungsanbieter",
+                "en": "public educational provider"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/4fa87089-5fec-4d78-b06b-aa7672a8f253",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "nicht-staatlicher Bildungsanbieter",
+                "en": "non-public educational provider"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/F9330774-7954-405a-8e88-055422c25609",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/bdc2d9f1-bef6-4bf4-844d-4efc1c99ddbe"
+            },
+            {
+              "label": {
+                "de": "Einrichtungen, Organisationen, Gruppen, Projekte",
+                "en": "Institutions, organizations, groups, projects"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Forschungseinrichtung",
+                "en": "Research institution"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/E7e2c01c-6076-496d-a21d-ca527b016016",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Behörde",
+                "en": "Authority"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/41551cc5-5c1c-4d5d-bab1-3dda6855fcbb",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Beratungs-oder Serviceeinrichtung",
+                "en": "Consulting or service institution"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/F01fd913-6d3b-475b-bfc7-047096084e70",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "kommerzielles Unternehmen",
+                "en": "commercial enterprise"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/75fa653f-c0a2-4a64-8b6f-cf7191c4d4d1",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "soziales Unternehmen oder NRO",
+                "en": "social enterprise or NGO"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/2bfda110-206d-4833-af78-0abd7ff6fd79",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Stiftung oder Fördereinrichtung",
+                "en": "foundation or funding institution"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/A73b06f3-97dd-4907-8302-95e03ddbf4fd",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Community of Practice (Lerncommunity)",
+                "en": "Community of Practice (Lerncommunity)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/42766711-bfe5-4e0e-b0ad-5d123f8e260c",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Grassroots-Initiative",
+                "en": "grassroots initiative"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/D63525d4-edc5-4f47-9dd5-8c2362820a85",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Verband, Verein, Interessenvertretung",
+                "en": "association, club, interest representation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/21db980b-a446-4611-bf49-90137ddd2d2d",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Fachgesellschaft/Fachverband",
+                "en": "professional society/professional association"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/Cf9abf64-e84f-401b-8cbc-a9452cf7a006",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Arbeitsgruppe",
+                "en": "working group"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/843a9e29-e8f3-40fd-8b73-af741979512f",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "Projekt",
+                "en": "project"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/2f2a6913-df83-44c7-aa60-395e0cf2596d",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            },
+            {
+              "label": {
+                "de": "sonstige",
+                "en": "other"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/locationType/8c88e321-28a8-46ad-a847-605ca61c7fc9",
+              "broader": "http://w3id.org/openeduhub/vocabs/locationType/B9908ee6-9b97-4b88-bc6e-abb17b47b61f"
+            }
+          ],
+          "hierarchical": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:additionalType",
+      "group": "classification",
+      "label": {
+        "de": "Zusätzlicher Typ",
+        "en": "Additional Type"
+      },
+      "description": {
+        "de": "Weitere Typen oder Kategorien",
+        "en": "Additional types or categories"
+      },
+      "prompt": {
+        "de": "Extrahiere zusätzliche Typisierungen, die über oeh:locationType hinausgehen. Suche nach Selbstbezeichnungen wie 'Kompetenzzentrum', 'Forschungslabor', 'Kreativwerkstatt', 'Bildungscampus'. Gib als JSON-Array zurück. Beispiele: ['Kompetenzzentrum Digitalisierung', 'Schülerlabor'], ['UNESCO-Welterbestätte', 'Freilichtmuseum'].",
+        "en": "Extract additional type designations beyond oeh:locationType. Look for self-descriptions like 'competence center', 'research lab', 'creative workshop', 'education campus'. Return as JSON array. Examples: ['Competence Center Digitalization', 'Student Lab'], ['UNESCO World Heritage Site', 'Open-Air Museum']."
+      },
+      "system": {
+        "path": "schema:additionalType",
+        "uri": "https://schema.org/additionalType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:isNonprofit",
+      "group": "classification",
+      "label": {
+        "de": "Gemeinnützige Organisation",
+        "en": "Non-profit Organization"
+      },
+      "description": {
+        "de": "Ist die Organisation gemeinnützig?",
+        "en": "Is the organization non-profit?"
+      },
+      "prompt": {
+        "de": "Prüfe, ob die Organisation als gemeinnützig gekennzeichnet ist. Suche nach Hinweisen wie 'gemeinnützig', 'e.V.', 'gGmbH', 'Stiftung', 'non-profit', 'mildtätig'. Gib true zurück wenn gemeinnützig, false wenn gewinnorientiert, null wenn unklar. Beispiele: 'Förderverein XY e.V.' → true; 'GmbH' ohne Gemeinnützigkeitshinweis → null.",
+        "en": "Check if the organization is designated as non-profit. Look for indicators like 'gemeinnützig', 'e.V.', 'gGmbH', 'Stiftung', 'non-profit', 'charitable'. Return true if non-profit, false if for-profit, null if unclear. Examples: 'Förderverein XY e.V.' → true; 'GmbH' without non-profit indicator → null."
+      },
+      "system": {
+        "path": "oeh:isNonprofit",
+        "uri": "oeh:isNonprofit",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:isLearningPlace",
+      "group": "classification",
+      "label": {
+        "de": "Lernort",
+        "en": "Learning Place"
+      },
+      "description": {
+        "de": "Ist dies ein Lernort oder eine Bildungseinrichtung?",
+        "en": "Is this a learning place or educational institution?"
+      },
+      "prompt": {
+        "de": "Prüfe, ob der Ort/die Organisation ein Lernort oder eine Bildungseinrichtung ist. Suche nach Bildungsangeboten, Workshops, Führungen für Schulklassen, Lehrprogrammen, didaktischen Konzepten. Gib true zurück wenn Lernort, false wenn kein Bildungsbezug, null wenn unklar. Beispiele: Museum mit Schulprogramm → true; reines Verwaltungsgebäude → false.",
+        "en": "Check if the place/organization is a learning location or educational institution. Look for educational offerings, workshops, school tours, teaching programs, didactic concepts. Return true if learning place, false if no educational connection, null if unclear. Examples: Museum with school program → true; pure administrative building → false."
+      },
+      "system": {
+        "path": "oeh:isLearningPlace",
+        "uri": "oeh:isLearningPlace",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:officiallyRecognized",
+      "group": "classification",
+      "label": {
+        "de": "Offiziell anerkannt",
+        "en": "Officially Recognized"
+      },
+      "description": {
+        "de": "Offiziell anerkannt?",
+        "en": "Officially recognized?"
+      },
+      "prompt": {
+        "de": "Prüfe, ob die Organisation offiziell von Behörden oder Institutionen anerkannt ist. Suche nach Hinweisen wie 'staatlich anerkannt', 'akkreditiert', 'zertifiziert', 'vom Ministerium anerkannt'. Gib true zurück wenn anerkannt, false wenn explizit nicht anerkannt, null wenn keine Information. Beispiele: 'Staatlich anerkannte Ersatzschule' → true; 'Privater Nachhilfeanbieter' → null.",
+        "en": "Check if the organization is officially recognized by authorities or institutions. Look for indicators like 'state-recognized', 'accredited', 'certified', 'ministry-approved'. Return true if recognized, false if explicitly not, null if no information. Examples: 'State-recognized school' → true; 'Private tutoring provider' → null."
+      },
+      "system": {
+        "path": "oeh:officiallyRecognized",
+        "uri": "oeh:officiallyRecognized",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:alternateName",
+      "group": "identity",
+      "label": {
+        "de": "Alternativnamen",
+        "en": "Alternative Names"
+      },
+      "description": {
+        "de": "Abkürzungen oder alternative Namen",
+        "en": "Abbreviations or alternative names"
+      },
+      "prompt": {
+        "de": "Extrahiere alternative Bezeichnungen, Abkürzungen oder Markennamen der Organisation. Suche nach Kurzformen, Akronymen, umgangssprachlichen Namen oder früheren Namen. Gib als JSON-Array zurück. Beispiele: ['VHS Frankfurt', 'Volkshochschule'], ['DLR', 'Deutsches Zentrum für Luft- und Raumfahrt'], ['MPI', 'Max-Planck'].",
+        "en": "Extract alternative names, abbreviations, or brand names of the organization. Look for short forms, acronyms, colloquial names, or former names. Return as JSON array. Examples: ['VHS Frankfurt', 'Volkshochschule'], ['DLR', 'Deutsches Zentrum für Luft- und Raumfahrt'], ['MPI', 'Max-Planck']."
+      },
+      "system": {
+        "path": "schema:alternateName",
+        "uri": "https://schema.org/alternateName",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        }
+      }
+    },
+    {
+      "id": "schema:url",
+      "group": "web",
+      "label": {
+        "de": "Website",
+        "en": "Website"
+      },
+      "description": {
+        "de": "Offizielle Website",
+        "en": "Official website"
+      },
+      "prompt": {
+        "de": "Extrahiere die URL der offiziellen Website. Suche nach der Hauptdomain, nicht nach Unterseiten. Gib die vollständige URL mit https:// zurück. Wenn die Quelle selbst die Website ist, verwende die Stamm-URL. Beispiele: 'https://www.deutsches-museum.de', 'https://www.vhs-frankfurt.de'.",
+        "en": "Extract the URL of the official website. Look for the main domain, not subpages. Return the complete URL with https://. If the source itself is the website, use the root URL. Examples: 'https://www.deutsches-museum.de', 'https://www.vhs-frankfurt.de'."
+      },
+      "system": {
+        "path": "schema:url",
+        "uri": "https://schema.org/url",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "regex": "^(https?://|$).*$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:sameAs",
+      "group": "web",
+      "label": {
+        "de": "Profile/Referenzen",
+        "en": "Profile/References"
+      },
+      "description": {
+        "de": "Weitere Profile und Referenzen",
+        "en": "Additional profiles and references"
+      },
+      "prompt": {
+        "de": "Extrahiere URLs zu externen Profilen und Referenzseiten. Suche nach Links zu Wikipedia, Wikidata, Social-Media-Profilen (Facebook, Instagram, LinkedIn, X/Twitter), Google Maps, Handelsregister oder Behördeneinträgen. Gib als JSON-Array zurück. Beispiele: ['https://de.wikipedia.org/wiki/Deutsches_Museum', 'https://www.wikidata.org/wiki/Q188'], ['https://www.instagram.com/vhsfrankfurt', 'https://www.facebook.com/vhsfrankfurt'].",
+        "en": "Extract URLs to external profiles and reference pages. Look for links to Wikipedia, Wikidata, social media profiles (Facebook, Instagram, LinkedIn, X/Twitter), Google Maps, or registry entries. Return as JSON array. Examples: ['https://de.wikipedia.org/wiki/Deutsches_Museum', 'https://www.wikidata.org/wiki/Q188'], ['https://www.instagram.com/vhsfrankfurt']."
+      },
+      "system": {
+        "path": "schema:sameAs",
+        "uri": "https://schema.org/sameAs",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "regex": "^(https?://).*$"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:logo",
+      "group": "web",
+      "label": {
+        "de": "Logo-URL",
+        "en": "Logo URL"
+      },
+      "description": {
+        "de": "Logo-URL (Bild)",
+        "en": "Logo URL (image)"
+      },
+      "prompt": {
+        "de": "Extrahiere die URL zum Logo der Organisation. Suche im Header, Favicon oder Open-Graph-Meta-Tags nach einem Bild-Link (.png, .svg, .jpg, .webp). Gib die vollständige Bild-URL zurück. Beispiel: 'https://www.deutsches-museum.de/assets/images/logo.svg'.",
+        "en": "Extract the URL to the organization's logo. Look in header, favicon, or Open Graph meta tags for an image link (.png, .svg, .jpg, .webp). Return the complete image URL. Example: 'https://www.deutsches-museum.de/assets/images/logo.svg'."
+      },
+      "system": {
+        "path": "schema:logo",
+        "uri": "https://schema.org/logo",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "regex": "^(https?://|$).*$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:email",
+      "group": "contact",
+      "label": {
+        "de": "E-Mail",
+        "en": "E-Mail"
+      },
+      "description": {
+        "de": "Allgemeine E-Mail-Adresse",
+        "en": "General email address"
+      },
+      "prompt": {
+        "de": "Extrahiere die allgemeine Kontakt-E-Mail-Adresse. Suche im Impressum, Kontaktbereich oder Footer. Bevorzuge allgemeine Adressen (info@, kontakt@) vor persönlichen. Beispiele: 'info@deutsches-museum.de', 'kontakt@vhs-frankfurt.de'.",
+        "en": "Extract the general contact email address. Look in imprint, contact section, or footer. Prefer general addresses (info@, contact@) over personal ones. Examples: 'info@deutsches-museum.de', 'kontakt@vhs-frankfurt.de'."
+      },
+      "system": {
+        "path": "schema:email",
+        "uri": "https://schema.org/email",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:telephone",
+      "group": "contact",
+      "label": {
+        "de": "Telefon",
+        "en": "Telephone"
+      },
+      "description": {
+        "de": "Telefonnummer",
+        "en": "Telephone number"
+      },
+      "prompt": {
+        "de": "Extrahiere die allgemeine Telefonnummer. Suche im Impressum, Kontaktbereich oder Footer. Bevorzuge die Zentrale/Hauptnummer. Gib im internationalen Format zurück wenn möglich (+49 ...). Beispiele: '+49 89 2179-1', '+49 69 212-71501'.",
+        "en": "Extract the general telephone number. Look in imprint, contact section, or footer. Prefer the main/central number. Return in international format if possible (+49 ...). Examples: '+49 89 2179-1', '+49 69 212-71501'."
+      },
+      "system": {
+        "path": "schema:telephone",
+        "uri": "https://schema.org/telephone",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:faxNumber",
+      "group": "contact",
+      "label": {
+        "de": "Faxnummer",
+        "en": "Fax Number"
+      },
+      "description": {
+        "de": "Faxnummer (falls vorhanden)",
+        "en": "Fax number (if available)"
+      },
+      "prompt": {
+        "de": "Extrahiere die Faxnummer, falls angegeben. Suche im Impressum oder Kontaktbereich nach 'Fax:', 'Telefax:'. Gib im internationalen Format zurück. Beispiel: '+49 89 2179-324'.",
+        "en": "Extract the fax number if provided. Look in imprint or contact section for 'Fax:', 'Telefax:'. Return in international format. Example: '+49 89 2179-324'."
+      },
+      "system": {
+        "path": "schema:faxNumber",
+        "uri": "https://schema.org/faxNumber",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:contactPoint",
+      "group": "contact",
+      "label": {
+        "de": "Kontaktpunkt(e)",
+        "en": "Contact point(s)"
+      },
+      "description": {
+        "de": "Spezifische Anlaufstellen",
+        "en": "Specific contact points"
+      },
+      "prompt": {
+        "de": "Extrahiere spezifische Kontaktstellen mit ihren Kontaktdaten. Suche nach benannten Anlaufstellen wie 'Besucherservice', 'Pressestelle', 'Studierendenservice', 'Barrierefreiheit'. Erfasse Kontakttyp, E-Mail, Telefon und verfügbare Sprachen. Beispiel: Kontakttyp='Besucherservice', E-Mail='besucherservice@museum.de', Telefon='+49 89 2179-1'.",
+        "en": "Extract specific contact points with their contact details. Look for named departments like 'Visitor Service', 'Press Office', 'Student Services', 'Accessibility'. Capture contact type, email, phone, and available languages. Example: contactType='Visitor Service', email='visitor@museum.de', telephone='+49 89 2179-1'."
+      },
+      "system": {
+        "path": "schema:contactPoint",
+        "uri": "https://schema.org/contactPoint",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Kontaktpunkt(e)",
+                "en": "Contact point(s)"
+              },
+              "description": {
+                "de": "Spezifische Anlaufstellen (z. B. Studierendenservice, Presse, Barrierefreiheit).",
+                "en": "Specific contact points (e.g., student services, press, accessibility)."
+              },
+              "fields": [
+                {
+                  "id": "contactType",
+                  "label": {
+                    "de": "Kontakttyp",
+                    "en": "Contact Type"
+                  },
+                  "description": {
+                    "de": "Art des Kontakts (z.B. Kundenservice, Presse)",
+                    "en": "Type of contact (e.g., customer service, press)"
+                  },
+                  "prompt": {
+                    "de": "Art der Kontaktstelle, z.B. 'Besucherservice', 'Pressestelle', 'Studierendensekretariat'.",
+                    "en": "Type of contact point, e.g. 'Visitor Service', 'Press Office', 'Student Office'."
+                  },
+                  "system": {
+                    "path": "contactType",
+                    "uri": "https://schema.org/contactType",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "email",
+                  "label": {
+                    "de": "E-Mail",
+                    "en": "Email"
+                  },
+                  "description": {
+                    "de": "E-Mail-Adresse",
+                    "en": "Email address"
+                  },
+                  "prompt": {
+                    "de": "E-Mail-Adresse dieser Kontaktstelle.",
+                    "en": "Email address of this contact point."
+                  },
+                  "system": {
+                    "path": "email",
+                    "uri": "https://schema.org/email",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "telephone",
+                  "label": {
+                    "de": "Telefon",
+                    "en": "Telephone"
+                  },
+                  "description": {
+                    "de": "Telefonnummer",
+                    "en": "Telephone number"
+                  },
+                  "prompt": {
+                    "de": "Telefonnummer dieser Kontaktstelle, bevorzugt im Format +49 ...",
+                    "en": "Phone number of this contact point, preferably in +49 ... format."
+                  },
+                  "system": {
+                    "path": "telephone",
+                    "uri": "https://schema.org/telephone",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "faxNumber",
+                  "label": {
+                    "de": "Faxnummer",
+                    "en": "Fax Number"
+                  },
+                  "description": {
+                    "de": "Faxnummer",
+                    "en": "Fax number"
+                  },
+                  "prompt": {
+                    "de": "Faxnummer dieser Kontaktstelle, falls angegeben.",
+                    "en": "Fax number of this contact point, if provided."
+                  },
+                  "system": {
+                    "path": "faxNumber",
+                    "uri": "https://schema.org/faxNumber",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "availableLanguage",
+                  "label": {
+                    "de": "Verfügbare Sprachen",
+                    "en": "Available Languages"
+                  },
+                  "description": {
+                    "de": "Verfügbare Sprachen",
+                    "en": "Available languages"
+                  },
+                  "prompt": {
+                    "de": "Sprachen, in denen diese Kontaktstelle erreichbar ist, z.B. ['Deutsch', 'Englisch'].",
+                    "en": "Languages available at this contact point, e.g. ['German', 'English']."
+                  },
+                  "system": {
+                    "path": "availableLanguage",
+                    "uri": "https://schema.org/availableLanguage",
+                    "datatype": "array",
+                    "multiple": true,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true,
+                    "items": {
+                      "datatype": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:address",
+      "group": "location",
+      "label": {
+        "de": "Physische Adresse",
+        "en": "Physical Address"
+      },
+      "description": {
+        "de": "Standortadresse",
+        "en": "Location address"
+      },
+      "prompt": {
+        "de": "Extrahiere die physische Standortadresse. Suche im Impressum, Kontaktbereich, Footer oder Anfahrt-Seite. Zerlege die Adresse in Straße/Hausnummer, PLZ, Stadt, Bundesland und Land. Beispiel: Museumsinsel 1, 80538, München, Bayern, DE.",
+        "en": "Extract the physical location address. Look in imprint, contact section, footer, or directions page. Split the address into street/number, postal code, city, state, and country. Example: Museumsinsel 1, 80538, Munich, Bavaria, DE."
+      },
+      "system": {
+        "path": "schema:address",
+        "uri": "https://schema.org/address",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Default",
+            "label": {
+              "de": "Physische Adresse",
+              "en": "Physical Address"
+            },
+            "description": {
+              "de": "Standortadresse der Organisation/des Ortes.",
+              "en": "Location address of the organization/place."
+            },
+            "fields": [
+              {
+                "id": "streetAddress",
+                "label": {
+                  "de": "Straße und Hausnummer",
+                  "en": "Street Address"
+                },
+                "description": {
+                  "de": "Straßenname und Hausnummer",
+                  "en": "Street name and house number"
+                },
+                "prompt": {
+                  "de": "Straße und Hausnummer, z.B. 'Museumsinsel 1'.",
+                  "en": "Street and house number, e.g. 'Museumsinsel 1'."
+                },
+                "system": {
+                  "path": "streetAddress",
+                  "uri": "https://schema.org/streetAddress",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "postalCode",
+                "label": {
+                  "de": "Postleitzahl",
+                  "en": "Postal Code"
+                },
+                "description": {
+                  "de": "PLZ (5-stellig in DE)",
+                  "en": "Postal code"
+                },
+                "prompt": {
+                  "de": "Postleitzahl, z.B. '80538'.",
+                  "en": "Postal code, e.g. '80538'."
+                },
+                "system": {
+                  "path": "postalCode",
+                  "uri": "https://schema.org/postalCode",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressLocality",
+                "label": {
+                  "de": "Stadt",
+                  "en": "City"
+                },
+                "description": {
+                  "de": "Stadt oder Gemeinde",
+                  "en": "City or municipality"
+                },
+                "prompt": {
+                  "de": "Stadt oder Gemeinde, z.B. 'München'.",
+                  "en": "City or municipality, e.g. 'Munich'."
+                },
+                "system": {
+                  "path": "addressLocality",
+                  "uri": "https://schema.org/addressLocality",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressRegion",
+                "label": {
+                  "de": "Bundesland/Region",
+                  "en": "State/Region"
+                },
+                "description": {
+                  "de": "Bundesland oder Region",
+                  "en": "State or region"
+                },
+                "prompt": {
+                  "de": "Bundesland oder Region, z.B. 'Bayern', 'Nordrhein-Westfalen'.",
+                  "en": "State or region, e.g. 'Bavaria', 'North Rhine-Westphalia'."
+                },
+                "system": {
+                  "path": "addressRegion",
+                  "uri": "https://schema.org/addressRegion",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressCountry",
+                "label": {
+                  "de": "Land",
+                  "en": "Country"
+                },
+                "description": {
+                  "de": "Land (ISO-Code)",
+                  "en": "Country (ISO code)"
+                },
+                "prompt": {
+                  "de": "Ländercode im ISO 3166-1 Format, z.B. 'DE', 'AT', 'CH'.",
+                  "en": "Country code in ISO 3166-1 format, e.g. 'DE', 'AT', 'CH'."
+                },
+                "system": {
+                  "path": "addressCountry",
+                  "uri": "https://schema.org/addressCountry",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:legalAddress",
+      "group": "location",
+      "label": {
+        "de": "Rechts-/Registeradresse",
+        "en": "Legal/Registered Address"
+      },
+      "description": {
+        "de": "Registeradresse (falls abweichend)",
+        "en": "Registered address (if different)"
+      },
+      "prompt": {
+        "de": "Extrahiere die rechtliche/steuerliche Registeradresse, falls sie vom Standort abweicht. Suche im Impressum nach 'Sitz der Gesellschaft', 'Registergericht', 'Eingetragener Sitz'. Nur angeben, wenn anders als schema:address. Beispiel: Sitz der Gesellschaft: Musterstraße 10, 10115 Berlin.",
+        "en": "Extract the legal/tax registered address if different from the location. Look in imprint for 'registered office', 'registry court'. Only provide if different from schema:address. Example: Registered office: Musterstraße 10, 10115 Berlin."
+      },
+      "system": {
+        "path": "schema:legalAddress",
+        "uri": "https://schema.org/legalAddress",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Default",
+            "label": {
+              "de": "Rechts-/Registeradresse",
+              "en": "Legal/Registered Address"
+            },
+            "description": {
+              "de": "Gesetzlicher Sitz für rechtliche/steuerliche Zwecke.",
+              "en": "Legal seat for legal/tax purposes."
+            },
+            "fields": [
+              {
+                "id": "streetAddress",
+                "label": {
+                  "de": "Straße und Hausnummer",
+                  "en": "Street Address"
+                },
+                "description": {
+                  "de": "Straßenname und Hausnummer",
+                  "en": "Street name and house number"
+                },
+                "prompt": {
+                  "de": "Straße und Hausnummer der Registeradresse.",
+                  "en": "Street and house number of the registered address."
+                },
+                "system": {
+                  "path": "streetAddress",
+                  "uri": "https://schema.org/streetAddress",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "postalCode",
+                "label": {
+                  "de": "Postleitzahl",
+                  "en": "Postal Code"
+                },
+                "description": {
+                  "de": "PLZ (5-stellig)",
+                  "en": "Postal code"
+                },
+                "prompt": {
+                  "de": "Postleitzahl der Registeradresse.",
+                  "en": "Postal code of the registered address."
+                },
+                "system": {
+                  "path": "postalCode",
+                  "uri": "https://schema.org/postalCode",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressLocality",
+                "label": {
+                  "de": "Stadt",
+                  "en": "City"
+                },
+                "description": {
+                  "de": "Stadt oder Gemeinde",
+                  "en": "City or municipality"
+                },
+                "prompt": {
+                  "de": "Stadt der Registeradresse.",
+                  "en": "City of the registered address."
+                },
+                "system": {
+                  "path": "addressLocality",
+                  "uri": "https://schema.org/addressLocality",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressRegion",
+                "label": {
+                  "de": "Bundesland/Region",
+                  "en": "State/Region"
+                },
+                "description": {
+                  "de": "Bundesland oder Region",
+                  "en": "State or region"
+                },
+                "prompt": {
+                  "de": "Bundesland der Registeradresse.",
+                  "en": "State of the registered address."
+                },
+                "system": {
+                  "path": "addressRegion",
+                  "uri": "https://schema.org/addressRegion",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "addressCountry",
+                "label": {
+                  "de": "Land",
+                  "en": "Country"
+                },
+                "description": {
+                  "de": "Land (ISO-Code)",
+                  "en": "Country (ISO code)"
+                },
+                "prompt": {
+                  "de": "Ländercode im ISO 3166-1 Format, z.B. 'DE'.",
+                  "en": "Country code in ISO 3166-1 format, e.g. 'DE'."
+                },
+                "system": {
+                  "path": "addressCountry",
+                  "uri": "https://schema.org/addressCountry",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:location",
+      "group": "location",
+      "label": {
+        "de": "Standort(e)",
+        "en": "Location(s)"
+      },
+      "description": {
+        "de": "Weitere Standorte oder Filialen",
+        "en": "Additional locations or branches"
+      },
+      "prompt": {
+        "de": "Extrahiere zusätzliche Standorte, Filialen oder Außenstellen der Organisation. Suche nach 'Standorte', 'Filialen', 'Zweigstellen', 'Außenstellen'. Erfasse Name, Adresse und ggf. Koordinaten. Nicht den Hauptstandort (der steht in schema:address), sondern nur weitere Orte. Beispiel: Zweigstelle Süd, Hauptstraße 5, 80331 München.",
+        "en": "Extract additional locations, branches, or offices of the organization. Look for 'locations', 'branches', 'offices'. Capture name, address, and coordinates if available. Not the main location (that goes in schema:address), only additional ones."
+      },
+      "system": {
+        "path": "schema:location",
+        "uri": "https://schema.org/location",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Place",
+              "label": {
+                "de": "Physischer Ort",
+                "en": "Physical Location"
+              },
+              "description": {
+                "de": "Physischer Ort wie Gebäude, Raum oder Veranstaltungsort mit Adresse und optional Koordinaten",
+                "en": "Physical location such as building, room, or venue with address and optional coordinates"
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name oder Bezeichnung des Objekts",
+                    "en": "Name or designation of the object"
+                  },
+                  "prompt": {
+                    "de": "Name des Standorts, z.B. 'Zweigstelle Süd', 'Campus Garching'.",
+                    "en": "Name of the location, e.g. 'South Branch', 'Garching Campus'."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "address",
+                  "label": {
+                    "de": "Adresse",
+                    "en": "Address"
+                  },
+                  "description": {
+                    "de": "Vollständige Postanschrift",
+                    "en": "Complete postal address"
+                  },
+                  "prompt": {
+                    "de": "Adresse dieses Standorts, aufgeteilt in Straße, PLZ, Stadt, Region, Land.",
+                    "en": "Address of this location, split into street, postal code, city, region, country."
+                  },
+                  "fields": [
+                    {
+                      "id": "streetAddress",
+                      "label": {
+                        "de": "Straße und Hausnummer",
+                        "en": "Street Address"
+                      },
+                      "description": {
+                        "de": "Straßenname und Hausnummer",
+                        "en": "Street name and house number"
+                      },
+                      "prompt": {
+                        "de": "Straße und Hausnummer dieses Standorts.",
+                        "en": "Street and house number of this location."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "postalCode",
+                      "label": {
+                        "de": "Postleitzahl",
+                        "en": "Postal Code"
+                      },
+                      "description": {
+                        "de": "Postleitzahl (5-stellig)",
+                        "en": "Postal code (5 digits)"
+                      },
+                      "prompt": {
+                        "de": "Postleitzahl dieses Standorts.",
+                        "en": "Postal code of this location."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "validation": {
+                          "pattern": "^[0-9]{4,10}$"
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressLocality",
+                      "label": {
+                        "de": "Stadt",
+                        "en": "City"
+                      },
+                      "description": {
+                        "de": "Stadt oder Gemeinde",
+                        "en": "City or municipality"
+                      },
+                      "prompt": {
+                        "de": "Stadt dieses Standorts.",
+                        "en": "City of this location."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressRegion",
+                      "label": {
+                        "de": "Bundesland/Region",
+                        "en": "State/Region"
+                      },
+                      "description": {
+                        "de": "Bundesland, Region oder Staat",
+                        "en": "State, region, or province"
+                      },
+                      "prompt": {
+                        "de": "Bundesland oder Region dieses Standorts.",
+                        "en": "State or region of this location."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "addressCountry",
+                      "label": {
+                        "de": "Land",
+                        "en": "Country"
+                      },
+                      "description": {
+                        "de": "Land (Name oder ISO-Code wie \"DE\")",
+                        "en": "Country (name or ISO code like \"DE\")"
+                      },
+                      "prompt": {
+                        "de": "Ländercode, z.B. 'DE'.",
+                        "en": "Country code, e.g. 'DE'."
+                      },
+                      "system": {
+                        "datatype": "string",
+                        "normalization": {
+                          "trim": true,
+                          "case": "upper"
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    }
+                  ],
+                  "system": {
+                    "datatype": "object",
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "geo",
+                  "label": {
+                    "de": "Koordinaten",
+                    "en": "Coordinates"
+                  },
+                  "description": {
+                    "de": "Geografische Koordinaten (Breiten- und Längengrad)",
+                    "en": "Geographic coordinates (latitude and longitude)"
+                  },
+                  "prompt": {
+                    "de": "Geo-Koordinaten dieses Standorts als Dezimalzahlen.",
+                    "en": "Geo coordinates of this location as decimal numbers."
+                  },
+                  "fields": [
+                    {
+                      "id": "latitude",
+                      "label": {
+                        "de": "Breitengrad",
+                        "en": "Latitude"
+                      },
+                      "description": {
+                        "de": "Geografische Breite (-90 bis +90)",
+                        "en": "Geographic latitude (-90 to +90)"
+                      },
+                      "prompt": {
+                        "de": "Breitengrad als Dezimalzahl, z.B. 48.1299.",
+                        "en": "Latitude as decimal, e.g. 48.1299."
+                      },
+                      "system": {
+                        "datatype": "number",
+                        "validation": {
+                          "min": -90,
+                          "max": 90
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    },
+                    {
+                      "id": "longitude",
+                      "label": {
+                        "de": "Längengrad",
+                        "en": "Longitude"
+                      },
+                      "description": {
+                        "de": "Geografische Länge (-180 bis +180)",
+                        "en": "Geographic longitude (-180 to +180)"
+                      },
+                      "prompt": {
+                        "de": "Längengrad als Dezimalzahl, z.B. 11.5833.",
+                        "en": "Longitude as decimal, e.g. 11.5833."
+                      },
+                      "system": {
+                        "datatype": "number",
+                        "validation": {
+                          "min": -180,
+                          "max": 180
+                        },
+                        "normalization": {
+                          "trim": true
+                        },
+                        "required": false,
+                        "ask_user": true,
+                        "ai_fillable": true
+                      }
+                    }
+                  ],
+                  "system": {
+                    "datatype": "object",
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "sameAs",
+                  "label": {
+                    "de": "Verweis",
+                    "en": "Same As"
+                  },
+                  "description": {
+                    "de": "URI zu einer externen Referenz (z.B. Wikipedia, Wikidata)",
+                    "en": "URI to an external reference (e.g., Wikipedia, Wikidata)"
+                  },
+                  "prompt": {
+                    "de": "URL zu einer externen Referenz dieses Standorts, z.B. Wikipedia- oder Wikidata-Link.",
+                    "en": "URL to an external reference of this location, e.g. Wikipedia or Wikidata link."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "accessibilitySummary",
+                  "label": {
+                    "de": "Accessibility Summary",
+                    "en": "Accessibility Summary"
+                  },
+                  "description": {
+                    "de": "Zusammenfassung der Barrierefreiheit",
+                    "en": "Accessibility summary"
+                  },
+                  "prompt": {
+                    "de": "Kurze Zusammenfassung der Barrierefreiheit dieses Standorts.",
+                    "en": "Brief accessibility summary for this location."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "accessibilitySupport",
+                  "label": {
+                    "de": "Accessibility Support",
+                    "en": "Accessibility Support"
+                  },
+                  "description": {
+                    "de": "Unterstützung für Barrierefreiheit",
+                    "en": "Accessibility support features"
+                  },
+                  "prompt": {
+                    "de": "Barrierefreiheits-Features dieses Standorts, z.B. 'Rollstuhlgerecht', 'Aufzug'.",
+                    "en": "Accessibility features of this location, e.g. 'Wheelchair accessible', 'Elevator'."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "VirtualLocation",
+              "label": {
+                "de": "Virtueller Ort",
+                "en": "Virtual Location"
+              },
+              "description": {
+                "de": "Virtueller Ort für Online-Veranstaltungen, Webinare oder digitale Meetings",
+                "en": "Virtual location for online events, webinars, or digital meetings"
+              },
+              "fields": [
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "Web-Adresse oder Link",
+                    "en": "Web address or link"
+                  },
+                  "prompt": {
+                    "de": "URL des virtuellen Standorts, z.B. Webportal oder Online-Plattform.",
+                    "en": "URL of the virtual location, e.g. web portal or online platform."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "validation": {
+                      "format": "url"
+                    },
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "accessibilitySummary",
+                  "label": {
+                    "de": "Accessibility Summary",
+                    "en": "Accessibility Summary"
+                  },
+                  "description": {
+                    "de": "Zusammenfassung der Barrierefreiheit",
+                    "en": "Accessibility summary"
+                  },
+                  "prompt": {
+                    "de": "Barrierefreiheit des virtuellen Angebots, z.B. Screenreader-Kompatibilität.",
+                    "en": "Accessibility of the virtual offering, e.g. screen reader compatibility."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "accessibilitySupport",
+                  "label": {
+                    "de": "Accessibility Support",
+                    "en": "Accessibility Support"
+                  },
+                  "description": {
+                    "de": "Unterstützung für Barrierefreiheit",
+                    "en": "Accessibility support features"
+                  },
+                  "prompt": {
+                    "de": "Unterstützte Barrierefreiheits-Features des virtuellen Angebots.",
+                    "en": "Supported accessibility features of the virtual offering."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "PostalAddress",
+              "label": {
+                "de": "Postadresse",
+                "en": "Postal Address"
+              },
+              "description": {
+                "de": "Reine Postanschrift ohne Ortsnamen oder Gebäudebezeichnung",
+                "en": "Postal address without place name or building designation"
+              },
+              "fields": [
+                {
+                  "id": "streetAddress",
+                  "label": {
+                    "de": "Straße und Hausnummer",
+                    "en": "Street Address"
+                  },
+                  "description": {
+                    "de": "Straßenname und Hausnummer",
+                    "en": "Street name and house number"
+                  },
+                  "prompt": {
+                    "de": "Straße und Hausnummer der Postadresse.",
+                    "en": "Street and house number of the postal address."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "postalCode",
+                  "label": {
+                    "de": "Postleitzahl",
+                    "en": "Postal Code"
+                  },
+                  "description": {
+                    "de": "Postleitzahl (5-stellig)",
+                    "en": "Postal code (5 digits)"
+                  },
+                  "prompt": {
+                    "de": "Postleitzahl der Postadresse.",
+                    "en": "Postal code of the postal address."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "validation": {
+                      "pattern": "^[0-9]{4,10}$"
+                    },
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "addressLocality",
+                  "label": {
+                    "de": "Stadt",
+                    "en": "City"
+                  },
+                  "description": {
+                    "de": "Stadt oder Gemeinde",
+                    "en": "City or municipality"
+                  },
+                  "prompt": {
+                    "de": "Stadt der Postadresse.",
+                    "en": "City of the postal address."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "addressRegion",
+                  "label": {
+                    "de": "Bundesland/Region",
+                    "en": "State/Region"
+                  },
+                  "description": {
+                    "de": "Bundesland, Region oder Staat",
+                    "en": "State, region, or province"
+                  },
+                  "prompt": {
+                    "de": "Bundesland der Postadresse.",
+                    "en": "State of the postal address."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "addressCountry",
+                  "label": {
+                    "de": "Land",
+                    "en": "Country"
+                  },
+                  "description": {
+                    "de": "Land (Name oder ISO-Code wie \"DE\")",
+                    "en": "Country (name or ISO code like \"DE\")"
+                  },
+                  "prompt": {
+                    "de": "Ländercode, z.B. 'DE'.",
+                    "en": "Country code, e.g. 'DE'."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true,
+                      "case": "upper"
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "accessibilitySummary",
+                  "label": {
+                    "de": "Accessibility Summary",
+                    "en": "Accessibility Summary"
+                  },
+                  "description": {
+                    "de": "Zusammenfassung der Barrierefreiheit",
+                    "en": "Accessibility summary"
+                  },
+                  "prompt": {
+                    "de": "Barrierefreiheit dieser Postadresse/des Gebäudes.",
+                    "en": "Accessibility of this postal address/building."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "accessibilitySupport",
+                  "label": {
+                    "de": "Accessibility Support",
+                    "en": "Accessibility Support"
+                  },
+                  "description": {
+                    "de": "Unterstützung für Barrierefreiheit",
+                    "en": "Accessibility support features"
+                  },
+                  "prompt": {
+                    "de": "Barrierefreiheits-Features dieser Adresse.",
+                    "en": "Accessibility features of this address."
+                  },
+                  "system": {
+                    "datatype": "string",
+                    "normalization": {
+                      "trim": true
+                    },
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:directions",
+      "group": "geo",
+      "label": {
+        "de": "Wegbeschreibung",
+        "en": "Directions"
+      },
+      "description": {
+        "de": "Anfahrt und Wegbeschreibung",
+        "en": "Directions and travel info"
+      },
+      "prompt": {
+        "de": "Extrahiere Anfahrtsbeschreibungen oder Weghinweise. Suche nach 'Anfahrt', 'So finden Sie uns', 'Wegbeschreibung'. Erfasse den Freitext der Wegbeschreibung. Beispiel: 'Mit der U-Bahn U1/U2 bis Fraunhoferstraße, dann 5 Minuten Fußweg Richtung Isar.'",
+        "en": "Extract directions or travel information. Look for 'Directions', 'How to find us', 'Getting here'. Capture the free-text directions. Example: 'Take subway U1/U2 to Fraunhoferstraße, then 5 minutes walk towards the Isar river.'"
+      },
+      "system": {
+        "path": "schema:directions",
+        "uri": "https://schema.org/directions",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "fulltext": true
+        }
+      }
+    },
+    {
+      "id": "schema:geo",
+      "group": "geo",
+      "label": {
+        "de": "Koordinaten",
+        "en": "Coordinates"
+      },
+      "description": {
+        "de": "Geo-Koordinaten (Breiten-/Längengrad)",
+        "en": "Geo coordinates (lat/lng)"
+      },
+      "prompt": {
+        "de": "Extrahiere die geografischen Koordinaten des Hauptstandorts. Suche nach eingebetteten Karten (Google Maps, OpenStreetMap), JSON-LD, oder Meta-Tags mit Geo-Daten. Gib Breitengrad (latitude, -90 bis +90) und Längengrad (longitude, -180 bis +180) als Dezimalzahlen zurück. Beispiel: latitude=48.1299, longitude=11.5833 (Deutsches Museum München).",
+        "en": "Extract geographic coordinates of the main location. Look for embedded maps (Google Maps, OpenStreetMap), JSON-LD, or meta tags with geo data. Return latitude (-90 to +90) and longitude (-180 to +180) as decimal numbers. Example: latitude=48.1299, longitude=11.5833 (Deutsches Museum Munich)."
+      },
+      "system": {
+        "path": "schema:geo",
+        "uri": "https://schema.org/geo",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Default",
+            "label": {
+              "de": "Koordinaten",
+              "en": "Coordinates"
+            },
+            "description": {
+              "de": "Geo-Koordinaten (Breiten-/Längengrad)",
+              "en": "Geo coordinates (lat/lng)"
+            },
+            "fields": [
+              {
+                "id": "latitude",
+                "label": {
+                  "de": "Breitengrad",
+                  "en": "Latitude"
+                },
+                "description": {
+                  "de": "Breitengrad (-90 bis +90)",
+                  "en": "Latitude (-90 to +90)"
+                },
+                "prompt": {
+                  "de": "Breitengrad als Dezimalzahl, z.B. 48.1299.",
+                  "en": "Latitude as decimal, e.g. 48.1299."
+                },
+                "system": {
+                  "path": "latitude",
+                  "uri": "https://schema.org/latitude",
+                  "datatype": "number",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "longitude",
+                "label": {
+                  "de": "Längengrad",
+                  "en": "Longitude"
+                },
+                "description": {
+                  "de": "Längengrad (-180 bis +180)",
+                  "en": "Longitude (-180 to +180)"
+                },
+                "prompt": {
+                  "de": "Längengrad als Dezimalzahl, z.B. 11.5833.",
+                  "en": "Longitude as decimal, e.g. 11.5833."
+                },
+                "system": {
+                  "path": "longitude",
+                  "uri": "https://schema.org/longitude",
+                  "datatype": "number",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "oeh:transportAccess",
+      "group": "geo",
+      "label": {
+        "de": "Verkehrsanbindung",
+        "en": "Transport Access"
+      },
+      "description": {
+        "de": "ÖPNV, Auto, Parken",
+        "en": "Public transport, car, parking"
+      },
+      "prompt": {
+        "de": "Extrahiere Informationen zur Verkehrsanbindung. Suche nach 'ÖPNV', 'Bus', 'Bahn', 'S-Bahn', 'U-Bahn', 'Parkplätze', 'Parken', 'Anfahrt mit dem Auto'. Erfasse ÖPNV-Anbindung, Anfahrt per Auto, Parkmöglichkeiten und sonstige Hinweise separat. Beispiel: ÖPNV='S-Bahn S1/S2, Haltestelle Isartor', Parken='Parkhaus am Deutschen Museum, 3€/h'.",
+        "en": "Extract transport access information. Look for 'public transport', 'bus', 'train', 'subway', 'parking', 'by car'. Capture public transport, car access, parking, and notes separately. Example: publicTransport='S-Bahn S1/S2, stop Isartor', parking='Parking garage at Deutsches Museum, 3€/h'."
+      },
+      "system": {
+        "path": "oeh:transportAccess",
+        "uri": "oeh:transportAccess",
+        "datatype": "object",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false,
+        "discriminator": "@type",
+        "variants": [
+          {
+            "@type": "Default",
+            "label": {
+              "de": "Verkehrsanbindung",
+              "en": "Transport Access"
+            },
+            "description": {
+              "de": "ÖPNV, Auto, Parken",
+              "en": "Public transport, car, parking"
+            },
+            "fields": [
+              {
+                "id": "publicTransport",
+                "label": {
+                  "de": "ÖPNV-Anbindung",
+                  "en": "Public Transport"
+                },
+                "description": {
+                  "de": "Bus, Bahn, S-/U-Bahn",
+                  "en": "Bus, train, subway"
+                },
+                "prompt": {
+                  "de": "Nächste Haltestellen und Linien, z.B. 'S-Bahn S1/S2, Haltestelle Isartor'.",
+                  "en": "Nearest stops and lines, e.g. 'S-Bahn S1/S2, stop Isartor'."
+                },
+                "system": {
+                  "path": "publicTransport",
+                  "uri": "https://schema.org/publicTransport",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "car",
+                "label": {
+                  "de": "Anfahrt mit Auto",
+                  "en": "By Car"
+                },
+                "description": {
+                  "de": "Hinweise zur Anfahrt per Auto",
+                  "en": "Directions by car"
+                },
+                "prompt": {
+                  "de": "Extrahiere Hinweise zur Anfahrt mit dem Auto, z.B. Autobahnabfahrten.",
+                  "en": "Extract directions by car, e.g. highway exits."
+                },
+                "system": {
+                  "path": "car",
+                  "uri": "https://schema.org/car",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "parking",
+                "label": {
+                  "de": "Parkmöglichkeiten",
+                  "en": "Parking"
+                },
+                "description": {
+                  "de": "Parkplätze und Parkhäuser",
+                  "en": "Parking lots and garages"
+                },
+                "prompt": {
+                  "de": "Parkmöglichkeiten und Kosten, z.B. 'Parkhaus am Museum, 3€/h'.",
+                  "en": "Parking options and costs, e.g. 'Parking garage at museum, 3€/h'."
+                },
+                "system": {
+                  "path": "parking",
+                  "uri": "https://schema.org/parking",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "notes",
+                "label": {
+                  "de": "Sonstige Hinweise",
+                  "en": "Additional Notes"
+                },
+                "description": {
+                  "de": "Weitere Anreise-Hinweise",
+                  "en": "Other travel notes"
+                },
+                "prompt": {
+                  "de": "Extrahiere sonstige Hinweise zur Anreise, z.B. Fahrradstellplätze, Barrierefreiheit der Wege.",
+                  "en": "Extract other travel notes, e.g. bicycle parking, accessibility of routes."
+                },
+                "system": {
+                  "path": "notes",
+                  "uri": "https://schema.org/notes",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema:hasMap",
+      "group": "geo",
+      "label": {
+        "de": "Karte (URL)",
+        "en": "Map (URL)"
+      },
+      "description": {
+        "de": "Karten-Link",
+        "en": "Map link"
+      },
+      "prompt": {
+        "de": "Extrahiere einen Link zu einer Karte. Suche nach eingebetteten Google-Maps-Links, OpenStreetMap-Links oder 'Auf Karte anzeigen'-Buttons. Gib die vollständige URL zurück. Beispiele: 'https://maps.google.com/?q=48.1299,11.5833', 'https://www.openstreetmap.org/?mlat=48.13&mlon=11.58'.",
+        "en": "Extract a link to a map. Look for embedded Google Maps links, OpenStreetMap links, or 'Show on map' buttons. Return the full URL. Examples: 'https://maps.google.com/?q=48.1299,11.5833', 'https://www.openstreetmap.org/?mlat=48.13&mlon=11.58'."
+      },
+      "system": {
+        "path": "schema:hasMap",
+        "uri": "https://schema.org/hasMap",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "regex": "^(https?://|$).*$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:openingHours",
+      "group": "hours",
+      "label": {
+        "de": "Öffnungszeiten (Text)",
+        "en": "Opening hours (Text)"
+      },
+      "description": {
+        "de": "Öffnungszeiten als Text",
+        "en": "Opening hours as text"
+      },
+      "prompt": {
+        "de": "Extrahiere die Öffnungszeiten als Textzeilen. Suche nach 'Öffnungszeiten', 'Geöffnet', 'Besuchszeiten'. Gib jede Zeitangabe als eigenen Array-Eintrag zurück. Beispiele: ['Mo-Fr 09:00-17:00', 'Sa 10:00-14:00', 'So geschlossen'], ['Di-So 10:00-18:00', 'Mo Ruhetag', 'Feiertags geschlossen'].",
+        "en": "Extract opening hours as text lines. Look for 'Opening hours', 'Open', 'Visiting hours'. Return each time entry as a separate array item. Examples: ['Mon-Fri 09:00-17:00', 'Sat 10:00-14:00', 'Sun closed'], ['Tue-Sun 10:00-18:00', 'Mon closed', 'Public holidays closed']."
+      },
+      "system": {
+        "path": "schema:openingHours",
+        "uri": "https://schema.org/openingHours",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:openingHoursSpecification",
+      "group": "hours",
+      "label": {
+        "de": "Öffnungszeiten (strukturiert)",
+        "en": "Opening hours (structured)"
+      },
+      "description": {
+        "de": "Strukturierte Öffnungszeiten pro Wochentag",
+        "en": "Structured opening hours per weekday"
+      },
+      "prompt": {
+        "de": "Extrahiere die Öffnungszeiten als strukturierte Einträge pro Wochentag. Erfasse dayOfWeek (MO, TU, WE, TH, FR, SA, SU), Öffnungszeit (opens, HH:MM) und Schließzeit (closes, HH:MM). Optional: validFrom/validThrough für saisonale Zeiten. Beispiel: dayOfWeek=['MO','TU','WE','TH','FR'], opens='09:00', closes='17:00'.",
+        "en": "Extract opening hours as structured entries per weekday. Capture dayOfWeek (MO, TU, WE, TH, FR, SA, SU), opening time (opens, HH:MM) and closing time (closes, HH:MM). Optional: validFrom/validThrough for seasonal hours. Example: dayOfWeek=['MO','TU','WE','TH','FR'], opens='09:00', closes='17:00'."
+      },
+      "system": {
+        "path": "schema:openingHoursSpecification",
+        "uri": "https://schema.org/openingHoursSpecification",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Öffnungszeiten (strukturiert)",
+                "en": "Opening hours (structured)"
+              },
+              "description": {
+                "de": "Tagesbezogene Zeiten mit Feldern dayOfWeek, opens, closes.",
+                "en": "Day-related times with fields dayOfWeek, opens, closes."
+              },
+              "fields": [
+                {
+                  "id": "dayOfWeek",
+                  "label": {
+                    "de": "Wochentag",
+                    "en": "Day of Week"
+                  },
+                  "description": {
+                    "de": "Wochentag(e)",
+                    "en": "Day(s) of the week"
+                  },
+                  "prompt": {
+                    "de": "Wochentage als Codes: MO, TU, WE, TH, FR, SA, SU. Verwende die EXAKTEN Codes.",
+                    "en": "Weekdays as codes: MO, TU, WE, TH, FR, SA, SU. Use EXACT codes."
+                  },
+                  "system": {
+                    "path": "dayOfWeek",
+                    "uri": "https://schema.org/dayOfWeek",
+                    "datatype": "array",
+                    "multiple": true,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true,
+                    "items": {
+                      "datatype": "string"
+                    },
+                    "vocabulary": {
+                      "type": "closed",
+                      "concepts": [
+                        {
+                          "label": {
+                            "de": "Montag",
+                            "en": "Monday"
+                          },
+                          "value": "MO"
+                        },
+                        {
+                          "label": {
+                            "de": "Dienstag",
+                            "en": "Tuesday"
+                          },
+                          "value": "TU"
+                        },
+                        {
+                          "label": {
+                            "de": "Mittwoch",
+                            "en": "Wednesday"
+                          },
+                          "value": "WE"
+                        },
+                        {
+                          "label": {
+                            "de": "Donnerstag",
+                            "en": "Thursday"
+                          },
+                          "value": "TH"
+                        },
+                        {
+                          "label": {
+                            "de": "Freitag",
+                            "en": "Friday"
+                          },
+                          "value": "FR"
+                        },
+                        {
+                          "label": {
+                            "de": "Samstag",
+                            "en": "Saturday"
+                          },
+                          "value": "SA"
+                        },
+                        {
+                          "label": {
+                            "de": "Sonntag",
+                            "en": "Sunday"
+                          },
+                          "value": "SU"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": "opens",
+                  "label": {
+                    "de": "Öffnet",
+                    "en": "Opens"
+                  },
+                  "description": {
+                    "de": "Öffnungszeit im Format HH:MM, z.B. 09:00",
+                    "en": "Opening time in HH:MM format, e.g. 09:00"
+                  },
+                  "prompt": {
+                    "de": "Öffnungszeit im Format HH:MM, z.B. '09:00'.",
+                    "en": "Opening time in HH:MM format, e.g. '09:00'."
+                  },
+                  "system": {
+                    "path": "opens",
+                    "uri": "https://schema.org/opens",
+                    "datatype": "time",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "closes",
+                  "label": {
+                    "de": "Schließt",
+                    "en": "Closes"
+                  },
+                  "description": {
+                    "de": "Schließzeit im Format HH:MM, z.B. 17:00",
+                    "en": "Closing time in HH:MM format, e.g. 17:00"
+                  },
+                  "prompt": {
+                    "de": "Schließzeit im Format HH:MM, z.B. '17:00'.",
+                    "en": "Closing time in HH:MM format, e.g. '17:00'."
+                  },
+                  "system": {
+                    "path": "closes",
+                    "uri": "https://schema.org/closes",
+                    "datatype": "time",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "validFrom",
+                  "label": {
+                    "de": "Gültig von",
+                    "en": "Valid From"
+                  },
+                  "description": {
+                    "de": "Gültig ab (Datum im Format YYYY-MM-DD, z.B. 2026-09-15)",
+                    "en": "Valid from (date in YYYY-MM-DD format, e.g. 2026-09-15)"
+                  },
+                  "prompt": {
+                    "de": "Startdatum für saisonale Zeiten im Format YYYY-MM-DD.",
+                    "en": "Start date for seasonal hours in YYYY-MM-DD format."
+                  },
+                  "system": {
+                    "path": "validFrom",
+                    "uri": "https://schema.org/validFrom",
+                    "datatype": "date",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "validThrough",
+                  "label": {
+                    "de": "Gültig bis",
+                    "en": "Valid Through"
+                  },
+                  "description": {
+                    "de": "Gültig bis (Datum im Format YYYY-MM-DD, z.B. 2026-09-30)",
+                    "en": "Valid through (date in YYYY-MM-DD format, e.g. 2026-09-30)"
+                  },
+                  "prompt": {
+                    "de": "Enddatum für saisonale Zeiten im Format YYYY-MM-DD.",
+                    "en": "End date for seasonal hours in YYYY-MM-DD format."
+                  },
+                  "system": {
+                    "path": "validThrough",
+                    "uri": "https://schema.org/validThrough",
+                    "datatype": "date",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:publicAccess",
+      "group": "hours",
+      "label": {
+        "de": "Öffentlich zugänglich",
+        "en": "Publicly accessible"
+      },
+      "description": {
+        "de": "Öffentlich zugänglich?",
+        "en": "Publicly accessible?"
+      },
+      "prompt": {
+        "de": "Prüfe, ob der Ort öffentlich zugänglich ist. Suche nach 'öffentlich zugänglich', 'frei zugänglich', 'Besuch ohne Anmeldung', 'nur nach Voranmeldung'. Gib true zurück wenn frei zugänglich, false wenn nur auf Einladung/Anmeldung, null wenn unklar. Beispiele: Öffentliches Museum → true; Firmenzentrale ohne Besucherzugang → false.",
+        "en": "Check if the place is publicly accessible. Look for 'open to public', 'free access', 'visit without appointment', 'by appointment only'. Return true if freely accessible, false if invitation/appointment only, null if unclear. Examples: Public museum → true; corporate HQ without visitor access → false."
+      },
+      "system": {
+        "path": "schema:publicAccess",
+        "uri": "https://schema.org/publicAccess",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:offers",
+      "group": "visitor",
+      "label": {
+        "de": "Angebote",
+        "en": "Offers"
+      },
+      "description": {
+        "de": "Tickets, Preise, Buchungsoptionen",
+        "en": "Tickets, prices, booking options"
+      },
+      "prompt": {
+        "de": "Extrahiere Angebote wie Eintrittspreise, Tickets, Kurse oder buchbare Leistungen. Erfasse Preis, Währung, Kategorie, Beschreibung und URL. Suche nach 'Preise', 'Eintritt', 'Tickets', 'Angebote', 'Kurse'. Beispiel: Kategorie='Erwachsene', Preis=15, Währung='EUR', Beschreibung='Tageskarte'.",
+        "en": "Extract offers like admission prices, tickets, courses, or bookable services. Capture price, currency, category, description, and URL. Look for 'Prices', 'Admission', 'Tickets', 'Offers', 'Courses'. Example: category='Adults', price=15, currency='EUR', description='Day ticket'."
+      },
+      "system": {
+        "path": "schema:offers",
+        "uri": "https://schema.org/offers",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Angebote",
+                "en": "Offers"
+              },
+              "description": {
+                "de": "Detaillierte Angaben zum Angebot (Preis, Verfügbarkeit, etc.)",
+                "en": "Detailed offer information (price, availability, etc.)"
+              },
+              "fields": [
+                {
+                  "id": "price",
+                  "label": {
+                    "de": "Preis",
+                    "en": "Price"
+                  },
+                  "description": {
+                    "de": "Preis oder Kosten",
+                    "en": "Price or cost"
+                  },
+                  "prompt": {
+                    "de": "Preis als Zahl, z.B. 15 oder 0 für kostenlos.",
+                    "en": "Price as number, e.g. 15 or 0 for free."
+                  },
+                  "system": {
+                    "path": "price",
+                    "uri": "https://schema.org/price",
+                    "datatype": "number",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "priceCurrency",
+                  "label": {
+                    "de": "Währung",
+                    "en": "Price Currency"
+                  },
+                  "description": {
+                    "de": "Währung (z.B. EUR, USD)",
+                    "en": "Currency (e.g., EUR, USD)"
+                  },
+                  "prompt": {
+                    "de": "Währungscode im ISO 4217 Format, z.B. 'EUR', 'CHF'.",
+                    "en": "Currency code in ISO 4217 format, e.g. 'EUR', 'CHF'."
+                  },
+                  "system": {
+                    "path": "priceCurrency",
+                    "uri": "https://schema.org/priceCurrency",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "category",
+                  "label": {
+                    "de": "Kategorie",
+                    "en": "Category"
+                  },
+                  "description": {
+                    "de": "Kategorie oder Klassifizierung",
+                    "en": "Category or classification"
+                  },
+                  "prompt": {
+                    "de": "Angebotskategorie, z.B. 'Erwachsene', 'Kinder', 'Familienkarte', 'Gruppenführung'.",
+                    "en": "Offer category, e.g. 'Adults', 'Children', 'Family ticket', 'Group tour'."
+                  },
+                  "system": {
+                    "path": "category",
+                    "uri": "https://schema.org/category",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "description",
+                  "label": {
+                    "de": "Beschreibung",
+                    "en": "Description"
+                  },
+                  "description": {
+                    "de": "Beschreibung oder Erläuterung",
+                    "en": "Description or explanation"
+                  },
+                  "prompt": {
+                    "de": "Kurze Beschreibung des Angebots, z.B. 'Tageskarte inkl. Sonderausstellung'.",
+                    "en": "Brief description of the offer, e.g. 'Day ticket incl. special exhibition'."
+                  },
+                  "system": {
+                    "path": "description",
+                    "uri": "https://schema.org/description",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL oder Webadresse",
+                    "en": "URL or web address"
+                  },
+                  "prompt": {
+                    "de": "URL zur Buchungs- oder Detailseite dieses Angebots.",
+                    "en": "URL to the booking or detail page of this offer."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:tourBookingPage",
+      "group": "visitor",
+      "label": {
+        "de": "Besuch/Tour buchen (URL)",
+        "en": "Book visit/tour (URL)"
+      },
+      "description": {
+        "de": "Buchungsseite für Touren/Besuche",
+        "en": "Booking page for tours/visits"
+      },
+      "prompt": {
+        "de": "Extrahiere die URL zur Buchungsseite für Touren, Führungen oder Besuche. Suche nach 'Tour buchen', 'Führung buchen', 'Besuch planen', 'Online-Tickets'. Gib die vollständige URL zurück. Beispiel: 'https://www.deutsches-museum.de/besuch/tickets'.",
+        "en": "Extract the URL for booking tours, guided visits, or visits. Look for 'Book a tour', 'Book a visit', 'Plan your visit', 'Online tickets'. Return the full URL. Example: 'https://www.deutsches-museum.de/besuch/tickets'."
+      },
+      "system": {
+        "path": "schema:tourBookingPage",
+        "uri": "https://schema.org/tourBookingPage",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "regex": "^(https?://|$).*$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:maximumAttendeeCapacity",
+      "group": "visitor",
+      "label": {
+        "de": "Max. Besucher-/Teilnehmendenkapazität",
+        "en": "Max. visitor/participant capacity"
+      },
+      "description": {
+        "de": "Maximale Besucherkapazität",
+        "en": "Maximum visitor capacity"
+      },
+      "prompt": {
+        "de": "Extrahiere die maximale Besucherkapazität. Suche nach 'Kapazität', 'max. Besucher', 'Plätze', 'Personen'. Gib eine ganze Zahl zurück. Beispiele: 'bis zu 500 Besucher' → 500; 'Seminarraum für 30 Personen' → 30.",
+        "en": "Extract the maximum visitor capacity. Look for 'capacity', 'max. visitors', 'seats', 'persons'. Return an integer. Examples: 'up to 500 visitors' → 500; 'seminar room for 30 persons' → 30."
+      },
+      "system": {
+        "path": "schema:maximumAttendeeCapacity",
+        "uri": "https://schema.org/maximumAttendeeCapacity",
+        "datatype": "integer",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:video",
+      "group": "visitor",
+      "label": {
+        "de": "Videos",
+        "en": "Videos"
+      },
+      "description": {
+        "de": "Vorstellungsvideos oder Imagefilme",
+        "en": "Presentation or promotional videos"
+      },
+      "prompt": {
+        "de": "Extrahiere Videos, die die Organisation vorstellen. Suche nach eingebetteten YouTube-, Vimeo- oder anderen Video-Links, Imagefilmen, Rundgang-Videos. Erfasse Name, Beschreibung und URL. Beispiel: name='Virtueller Rundgang', url='https://www.youtube.com/watch?v=abc123'.",
+        "en": "Extract videos that present the organization. Look for embedded YouTube, Vimeo or other video links, promotional films, virtual tours. Capture name, description, and URL. Example: name='Virtual Tour', url='https://www.youtube.com/watch?v=abc123'."
+      },
+      "system": {
+        "path": "schema:video",
+        "uri": "https://schema.org/video",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Videos",
+                "en": "Videos"
+              },
+              "description": {
+                "de": "Video mit Name und URL",
+                "en": "Video with name and URL"
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name oder Bezeichnung",
+                    "en": "Name or designation"
+                  },
+                  "prompt": {
+                    "de": "Titel des Videos, z.B. 'Virtueller Rundgang', 'Imagefilm 2024'.",
+                    "en": "Title of the video, e.g. 'Virtual Tour', 'Promotional Film 2024'."
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "description",
+                  "label": {
+                    "de": "Beschreibung",
+                    "en": "Description"
+                  },
+                  "description": {
+                    "de": "Beschreibung oder Erläuterung",
+                    "en": "Description or explanation"
+                  },
+                  "prompt": {
+                    "de": "Kurze Beschreibung des Video-Inhalts.",
+                    "en": "Brief description of the video content."
+                  },
+                  "system": {
+                    "path": "description",
+                    "uri": "https://schema.org/description",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL oder Webadresse",
+                    "en": "URL or web address"
+                  },
+                  "prompt": {
+                    "de": "URL zum Video, z.B. YouTube- oder Vimeo-Link.",
+                    "en": "URL to the video, e.g. YouTube or Vimeo link."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:isAccessibleForFree",
+      "group": "visitor",
+      "label": {
+        "de": "Kostenlos zugänglich",
+        "en": "Free Access"
+      },
+      "description": {
+        "de": "Kostenloser Eintritt/Zugang?",
+        "en": "Free admission/access?"
+      },
+      "prompt": {
+        "de": "Prüfe, ob der Zugang kostenlos ist. Suche nach 'Eintritt frei', 'kostenlos', 'kostenfrei', 'freier Eintritt', 'Eintrittspreise'. Gib true zurück wenn kostenlos, false wenn kostenpflichtig, null wenn unklar. Beispiele: 'Eintritt frei' → true; 'Erwachsene 15 EUR' → false; 'Kinder unter 6 frei' → null (teilweise).",
+        "en": "Check if access is free. Look for 'free admission', 'free of charge', 'no entrance fee', 'admission prices'. Return true if free, false if paid, null if unclear. Examples: 'Free admission' → true; 'Adults 15 EUR' → false; 'Children under 6 free' → null (partial)."
+      },
+      "system": {
+        "path": "schema:isAccessibleForFree",
+        "uri": "https://schema.org/isAccessibleForFree",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:amenityFeature",
+      "group": "visitor",
+      "label": {
+        "de": "Ausstattungsmerkmale",
+        "en": "Amenity Features"
+      },
+      "description": {
+        "de": "Ausstattung und Einrichtungen",
+        "en": "Amenities and facilities"
+      },
+      "prompt": {
+        "de": "Extrahiere Ausstattungsmerkmale und Einrichtungen. Suche nach 'Ausstattung', 'Service', 'Angebote vor Ort': WLAN, Café, Garderobe, Museumsshop, Schließfächer, Wickelraum etc. Erfasse Name, Wert und Beschreibung. Beispiel: name='WLAN', value='kostenlos'; name='Café', description='Im Erdgeschoss, Mo-Fr geöffnet'.",
+        "en": "Extract amenity features and facilities. Look for 'amenities', 'services', 'on-site facilities': WiFi, café, cloakroom, gift shop, lockers, baby changing etc. Capture name, value, and description. Example: name='WiFi', value='free'; name='Café', description='Ground floor, Mon-Fri open'."
+      },
+      "system": {
+        "path": "schema:amenityFeature",
+        "uri": "https://schema.org/amenityFeature",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Ausstattungsmerkmale",
+                "en": "Amenity Features"
+              },
+              "description": {
+                "de": "Ausstattungsmerkmal mit Name und Beschreibung",
+                "en": "Amenity feature with name and description"
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name oder Bezeichnung",
+                    "en": "Name or designation"
+                  },
+                  "prompt": {
+                    "de": "Name des Ausstattungsmerkmals, z.B. 'WLAN', 'Café', 'Garderobe', 'Schließfächer'.",
+                    "en": "Name of the amenity, e.g. 'WiFi', 'Café', 'Cloakroom', 'Lockers'."
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "value",
+                  "label": {
+                    "de": "Wert",
+                    "en": "value"
+                  },
+                  "description": {
+                    "de": "Wert oder Inhalt",
+                    "en": "Value or content"
+                  },
+                  "prompt": {
+                    "de": "Wert oder Status, z.B. 'kostenlos', 'vorhanden', '2 EUR'.",
+                    "en": "Value or status, e.g. 'free', 'available', '2 EUR'."
+                  },
+                  "system": {
+                    "path": "value",
+                    "uri": "https://schema.org/value",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "description",
+                  "label": {
+                    "de": "Beschreibung",
+                    "en": "Description"
+                  },
+                  "description": {
+                    "de": "Beschreibung oder Erläuterung",
+                    "en": "Description or explanation"
+                  },
+                  "prompt": {
+                    "de": "Zusätzliche Details zum Ausstattungsmerkmal, z.B. 'Im Erdgeschoss, Mo-Fr geöffnet'.",
+                    "en": "Additional details about the amenity, e.g. 'Ground floor, Mon-Fri open'."
+                  },
+                  "system": {
+                    "path": "description",
+                    "uri": "https://schema.org/description",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:accessibilitySummary",
+      "group": "visitor",
+      "label": {
+        "de": "Barrierefreiheits-Übersicht",
+        "en": "Accessibility Summary"
+      },
+      "description": {
+        "de": "Zusammenfassung zur Barrierefreiheit",
+        "en": "Accessibility summary text"
+      },
+      "prompt": {
+        "de": "Extrahiere oder erstelle eine Zusammenfassung der Barrierefreiheit. Suche nach 'Barrierefreiheit', 'Zugänglichkeit', 'barrierefrei', 'Inklusion'. Fasse die wichtigsten Punkte in 1–3 Sätzen zusammen. Beispiel: 'Das Museum ist vollständig rollstuhlgerecht. Aufzüge zu allen Etagen, taktile Leitsysteme und Audioguides in Leichter Sprache sind vorhanden.'",
+        "en": "Extract or create an accessibility summary. Look for 'accessibility', 'barrier-free', 'inclusion'. Summarize key points in 1–3 sentences. Example: 'The museum is fully wheelchair accessible. Elevators to all floors, tactile guidance systems, and audio guides in easy language are available.'"
+      },
+      "system": {
+        "path": "schema:accessibilitySummary",
+        "uri": "https://schema.org/accessibilitySummary",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "fulltext": true
+        }
+      }
+    },
+    {
+      "id": "schema:accessibilitySupport",
+      "group": "visitor",
+      "label": {
+        "de": "Barrierefreiheits-Unterstützung",
+        "en": "Accessibility Support"
+      },
+      "description": {
+        "de": "Unterstützte Barrierefreiheits-Features",
+        "en": "Supported accessibility features"
+      },
+      "prompt": {
+        "de": "Extrahiere genannte Barrierefreiheits-Features. Suche nach Hinweisen zu Rollstuhlzugänglichkeit, Blindenleitsystem, Gebärdensprache, Leichte Sprache, induktive Höranlage, taktile Leitsysteme etc. Gib als JSON-Array kurzer Begriffe zurück. Beispiele: ['Rollstuhlgerecht', 'Blindenleitsystem', 'Induktive Höranlage'], ['Aufzug', 'Behindertentoilette', 'Leichte Sprache'].",
+        "en": "Extract mentioned accessibility features. Look for references to wheelchair access, tactile guidance, sign language, easy language, hearing loops, etc. Return as JSON array of short terms. Examples: ['Wheelchair accessible', 'Tactile guidance', 'Hearing loop'], ['Elevator', 'Accessible restroom', 'Easy language']."
+      },
+      "system": {
+        "path": "schema:accessibilitySupport",
+        "uri": "https://schema.org/accessibilitySupport",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:foundingDate",
+      "group": "org",
+      "label": {
+        "de": "Gründungsdatum",
+        "en": "Founding Date"
+      },
+      "description": {
+        "de": "Gründungsdatum (JJJJ-MM-TT)",
+        "en": "Founding date (YYYY-MM-DD)"
+      },
+      "prompt": {
+        "de": "Extrahiere das Gründungsdatum der Organisation. Suche nach 'Gegründet', 'Gründung', 'seit', 'besteht seit'. Gib im Format YYYY-MM-DD zurück. Wenn nur das Jahr bekannt ist, verwende YYYY-01-01. Beispiele: 'Gegründet 1903' → '1903-01-01'; 'Seit 15. Mai 1998' → '1998-05-15'.",
+        "en": "Extract the founding date. Look for 'Founded', 'Established', 'since'. Return in YYYY-MM-DD format. If only the year is known, use YYYY-01-01. Examples: 'Founded 1903' → '1903-01-01'; 'Since May 15, 1998' → '1998-05-15'."
+      },
+      "system": {
+        "path": "schema:foundingDate",
+        "uri": "https://schema.org/foundingDate",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:founder",
+      "group": "org",
+      "label": {
+        "de": "Gründer:in/Gründer",
+        "en": "Founder(s)"
+      },
+      "description": {
+        "de": "Gründer (Personen/Organisationen)",
+        "en": "Founders (persons/organizations)"
+      },
+      "prompt": {
+        "de": "Extrahiere die Namen der Gründer. Suche nach 'Gegründet von', 'Gründer:', 'Stifter:', 'Initiator'. Gib als JSON-Array von Namen zurück. Beispiele: ['Oskar von Miller'], ['Konrad Adenauer', 'Theodor Heuss'].",
+        "en": "Extract the names of founders. Look for 'Founded by', 'Founder:', 'Established by'. Return as JSON array of names. Examples: ['Oskar von Miller'], ['Konrad Adenauer', 'Theodor Heuss']."
+      },
+      "system": {
+        "path": "schema:founder",
+        "uri": "https://schema.org/founder",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:parentOrganization",
+      "group": "org",
+      "label": {
+        "de": "Übergeordnete Organisation",
+        "en": "Parent organization"
+      },
+      "description": {
+        "de": "Träger oder übergeordnete Organisation",
+        "en": "Parent or umbrella organization"
+      },
+      "prompt": {
+        "de": "Extrahiere die übergeordnete Organisation oder den Träger. Suche nach 'Träger:', 'gehört zu', 'Teil von', 'Muttergesellschaft', 'untersteht'. Gib den Namen oder die URL zurück. Beispiele: 'Fraunhofer-Gesellschaft', 'Leibniz-Gemeinschaft', 'Stadt München'.",
+        "en": "Extract the parent or umbrella organization. Look for 'parent organization', 'belongs to', 'part of', 'operated by'. Return the name or URL. Examples: 'Fraunhofer-Gesellschaft', 'Leibniz-Gemeinschaft', 'City of Munich'."
+      },
+      "system": {
+        "path": "schema:parentOrganization",
+        "uri": "https://schema.org/parentOrganization",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        }
+      }
+    },
+    {
+      "id": "schema:subOrganization",
+      "group": "org",
+      "label": {
+        "de": "Untergeordnete Organisation(en)",
+        "en": "Subsidiary organization(s)"
+      },
+      "description": {
+        "de": "Tochterorganisationen oder Untereinheiten",
+        "en": "Subsidiary organizations or sub-units"
+      },
+      "prompt": {
+        "de": "Extrahiere untergeordnete Organisationen, Tochterfirmen oder rechtlich eigenständige Untereinheiten. Suche nach 'Tochtergesellschaft', 'Zweigstelle', 'Unterorganisation', 'angegliedertes Institut'. Gib als JSON-Array zurück. Beispiele: ['Deutsches Museum Verkehrszentrum', 'Deutsches Museum Flugwerft Schleissheim'], ['Bildungszentrum Nord', 'Bildungszentrum Süd'].",
+        "en": "Extract subsidiary organizations, sub-entities, or legally independent sub-units. Look for 'subsidiary', 'branch', 'sub-organization', 'affiliated institute'. Return as JSON array. Examples: ['Deutsches Museum Verkehrszentrum', 'Deutsches Museum Flugwerft Schleissheim']."
+      },
+      "system": {
+        "path": "schema:subOrganization",
+        "uri": "https://schema.org/subOrganization",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:branchCode",
+      "group": "org",
+      "label": {
+        "de": "Filial-/Zweigstellen-Code",
+        "en": "Branch Code"
+      },
+      "description": {
+        "de": "Filialcode oder Kennung",
+        "en": "Branch code or identifier"
+      },
+      "prompt": {
+        "de": "Extrahiere einen Filial- oder Standortcode. Suche nach internen Kennungen, Filialnummern oder Standort-IDs. Beispiele: 'DE-MUC-001', 'Filiale 42'.",
+        "en": "Extract a branch or location code. Look for internal identifiers, branch numbers, or location IDs. Examples: 'DE-MUC-001', 'Branch 42'."
+      },
+      "system": {
+        "path": "schema:branchCode",
+        "uri": "https://schema.org/branchCode",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:award",
+      "group": "org",
+      "label": {
+        "de": "Auszeichnungen",
+        "en": "Awards"
+      },
+      "description": {
+        "de": "Erhaltene Auszeichnungen und Preise",
+        "en": "Received awards and prizes"
+      },
+      "prompt": {
+        "de": "Extrahiere Auszeichnungen, Preise oder Gütesiegel. Suche nach 'Ausgezeichnet mit', 'Preisträger', 'Award', 'Zertifikat', 'Gütesiegel'. Gib als JSON-Array zurück. Beispiele: ['Europäisches Museumspreis 2023', 'UNESCO Global Geopark'], ['Qualitätssiegel ServiceQualität Deutschland'].",
+        "en": "Extract awards, prizes, or quality seals. Look for 'awarded', 'prize winner', 'award', 'certificate', 'quality seal'. Return as JSON array. Examples: ['European Museum Prize 2023', 'UNESCO Global Geopark'], ['ServiceQuality Germany seal']."
+      },
+      "system": {
+        "path": "schema:award",
+        "uri": "https://schema.org/award",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:hasCertification",
+      "group": "org",
+      "label": {
+        "de": "Zertifizierungen",
+        "en": "Certifications"
+      },
+      "description": {
+        "de": "Zertifizierungen und Akkreditierungen",
+        "en": "Certifications and accreditations"
+      },
+      "prompt": {
+        "de": "Extrahiere Zertifizierungen, Akkreditierungen oder Qualitätsnachweise. Suche nach 'zertifiziert nach', 'akkreditiert', 'ISO', 'DIN', 'Qualitätsmanagement'. Gib als JSON-Array zurück. Beispiele: ['ISO 9001:2015', 'Systemakkreditierung'], ['EMAS-zertifiziert', 'Reiss-Engelhorn-Zertifikat'].",
+        "en": "Extract certifications, accreditations, or quality proofs. Look for 'certified according to', 'accredited', 'ISO', 'DIN', 'quality management'. Return as JSON array. Examples: ['ISO 9001:2015', 'System accreditation'], ['EMAS certified']."
+      },
+      "system": {
+        "path": "schema:hasCertification",
+        "uri": "https://schema.org/hasCertification",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:department",
+      "group": "org",
+      "label": {
+        "de": "Abteilung(en)",
+        "en": "Department(s)"
+      },
+      "description": {
+        "de": "Abteilungen, Fachbereiche, Fakultäten",
+        "en": "Departments, divisions, faculties"
+      },
+      "prompt": {
+        "de": "Extrahiere benannte Abteilungen, Fachbereiche oder Fakultäten. Suche nach 'Abteilung', 'Fachbereich', 'Fakultät', 'Bereich', 'Referat'. Gib als JSON-Array zurück. Beispiele: ['Fakultät für Informatik', 'Fakultät für Maschinenwesen'], ['Abteilung Naturkunde', 'Abteilung Technik', 'Abteilung Kunst'].",
+        "en": "Extract named departments, divisions, or faculties. Look for 'department', 'division', 'faculty', 'section'. Return as JSON array. Examples: ['Faculty of Computer Science', 'Faculty of Mechanical Engineering'], ['Department of Natural History', 'Department of Technology']."
+      },
+      "system": {
+        "path": "schema:department",
+        "uri": "https://schema.org/department",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:sponsor",
+      "group": "org",
+      "label": {
+        "de": "Sponsoren/Förderer",
+        "en": "Sponsors"
+      },
+      "description": {
+        "de": "Sponsoren und Förderer",
+        "en": "Sponsors and supporters"
+      },
+      "prompt": {
+        "de": "Extrahiere Sponsoren, Förderer oder Geldgeber. Suche nach 'Gefördert von', 'Sponsor:', 'Unterstützt durch', 'Partner', 'Förderer'. Erfasse Name und URL. Beispiel: name='Deutsche Forschungsgemeinschaft', url='https://www.dfg.de'.",
+        "en": "Extract sponsors, supporters, or funders. Look for 'Funded by', 'Sponsor:', 'Supported by', 'Partner'. Capture name and URL. Example: name='Deutsche Forschungsgemeinschaft', url='https://www.dfg.de'."
+      },
+      "system": {
+        "path": "schema:sponsor",
+        "uri": "https://schema.org/sponsor",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "datatype": "object",
+          "discriminator": "@type",
+          "variants": [
+            {
+              "@type": "Default",
+              "label": {
+                "de": "Sponsoren/Förderer",
+                "en": "Sponsors"
+              },
+              "description": {
+                "de": "Sponsor mit Name und URL",
+                "en": "Sponsor with name and URL"
+              },
+              "fields": [
+                {
+                  "id": "name",
+                  "label": {
+                    "de": "Name",
+                    "en": "Name"
+                  },
+                  "description": {
+                    "de": "Name oder Bezeichnung",
+                    "en": "Name or designation"
+                  },
+                  "prompt": {
+                    "de": "Name des Sponsors oder Förderers, z.B. 'Deutsche Forschungsgemeinschaft'.",
+                    "en": "Name of the sponsor, e.g. 'German Research Foundation'."
+                  },
+                  "system": {
+                    "path": "name",
+                    "uri": "https://schema.org/name",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                },
+                {
+                  "id": "url",
+                  "label": {
+                    "de": "URL",
+                    "en": "URL"
+                  },
+                  "description": {
+                    "de": "URL oder Webadresse",
+                    "en": "URL or web address"
+                  },
+                  "prompt": {
+                    "de": "Website des Sponsors.",
+                    "en": "Website of the sponsor."
+                  },
+                  "system": {
+                    "path": "url",
+                    "uri": "https://schema.org/url",
+                    "datatype": "string",
+                    "multiple": false,
+                    "required": false,
+                    "ask_user": true,
+                    "ai_fillable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:memberOf",
+      "group": "org",
+      "label": {
+        "de": "Mitglied bei",
+        "en": "Member Of"
+      },
+      "description": {
+        "de": "Mitgliedschaften und Netzwerke",
+        "en": "Memberships and networks"
+      },
+      "prompt": {
+        "de": "Extrahiere Mitgliedschaften in Verbänden, Netzwerken oder Organisationen. Suche nach 'Mitglied bei', 'Mitglied im', 'angeschlossen an', 'Netzwerk'. Gib als JSON-Array zurück. Beispiele: ['Deutscher Museumsbund', 'ICOM'], ['Leibniz-Gemeinschaft', 'Helmholtz-Gemeinschaft'].",
+        "en": "Extract memberships in associations, networks, or organizations. Look for 'member of', 'affiliated with', 'network'. Return as JSON array. Examples: ['Deutscher Museumsbund', 'ICOM'], ['Leibniz Association', 'Helmholtz Association']."
+      },
+      "system": {
+        "path": "schema:memberOf",
+        "uri": "https://schema.org/memberOf",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:alumni",
+      "group": "org",
+      "label": {
+        "de": "Alumni (nur Bildungsorganisationen)",
+        "en": "Alumni (only educational organizations)"
+      },
+      "description": {
+        "de": "Bekannte Alumni",
+        "en": "Known alumni"
+      },
+      "prompt": {
+        "de": "Extrahiere bekannte Alumni oder Absolvent:innen (nur bei Bildungseinrichtungen relevant). Suche nach 'Alumni', 'Bekannte Absolvent:innen', 'Ehemalige'. Gib als JSON-Array von Namen zurück. Beispiele: ['Albert Einstein', 'Max Planck'], ['Angela Merkel'].",
+        "en": "Extract known alumni or graduates (only relevant for educational institutions). Look for 'Alumni', 'Notable graduates', 'Former students'. Return as JSON array of names. Examples: ['Albert Einstein', 'Max Planck'], ['Angela Merkel']."
+      },
+      "system": {
+        "path": "schema:alumni",
+        "uri": "https://schema.org/alumni",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "schema:areaServed",
+      "group": "service",
+      "label": {
+        "de": "Versorgungs-/Einzugsgebiet",
+        "en": "Service area / catchment area"
+      },
+      "description": {
+        "de": "Einzugsgebiet oder Wirkungsbereich",
+        "en": "Service area or scope"
+      },
+      "prompt": {
+        "de": "Extrahiere das Einzugsgebiet oder den Wirkungsbereich. Suche nach 'Einzugsgebiet', 'Wirkungsbereich', 'regional', 'bundesweit', 'international', 'für die Region'. Gib als JSON-Array von Gebietsbezeichnungen zurück. Beispiele: ['München', 'Oberbayern'], ['Nordrhein-Westfalen'], ['bundesweit'], ['Europa', 'weltweit'].",
+        "en": "Extract the service area or scope. Look for 'catchment area', 'service region', 'regional', 'nationwide', 'international'. Return as JSON array of area names. Examples: ['Munich', 'Upper Bavaria'], ['North Rhine-Westphalia'], ['nationwide'], ['Europe', 'worldwide']."
+      },
+      "system": {
+        "path": "schema:areaServed",
+        "uri": "https://schema.org/areaServed",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "items": {
+          "type": "string"
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        }
+      }
+    }
+  ],
+  "output_template": {
+    "@type": [
+      "schema:Organization"
+    ],
+    "schema:name": "",
+    "schema:legalName": "",
+    "schema:alternateName": [],
+    "schema:url": "",
+    "schema:sameAs": [],
+    "schema:logo": "",
+    "schema:additionalType": [],
+    "oeh:locationType": [],
+    "oeh:isNonprofit": null,
+    "oeh:isLearningPlace": null,
+    "oeh:officiallyRecognized": null,
+    "schema:email": "",
+    "schema:telephone": "",
+    "schema:faxNumber": "",
+    "schema:contactPoint": [],
+    "schema:address": {
+      "streetAddress": "",
+      "postalCode": "",
+      "addressLocality": "",
+      "addressRegion": "",
+      "addressCountry": ""
+    },
+    "schema:legalAddress": {
+      "streetAddress": "",
+      "postalCode": "",
+      "addressLocality": "",
+      "addressRegion": "",
+      "addressCountry": ""
+    },
+    "schema:location": [],
+    "schema:directions": "",
+    "schema:geo": {
+      "latitude": null,
+      "longitude": null
+    },
+    "oeh:transportAccess": {
+      "publicTransport": "",
+      "car": "",
+      "parking": "",
+      "notes": ""
+    },
+    "schema:hasMap": "",
+    "schema:openingHours": [],
+    "schema:openingHoursSpecification": [],
+    "schema:publicAccess": null,
+    "schema:isAccessibleForFree": null,
+    "schema:amenityFeature": [],
+    "schema:accessibilitySummary": "",
+    "schema:accessibilitySupport": [],
+    "schema:offers": [],
+    "schema:tourBookingPage": "",
+    "schema:maximumAttendeeCapacity": null,
+    "schema:video": [],
+    "schema:foundingDate": "",
+    "schema:founder": [],
+    "schema:parentOrganization": "",
+    "schema:subOrganization": [],
+    "schema:branchCode": "",
+    "schema:department": [],
+    "schema:sponsor": [],
+    "schema:award": [],
+    "schema:hasCertification": [],
+    "schema:memberOf": [],
+    "schema:alumni": [],
+    "schema:areaServed": []
+  }
+}

@@ -1,0 +1,2101 @@
+{
+  "profileId": "type:prompt",
+  "version": "1.8.1",
+  "@context": {
+    "schema": "https://schema.org/",
+    "prompt": "http://w3id.org/openeduhub/vocabs/prompt/"
+  },
+  "groups": [
+    {
+      "id": "core",
+      "icon": "smart_toy",
+      "label": {
+        "de": "Prompt-Kern",
+        "en": "Prompt Core"
+      }
+    },
+    {
+      "id": "usecase",
+      "icon": "category",
+      "label": {
+        "de": "Anwendungsfall",
+        "en": "Use Case"
+      }
+    },
+    {
+      "id": "modality",
+      "icon": "hub",
+      "label": {
+        "de": "Modalität & Format",
+        "en": "Modality & Format"
+      }
+    },
+    {
+      "id": "technique",
+      "icon": "psychology",
+      "label": {
+        "de": "Prompt-Technik",
+        "en": "Prompt Technique"
+      }
+    },
+    {
+      "id": "technical",
+      "icon": "tune",
+      "label": {
+        "de": "Technische Parameter",
+        "en": "Technical Parameters"
+      }
+    },
+    {
+      "id": "image_params",
+      "icon": "image",
+      "label": {
+        "de": "Bild-Parameter",
+        "en": "Image Parameters"
+      }
+    },
+    {
+      "id": "quality",
+      "icon": "verified",
+      "label": {
+        "de": "Qualität & Bewertung",
+        "en": "Quality & Evaluation"
+      }
+    },
+    {
+      "id": "usage",
+      "icon": "gavel",
+      "label": {
+        "de": "Nutzung & Lizenz",
+        "en": "Usage & License"
+      }
+    },
+    {
+      "id": "relations",
+      "icon": "link",
+      "label": {
+        "de": "Verknüpfungen",
+        "en": "Relations"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "prompt:text",
+      "group": "core",
+      "label": {
+        "de": "Prompt-Text",
+        "en": "Prompt Text"
+      },
+      "description": {
+        "de": "Der eigentliche Prompt-Text bzw. die Anweisung an das KI-Modell. Kann Variablen in {{doppelten geschweiften Klammern}} enthalten.",
+        "en": "The actual prompt text or instruction for the AI model. May contain variables in {{double curly braces}}."
+      },
+      "prompt": {
+        "de": "Der vollständige Prompt-Text. Suche nach der Hauptanweisung an das KI-Modell.",
+        "en": "The complete prompt text. Look for the main instruction to the AI model."
+      },
+      "system": {
+        "path": "prompt:text",
+        "uri": "prompt:text",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:systemPrompt",
+      "group": "core",
+      "label": {
+        "de": "System-Prompt",
+        "en": "System Prompt"
+      },
+      "description": {
+        "de": "Optionaler System-Prompt, der den Kontext, die Rolle oder Rahmenbedingungen für das KI-Modell setzt (z.B. 'Du bist ein erfahrener Physiklehrer…').",
+        "en": "Optional system prompt that sets the context, role, or constraints for the AI model (e.g. 'You are an experienced physics teacher…')."
+      },
+      "prompt": {
+        "de": "System-Prompt oder Rollenanweisung. Suche nach Kontext wie 'Du bist…', 'Agiere als…', 'Rolle:'.",
+        "en": "System prompt or role instruction. Look for context like 'You are…', 'Act as…', 'Role:'."
+      },
+      "system": {
+        "path": "prompt:systemPrompt",
+        "uri": "prompt:systemPrompt",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:negativePrompt",
+      "group": "core",
+      "label": {
+        "de": "Negativer Prompt",
+        "en": "Negative Prompt"
+      },
+      "description": {
+        "de": "Ausschlüsse oder unerwünschte Eigenschaften. Bei Bild-KI: was NICHT im Bild erscheinen soll. Bei Text-KI: was vermieden werden soll.",
+        "en": "Exclusions or unwanted properties. For image AI: what should NOT appear. For text AI: what to avoid."
+      },
+      "prompt": {
+        "de": "Negativer Prompt oder Ausschlusskriterien. Bei Bildern z.B. 'blurry, low quality'. Bei Text z.B. 'Keine Fachbegriffe'.",
+        "en": "Negative prompt or exclusion criteria. For images e.g. 'blurry, low quality'. For text e.g. 'No jargon'."
+      },
+      "system": {
+        "path": "prompt:negativePrompt",
+        "uri": "prompt:negativePrompt",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:variables",
+      "group": "core",
+      "label": {
+        "de": "Variablen / Platzhalter",
+        "en": "Variables / Placeholders"
+      },
+      "description": {
+        "de": "Template-Variablen, die vor der Ausführung ersetzt werden müssen (z.B. {{Thema}}, {{Klassenstufe}}, {{Sprache}}).",
+        "en": "Template variables that must be replaced before execution (e.g. {{topic}}, {{grade_level}}, {{language}})."
+      },
+      "prompt": {
+        "de": "Variablen im Prompt-Template, z.B. '{{Thema}}', '{{Fach}}', '{{Schwierigkeitsgrad}}'.",
+        "en": "Variables in the prompt template, e.g. '{{topic}}', '{{subject}}', '{{difficulty}}'."
+      },
+      "system": {
+        "path": "prompt:variables",
+        "uri": "prompt:variables",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:exampleOutput",
+      "group": "core",
+      "label": {
+        "de": "Beispiel-Ausgabe",
+        "en": "Example Output"
+      },
+      "description": {
+        "de": "Ein konkretes Beispiel für die erwartete Ausgabe des Prompts.",
+        "en": "A concrete example of the expected prompt output."
+      },
+      "prompt": {
+        "de": "Beispiel einer typischen Ausgabe dieses Prompts.",
+        "en": "Example of a typical output from this prompt."
+      },
+      "system": {
+        "path": "prompt:exampleOutput",
+        "uri": "prompt:exampleOutput",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:useCase",
+      "group": "usecase",
+      "label": {
+        "de": "Anwendungsfall",
+        "en": "Use Case"
+      },
+      "description": {
+        "de": "Primärer Anwendungsfall des Prompts. Hierarchisch nach Domäne gegliedert.",
+        "en": "Primary use case of the prompt. Hierarchically organized by domain."
+      },
+      "prompt": {
+        "de": "Anwendungsfall. Verwende EXAKT die Labels, z.B. 'Aufgaben erstellen', 'Bildanalyse', 'Code-Review'.",
+        "en": "Use case. Use EXACT labels, e.g. 'Create Tasks', 'Image Analysis', 'Code Review'."
+      },
+      "system": {
+        "path": "prompt:useCase",
+        "uri": "prompt:useCase",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/prompt/useCase/",
+          "hierarchical": true,
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu",
+              "label": {
+                "de": "Bildung & Lehre",
+                "en": "Education & Teaching"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-task",
+              "label": {
+                "de": "Aufgaben erstellen",
+                "en": "Create Tasks"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-assess",
+              "label": {
+                "de": "Prüfung konzipieren",
+                "en": "Design Assessment"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-tutor",
+              "label": {
+                "de": "KI-Tutor / Lernbegleitung",
+                "en": "AI Tutor / Learning Support"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-feedback",
+              "label": {
+                "de": "Korrektur & Feedback",
+                "en": "Correction & Feedback"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-diff",
+              "label": {
+                "de": "Differenzierung / Adaptivität",
+                "en": "Differentiation / Adaptivity"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-explain",
+              "label": {
+                "de": "Erklären / Veranschaulichen",
+                "en": "Explain / Illustrate"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-roleplay",
+              "label": {
+                "de": "Rollenspiel / Simulation",
+                "en": "Role-play / Simulation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-quiz",
+              "label": {
+                "de": "Quiz / Selbsttest",
+                "en": "Quiz / Self-test"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-plan",
+              "label": {
+                "de": "Unterrichtsplanung",
+                "en": "Lesson Planning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/edu-curriculum",
+              "label": {
+                "de": "Lehrplanentwicklung",
+                "en": "Curriculum Development"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/edu"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content",
+              "label": {
+                "de": "Inhalte & Medien",
+                "en": "Content & Media"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content-text",
+              "label": {
+                "de": "Texterstellung",
+                "en": "Text Creation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/content"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content-summary",
+              "label": {
+                "de": "Zusammenfassung",
+                "en": "Summarization"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/content"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content-translate",
+              "label": {
+                "de": "Übersetzung",
+                "en": "Translation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/content"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content-simplify",
+              "label": {
+                "de": "Vereinfachung / Leichte Sprache",
+                "en": "Simplification / Easy Language"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/content"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content-image",
+              "label": {
+                "de": "Bilderstellung",
+                "en": "Image Creation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/content"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content-audio",
+              "label": {
+                "de": "Audioproduktion",
+                "en": "Audio Production"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/content"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content-video",
+              "label": {
+                "de": "Videoproduktion",
+                "en": "Video Production"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/content"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/content-present",
+              "label": {
+                "de": "Präsentationserstellung",
+                "en": "Presentation Creation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/content"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/analysis",
+              "label": {
+                "de": "Analyse & Auswertung",
+                "en": "Analysis & Evaluation"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/analysis-classify",
+              "label": {
+                "de": "Klassifizierung",
+                "en": "Classification"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/analysis"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/analysis-extract",
+              "label": {
+                "de": "Informationsextraktion",
+                "en": "Information Extraction"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/analysis"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/analysis-sentiment",
+              "label": {
+                "de": "Sentiment-Analyse",
+                "en": "Sentiment Analysis"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/analysis"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/analysis-image",
+              "label": {
+                "de": "Bildanalyse / Vision",
+                "en": "Image Analysis / Vision"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/analysis"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/analysis-data",
+              "label": {
+                "de": "Datenauswertung",
+                "en": "Data Analysis"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/analysis"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/analysis-metadata",
+              "label": {
+                "de": "Metadaten-Generierung",
+                "en": "Metadata Generation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/analysis"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/analysis-quality",
+              "label": {
+                "de": "Qualitätsprüfung",
+                "en": "Quality Check"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/analysis"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/dev",
+              "label": {
+                "de": "Entwicklung & Code",
+                "en": "Development & Code"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/dev-generate",
+              "label": {
+                "de": "Codegenerierung",
+                "en": "Code Generation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/dev"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/dev-review",
+              "label": {
+                "de": "Code-Review",
+                "en": "Code Review"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/dev"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/dev-debug",
+              "label": {
+                "de": "Debugging",
+                "en": "Debugging"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/dev"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/dev-doc",
+              "label": {
+                "de": "Dokumentation",
+                "en": "Documentation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/dev"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/dev-test",
+              "label": {
+                "de": "Testgenerierung",
+                "en": "Test Generation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/dev"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/org",
+              "label": {
+                "de": "Organisation & Verwaltung",
+                "en": "Organization & Administration"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/org-email",
+              "label": {
+                "de": "E-Mail-Entwurf",
+                "en": "Email Drafting"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/org"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/org-meeting",
+              "label": {
+                "de": "Protokoll / Meeting-Notes",
+                "en": "Minutes / Meeting Notes"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/org"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/org-report",
+              "label": {
+                "de": "Berichterstellung",
+                "en": "Report Writing"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/org"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/org-workflow",
+              "label": {
+                "de": "Workflow-Automatisierung",
+                "en": "Workflow Automation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/org"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/creative",
+              "label": {
+                "de": "Kreativ & Ideation",
+                "en": "Creative & Ideation"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/creative-brainstorm",
+              "label": {
+                "de": "Brainstorming",
+                "en": "Brainstorming"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/creative"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/creative-story",
+              "label": {
+                "de": "Storytelling / Narration",
+                "en": "Storytelling / Narration"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/creative"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/creative-art",
+              "label": {
+                "de": "Kunst & Design",
+                "en": "Art & Design"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/creative"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/creative-music",
+              "label": {
+                "de": "Musik",
+                "en": "Music"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/prompt/creative"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:targetAudience",
+      "group": "usecase",
+      "label": {
+        "de": "Zielgruppe",
+        "en": "Target Audience"
+      },
+      "description": {
+        "de": "Für wen ist dieser Prompt gedacht? (z.B. Lehrkräfte, Schüler:innen, Redakteur:innen, Entwickler:innen)",
+        "en": "Who is this prompt intended for? (e.g. teachers, students, editors, developers)"
+      },
+      "prompt": {
+        "de": "Zielgruppe des Prompts, z.B. 'Lehrkräfte', 'Schüler:innen Sek I', 'Redakteur:innen', 'Entwickler:innen'.",
+        "en": "Target audience, e.g. 'Teachers', 'Students Sec I', 'Editors', 'Developers'."
+      },
+      "system": {
+        "path": "prompt:targetAudience",
+        "uri": "prompt:targetAudience",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:difficulty",
+      "group": "usecase",
+      "label": {
+        "de": "Komplexitätsstufe",
+        "en": "Complexity Level"
+      },
+      "description": {
+        "de": "Wie komplex ist der Prompt in der Anwendung? Einfach = Copy-Paste, Fortgeschritten = Variablen/Anpassung nötig, Experte = Prompt-Engineering-Wissen erforderlich.",
+        "en": "How complex is the prompt to use? Simple = copy-paste, Advanced = variables/customization needed, Expert = prompt engineering knowledge required."
+      },
+      "prompt": {
+        "de": "Komplexitätsstufe. Verwende EXAKT: 'Einfach', 'Fortgeschritten' oder 'Experte'.",
+        "en": "Complexity level. Use EXACT: 'Simple', 'Advanced', or 'Expert'."
+      },
+      "system": {
+        "path": "prompt:difficulty",
+        "uri": "prompt:difficulty",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/difficulty/simple",
+              "label": {
+                "de": "Einfach",
+                "en": "Simple"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/difficulty/advanced",
+              "label": {
+                "de": "Fortgeschritten",
+                "en": "Advanced"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/difficulty/expert",
+              "label": {
+                "de": "Experte",
+                "en": "Expert"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:aiModality",
+      "group": "modality",
+      "label": {
+        "de": "KI-Modalität",
+        "en": "AI Modality"
+      },
+      "description": {
+        "de": "Welche Art von KI-Modell wird angesprochen? Text-KI (LLM), Bild-KI, Audio-KI, Video-KI oder multimodal.",
+        "en": "Which type of AI model is addressed? Text AI (LLM), Image AI, Audio AI, Video AI, or multimodal."
+      },
+      "prompt": {
+        "de": "KI-Modalität. Verwende EXAKT die Labels, z.B. 'Text-KI (LLM)', 'Bild-KI', 'Multimodal'.",
+        "en": "AI modality. Use EXACT labels, e.g. 'Text AI (LLM)', 'Image AI', 'Multimodal'."
+      },
+      "system": {
+        "path": "prompt:aiModality",
+        "uri": "prompt:aiModality",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/text-llm",
+              "label": {
+                "de": "Text-KI (LLM)",
+                "en": "Text AI (LLM)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/image-gen",
+              "label": {
+                "de": "Bild-KI (Generierung)",
+                "en": "Image AI (Generation)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/image-vision",
+              "label": {
+                "de": "Bild-KI (Vision/Analyse)",
+                "en": "Image AI (Vision/Analysis)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/audio-tts",
+              "label": {
+                "de": "Audio-KI (Text-to-Speech)",
+                "en": "Audio AI (Text-to-Speech)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/audio-stt",
+              "label": {
+                "de": "Audio-KI (Speech-to-Text)",
+                "en": "Audio AI (Speech-to-Text)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/audio-music",
+              "label": {
+                "de": "Audio-KI (Musik)",
+                "en": "Audio AI (Music)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/video-gen",
+              "label": {
+                "de": "Video-KI (Generierung)",
+                "en": "Video AI (Generation)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/code",
+              "label": {
+                "de": "Code-KI",
+                "en": "Code AI"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/multimodal",
+              "label": {
+                "de": "Multimodal",
+                "en": "Multimodal"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/embedding",
+              "label": {
+                "de": "Embedding / Retrieval",
+                "en": "Embedding / Retrieval"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/modality/agent",
+              "label": {
+                "de": "KI-Agent / Tool-Use",
+                "en": "AI Agent / Tool Use"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:inputType",
+      "group": "modality",
+      "label": {
+        "de": "Eingabeformat",
+        "en": "Input Format"
+      },
+      "description": {
+        "de": "Welche Art von Eingabedaten erwartet der Prompt?",
+        "en": "What type of input data does the prompt expect?"
+      },
+      "prompt": {
+        "de": "Eingabeformat. Verwende EXAKT die Labels, z.B. 'Freitext', 'Bild-Upload', 'Strukturierte Daten'.",
+        "en": "Input format. Use EXACT labels, e.g. 'Free Text', 'Image Upload', 'Structured Data'."
+      },
+      "system": {
+        "path": "prompt:inputType",
+        "uri": "prompt:inputType",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/freetext",
+              "label": {
+                "de": "Freitext",
+                "en": "Free Text"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/structured",
+              "label": {
+                "de": "Strukturierte Daten (JSON/CSV)",
+                "en": "Structured Data (JSON/CSV)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/image",
+              "label": {
+                "de": "Bild-Upload",
+                "en": "Image Upload"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/audio",
+              "label": {
+                "de": "Audio-Upload",
+                "en": "Audio Upload"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/video",
+              "label": {
+                "de": "Video-Upload",
+                "en": "Video Upload"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/url",
+              "label": {
+                "de": "URL / Webseite",
+                "en": "URL / Website"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/document",
+              "label": {
+                "de": "Dokument (PDF/DOCX)",
+                "en": "Document (PDF/DOCX)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/code",
+              "label": {
+                "de": "Quellcode",
+                "en": "Source Code"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/input/none",
+              "label": {
+                "de": "Kein Input (nur Prompt)",
+                "en": "No Input (prompt only)"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:outputFormat",
+      "group": "modality",
+      "label": {
+        "de": "Ausgabeformat",
+        "en": "Output Format"
+      },
+      "description": {
+        "de": "In welchem Format liefert der Prompt die Ausgabe?",
+        "en": "In which format does the prompt deliver its output?"
+      },
+      "prompt": {
+        "de": "Ausgabeformat. Verwende EXAKT die Labels, z.B. 'Fließtext', 'JSON / Strukturiert', 'Bild'.",
+        "en": "Output format. Use EXACT labels, e.g. 'Prose Text', 'JSON / Structured', 'Image'."
+      },
+      "system": {
+        "path": "prompt:outputFormat",
+        "uri": "prompt:outputFormat",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/prose",
+              "label": {
+                "de": "Fließtext",
+                "en": "Prose Text"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/list",
+              "label": {
+                "de": "Liste / Aufzählung",
+                "en": "List / Enumeration"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/table",
+              "label": {
+                "de": "Tabelle",
+                "en": "Table"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/json",
+              "label": {
+                "de": "JSON / Strukturiert",
+                "en": "JSON / Structured"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/markdown",
+              "label": {
+                "de": "Markdown",
+                "en": "Markdown"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/html",
+              "label": {
+                "de": "HTML",
+                "en": "HTML"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/code",
+              "label": {
+                "de": "Quellcode",
+                "en": "Source Code"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/image",
+              "label": {
+                "de": "Bild",
+                "en": "Image"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/audio",
+              "label": {
+                "de": "Audio",
+                "en": "Audio"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/output/video",
+              "label": {
+                "de": "Video",
+                "en": "Video"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:promptLanguage",
+      "group": "modality",
+      "label": {
+        "de": "Prompt-Sprache",
+        "en": "Prompt Language"
+      },
+      "description": {
+        "de": "In welcher Sprache ist der Prompt verfasst?",
+        "en": "In which language is the prompt written?"
+      },
+      "prompt": {
+        "de": "Sprache des Prompts, z.B. 'Deutsch', 'Englisch', 'Mehrsprachig'.",
+        "en": "Language of the prompt, e.g. 'German', 'English', 'Multilingual'."
+      },
+      "system": {
+        "path": "prompt:promptLanguage",
+        "uri": "prompt:promptLanguage",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:technique",
+      "group": "technique",
+      "label": {
+        "de": "Prompt-Technik",
+        "en": "Prompt Technique"
+      },
+      "description": {
+        "de": "Welche Prompt-Engineering-Technik(en) werden eingesetzt?",
+        "en": "Which prompt engineering technique(s) are used?"
+      },
+      "prompt": {
+        "de": "Prompt-Technik. Verwende EXAKT die Labels, z.B. 'Zero-Shot', 'Few-Shot', 'Chain-of-Thought'.",
+        "en": "Prompt technique. Use EXACT labels, e.g. 'Zero-Shot', 'Few-Shot', 'Chain-of-Thought'."
+      },
+      "system": {
+        "path": "prompt:technique",
+        "uri": "prompt:technique",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/zero-shot",
+              "label": {
+                "de": "Zero-Shot",
+                "en": "Zero-Shot"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/few-shot",
+              "label": {
+                "de": "Few-Shot (mit Beispielen)",
+                "en": "Few-Shot (with examples)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/cot",
+              "label": {
+                "de": "Chain-of-Thought (CoT)",
+                "en": "Chain-of-Thought (CoT)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/role-play",
+              "label": {
+                "de": "Rollenzuweisung",
+                "en": "Role Assignment"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/persona",
+              "label": {
+                "de": "Persona-Prompt",
+                "en": "Persona Prompt"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/step-by-step",
+              "label": {
+                "de": "Schritt-für-Schritt",
+                "en": "Step-by-Step"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/tree-of-thought",
+              "label": {
+                "de": "Tree-of-Thought",
+                "en": "Tree-of-Thought"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/self-consistency",
+              "label": {
+                "de": "Self-Consistency",
+                "en": "Self-Consistency"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/react",
+              "label": {
+                "de": "ReAct (Reasoning + Acting)",
+                "en": "ReAct (Reasoning + Acting)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/rag",
+              "label": {
+                "de": "RAG (Retrieval-Augmented)",
+                "en": "RAG (Retrieval-Augmented)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/constrained",
+              "label": {
+                "de": "Constraint-basiert",
+                "en": "Constraint-based"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/template",
+              "label": {
+                "de": "Template / Lückentext",
+                "en": "Template / Fill-in"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/iterative",
+              "label": {
+                "de": "Iterativ / Multi-Turn",
+                "en": "Iterative / Multi-Turn"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/tech/meta-prompt",
+              "label": {
+                "de": "Meta-Prompt",
+                "en": "Meta-Prompt"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:promptType",
+      "group": "technique",
+      "label": {
+        "de": "Prompt-Kategorie",
+        "en": "Prompt Category"
+      },
+      "description": {
+        "de": "Grundlegende Kategorie des Prompts nach Art der KI-Interaktion.",
+        "en": "Fundamental category of the prompt by type of AI interaction."
+      },
+      "prompt": {
+        "de": "Prompt-Kategorie. Verwende EXAKT: 'Generativ', 'Analytisch', 'Transformativ', 'Interaktiv' oder 'Agentisch'.",
+        "en": "Prompt category. Use EXACT: 'Generative', 'Analytical', 'Transformative', 'Interactive', or 'Agentic'."
+      },
+      "system": {
+        "path": "prompt:promptType",
+        "uri": "prompt:promptType",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/type/generative",
+              "label": {
+                "de": "Generativ",
+                "en": "Generative"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/type/analytical",
+              "label": {
+                "de": "Analytisch",
+                "en": "Analytical"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/type/transformative",
+              "label": {
+                "de": "Transformativ",
+                "en": "Transformative"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/type/interactive",
+              "label": {
+                "de": "Interaktiv",
+                "en": "Interactive"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/type/agentic",
+              "label": {
+                "de": "Agentisch",
+                "en": "Agentic"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:testedModels",
+      "group": "technical",
+      "label": {
+        "de": "Getestete KI-Modelle",
+        "en": "Tested AI Models"
+      },
+      "description": {
+        "de": "Mit welchen konkreten KI-Modellen wurde der Prompt erfolgreich getestet?",
+        "en": "Which specific AI models was the prompt successfully tested with?"
+      },
+      "prompt": {
+        "de": "Getestete Modelle, z.B. 'GPT-4o', 'Claude 3.5 Sonnet', 'DALL-E 3', 'Stable Diffusion XL', 'Gemini 2.0 Flash'.",
+        "en": "Tested models, e.g. 'GPT-4o', 'Claude 3.5 Sonnet', 'DALL-E 3', 'Stable Diffusion XL', 'Gemini 2.0 Flash'."
+      },
+      "system": {
+        "path": "prompt:testedModels",
+        "uri": "prompt:testedModels",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:recommendedModels",
+      "group": "technical",
+      "label": {
+        "de": "Empfohlene Modelle",
+        "en": "Recommended Models"
+      },
+      "description": {
+        "de": "Welche Modelle werden für optimale Ergebnisse empfohlen?",
+        "en": "Which models are recommended for optimal results?"
+      },
+      "prompt": {
+        "de": "Empfohlene Modelle, z.B. 'GPT-4o oder besser', 'Midjourney v6', 'Jedes LLM mit >70B Parametern'.",
+        "en": "Recommended models, e.g. 'GPT-4o or better', 'Midjourney v6', 'Any LLM with >70B parameters'."
+      },
+      "system": {
+        "path": "prompt:recommendedModels",
+        "uri": "prompt:recommendedModels",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:temperature",
+      "group": "technical",
+      "label": {
+        "de": "Temperature",
+        "en": "Temperature"
+      },
+      "description": {
+        "de": "Empfohlener Kreativitätsparameter (0–2). Niedrig = deterministisch/faktentreu, hoch = kreativ/variabel.",
+        "en": "Recommended creativity parameter (0–2). Low = deterministic/factual, high = creative/variable."
+      },
+      "prompt": {
+        "de": "Empfohlene Temperature (0–2), z.B. 0.0 (exakt), 0.7 (ausgewogen), 1.5 (kreativ).",
+        "en": "Recommended temperature (0–2), e.g. 0.0 (exact), 0.7 (balanced), 1.5 (creative)."
+      },
+      "system": {
+        "path": "prompt:temperature",
+        "uri": "prompt:temperature",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "min": 0,
+          "max": 2
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:maxTokens",
+      "group": "technical",
+      "label": {
+        "de": "Max. Tokens",
+        "en": "Max Tokens"
+      },
+      "description": {
+        "de": "Empfohlene maximale Token-Anzahl für die Ausgabe.",
+        "en": "Recommended maximum token count for output."
+      },
+      "prompt": {
+        "de": "Empfohlene max. Token-Anzahl, z.B. 256, 1024, 4096.",
+        "en": "Recommended max token count, e.g. 256, 1024, 4096."
+      },
+      "system": {
+        "path": "prompt:maxTokens",
+        "uri": "prompt:maxTokens",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 1
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:topP",
+      "group": "technical",
+      "label": {
+        "de": "Top-P",
+        "en": "Top-P"
+      },
+      "description": {
+        "de": "Nucleus-Sampling-Parameter (0–1). Steuert die Vielfalt der generierten Tokens.",
+        "en": "Nucleus sampling parameter (0–1). Controls diversity of generated tokens."
+      },
+      "prompt": {
+        "de": "Empfohlener Top-P-Wert (0–1), z.B. 0.9, 0.95, 1.0.",
+        "en": "Recommended Top-P value (0–1), e.g. 0.9, 0.95, 1.0."
+      },
+      "system": {
+        "path": "prompt:topP",
+        "uri": "prompt:topP",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "min": 0,
+          "max": 1
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:imageStyle",
+      "group": "image_params",
+      "label": {
+        "de": "Bildstil",
+        "en": "Image Style"
+      },
+      "description": {
+        "de": "Visueller Stil für Bild-KI-Prompts.",
+        "en": "Visual style for image AI prompts."
+      },
+      "prompt": {
+        "de": "Bildstil. Verwende EXAKT die Labels, z.B. 'Fotorealistisch', 'Illustration', 'Pixel Art'.",
+        "en": "Image style. Use EXACT labels, e.g. 'Photorealistic', 'Illustration', 'Pixel Art'."
+      },
+      "system": {
+        "path": "prompt:imageStyle",
+        "uri": "prompt:imageStyle",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/photorealistic",
+              "label": {
+                "de": "Fotorealistisch",
+                "en": "Photorealistic"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/illustration",
+              "label": {
+                "de": "Illustration / Zeichnung",
+                "en": "Illustration / Drawing"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/cartoon",
+              "label": {
+                "de": "Cartoon / Comic",
+                "en": "Cartoon / Comic"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/watercolor",
+              "label": {
+                "de": "Aquarell",
+                "en": "Watercolor"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/oil-painting",
+              "label": {
+                "de": "Ölgemälde",
+                "en": "Oil Painting"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/digital-art",
+              "label": {
+                "de": "Digital Art",
+                "en": "Digital Art"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/3d-render",
+              "label": {
+                "de": "3D-Rendering",
+                "en": "3D Rendering"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/pixel-art",
+              "label": {
+                "de": "Pixel Art",
+                "en": "Pixel Art"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/minimalist",
+              "label": {
+                "de": "Minimalistisch",
+                "en": "Minimalist"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/infographic",
+              "label": {
+                "de": "Infografik",
+                "en": "Infographic"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/diagram",
+              "label": {
+                "de": "Diagramm / Schema",
+                "en": "Diagram / Schema"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/collage",
+              "label": {
+                "de": "Collage",
+                "en": "Collage"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/abstract",
+              "label": {
+                "de": "Abstrakt",
+                "en": "Abstract"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/style/isometric",
+              "label": {
+                "de": "Isometrisch",
+                "en": "Isometric"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:aspectRatio",
+      "group": "image_params",
+      "label": {
+        "de": "Seitenverhältnis",
+        "en": "Aspect Ratio"
+      },
+      "description": {
+        "de": "Gewünschtes Seitenverhältnis für generierte Bilder.",
+        "en": "Desired aspect ratio for generated images."
+      },
+      "prompt": {
+        "de": "Seitenverhältnis, z.B. '1:1', '16:9', '4:3', '9:16'.",
+        "en": "Aspect ratio, e.g. '1:1', '16:9', '4:3', '9:16'."
+      },
+      "system": {
+        "path": "prompt:aspectRatio",
+        "uri": "prompt:aspectRatio",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/ratio/1-1",
+              "label": {
+                "de": "1:1 (Quadrat)",
+                "en": "1:1 (Square)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/ratio/16-9",
+              "label": {
+                "de": "16:9 (Breitbild)",
+                "en": "16:9 (Widescreen)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/ratio/9-16",
+              "label": {
+                "de": "9:16 (Hochformat/Story)",
+                "en": "9:16 (Portrait/Story)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/ratio/4-3",
+              "label": {
+                "de": "4:3 (Standard)",
+                "en": "4:3 (Standard)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/ratio/3-2",
+              "label": {
+                "de": "3:2 (Foto)",
+                "en": "3:2 (Photo)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/ratio/21-9",
+              "label": {
+                "de": "21:9 (Ultrawide)",
+                "en": "21:9 (Ultrawide)"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:cfgScale",
+      "group": "image_params",
+      "label": {
+        "de": "CFG Scale / Guidance",
+        "en": "CFG Scale / Guidance"
+      },
+      "description": {
+        "de": "Wie streng soll sich das Bild-Modell an den Prompt halten? Niedrig = kreativ, hoch = prompttreu.",
+        "en": "How strictly should the image model follow the prompt? Low = creative, high = prompt-faithful."
+      },
+      "prompt": {
+        "de": "CFG Scale / Guidance (1–30), z.B. 7 (Standard), 12 (detailtreu), 3 (kreativ).",
+        "en": "CFG Scale / Guidance (1–30), e.g. 7 (standard), 12 (detail-faithful), 3 (creative)."
+      },
+      "system": {
+        "path": "prompt:cfgScale",
+        "uri": "prompt:cfgScale",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "min": 1,
+          "max": 30
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:samplingSteps",
+      "group": "image_params",
+      "label": {
+        "de": "Sampling-Schritte",
+        "en": "Sampling Steps"
+      },
+      "description": {
+        "de": "Anzahl der Diffusions-Schritte bei Bild-Generierung. Mehr = detaillierter aber langsamer.",
+        "en": "Number of diffusion steps for image generation. More = more detailed but slower."
+      },
+      "prompt": {
+        "de": "Sampling-Schritte, z.B. 20, 30, 50.",
+        "en": "Sampling steps, e.g. 20, 30, 50."
+      },
+      "system": {
+        "path": "prompt:samplingSteps",
+        "uri": "prompt:samplingSteps",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "integer": true,
+          "min": 1,
+          "max": 150
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:qualityRating",
+      "group": "quality",
+      "label": {
+        "de": "Qualitätsbewertung",
+        "en": "Quality Rating"
+      },
+      "description": {
+        "de": "Redaktionelle Bewertung der Prompt-Qualität (1–5 Sterne).",
+        "en": "Editorial rating of prompt quality (1–5 stars)."
+      },
+      "prompt": {
+        "de": "Qualitätsbewertung (1–5), z.B. 5 = exzellent, 3 = durchschnittlich, 1 = mangelhaft.",
+        "en": "Quality rating (1–5), e.g. 5 = excellent, 3 = average, 1 = poor."
+      },
+      "system": {
+        "path": "prompt:qualityRating",
+        "uri": "prompt:qualityRating",
+        "datatype": "number",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "validation": {
+          "integer": true,
+          "min": 1,
+          "max": 5
+        },
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:legalCheck",
+      "group": "quality",
+      "label": {
+        "de": "Rechtliche Prüfung",
+        "en": "Legal Review"
+      },
+      "description": {
+        "de": "Status der rechtlichen Überprüfung (Urheberrecht, Datenschutz, Jugendschutz).",
+        "en": "Status of legal review (copyright, data protection, youth protection)."
+      },
+      "prompt": {
+        "de": "Rechtliche Prüfung. Verwende EXAKT: 'Geprüft – Unbedenklich', 'Geprüft – Einschränkungen', 'Nicht geprüft' oder 'Bedenklich'.",
+        "en": "Legal review. Use EXACT: 'Reviewed – OK', 'Reviewed – Restrictions', 'Not Reviewed', or 'Problematic'."
+      },
+      "system": {
+        "path": "prompt:legalCheck",
+        "uri": "prompt:legalCheck",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": false,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/legal/ok",
+              "label": {
+                "de": "Geprüft – Unbedenklich",
+                "en": "Reviewed – OK"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/legal/restrictions",
+              "label": {
+                "de": "Geprüft – Einschränkungen",
+                "en": "Reviewed – Restrictions"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/legal/unchecked",
+              "label": {
+                "de": "Nicht geprüft",
+                "en": "Not Reviewed"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/prompt/legal/problematic",
+              "label": {
+                "de": "Bedenklich",
+                "en": "Problematic"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:version",
+      "group": "quality",
+      "label": {
+        "de": "Prompt-Version",
+        "en": "Prompt Version"
+      },
+      "description": {
+        "de": "Versionsnummer des Prompts (z.B. für iterative Verbesserungen).",
+        "en": "Version number of the prompt (e.g. for iterative improvements)."
+      },
+      "prompt": {
+        "de": "Version des Prompts, z.B. '1.0', '2.3', 'v3-beta'.",
+        "en": "Prompt version, e.g. '1.0', '2.3', 'v3-beta'."
+      },
+      "system": {
+        "path": "prompt:version",
+        "uri": "prompt:version",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:license",
+      "group": "usage",
+      "label": {
+        "de": "Lizenz",
+        "en": "License"
+      },
+      "description": {
+        "de": "Lizenz, unter der der Prompt veröffentlicht ist.",
+        "en": "License under which the prompt is published."
+      },
+      "prompt": {
+        "de": "Lizenz, z.B. 'CC BY 4.0', 'CC BY-SA 4.0', 'CC0', 'MIT'.",
+        "en": "License, e.g. 'CC BY 4.0', 'CC BY-SA 4.0', 'CC0', 'MIT'."
+      },
+      "system": {
+        "path": "schema:license",
+        "uri": "https://schema.org/license",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:creator",
+      "group": "usage",
+      "label": {
+        "de": "Ersteller:in",
+        "en": "Creator"
+      },
+      "description": {
+        "de": "Person oder Organisation, die den Prompt erstellt hat.",
+        "en": "Person or organization that created the prompt."
+      },
+      "prompt": {
+        "de": "Ersteller:in, z.B. 'Max Mustermann', 'Fachredaktion MINT', 'KI-Werkstatt'.",
+        "en": "Creator, e.g. 'Jane Doe', 'STEM Editorial Team', 'AI Workshop'."
+      },
+      "system": {
+        "path": "schema:creator",
+        "uri": "https://schema.org/creator",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "schema:dateCreated",
+      "group": "usage",
+      "label": {
+        "de": "Erstelldatum",
+        "en": "Date Created"
+      },
+      "description": {
+        "de": "Wann wurde der Prompt erstellt? (YYYY-MM-DD)",
+        "en": "When was the prompt created? (YYYY-MM-DD)"
+      },
+      "prompt": {
+        "de": "Erstelldatum im Format YYYY-MM-DD, z.B. '2026-01-15'.",
+        "en": "Creation date in YYYY-MM-DD format, e.g. '2026-01-15'."
+      },
+      "system": {
+        "path": "schema:dateCreated",
+        "uri": "https://schema.org/dateCreated",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "regex": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:isPartOfCollection",
+      "group": "relations",
+      "label": {
+        "de": "Teil von Sammlung",
+        "en": "Part of Collection"
+      },
+      "description": {
+        "de": "Gehört zu einem größeren Prompt-Katalog, Dataset oder einer Sammlung.",
+        "en": "Belongs to a larger prompt catalog, dataset, or collection."
+      },
+      "prompt": {
+        "de": "Name der Sammlung, z.B. 'OER Prompt-Sammlung', 'MINT-Prompts 2026', 'Didaktik-Toolkit'.",
+        "en": "Collection name, e.g. 'OER Prompt Collection', 'STEM Prompts 2026', 'Didactics Toolkit'."
+      },
+      "system": {
+        "path": "prompt:isPartOfCollection",
+        "uri": "https://schema.org/isPartOf",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:relatedPrompts",
+      "group": "relations",
+      "label": {
+        "de": "Verwandte Prompts",
+        "en": "Related Prompts"
+      },
+      "description": {
+        "de": "Links oder Titel von verwandten Prompts, die ergänzend genutzt werden können.",
+        "en": "Links or titles of related prompts that can be used complementarily."
+      },
+      "prompt": {
+        "de": "Verwandte Prompts (Titel oder URLs).",
+        "en": "Related prompts (titles or URLs)."
+      },
+      "system": {
+        "path": "prompt:relatedPrompts",
+        "uri": "prompt:relatedPrompts",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "prompt:tags",
+      "group": "relations",
+      "label": {
+        "de": "Schlagwörter",
+        "en": "Tags"
+      },
+      "description": {
+        "de": "Freie Schlagwörter zur besseren Auffindbarkeit.",
+        "en": "Free tags for better discoverability."
+      },
+      "prompt": {
+        "de": "Schlagwörter, z.B. 'Mathematik', 'Grundschule', 'Bildgenerierung', 'OER'.",
+        "en": "Tags, e.g. 'Mathematics', 'Primary School', 'Image Generation', 'OER'."
+      },
+      "system": {
+        "path": "prompt:tags",
+        "uri": "prompt:tags",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    }
+  ],
+  "output_template": {
+    "prompt:text": "",
+    "prompt:systemPrompt": "",
+    "prompt:negativePrompt": "",
+    "prompt:variables": [],
+    "prompt:exampleOutput": "",
+    "prompt:useCase": [],
+    "prompt:targetAudience": [],
+    "prompt:difficulty": "",
+    "prompt:aiModality": [],
+    "prompt:inputType": [],
+    "prompt:outputFormat": [],
+    "prompt:promptLanguage": [],
+    "prompt:technique": [],
+    "prompt:promptType": "",
+    "prompt:testedModels": [],
+    "prompt:recommendedModels": [],
+    "prompt:temperature": null,
+    "prompt:maxTokens": null,
+    "prompt:topP": null,
+    "prompt:imageStyle": [],
+    "prompt:aspectRatio": "",
+    "prompt:cfgScale": null,
+    "prompt:samplingSteps": null,
+    "prompt:qualityRating": null,
+    "prompt:legalCheck": "",
+    "prompt:version": "",
+    "schema:license": "",
+    "schema:creator": "",
+    "schema:dateCreated": "",
+    "prompt:isPartOfCollection": "",
+    "prompt:relatedPrompts": [],
+    "prompt:tags": []
+  }
+}

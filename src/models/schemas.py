@@ -25,6 +25,13 @@ class ExtractionMethod(str, Enum):
     BROWSER = "browser"
 
 
+class OutputFormat(str, Enum):
+    """Output format for text extraction."""
+    MARKDOWN = "markdown"
+    TXT = "txt"
+    HTML = "html"
+
+
 def sanitize_text(text: str) -> str:
     """
     Sanitize text input by normalizing control characters.
@@ -78,8 +85,12 @@ class GenerateRequest(BaseModel):
         description="URL to fetch text from via text extraction API. Required when input_source='url' or 'node_url'."
     )
     extraction_method: ExtractionMethod = Field(
-        default=ExtractionMethod.SIMPLE,
-        description="Text extraction method: 'simple' (fast, basic HTML parsing) or 'browser' (full browser rendering, slower)"
+        default=ExtractionMethod.BROWSER,
+        description="Text extraction method: 'simple' (fast, basic HTML parsing) or 'browser' (full browser rendering, slower but more complete)"
+    )
+    output_format: OutputFormat = Field(
+        default=OutputFormat.MARKDOWN,
+        description="Output format for text extraction: 'markdown' (default), 'txt' (plain text), 'html' (raw HTML)"
     )
     
     # NodeID input (required for input_source='node_id' or 'node_url')
@@ -103,7 +114,7 @@ class GenerateRequest(BaseModel):
     )
     version: str = Field(
         default="latest",
-        description="Schema version to use ('latest' for newest version, or specific like '1.8.0')"
+        description="Schema version to use ('latest' for newest version, or specific like '1.8.1')"
     )
     schema_file: str = Field(
         default="auto",
@@ -331,7 +342,7 @@ class ExportMarkdownRequest(BaseModel):
                 {
                     "metadata": {
                         "contextName": "default",
-                        "schemaVersion": "1.8.0",
+                        "schemaVersion": "1.8.1",
                         "metadataset": "event.json",
                         "language": "de",
                         "cclom:title": "Workshop KI in der Bildung",
@@ -434,13 +445,17 @@ class UploadRequest(BaseModel):
         default=True,
         description="Start review workflow after upload"
     )
+    source: Optional[str] = Field(
+        default=None,
+        description="Bezugsquelle / Publisher-Name. Wenn angegeben, wird ccm:oeh_publisher_combined mit diesem Wert überschrieben."
+    )
     
     model_config = {
         "json_schema_extra": {
             "examples": [{
                 "metadata": {
                     "contextName": "default",
-                    "schemaVersion": "1.8.0",
+                    "schemaVersion": "1.8.1",
                     "metadataset": "event.json",
                     "cclom:title": "Example Event",
                     "cclom:general_description": "Description...",
@@ -448,7 +463,8 @@ class UploadRequest(BaseModel):
                 },
                 "repository": "staging",
                 "check_duplicates": True,
-                "start_workflow": True
+                "start_workflow": True,
+                "source": "Klexikon"
             }]
         }
     }
@@ -463,6 +479,13 @@ class UploadedNodeInfo(BaseModel):
     repositoryUrl: Optional[str] = None
 
 
+class FieldUploadError(BaseModel):
+    """Error info for a single field that failed during upload."""
+    field_id: str
+    error: str
+    status_code: Optional[int] = None
+
+
 class UploadResponse(BaseModel):
     """Response from repository upload."""
     success: bool
@@ -471,6 +494,62 @@ class UploadResponse(BaseModel):
     node: Optional[UploadedNodeInfo] = None
     error: Optional[str] = None
     step: Optional[str] = None
+    fields_written: Optional[int] = None
+    fields_skipped: Optional[int] = None
+    field_errors: Optional[list[FieldUploadError]] = None
+
+
+class FieldDiff(BaseModel):
+    """Diff info for a single metadata field."""
+    field_id: str
+    status: str  # "match", "mismatch", "missing_in_repo", "extra_in_repo", "not_written"
+    expected: Optional[Any] = None
+    actual: Optional[Any] = None
+
+
+class VerifyRequest(BaseModel):
+    """Request for verifying uploaded metadata against repository."""
+    expected_metadata: Optional[dict[str, Any]] = Field(
+        default=None,
+        description="Expected metadata (e.g. output from /generate). If provided, a SOLL/IST diff is computed."
+    )
+    repository: str = Field(
+        default="staging",
+        description="Repository: 'staging' or 'prod'"
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
+                "expected_metadata": {
+                    "cclom:title": "Example Event",
+                    "cclom:general_description": "Description...",
+                    "ccm:wwwurl": "https://example.com/event",
+                    "ccm:taxonid": "http://w3id.org/openeduhub/vocabs/discipline/12002"
+                },
+                "repository": "staging"
+            }]
+        }
+    }
+
+
+class VerifyResponse(BaseModel):
+    """Response from upload verification."""
+    success: bool
+    node_id: str
+    repository: str
+    actual_metadata: dict[str, Any] = Field(
+        description="Flat metadata as read from the repository"
+    )
+    diff: Optional[list[FieldDiff]] = Field(
+        default=None,
+        description="Field-level diff (only when expected_metadata is provided)"
+    )
+    summary: Optional[dict[str, int]] = Field(
+        default=None,
+        description="Diff summary: match, mismatch, missing_in_repo, extra_in_repo, not_written counts"
+    )
+    error: Optional[str] = None
 
 
 class DetectContentTypeRequest(BaseModel):
@@ -494,8 +573,12 @@ class DetectContentTypeRequest(BaseModel):
         description="URL to fetch text from via text extraction API. Required when input_source='url' or 'node_url'."
     )
     extraction_method: ExtractionMethod = Field(
-        default=ExtractionMethod.SIMPLE,
-        description="Text extraction method: 'simple' (fast, basic HTML parsing) or 'browser' (full browser rendering, slower)"
+        default=ExtractionMethod.BROWSER,
+        description="Text extraction method: 'simple' (fast, basic HTML parsing) or 'browser' (full browser rendering, slower but more complete)"
+    )
+    output_format: OutputFormat = Field(
+        default=OutputFormat.MARKDOWN,
+        description="Output format for text extraction: 'markdown' (default), 'txt' (plain text), 'html' (raw HTML)"
     )
     
     # NodeID input (required for input_source='node_id' or 'node_url')
@@ -538,7 +621,7 @@ class DetectContentTypeRequest(BaseModel):
                     "input_source": "text",
                     "text": "Workshop 'KI in der Bildung' am 15. März 2025 in Berlin.",
                     "source_url": "",
-                    "extraction_method": "simple",
+                    "extraction_method": "browser",
                     "node_id": "",
                     "repository": "staging",
                     "context": "default",
@@ -590,8 +673,12 @@ class ExtractFieldRequest(BaseModel):
         description="URL to fetch text from via text extraction API. Required when input_source='url' or 'node_url'."
     )
     extraction_method: ExtractionMethod = Field(
-        default=ExtractionMethod.SIMPLE,
-        description="Text extraction method: 'simple' (fast, basic HTML parsing) or 'browser' (full browser rendering, slower)"
+        default=ExtractionMethod.BROWSER,
+        description="Text extraction method: 'simple' (fast, basic HTML parsing) or 'browser' (full browser rendering, slower but more complete)"
+    )
+    output_format: OutputFormat = Field(
+        default=OutputFormat.MARKDOWN,
+        description="Output format for text extraction: 'markdown' (default), 'txt' (plain text), 'html' (raw HTML)"
     )
     
     # NodeID input (required for input_source='node_id' or 'node_url')

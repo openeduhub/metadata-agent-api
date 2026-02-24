@@ -1,6 +1,6 @@
 {
   "profileId": "core:descriptive",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "@context": {
     "schema": "https://schema.org/",
     "cclom": "https://example.org/cclom/",
@@ -9,52 +9,35 @@
   },
   "groups": [
     {
-      "id": "basic",
-      "label": {
-        "de": "Basis",
-        "en": "Basics"
-      }
-    },
-    {
       "id": "description",
+      "icon": "description",
       "label": {
         "de": "Beschreibung",
         "en": "Description"
       }
     },
     {
-      "id": "publication",
+      "id": "typification",
+      "icon": "category",
       "label": {
-        "de": "Publikation",
-        "en": "Publication"
-      }
-    },
-    {
-      "id": "license",
-      "label": {
-        "de": "Lizenz",
-        "en": "License"
-      }
-    },
-    {
-      "id": "classification",
-      "label": {
-        "de": "Klassifikation",
-        "en": "Classification"
-      }
-    },
-    {
-      "id": "audience",
-      "label": {
-        "de": "Zielgruppe",
-        "en": "Audience"
+        "de": "Typisierung",
+        "en": "Typification"
       }
     },
     {
       "id": "education",
+      "icon": "school",
       "label": {
-        "de": "Bildungskontext",
-        "en": "Educational Context"
+        "de": "Pädagogisch/Didaktisch",
+        "en": "Educational"
+      }
+    },
+    {
+      "id": "license",
+      "icon": "gavel",
+      "label": {
+        "de": "Lizenz, Quelle, Mitwirkende",
+        "en": "License"
       }
     }
   ],
@@ -67,8 +50,8 @@
         "en": "Title"
       },
       "description": {
-        "de": "Aussagekräftiger, eigenständiger Titel der Ressource.",
-        "en": "Concise, self-contained title of the resource."
+        "de": "Titel der Ressource",
+        "en": "Title of the resource"
       },
       "examples": {
         "de": [
@@ -79,8 +62,8 @@
         ]
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "GENERIERE einen aussagekräftigen, eigenständigen Titel, der den Inhalt prägnant zusammenfasst. Der Titel muss ohne zusätzlichen Kontext verständlich sein. Verwende NICHT den Namen der Website oder Plattform. Vermeide generische Floskeln wie 'Überblick über…' oder 'Informationen zu…'. Maximal 80 Zeichen. Beispiele: 'Künstliche Intelligenz in der Hochschullehre', 'Photosynthese – Ablauf und Bedeutung für Ökosysteme', 'Demokratie im antiken Griechenland'.",
+        "en": "GENERATE a concise, self-contained title summarizing the resource content. The title must be understandable without additional context. Do NOT use the website or platform name. Avoid generic phrases like 'Overview of…' or 'Information about…'. Maximum 80 characters. Examples: 'Artificial Intelligence in Higher Education', 'Photosynthesis – Process and Significance', 'Democracy in Ancient Greece'."
       },
       "system": {
         "path": "cclom:title",
@@ -109,12 +92,12 @@
         "en": "Description Text"
       },
       "description": {
-        "de": "Kurzbeschreibung oder Abstract der Ressource.",
-        "en": "Short description or abstract of the resource."
+        "de": "Kurzbeschreibung / Abstract",
+        "en": "Short description / abstract"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "GENERIERE eine informative Zusammenfassung in 2–4 Sätzen (mind. 40 Zeichen). Beschreibe den zentralen Inhalt, das Ziel und ggf. die Zielgruppe. Schreibe sachlich in dritter Person – keine Ich-Form, keine Anrede. Vermeide Wiederholungen des Titels. Beispiele: 'Das Arbeitsblatt vermittelt Grundlagen der Bruchrechnung für die Klassen 5–6. Anhand von Alltagsbeispielen üben Lernende das Kürzen und Erweitern von Brüchen.', 'Der Fachartikel analysiert den Einfluss von KI-Werkzeugen auf die Hochschuldidaktik und zeigt Chancen und Risiken anhand aktueller Studien auf.'",
+        "en": "GENERATE an informative summary in 2–4 sentences (min. 40 characters). Describe the core content, purpose, and target audience. Write objectively in third person – no first person, no direct address. Avoid repeating the title. Examples: 'This worksheet teaches fraction basics for grades 5–6. Learners practice simplifying and expanding fractions using real-world examples.', 'The article analyzes the impact of AI tools on higher education pedagogy, presenting opportunities and risks based on current studies.'"
       },
       "system": {
         "path": "cclom:general_description",
@@ -139,14 +122,14 @@
     },
     {
       "id": "cclom:general_keyword",
-      "group": "description",
+      "group": "typification",
       "label": {
         "de": "Schlagwörter",
         "en": "Keywords"
       },
       "description": {
-        "de": "Schlagwörter oder Themen (kommagetrennt oder als Liste).",
-        "en": "Keywords or topics (comma-separated or as a list)."
+        "de": "Schlagwörter (kommagetrennt)",
+        "en": "Keywords (comma-separated)"
       },
       "examples": {
         "de": [
@@ -165,8 +148,8 @@
         ]
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Extrahiere 3–8 fachlich relevante Schlagwörter, die den Inhalt treffend beschreiben. Verwende etablierte Fachbegriffe, keine ganzen Sätze. Jedes Schlagwort soll eigenständig suchbar sein. Vermeide zu allgemeine Begriffe wie 'Bildung' oder 'Lernen', wenn spezifischere passen. Gib ein JSON-Array zurück. Beispiele: ['Bruchrechnung', 'Mathematik', 'Klasse 5', 'Arbeitsblatt'], ['Künstliche Intelligenz', 'Hochschuldidaktik', 'Prompt Engineering', 'ChatGPT'], ['Photosynthese', 'Biologie', 'Chloroplasten', 'Lichtreaktion'].",
+        "en": "Extract 3–8 subject-relevant keywords accurately describing the content. Use established technical terms, not full sentences. Each keyword should be independently searchable. Avoid overly generic terms like 'education' when more specific ones apply. Return a JSON array. Examples: ['Fractions', 'Mathematics', 'Grade 5', 'Worksheet'], ['Artificial Intelligence', 'Higher Education', 'Prompt Engineering', 'ChatGPT'], ['Photosynthesis', 'Biology', 'Chloroplasts', 'Light Reaction']."
       },
       "system": {
         "path": "cclom:general_keyword",
@@ -189,14 +172,14 @@
     },
     {
       "id": "ccm:wwwurl",
-      "group": "publication",
+      "group": "description",
       "label": {
         "de": "Web-URL",
         "en": "Web URL"
       },
       "description": {
-        "de": "Öffentliche URL, unter der die Ressource erreichbar ist.",
-        "en": "Public URL where the resource can be accessed."
+        "de": "URL der Ressource",
+        "en": "URL of the resource"
       },
       "examples": {
         "de": [
@@ -207,8 +190,8 @@
         ]
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Extrahiere die primäre, öffentlich erreichbare URL der Ressource. Verwende die kanonische URL ohne Tracking-Parameter oder Session-IDs. Muss mit http:// oder https:// beginnen. Bei mehreren URLs die Haupt-URL wählen, nicht Unterseiten-Links. Beispiele: 'https://www.goethe.de/prj/klb/de/home.html', 'https://mint-zirkel.de/2024/01/photosynthese/', 'https://www.bpb.de/kurz-knapp/lexika/das-junge-politik-lexikon/320468/demokratie/'.",
+        "en": "Extract the primary, publicly accessible URL of the resource. Use the canonical URL without tracking parameters or session IDs. Must start with http:// or https://. If multiple URLs exist, choose the main resource URL, not sub-page links. Examples: 'https://www.goethe.de/prj/klb/en/home.html', 'https://mint-zirkel.de/2024/01/photosynthesis/', 'https://www.bpb.de/kurz-knapp/lexika/320468/democracy/'."
       },
       "system": {
         "path": "ccm:wwwurl",
@@ -232,14 +215,14 @@
     },
     {
       "id": "preview:url",
-      "group": "publication",
+      "group": "description",
       "label": {
         "de": "URL des Vorschaubildes",
         "en": "Preview Image URL"
       },
       "description": {
-        "de": "Direkter Link zu einem Vorschaubild/Thumbnail.",
-        "en": "Direct link to a preview image/thumbnail."
+        "de": "Link zum Vorschaubild",
+        "en": "Preview image link"
       },
       "examples": {
         "de": [
@@ -250,8 +233,8 @@
         ]
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Extrahiere die URL eines repräsentativen Vorschaubilds (Thumbnail, Open-Graph-Image, Hero-Image). Suche nach og:image, twitter:image oder prominent eingebundenen Bildern. Nur direkte Bild-URLs mit Endung .jpg, .jpeg, .png oder .webp. Keine Platzhalter, Icons oder SVGs. Beispiele: 'https://example.com/images/og-preview.jpg', 'https://cdn.portal.de/media/header-photo.png'.",
+        "en": "Extract the URL of a representative preview image (thumbnail, Open Graph image, hero image). Look for og:image, twitter:image, or prominently embedded images. Only direct image URLs ending in .jpg, .jpeg, .png, or .webp. No placeholders, icons, or SVGs. Examples: 'https://example.com/images/og-preview.jpg', 'https://cdn.portal.de/media/header-photo.png'."
       },
       "system": {
         "path": "preview:url",
@@ -275,18 +258,18 @@
     },
     {
       "id": "cm:author",
-      "group": "publication",
+      "group": "license",
       "label": {
         "de": "Autor:in / Urheber:in",
         "en": "Author / Creator"
       },
       "description": {
-        "de": "Person(en) oder Organisation(en), die den Inhalt erstellt haben.",
-        "en": "Person(s) or organization(s) who created the content."
+        "de": "Autor:innen (kommagetrennt)",
+        "en": "Author(s) (comma-separated)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Extrahiere namentlich genannte Autor:innen oder Urheber:innen. Format: 'Vorname Nachname'. Bei Organisationen den vollständigen Namen. Nur explizit im Text genannte Personen – keine Herausgeber, Plattformbetreiber oder Redaktionen. Gib ein JSON-Array zurück. Beispiele: ['Prof. Dr. Maria Schmidt'], ['Max Mustermann', 'Erika Musterfrau'], ['Landesinstitut für Schulentwicklung'].",
+        "en": "Extract explicitly named author(s) or creator(s). Format: 'First Last'. For organizations, use full name. Only persons explicitly named in the text – no editors, platform operators, or editorial teams. Return a JSON array. Examples: ['Prof. Dr. Maria Schmidt'], ['John Doe', 'Jane Smith'], ['National Institute for School Development']."
       },
       "system": {
         "path": "cm:author",
@@ -308,18 +291,18 @@
     },
     {
       "id": "ccm:oeh_publisher_combined",
-      "group": "publication",
+      "group": "license",
       "label": {
         "de": "Publisher / Herausgeber",
         "en": "Publisher"
       },
       "description": {
-        "de": "Organisation oder Person, die den Inhalt veröffentlicht hat.",
-        "en": "Organization or person who published the content."
+        "de": "Verlag oder Herausgeber",
+        "en": "Publisher"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Extrahiere den Verlag, die Plattform oder die herausgebende Organisation – nicht den/die Autor:in. Suche nach Impressum, Copyright-Hinweisen, Domainnamen oder Logos. Gib nur EINEN Namen als String zurück. Beispiele: 'Bundeszentrale für politische Bildung', 'Cornelsen Verlag', 'Serlo Education e.V.'.",
+        "en": "Extract the publisher, platform, or publishing organization – not the author. Look for imprint, copyright notices, domain names, or logos. Return only ONE name as string. Examples: 'Federal Agency for Civic Education', 'Oxford University Press', 'Khan Academy'."
       },
       "system": {
         "path": "ccm:oeh_publisher_combined",
@@ -346,12 +329,12 @@
         "en": "Custom License"
       },
       "description": {
-        "de": "Freitext oder Link zu einer individuellen Lizenzbeschreibung.",
-        "en": "Free text or link to a custom license description."
+        "de": "Individuelle Lizenzangabe",
+        "en": "Custom license text"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Extrahiere individuelle Lizenzbedingungen, die NICHT zu einer Standard-CC-Lizenz passen. Das können Copyright-Vermerke, Nutzungshinweise oder Links zu eigenen Lizenztexten sein. NUR befüllen, wenn keine passende CC-Lizenz zutrifft. Beispiele: '© 2024 Universität München – nur für Bildungszwecke', 'Frei nutzbar für nicht-kommerzielle Lehre', 'https://example.com/nutzungsbedingungen'.",
+        "en": "Extract individual license terms that do NOT match a standard CC license. This can include copyright statements, usage notices, or links to custom license texts. Only populate if no standard CC license applies. Examples: '© 2024 University of Munich – educational use only', 'Free for non-commercial teaching', 'https://example.com/terms-of-use'."
       },
       "system": {
         "path": "ccm:custom_license",
@@ -378,12 +361,12 @@
         "en": "License Type (CC)"
       },
       "description": {
-        "de": "Creative-Commons-Lizenztyp (ohne Versionsnummer). Verwende ausschließlich die aufgeführten Lizenzkürzel in exakt gleicher Schreibweise (z. B. \"CC BY-SA\").",
-        "en": "Creative Commons license type (without version number). Use only the listed abbreviations exactly as given (e.g., \"CC BY-SA\")."
+        "de": "CC-Lizenztyp wählen",
+        "en": "Select CC license type"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Erkenne die Creative-Commons-Lizenz der Ressource. Suche nach CC-Symbolen, Lizenz-Badges, Fußzeilen oder Lizenz-URLs (z.B. creativecommons.org/licenses/by-sa/). Gib NUR das Kürzel zurück, OHNE Versionsnummer. Erlaubte Werte: CC0, CC BY, CC BY-SA, CC BY-ND, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND. Wenn keine CC-Lizenz erkennbar: null. Beispiele: 'CC BY-SA' (bei 'Namensnennung - Weitergabe unter gleichen Bedingungen'), 'CC0' (bei 'Public Domain'), 'CC BY-NC' (bei 'nur nicht-kommerziell').",
+        "en": "Identify the Creative Commons license. Look for CC symbols, license badges, footers, or license URLs (e.g., creativecommons.org/licenses/by-sa/). Return ONLY the abbreviation, WITHOUT version number. Allowed values: CC0, CC BY, CC BY-SA, CC BY-ND, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND. If no CC license found: null. Examples: 'CC BY-SA' (for 'Attribution-ShareAlike'), 'CC0' (for 'Public Domain'), 'CC BY-NC' (for 'non-commercial only')."
       },
       "system": {
         "path": "ccm:commonlicense_key",
@@ -465,12 +448,12 @@
         "en": "License Version"
       },
       "description": {
-        "de": "Versionsnummer der CC-Lizenz (z. B. 4.0).",
-        "en": "Version number of the CC license (e.g., 4.0)."
+        "de": "Version, z.B. 4.0",
+        "en": "Version, e.g. 4.0"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Extrahiere die Versionsnummer der CC-Lizenz. Suche in Lizenz-URLs (z.B. '/licenses/by/4.0/') oder im Lizenztext. Gängige Versionen: 4.0, 3.0, 2.5, 2.0, 1.0. Gib NUR die Nummer zurück (z.B. '4.0'). Wenn keine Version erkennbar, aber eine CC-Lizenz vorhanden: '4.0' als Standard annehmen. Beispiele: '4.0', '3.0'.",
+        "en": "Extract the CC license version number. Look in license URLs (e.g., '/licenses/by/4.0/') or license text. Common versions: 4.0, 3.0, 2.5, 2.0, 1.0. Return ONLY the number (e.g., '4.0'). If no version found but CC license present: assume '4.0'. Examples: '4.0', '3.0'."
       },
       "system": {
         "path": "ccm:commonlicense_cc_version",
@@ -494,18 +477,18 @@
     },
     {
       "id": "cclom:general_language",
-      "group": "classification",
+      "group": "description",
       "label": {
         "de": "Sprache",
         "en": "Language"
       },
       "description": {
-        "de": "Sprachcode nach BCP-47 (z. B. de, en, de-DE).",
-        "en": "Language code following BCP-47 (e.g., de, en, de-DE)."
+        "de": "Sprache der Ressource",
+        "en": "Resource language"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Erkenne die Hauptsprache des Textes. Gib den ISO-639-1-Code in Kleinbuchstaben zurück. Nur die dominante Sprache – nicht Sprachen aus Zitaten oder Links. Wähle aus dem vorgegebenen Vokabular. Beispiele: 'de' (deutschsprachiger Text), 'en' (englischsprachiger Text), 'fr' (französischsprachiger Text).",
+        "en": "Detect the main language of the text. Return ISO 639-1 code in lowercase. Only the dominant language – not languages from quotes or links. Choose from provided vocabulary. Examples: 'de' (German text), 'en' (English text), 'fr' (French text)."
       },
       "system": {
         "path": "cclom:general_language",
@@ -569,18 +552,18 @@
     },
     {
       "id": "ccm:oeh_flex_lrt",
-      "group": "classification",
+      "group": "typification",
       "label": {
         "de": "Inhaltsart(en)",
         "en": "Content Type(s)"
       },
       "description": {
-        "de": "Erkannte Ressourcentypen (Mehrfachauswahl).",
-        "en": "Detected resource types (multi-select)."
+        "de": "Inhaltstyp der Ressource – bestimmt welche Zusatz-Felder angezeigt werden.",
+        "en": "Content type of the resource – determines which additional fields are shown."
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Wähle den passenden Inhaltstyp. Lernmaterial = Arbeitsblätter, Videos, OER; Bildungsgang = Studiengänge, Ausbildungen; Kurs = Seminare, Workshops, VHS-Kurse; Lehrplan = Rahmenpläne, Bildungsstandards; Veranstaltung = Konferenzen, Tagungen; Person = Autoren, Referenten; Organisation = Schulen, Hochschulen, Verlage; Tool/Dienst = Software, Apps, Plattformen; Beruf = Berufsbilder, Tätigkeitsfelder; Didaktische Planung = Unterrichtsentwürfe, Methoden; KI-Prompt = Prompt-Templates.",
+        "en": "Select the matching content type. Learning Material = worksheets, videos, OER; Education Program = degree programs, vocational training; Course = seminars, workshops; Curriculum = framework plans, standards; Event = conferences; Person = authors, speakers; Organization = schools, universities, publishers; Tool/Service = software, apps, platforms; Occupation = job profiles; Didactic Planning = lesson designs, methods; AI Prompt = prompt templates."
       },
       "system": {
         "path": "ccm:oeh_flex_lrt",
@@ -599,6 +582,46 @@
           "concepts": [
             {
               "label": {
+                "de": "Lernmaterial",
+                "en": "Learning Material"
+              },
+              "icon": "menu_book",
+              "schema_file": "learning_material.json"
+            },
+            {
+              "label": {
+                "de": "Bildungsgang",
+                "en": "Education Program"
+              },
+              "icon": "school",
+              "schema_file": "education_program.json"
+            },
+            {
+              "label": {
+                "de": "Kurs / Bildungsangebot",
+                "en": "Course / Educational Offering"
+              },
+              "icon": "class",
+              "schema_file": "course.json"
+            },
+            {
+              "label": {
+                "de": "Lehrplan / Curriculum",
+                "en": "Curriculum"
+              },
+              "icon": "library_books",
+              "schema_file": "curriculum.json"
+            },
+            {
+              "label": {
+                "de": "Veranstaltung",
+                "en": "Event"
+              },
+              "icon": "event",
+              "schema_file": "event.json"
+            },
+            {
+              "label": {
                 "de": "Person",
                 "en": "Person"
               },
@@ -615,67 +638,43 @@
             },
             {
               "label": {
-                "de": "Veranstaltung",
-                "en": "Event"
-              },
-              "icon": "event",
-              "schema_file": "event.json"
-            },
-            {
-              "label": {
-                "de": "Lernmaterial",
-                "en": "Learning material"
-              },
-              "icon": "menu_book",
-              "schema_file": "learning_material.json"
-            },
-            {
-              "label": {
-                "de": "Bildungsgänge und Bildungsangebote",
-                "en": "Educational programmes and offerings"
-              },
-              "icon": "school",
-              "schema_file": "education_offer.json"
-            },
-            {
-              "label": {
-                "de": "Berufsbilder",
-                "en": "Occupations"
-              },
-              "icon": "work",
-              "schema_file": "occupation.json"
-            },
-            {
-              "label": {
-                "de": "Prompts",
-                "en": "Prompts"
-              },
-              "icon": "chat",
-              "schema_file": "prompt.json"
-            },
-            {
-              "label": {
-                "de": "Tools Infrastrukturen & Services",
-                "en": "Tools, infrastructures & services"
+                "de": "Tool / Dienst",
+                "en": "Tool / Service"
               },
               "icon": "build",
               "schema_file": "tool_service.json"
             },
             {
               "label": {
-                "de": "Quelle",
-                "en": "Source"
+                "de": "Beruf",
+                "en": "Occupation"
               },
-              "icon": "article",
+              "icon": "work",
+              "schema_file": "occupation.json"
+            },
+            {
+              "label": {
+                "de": "Didaktische Planung",
+                "en": "Didactic Planning"
+              },
+              "icon": "psychology",
+              "schema_file": "didactic_planning_tools.json"
+            },
+            {
+              "label": {
+                "de": "Quelle (für Bildungsressourcen)",
+                "en": "Source (for educational ressources)"
+              },
+              "icon": "cloud_download",
               "schema_file": "source.json"
             },
             {
               "label": {
-                "de": "Didaktische Planungsinstrumente (Unterrichtsmethoden und -entwürfe)",
-                "en": "Didactic planning tools (teaching methods and lesson designs)"
+                "de": "KI-Prompt",
+                "en": "AI Prompt"
               },
-              "icon": "assignment",
-              "schema_file": "didactic_planning_tools.json"
+              "icon": "smart_toy",
+              "schema_file": "prompt.json"
             }
           ]
         },
@@ -694,12 +693,12 @@
         "en": "Intended Audience"
       },
       "description": {
-        "de": "Personengruppen, für die die Ressource konzipiert wurde. Nutze ausschließlich die Vokabular-Labels in exakt gleicher Schreibweise, einschließlich Mehrwort-Bezeichnungen oder Klammern.",
-        "en": "Audience groups the resource is designed for. Use the vocabulary labels exactly as listed, including multi-word labels and parentheses."
+        "de": "Zielgruppe(n) auswählen",
+        "en": "Select target audience(s)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Bestimme die Zielgruppe(n) der Ressource. Wähle NUR aus den vorgegebenen Vokabular-URIs – erfinde keine eigenen. Typische Zuordnungen: Unterrichtsmaterialien → Lehrer/in + Lerner/in; Elternratgeber → Eltern; Verwaltungsvorlagen → Verwaltung. Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent'].",
+        "en": "Determine the target audience(s). Choose ONLY from provided vocabulary URIs – do not invent new ones. Typical mappings: teaching materials → teacher + learner; parent guides → parent; admin templates → manager. Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent']."
       },
       "promptInstructions": {
         "labelExactMatch": true
@@ -780,18 +779,18 @@
     },
     {
       "id": "ccm:educationalcontext",
-      "group": "education",
+      "group": "typification",
       "label": {
         "de": "Bildungsstufe",
         "en": "Education Level"
       },
       "description": {
-        "de": "Bildungsstufe, in der die Ressource genutzt werden kann. Nutze ausschließlich die Vokabular-Labels in exakt gleicher Schreibweise, einschließlich Mehrwort-Bezeichnungen oder Klammern.",
-        "en": "Education stage where the resource can be used. Use the vocabulary labels exactly as listed, including multi-word labels and parentheses."
+        "de": "Bildungsstufe(n) auswählen",
+        "en": "Select education level(s)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Bestimme die passende(n) Bildungsstufe(n). Wähle NUR aus den vorgegebenen Vokabular-URIs. Achte auf Alters-/Niveauhinweise: Klasse 1–4 → Primarstufe; Klasse 5–10 → Sekundarstufe I; Oberstufe/Abitur → Sekundarstufe II; Uni/FH → Hochschule. Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/educationalContext/grundschule'], ['http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_1', 'http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_2'].",
+        "en": "Determine the appropriate education level(s). Choose ONLY from provided vocabulary URIs. Look for age/level indicators: grades 1–4 → primary; grades 5–10 → Secondary I; upper secondary → Secondary II; university → Higher Education. Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/educationalContext/grundschule'], ['http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_1', 'http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_2']."
       },
       "promptInstructions": {
         "labelExactMatch": true
@@ -907,18 +906,18 @@
     },
     {
       "id": "ccm:taxonid",
-      "group": "education",
+      "group": "typification",
       "label": {
         "de": "Fach",
         "en": "Subject"
       },
       "description": {
-        "de": "Schulfach/Disziplin (SKOS). Mehrfachauswahl möglich. Nutze ausschließlich die Vokabular-Labels in exakt gleicher Schreibweise, einschließlich Mehrwort-Bezeichnungen oder Klammern.",
-        "en": "School subject/discipline (SKOS). Multiple selections allowed. Use the vocabulary labels exactly as listed, including multi-word labels and parentheses."
+        "de": "Fach / Disziplin auswählen",
+        "en": "Select subject / discipline"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Bestimme das/die passende(n) Schulfach/Fächer. Wähle NUR aus den vorgegebenen Vokabular-URIs. Ordne nach dem primären Fachbezug zu – nicht nach Randthemen. Bei fächerübergreifenden Inhalten max. 2–3 Fächer. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/discipline/380'] (Mathematik), ['http://w3id.org/openeduhub/vocabs/discipline/080', 'http://w3id.org/openeduhub/vocabs/discipline/100'] (Biologie + Chemie), ['http://w3id.org/openeduhub/vocabs/discipline/320'] (Informatik).",
+        "en": "Determine the appropriate school subject(s). Choose ONLY from provided vocabulary URIs. Assign by primary subject – not peripheral topics. For cross-curricular content max. 2–3 subjects. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/discipline/380'] (Mathematics), ['http://w3id.org/openeduhub/vocabs/discipline/080', 'http://w3id.org/openeduhub/vocabs/discipline/100'] (Biology + Chemistry), ['http://w3id.org/openeduhub/vocabs/discipline/320'] (Computer Science)."
       },
       "promptInstructions": {
         "labelExactMatch": true

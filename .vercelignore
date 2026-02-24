@@ -48,7 +48,4 @@ logs/
 .DS_Store
 Thumbs.db
 
-# NOTE: dist/ is NOT excluded — src/static/widget/dist/, src/schemata/,
-# and src/static/widget/assets/i18n/ must be deployed to Vercel.
-# Rebuild widget with: scripts/deploy-widget.ps1
-.vercel
+# NOTE: dist/ is NOT excluded here — src/static/widget/dist/ must be uploaded!

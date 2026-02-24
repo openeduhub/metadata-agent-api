@@ -537,7 +537,7 @@ IMPORTANT RULES:
         Build structure information for complex object fields.
         
         Generates prompt text describing the expected object structure
-        including nested fields from variants.
+        including nested fields from ALL variants with their descriptions and prompts.
         """
         parts = []
         
@@ -546,83 +546,117 @@ IMPORTANT RULES:
         else:
             parts.append("\n📋 OBJECT STRUCTURE - Return an array of objects with the following structure:")
         
+        # Get discriminator field name (e.g., "@type")
+        discriminator = items.get("discriminator", "")
+        
         # Get variants (different object types)
         variants = items.get("variants", [])
         
-        if variants:
-            # Use first/default variant for structure (usually "Place" for locations)
-            variant = variants[0]
+        for vi, variant in enumerate(variants):
             variant_type = variant.get("@type", "Object")
             variant_label = self._get_localized(variant.get("label", {}), language)
+            variant_desc = self._get_localized(variant.get("description", {}), language)
+            
+            # Skip empty variants (like PostalAddress with no fields)
+            variant_fields = variant.get("fields", [])
+            if not variant_fields and variant_type != "Default":
+                continue
+            
+            if len(variants) > 1 and variant_type != "Default":
+                if language == "de":
+                    parts.append(f"\n--- Variante {vi + 1}: {variant_label} ({discriminator}: {variant_type}) ---")
+                else:
+                    parts.append(f"\n--- Variant {vi + 1}: {variant_label} ({discriminator}: {variant_type}) ---")
+                if variant_desc:
+                    parts.append(f"  {variant_desc}")
+            elif variant_type != "Default":
+                if language == "de":
+                    parts.append(f"\nTyp: {variant_label} ({discriminator}: {variant_type})")
+                else:
+                    parts.append(f"\nType: {variant_label} ({discriminator}: {variant_type})")
             
             if language == "de":
-                parts.append(f"\nTyp: {variant_label} (@type: {variant_type})")
                 parts.append("Felder:")
             else:
-                parts.append(f"\nType: {variant_label} (@type: {variant_type})")
                 parts.append("Fields:")
             
-            # Add fields from variant
-            fields = variant.get("fields", [])
-            for field in fields:
-                field_id = field.get("id", "")
-                field_label = self._get_localized(field.get("label", {}), language)
-                field_desc = self._get_localized(field.get("description", {}), language)
-                field_system = field.get("system", {})
-                field_datatype = field_system.get("datatype", "string")
-                
-                # Check for nested fields (e.g., address with streetAddress, postalCode, etc.)
-                nested_fields = field.get("fields", [])
-                if nested_fields:
-                    parts.append(f"  - {field_id}: (Objekt mit Unterfeldern)")
-                    for nested in nested_fields:
-                        nested_id = nested.get("id", "")
-                        nested_label = self._get_localized(nested.get("label", {}), language)
-                        parts.append(f"      - {nested_id}: {nested_label}")
-                else:
-                    parts.append(f"  - {field_id}: {field_label} ({field_datatype})")
+            # Add fields from variant with descriptions and prompts
+            for field in variant_fields:
+                self._append_field_info(parts, field, language, indent=1)
         
-        # Add example structure
-        if language == "de":
-            parts.append("\n⚠️ WICHTIG: Trenne Name und Adresse korrekt!")
-            parts.append("Beispiel für schema:location:")
-            parts.append('''```json
-{
-  "value": [
-    {
-      "name": "Veranstaltungsort-Name",
-      "address": {
-        "streetAddress": "Straße Hausnummer",
-        "postalCode": "12345",
-        "addressLocality": "Stadt",
-        "addressRegion": "Bundesland",
-        "addressCountry": "Deutschland"
-      }
-    }
-  ]
-}
-```''')
-        else:
-            parts.append("\n⚠️ IMPORTANT: Separate name and address correctly!")
-            parts.append("Example for schema:location:")
-            parts.append('''```json
-{
-  "value": [
-    {
-      "name": "Venue Name",
-      "address": {
-        "streetAddress": "Street Number",
-        "postalCode": "12345",
-        "addressLocality": "City",
-        "addressRegion": "State",
-        "addressCountry": "Country"
-      }
-    }
-  ]
-}
-```''')
+        # Build a dynamic example from first variant
+        if variants:
+            example = self._build_dynamic_example(variants, discriminator)
+            if example:
+                if language == "de":
+                    parts.append("\nBeispiel-Ausgabe:")
+                else:
+                    parts.append("\nExample output:")
+                parts.append(f"```json\n{json.dumps({'value': [example]}, indent=2, ensure_ascii=False)}\n```")
         
         return "\n".join(parts)
+    
+    def _append_field_info(
+        self,
+        parts: list[str],
+        field: dict[str, Any],
+        language: str,
+        indent: int = 1,
+    ) -> None:
+        """Append field info including description and prompt to parts list."""
+        prefix = "  " * indent
+        field_id = field.get("id", "")
+        field_label = self._get_localized(field.get("label", {}), language)
+        field_desc = self._get_localized(field.get("description", {}), language)
+        field_prompt = self._get_localized(field.get("prompt", {}), language)
+        field_system = field.get("system", {})
+        field_datatype = field_system.get("datatype", "string")
+        
+        # Check for nested fields (e.g., address with streetAddress, postalCode)
+        nested_fields = field.get("fields", [])
+        if nested_fields:
+            desc_suffix = f" — {field_desc}" if field_desc else ""
+            parts.append(f"{prefix}- {field_id}: ({field_label}, Objekt){desc_suffix}")
+            if field_prompt:
+                parts.append(f"{prefix}  💡 {field_prompt}")
+            for nested in nested_fields:
+                self._append_field_info(parts, nested, language, indent=indent + 1)
+        else:
+            desc_suffix = f" — {field_desc}" if field_desc else ""
+            parts.append(f"{prefix}- {field_id}: {field_label} ({field_datatype}){desc_suffix}")
+            if field_prompt:
+                parts.append(f"{prefix}  💡 {field_prompt}")
+    
+    def _build_dynamic_example(
+        self,
+        variants: list[dict[str, Any]],
+        discriminator: str,
+    ) -> Optional[dict[str, Any]]:
+        """Build a dynamic example object from the first non-empty variant."""
+        for variant in variants:
+            variant_type = variant.get("@type", "")
+            variant_fields = variant.get("fields", [])
+            if not variant_fields:
+                continue
+            
+            example = {}
+            if variant_type and variant_type != "Default" and discriminator:
+                example[discriminator] = variant_type
+            
+            for field in variant_fields:
+                field_id = field.get("id", "")
+                nested = field.get("fields", [])
+                if nested:
+                    sub_example = {}
+                    for nf in nested:
+                        sub_example[nf.get("id", "")] = "..."
+                    example[field_id] = sub_example
+                else:
+                    example[field_id] = "..."
+            
+            return example
+        
+        return None
     
     def _parse_json_response(self, content: str) -> Optional[dict[str, Any]]:
         """Parse JSON from LLM response, handling various formats."""

@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     
     # API Settings
     app_name: str = "Metadata Agent API"
-    app_version: str = "1.0.0"
+    app_version: str = "2.0.0"
     debug: bool = False
     
     # LLM Provider Selection
@@ -46,7 +46,7 @@ class Settings(BaseSettings):
     
     # Default Schema Settings
     default_context: str = "default"
-    default_version: str = "1.8.0"
+    default_version: str = "1.8.1"
     
     # Normalization Settings
     normalization_enabled: bool = True

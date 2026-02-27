@@ -242,7 +242,7 @@
         "datatype": "uri",
         "multiple": false,
         "required": false,
-        "ask_user": false,
+        "ask_user": true,
         "ai_fillable": true,
         "repo_field": true,
         "index": {

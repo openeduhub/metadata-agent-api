@@ -70,6 +70,16 @@ class Settings(BaseSettings):
     wlo_inbox_id_staging: str = "21144164-30c0-4c01-ae16-264452197063"
     wlo_inbox_id_prod: str = "21144164-30c0-4c01-ae16-264452197063"
     
+    # Screenshot Settings
+    screenshot_method: str = "pageshot"  # 'pageshot' (external) or 'playwright' (internal)
+    screenshot_width: int = 800
+    screenshot_height: int = 500
+    screenshot_format: str = "png"
+    screenshot_block_ads: bool = True
+    screenshot_full_page: bool = False
+    screenshot_delay: int = 2000  # ms to wait before capture
+    pageshot_api_url: str = "https://pageshot.site/v1/screenshot"
+    
     # CORS Settings
     cors_origins: str = "*"  # Comma-separated origins, or '*' for all
     

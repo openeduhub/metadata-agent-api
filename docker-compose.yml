@@ -2,6 +2,9 @@ services:
   # =========================================
   # Default: B-API OpenAI (recommended)
   # =========================================
+  # Docker image includes Playwright + Chromium for
+  # privacy-safe screenshots (screenshot_method=playwright).
+  # On Vercel, only 'pageshot' (external API) is available.
   metadata-agent-api:
     build: .
     container_name: metadata-agent-api
@@ -17,13 +20,17 @@ services:
       # OpenAI Key (only needed if using provider=openai)
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       
+      # Repository Upload (optional, for /upload endpoint)
+      - WLO_GUEST_USERNAME=${WLO_GUEST_USERNAME:-}
+      - WLO_GUEST_PASSWORD=${WLO_GUEST_PASSWORD:-}
+      
       # Worker Settings
       - METADATA_AGENT_DEFAULT_MAX_WORKERS=10
       - METADATA_AGENT_REQUEST_TIMEOUT=60
       
       # Default Schema Settings
       - METADATA_AGENT_DEFAULT_CONTEXT=default
-      - METADATA_AGENT_DEFAULT_VERSION=1.8.0
+      - METADATA_AGENT_DEFAULT_VERSION=latest
       
       # Normalization
       - METADATA_AGENT_NORMALIZATION_ENABLED=true

@@ -46,14 +46,6 @@
         "de": "Bildungsdetails",
         "en": "Educational Details"
       }
-    },
-    {
-      "id": "license",
-      "icon": "gavel",
-      "label": {
-        "de": "Lizenz, Quelle, Mitwirkende",
-        "en": "License, Source, Contributors"
-      }
     }
   ],
   "fields": [
@@ -91,14 +83,14 @@
             {
               "label": {
                 "de": "Wissen & Kompetenzen entwickeln",
-                "en": "Knowledge & Competence Development"
+                "en": "Developing knowledge & competencies"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
             },
             {
               "label": {
                 "de": "Grundlagenvermittlung",
-                "en": "Basic Knowledge Transfer"
+                "en": "Basic instruction"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
@@ -114,7 +106,7 @@
             {
               "label": {
                 "de": "Grundkurs",
-                "en": "Basic Course"
+                "en": "Basic course"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/basic-course",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer"
@@ -122,7 +114,7 @@
             {
               "label": {
                 "de": "Einführungsseminar",
-                "en": "Introductory Seminar"
+                "en": "Introductory seminar"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/introductory-seminar",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/basic-knowledge-transfer"
@@ -146,7 +138,7 @@
             {
               "label": {
                 "de": "Vertiefung & Spezialisierung",
-                "en": "Deepening & Specialization"
+                "en": "Deepening & specialization"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/knowledge-competence-development"
@@ -154,7 +146,7 @@
             {
               "label": {
                 "de": "Fachseminar",
-                "en": "Specialist Seminar"
+                "en": "Subject seminar"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-seminar",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
@@ -162,7 +154,7 @@
             {
               "label": {
                 "de": "Masterseminar",
-                "en": "Master Seminar"
+                "en": "Master seminar"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/master-seminar",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
@@ -170,7 +162,7 @@
             {
               "label": {
                 "de": "Spezialistenkurs",
-                "en": "Specialist Course"
+                "en": "Specialist course"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-course",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
@@ -186,7 +178,7 @@
             {
               "label": {
                 "de": "Fachworkshop",
-                "en": "Specialist Workshop"
+                "en": "Specialized Workshop"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/specialist-workshop",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/deepening-specialization"
@@ -210,7 +202,7 @@
             {
               "label": {
                 "de": "Übung/Tutorial",
-                "en": "Tutorial/Exercise"
+                "en": "Exercise/Tutorial"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/tutorial-exercise",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
@@ -218,7 +210,7 @@
             {
               "label": {
                 "de": "Labor/Praktikum",
-                "en": "Lab/Internship"
+                "en": "Labor/Internship"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/lab-internship",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
@@ -234,7 +226,7 @@
             {
               "label": {
                 "de": "Feldarbeit",
-                "en": "Fieldwork"
+                "en": "Field Work"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/fieldwork",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
@@ -250,7 +242,7 @@
             {
               "label": {
                 "de": "Schüler-AG",
-                "en": "Student Group"
+                "en": "Student Working Group"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/student-group",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/practical-application"
@@ -322,7 +314,7 @@
             {
               "label": {
                 "de": "Information & Orientierung erhalten",
-                "en": "Information & Orientation"
+                "en": "Receive Information & Orientation"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/information-orientation"
             },
@@ -377,7 +369,7 @@
             {
               "label": {
                 "de": "Beratung & Entscheidungshilfe",
-                "en": "Counseling & Decision Support"
+                "en": "Consultation & Decision Support"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/information-orientation"
@@ -393,7 +385,7 @@
             {
               "label": {
                 "de": "Sprechstunde",
-                "en": "Consultation Hours"
+                "en": "Office Hours"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/consultation-hours",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
@@ -401,7 +393,7 @@
             {
               "label": {
                 "de": "Beratungsgespräch",
-                "en": "Counseling Session"
+                "en": "Consultation Meeting"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/counseling-session",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
@@ -409,7 +401,7 @@
             {
               "label": {
                 "de": "Online-Beratung",
-                "en": "Online Counseling"
+                "en": "Online Consultation"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/online-counseling",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/counseling-decision-support"
@@ -433,7 +425,7 @@
             {
               "label": {
                 "de": "Marktüberblick & Angebote",
-                "en": "Market Overview & Offerings"
+                "en": "Market Overview & Offers"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/information-orientation"
@@ -449,7 +441,7 @@
             {
               "label": {
                 "de": "Hochschulmesse",
-                "en": "University Fair"
+                "en": "Higher Education Fair"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/university-fair",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/market-overview-offerings"
@@ -481,7 +473,7 @@
             {
               "label": {
                 "de": "Austausch & Vernetzung pflegen",
-                "en": "Exchange & Networking"
+                "en": "Maintain Exchange & Networking"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/exchange-networking"
             },
@@ -504,7 +496,7 @@
             {
               "label": {
                 "de": "Fachtagung",
-                "en": "Professional Conference"
+                "en": "Specialist Conference"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/professional-conference",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/professional-exchange"
@@ -576,7 +568,7 @@
             {
               "label": {
                 "de": "Lerngruppe",
-                "en": "Study Group"
+                "en": "Learning Group"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/study-group",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/peer-learning-collaboration"
@@ -680,14 +672,14 @@
             {
               "label": {
                 "de": "Leistung zeigen & bewerten lassen",
-                "en": "Performance & Assessment"
+                "en": "Demonstrate performance & have it assessed"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/performance-assessment"
             },
             {
               "label": {
                 "de": "Formelle Prüfung & Zertifizierung",
-                "en": "Formal Examination & Certification"
+                "en": "Formal examination & certification"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/performance-assessment"
@@ -695,7 +687,7 @@
             {
               "label": {
                 "de": "Klausur/Examen",
-                "en": "Written Exam"
+                "en": "Exam/Assessment"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/exam-written",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
@@ -703,7 +695,7 @@
             {
               "label": {
                 "de": "Abschlussprüfung",
-                "en": "Final Exam"
+                "en": "Final examination"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/final-exam",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
@@ -719,7 +711,7 @@
             {
               "label": {
                 "de": "Zertifizierungsprüfung",
-                "en": "Certification Exam"
+                "en": "Certification examination"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/certification-exam",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/formal-examination-certification"
@@ -830,8 +822,8 @@
             },
             {
               "label": {
-                "de": "Hackathon",
-                "en": "Hackathon"
+                "de": "Hackathon (Wettbewerb)",
+                "en": "Hackathon (Competition)"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/hackathon-comp",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
@@ -847,7 +839,7 @@
             {
               "label": {
                 "de": "Schülerwettbewerb",
-                "en": "School Competition"
+                "en": "Student Competition"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/school-competition",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/competition-performance-comparison"
@@ -855,7 +847,7 @@
             {
               "label": {
                 "de": "Gemeinschaft & Zugehörigkeit erleben",
-                "en": "Community & Belonging"
+                "en": "Experience Community & Belonging"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/community-belonging"
             },
@@ -886,7 +878,7 @@
             {
               "label": {
                 "de": "Ehrung",
-                "en": "Honor Ceremony"
+                "en": "Honoring"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/honor-ceremony",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions"
@@ -902,7 +894,7 @@
             {
               "label": {
                 "de": "Virtuelle Abschlussfeier",
-                "en": "Virtual Graduation"
+                "en": "Virtual Graduation Ceremony"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/virtual-graduation",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/ceremonial-occasions"
@@ -918,7 +910,7 @@
             {
               "label": {
                 "de": "Erstsemester-Begrüßung",
-                "en": "Freshman Welcome"
+                "en": "First Semester Welcome"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/freshman-welcome",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
@@ -926,7 +918,7 @@
             {
               "label": {
                 "de": "Einführungsveranstaltung",
-                "en": "Orientation Event"
+                "en": "Introductory Event"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-event",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
@@ -958,7 +950,7 @@
             {
               "label": {
                 "de": "Kennenlerncamp",
-                "en": "Orientation Camp"
+                "en": "Getting to Know Camp"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/orientation-camp",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
@@ -966,7 +958,7 @@
             {
               "label": {
                 "de": "Teambuilding-Event",
-                "en": "Teambuilding Event"
+                "en": "Team Building Event"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/eventType/teambuilding-event",
               "broader": "http://w3id.org/openeduhub/vocabs/eventType/integration-welcome"
@@ -3267,130 +3259,6 @@
         },
         "repo_field": false
       }
-    },
-    {
-      "id": "ccm:oeh_publisher_combined",
-      "group": "license",
-      "label": {
-        "de": "Publisher / Herausgeber",
-        "en": "Publisher"
-      },
-      "description": {
-        "de": "Verlag oder Herausgeber",
-        "en": "Publisher"
-      },
-      "prompt": {
-        "de": "Extrahiere den Verlag, die Plattform oder die herausgebende Organisation – nicht den/die Autor:in. Suche nach Impressum, Copyright-Hinweisen, Domainnamen oder Logos. Gib nur EINEN Namen als String zurück. Beispiele: 'Bundeszentrale für politische Bildung', 'Cornelsen Verlag', 'Serlo Education e.V.'.",
-        "en": "Extract the publisher, platform, or publishing organization – not the author. Look for imprint, copyright notices, domain names, or logos. Return only ONE name as string. Examples: 'Federal Agency for Civic Education', 'Oxford University Press', 'Khan Academy'."
-      },
-      "system": {
-        "path": "ccm:oeh_publisher_combined",
-        "uri": "ccm:oeh_publisher_combined",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        }
-      }
-    },
-    {
-      "id": "ccm:educationalintendedenduserrole",
-      "group": "education",
-      "label": {
-        "de": "Zielgruppe",
-        "en": "Intended Audience"
-      },
-      "description": {
-        "de": "Zielgruppe(n) auswählen",
-        "en": "Select target audience(s)"
-      },
-      "prompt": {
-        "de": "Bestimme die Zielgruppe(n) der Ressource. Wähle NUR aus den vorgegebenen Vokabular-URIs – erfinde keine eigenen. Typische Zuordnungen: Unterrichtsmaterialien → Lehrer/in + Lerner/in; Elternratgeber → Eltern; Verwaltungsvorlagen → Verwaltung. Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent'].",
-        "en": "Determine the target audience(s). Choose ONLY from provided vocabulary URIs – do not invent new ones. Typical mappings: teaching materials → teacher + learner; parent guides → parent; admin templates → manager. Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent']."
-      },
-      "promptInstructions": {
-        "labelExactMatch": true
-      },
-      "system": {
-        "path": "ccm:educationalintendedenduserrole",
-        "uri": "ccm:educationalintendedenduserrole",
-        "datatype": "array",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "vocabulary": {
-          "type": "skos",
-          "scheme": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/",
-          "concepts": [
-            {
-              "label": {
-                "de": "Autor/in",
-                "en": "author"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/author"
-            },
-            {
-              "label": {
-                "de": "Berater/in",
-                "en": "counsellor"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/counsellor"
-            },
-            {
-              "label": {
-                "de": "Lerner/in",
-                "en": "learner"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner"
-            },
-            {
-              "label": {
-                "de": "Verwaltung",
-                "en": "manager"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/manager"
-            },
-            {
-              "label": {
-                "de": "Eltern",
-                "en": "parent"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent"
-            },
-            {
-              "label": {
-                "de": "Lehrer/in",
-                "en": "teacher"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher"
-            },
-            {
-              "label": {
-                "de": "andere",
-                "en": "other"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/other"
-            }
-          ]
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true,
-          "map_labels_to_uris": true
-        }
-      }
     }
   ],
   "output_template": {
@@ -3415,8 +3283,6 @@
     "schema:offers": [],
     "schema:about": [],
     "ccm:competence": [],
-    "schema:teaches": [],
-    "ccm:oeh_publisher_combined": "",
-    "ccm:educationalintendedenduserrole": []
+    "schema:teaches": []
   }
 }

@@ -94,22 +94,6 @@
         "de": "Preise & Angebote",
         "en": "Prices & Offers"
       }
-    },
-    {
-      "id": "license",
-      "icon": "gavel",
-      "label": {
-        "de": "Lizenz, Quelle, Mitwirkende",
-        "en": "License, Source, Contributors"
-      }
-    },
-    {
-      "id": "education",
-      "icon": "school",
-      "label": {
-        "de": "Pädagogisch/Didaktisch",
-        "en": "Educational"
-      }
     }
   ],
   "fields": [
@@ -145,225 +129,141 @@
           "hierarchical": true,
           "concepts": [
             {
-              "label": {
-                "de": "Bildungsgang",
-                "en": "educational pathway"
-              },
+              "label": { "de": "Bildungsgang", "en": "educational pathway" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
             },
             {
-              "label": {
-                "de": "Schulbildungsgang",
-                "en": "school educational pathway"
-              },
+              "label": { "de": "Schulbildungsgang", "en": "school educational pathway" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
             },
             {
-              "label": {
-                "de": "Grundschulbildung",
-                "en": "primary education"
-              },
+              "label": { "de": "Grundschulbildung", "en": "primary education" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/primary-education",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-program"
             },
             {
-              "label": {
-                "de": "Weiterführende Schule",
-                "en": "secondary school"
-              },
+              "label": { "de": "Weiterführende Schule", "en": "secondary school" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/secondary-education",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-program"
             },
             {
-              "label": {
-                "de": "Berufsvorbereitende Bildung",
-                "en": "vocational preparatory education"
-              },
+              "label": { "de": "Berufsvorbereitende Bildung", "en": "vocational preparatory education" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/career-preparation",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-program"
             },
             {
-              "label": {
-                "de": "Ausbildungsgang",
-                "en": "training pathway"
-              },
+              "label": { "de": "Ausbildungsgang", "en": "training pathway" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
             },
             {
-              "label": {
-                "de": "Duale Ausbildung",
-                "en": "dual education"
-              },
+              "label": { "de": "Duale Ausbildung", "en": "dual education" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/dual-training",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program"
             },
             {
-              "label": {
-                "de": "Schulische Berufsausbildung",
-                "en": "school-based vocational training"
-              },
+              "label": { "de": "Schulische Berufsausbildung", "en": "school-based vocational training" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/school-based-training",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program"
             },
             {
-              "label": {
-                "de": "Fachschulausbildung",
-                "en": "technical school education"
-              },
+              "label": { "de": "Fachschulausbildung", "en": "technical school education" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/technical-college",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program"
             },
             {
-              "label": {
-                "de": "Umschulung",
-                "en": "retraining"
-              },
+              "label": { "de": "Umschulung", "en": "retraining" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/retraining-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-program"
             },
             {
-              "label": {
-                "de": "Studiengang",
-                "en": "degree program"
-              },
+              "label": { "de": "Studiengang", "en": "degree program" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
             },
             {
-              "label": {
-                "de": "Bachelor-Studiengang",
-                "en": "Bachelor Program"
-              },
+              "label": { "de": "Bachelor-Studiengang", "en": "Bachelor Program" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/bachelor-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
             },
             {
-              "label": {
-                "de": "Master-Studiengang",
-                "en": "Master Program"
-              },
+              "label": { "de": "Master-Studiengang", "en": "Master Program" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/master-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
             },
             {
-              "label": {
-                "de": "Staatsexamen-Studiengang",
-                "en": "state examination degree program"
-              },
+              "label": { "de": "Staatsexamen-Studiengang", "en": "state examination degree program" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/state-exam-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
             },
             {
-              "label": {
-                "de": "Diplom-/Magister-Studiengang",
-                "en": "diploma/Magister degree program"
-              },
+              "label": { "de": "Diplom-/Magister-Studiengang", "en": "diploma/Magister degree program" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/diploma-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
             },
             {
-              "label": {
-                "de": "Promotionsstudium",
-                "en": "doctoral studies"
-              },
+              "label": { "de": "Promotionsstudium", "en": "doctoral studies" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/doctoral-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/degree-program"
             },
             {
-              "label": {
-                "de": "Bildungsprogramm",
-                "en": "educational program"
-              },
+              "label": { "de": "Bildungsprogramm", "en": "educational program" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/education-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
             },
             {
-              "label": {
-                "de": "Fortbildung/Aufstiegsqualifikation",
-                "en": "continuing education/qualification for advancement"
-              },
+              "label": { "de": "Fortbildung/Aufstiegsqualifikation", "en": "continuing education/qualification for advancement" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/continuing-education",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/education-program"
             },
             {
-              "label": {
-                "de": "Aufstiegsfortbildung",
-                "en": "advancement training"
-              },
+              "label": { "de": "Aufstiegsfortbildung", "en": "advancement training" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/advancement-training",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/continuing-education"
             },
             {
-              "label": {
-                "de": "Anpassungsfortbildung",
-                "en": "adaptation training"
-              },
+              "label": { "de": "Anpassungsfortbildung", "en": "adaptation training" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/adaptation-training",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/continuing-education"
             },
             {
-              "label": {
-                "de": "Kammer-Zertifikat",
-                "en": "chamber certificate"
-              },
+              "label": { "de": "Kammer-Zertifikat", "en": "chamber certificate" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/chamber-certificate",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/continuing-education"
             },
             {
-              "label": {
-                "de": "Lehrgang/Kurs-Serie",
-                "en": "Course/Program Series"
-              },
+              "label": { "de": "Lehrgang/Kurs-Serie", "en": "Course/Program Series" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/course-series",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/education-program"
             },
             {
-              "label": {
-                "de": "Mehrmoduliger Lehrgang",
-                "en": "Multi-module Course"
-              },
+              "label": { "de": "Mehrmoduliger Lehrgang", "en": "Multi-module Course" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/multimodule-course",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/course-series"
             },
             {
-              "label": {
-                "de": "Branchenzertifizierung",
-                "en": "Industry Certification"
-              },
+              "label": { "de": "Branchenzertifizierung", "en": "Industry Certification" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/industry-certification",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/course-series"
             },
             {
-              "label": {
-                "de": "Anbieter-Zertifikatskurs",
-                "en": "Provider Certificate Course"
-              },
+              "label": { "de": "Anbieter-Zertifikatskurs", "en": "Provider Certificate Course" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/provider-certificate",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/course-series"
             },
             {
-              "label": {
-                "de": "Rehabilitative Programme",
-                "en": "Rehabilitative Programs"
-              },
+              "label": { "de": "Rehabilitative Programme", "en": "Rehabilitative Programs" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/rehabilitation-program",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/educational-program"
             },
             {
-              "label": {
-                "de": "Berufliche Rehabilitation",
-                "en": "Vocational Rehabilitation"
-              },
+              "label": { "de": "Berufliche Rehabilitation", "en": "Vocational Rehabilitation" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/vocational-rehabilitation",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/rehabilitation-program"
             },
             {
-              "label": {
-                "de": "Nachqualifizierung",
-                "en": "Further Qualification"
-              },
+              "label": { "de": "Nachqualifizierung", "en": "Further Qualification" },
               "uri": "http://w3id.org/openeduhub/vocabs/educationalOffering/requalification",
               "broader": "http://w3id.org/openeduhub/vocabs/educationalOffering/rehabilitation-program"
             }
@@ -400,31 +300,21 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
+        "index": { "keyword": true },
         "vocabulary": {
           "type": "closed",
           "concepts": [
             {
-              "label": {
-                "de": "Allgemeine Programmbeschreibung",
-                "en": "General Program Description"
-              },
+              "label": { "de": "Allgemeine Programmbeschreibung", "en": "General Program Description" },
               "uri": "http://w3id.org/openeduhub/vocabs/concretenessType/general"
             },
             {
-              "label": {
-                "de": "Konkretes Angebot",
-                "en": "Concrete Offer"
-              },
+              "label": { "de": "Konkretes Angebot", "en": "Concrete Offer" },
               "uri": "http://w3id.org/openeduhub/vocabs/concretenessType/concrete"
             }
           ]
         },
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -451,45 +341,17 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
+        "index": { "keyword": true },
         "vocabulary": {
           "type": "closed",
           "concepts": [
-            {
-              "label": {
-                "de": "Bildungsgang",
-                "en": "educational pathway"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/program"
-            },
-            {
-              "label": {
-                "de": "Modul",
-                "en": "module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/module"
-            },
-            {
-              "label": {
-                "de": "Kurs",
-                "en": "course"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/course"
-            },
-            {
-              "label": {
-                "de": "Einheit",
-                "en": "unit"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/unit"
-            }
+            { "label": { "de": "Bildungsgang", "en": "educational pathway" }, "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/program" },
+            { "label": { "de": "Modul", "en": "module" }, "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/module" },
+            { "label": { "de": "Kurs", "en": "course" }, "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/course" },
+            { "label": { "de": "Einheit", "en": "unit" }, "uri": "http://w3id.org/openeduhub/vocabs/granularityLevel/unit" }
           ]
         },
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -516,16 +378,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -552,16 +407,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -588,13 +436,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -621,13 +464,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -654,12 +492,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "validation": {
-          "regex": "^\\d{4}-\\d{2}-\\d{2}$"
-        },
-        "normalization": {
-          "trim": true
-        },
+        "validation": { "regex": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -686,9 +520,7 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -715,12 +547,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "validation": {
-          "regex": "^\\d{4}-\\d{2}-\\d{2}$"
-        },
-        "normalization": {
-          "trim": true
-        },
+        "validation": { "regex": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -747,12 +575,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "validation": {
-          "regex": "^\\d{4}-\\d{2}-\\d{2}$"
-        },
-        "normalization": {
-          "trim": true
-        },
+        "validation": { "regex": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -779,12 +603,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "validation": {
-          "regex": "^P(T?\\d+[YMWDHS].*)?$"
-        },
-        "normalization": {
-          "trim": true
-        },
+        "validation": { "regex": "^P(T?\\d+[YMWDHS].*)?$" },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -811,12 +631,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "validation": {
-          "regex": "^P(T?\\d+[YMWDHS].*)?$"
-        },
-        "normalization": {
-          "trim": true
-        },
+        "validation": { "regex": "^P(T?\\d+[YMWDHS].*)?$" },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -947,13 +763,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "fulltext": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "fulltext": true },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -980,13 +791,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -1013,16 +819,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -1049,16 +848,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -1085,13 +877,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -1124,101 +911,36 @@
           "variants": [
             {
               "@type": "Default",
-              "label": {
-                "de": "Kurse im Programm",
-                "en": "Courses in the program"
-              },
-              "description": {
-                "de": "Module/Kurse des Programms",
-                "en": "Modules/courses of the program"
-              },
+              "label": { "de": "Kurse im Programm", "en": "Courses in the program" },
+              "description": { "de": "Module/Kurse des Programms", "en": "Modules/courses of the program" },
               "fields": [
                 {
                   "id": "name",
-                  "label": {
-                    "de": "Name",
-                    "en": "Name"
-                  },
-                  "description": {
-                    "de": "Name des Kurses/Moduls",
-                    "en": "Name of the course/module"
-                  },
-                  "prompt": {
-                    "de": "Kursname, z.B. 'Einführung in die Informatik'.",
-                    "en": "Course name, e.g. 'Introduction to Computer Science'."
-                  },
-                  "system": {
-                    "path": "name",
-                    "uri": "https://schema.org/name",
-                    "datatype": "string",
-                    "multiple": false,
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
+                  "label": { "de": "Name", "en": "Name" },
+                  "description": { "de": "Name des Kurses/Moduls", "en": "Name of the course/module" },
+                  "prompt": { "de": "Kursname, z.B. 'Einführung in die Informatik'.", "en": "Course name, e.g. 'Introduction to Computer Science'." },
+                  "system": { "path": "name", "uri": "https://schema.org/name", "datatype": "string", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true }
                 },
                 {
                   "id": "schema:courseCode",
-                  "label": {
-                    "de": "Kurscode",
-                    "en": "Course Code"
-                  },
-                  "description": {
-                    "de": "Kurscode oder Kursnummer",
-                    "en": "Course code or number"
-                  },
-                  "prompt": {
-                    "de": "Kurscode, z.B. 'INF-101', 'MATH-200'.",
-                    "en": "Course code, e.g. 'INF-101', 'MATH-200'."
-                  },
-                  "system": {
-                    "path": "schema:courseCode",
-                    "uri": "https://schema.org/schema:courseCode",
-                    "datatype": "string",
-                    "multiple": false,
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
+                  "label": { "de": "Kurscode", "en": "Course Code" },
+                  "description": { "de": "Kurscode oder Kursnummer", "en": "Course code or number" },
+                  "prompt": { "de": "Kurscode, z.B. 'INF-101', 'MATH-200'.", "en": "Course code, e.g. 'INF-101', 'MATH-200'." },
+                  "system": { "path": "schema:courseCode", "uri": "https://schema.org/schema:courseCode", "datatype": "string", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true }
                 },
                 {
                   "id": "schema:coursePrerequisites",
-                  "label": {
-                    "de": "Kursvoraussetzungen",
-                    "en": "Course Prerequisites"
-                  },
-                  "description": {
-                    "de": "Voraussetzungen für den Kurs",
-                    "en": "Prerequisites for the course"
-                  },
-                  "prompt": {
-                    "de": "Voraussetzungen, z.B. 'Mathematik I bestanden'.",
-                    "en": "Prerequisites, e.g. 'Mathematics I passed'."
-                  },
-                  "system": {
-                    "path": "schema:coursePrerequisites",
-                    "uri": "https://schema.org/schema:coursePrerequisites",
-                    "datatype": "array",
-                    "multiple": true,
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true,
-                    "items": {
-                      "datatype": "string"
-                    }
-                  }
+                  "label": { "de": "Kursvoraussetzungen", "en": "Course Prerequisites" },
+                  "description": { "de": "Voraussetzungen für den Kurs", "en": "Prerequisites for the course" },
+                  "prompt": { "de": "Voraussetzungen, z.B. 'Mathematik I bestanden'.", "en": "Prerequisites, e.g. 'Mathematics I passed'." },
+                  "system": { "path": "schema:coursePrerequisites", "uri": "https://schema.org/schema:coursePrerequisites", "datatype": "array", "multiple": true, "required": false, "ask_user": true, "ai_fillable": true, "items": { "datatype": "string" } }
                 }
               ]
             }
           ]
         },
-        "index": {
-          "fulltext": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "fulltext": true },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -1245,12 +967,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -1283,337 +1001,67 @@
           "variants": [
             {
               "@type": "Place",
-              "label": {
-                "de": "Physischer Ort",
-                "en": "Physical Location"
-              },
-              "description": {
-                "de": "Physischer Ort mit Adresse und Koordinaten",
-                "en": "Physical location with address and coordinates"
-              },
+              "label": { "de": "Physischer Ort", "en": "Physical Location" },
+              "description": { "de": "Physischer Ort mit Adresse und Koordinaten", "en": "Physical location with address and coordinates" },
               "fields": [
                 {
                   "id": "name",
-                  "label": {
-                    "de": "Name",
-                    "en": "Name"
-                  },
-                  "description": {
-                    "de": "Name des Ortes",
-                    "en": "Name of the location"
-                  },
-                  "prompt": {
-                    "de": "Ortsname, z.B. 'Campus Mitte'.",
-                    "en": "Location name, e.g. 'Main Campus'."
-                  },
-                  "system": {
-                    "datatype": "string",
-                    "normalization": {
-                      "trim": true
-                    },
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
+                  "label": { "de": "Name", "en": "Name" },
+                  "description": { "de": "Name des Ortes", "en": "Name of the location" },
+                  "prompt": { "de": "Ortsname, z.B. 'Campus Mitte'.", "en": "Location name, e.g. 'Main Campus'." },
+                  "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true }
                 },
                 {
                   "id": "sameAs",
-                  "label": {
-                    "de": "Verweis",
-                    "en": "Same As"
-                  },
-                  "description": {
-                    "de": "Externe URI-Referenz",
-                    "en": "External URI reference"
-                  },
-                  "prompt": {
-                    "de": "URI zu externer Referenz, z.B. Wikidata-Link.",
-                    "en": "URI to external reference, e.g. Wikidata link."
-                  },
-                  "system": {
-                    "datatype": "string",
-                    "normalization": {
-                      "trim": true
-                    },
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
+                  "label": { "de": "Verweis", "en": "Same As" },
+                  "description": { "de": "Externe URI-Referenz", "en": "External URI reference" },
+                  "prompt": { "de": "URI zu externer Referenz, z.B. Wikidata-Link.", "en": "URI to external reference, e.g. Wikidata link." },
+                  "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true }
                 },
                 {
                   "id": "address",
-                  "label": {
-                    "de": "Adresse",
-                    "en": "Address"
-                  },
-                  "description": {
-                    "de": "Postanschrift",
-                    "en": "Postal address"
-                  },
-                  "prompt": {
-                    "de": "Postanschrift mit Straße, PLZ, Ort und Land.",
-                    "en": "Postal address with street, postal code, city, and country."
-                  },
+                  "label": { "de": "Adresse", "en": "Address" },
+                  "description": { "de": "Postanschrift", "en": "Postal address" },
+                  "prompt": { "de": "Postanschrift mit Straße, PLZ, Ort und Land.", "en": "Postal address with street, postal code, city, and country." },
                   "fields": [
-                    {
-                      "id": "streetAddress",
-                      "label": {
-                        "de": "Straße",
-                        "en": "Street"
-                      },
-                      "description": {
-                        "de": "Straße und Hausnummer",
-                        "en": "Street and house number"
-                      },
-                      "prompt": {
-                        "de": "Straße, z.B. 'Unter den Linden 6'.",
-                        "en": "Street, e.g. 'Unter den Linden 6'."
-                      },
-                      "system": {
-                        "datatype": "string",
-                        "normalization": {
-                          "trim": true
-                        },
-                        "required": false,
-                        "ask_user": true,
-                        "ai_fillable": true
-                      }
-                    },
-                    {
-                      "id": "postalCode",
-                      "label": {
-                        "de": "PLZ",
-                        "en": "Postal Code"
-                      },
-                      "description": {
-                        "de": "Postleitzahl",
-                        "en": "Postal code"
-                      },
-                      "prompt": {
-                        "de": "PLZ, z.B. '10117'.",
-                        "en": "Postal code, e.g. '10117'."
-                      },
-                      "system": {
-                        "datatype": "string",
-                        "validation": {
-                          "pattern": "^[0-9]{4,10}$"
-                        },
-                        "normalization": {
-                          "trim": true
-                        },
-                        "required": false,
-                        "ask_user": true,
-                        "ai_fillable": true
-                      }
-                    },
-                    {
-                      "id": "addressLocality",
-                      "label": {
-                        "de": "Stadt",
-                        "en": "City"
-                      },
-                      "description": {
-                        "de": "Stadt oder Gemeinde",
-                        "en": "City or municipality"
-                      },
-                      "prompt": {
-                        "de": "Stadt, z.B. 'Berlin'.",
-                        "en": "City, e.g. 'Berlin'."
-                      },
-                      "system": {
-                        "datatype": "string",
-                        "normalization": {
-                          "trim": true
-                        },
-                        "required": false,
-                        "ask_user": true,
-                        "ai_fillable": true
-                      }
-                    },
-                    {
-                      "id": "addressRegion",
-                      "label": {
-                        "de": "Bundesland",
-                        "en": "State"
-                      },
-                      "description": {
-                        "de": "Bundesland oder Region",
-                        "en": "State or region"
-                      },
-                      "prompt": {
-                        "de": "Bundesland, z.B. 'Berlin', 'Bayern'.",
-                        "en": "State, e.g. 'Berlin', 'Bavaria'."
-                      },
-                      "system": {
-                        "datatype": "string",
-                        "normalization": {
-                          "trim": true
-                        },
-                        "required": false,
-                        "ask_user": true,
-                        "ai_fillable": true
-                      }
-                    },
-                    {
-                      "id": "addressCountry",
-                      "label": {
-                        "de": "Land",
-                        "en": "Country"
-                      },
-                      "description": {
-                        "de": "Land (ISO-Code)",
-                        "en": "Country (ISO code)"
-                      },
-                      "prompt": {
-                        "de": "Ländercode, z.B. 'DE', 'AT', 'CH'.",
-                        "en": "Country code, e.g. 'DE', 'AT', 'CH'."
-                      },
-                      "system": {
-                        "datatype": "string",
-                        "normalization": {
-                          "trim": true,
-                          "case": "upper"
-                        },
-                        "required": false,
-                        "ask_user": true,
-                        "ai_fillable": true
-                      }
-                    }
+                    { "id": "streetAddress", "label": { "de": "Straße", "en": "Street" }, "description": { "de": "Straße und Hausnummer", "en": "Street and house number" }, "prompt": { "de": "Straße, z.B. 'Unter den Linden 6'.", "en": "Street, e.g. 'Unter den Linden 6'." }, "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "postalCode", "label": { "de": "PLZ", "en": "Postal Code" }, "description": { "de": "Postleitzahl", "en": "Postal code" }, "prompt": { "de": "PLZ, z.B. '10117'.", "en": "Postal code, e.g. '10117'." }, "system": { "datatype": "string", "validation": { "pattern": "^[0-9]{4,10}$" }, "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "addressLocality", "label": { "de": "Stadt", "en": "City" }, "description": { "de": "Stadt oder Gemeinde", "en": "City or municipality" }, "prompt": { "de": "Stadt, z.B. 'Berlin'.", "en": "City, e.g. 'Berlin'." }, "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "addressRegion", "label": { "de": "Bundesland", "en": "State" }, "description": { "de": "Bundesland oder Region", "en": "State or region" }, "prompt": { "de": "Bundesland, z.B. 'Berlin', 'Bayern'.", "en": "State, e.g. 'Berlin', 'Bavaria'." }, "system": { "datatype": "string", "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "addressCountry", "label": { "de": "Land", "en": "Country" }, "description": { "de": "Land (ISO-Code)", "en": "Country (ISO code)" }, "prompt": { "de": "Ländercode, z.B. 'DE', 'AT', 'CH'.", "en": "Country code, e.g. 'DE', 'AT', 'CH'." }, "system": { "datatype": "string", "normalization": { "trim": true, "case": "upper" }, "required": false, "ask_user": true, "ai_fillable": true } }
                   ],
-                  "system": {
-                    "datatype": "object",
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
+                  "system": { "datatype": "object", "required": false, "ask_user": true, "ai_fillable": true }
                 },
                 {
                   "id": "geo",
-                  "label": {
-                    "de": "Koordinaten",
-                    "en": "Coordinates"
-                  },
-                  "description": {
-                    "de": "Breiten- und Längengrad",
-                    "en": "Latitude and longitude"
-                  },
-                  "prompt": {
-                    "de": "Geografische Koordinaten.",
-                    "en": "Geographic coordinates."
-                  },
+                  "label": { "de": "Koordinaten", "en": "Coordinates" },
+                  "description": { "de": "Breiten- und Längengrad", "en": "Latitude and longitude" },
+                  "prompt": { "de": "Geografische Koordinaten.", "en": "Geographic coordinates." },
                   "fields": [
-                    {
-                      "id": "latitude",
-                      "label": {
-                        "de": "Breitengrad",
-                        "en": "Latitude"
-                      },
-                      "description": {
-                        "de": "Breite (-90 bis +90)",
-                        "en": "Latitude (-90 to +90)"
-                      },
-                      "prompt": {
-                        "de": "Breitengrad, z.B. 52.5200.",
-                        "en": "Latitude, e.g. 52.5200."
-                      },
-                      "system": {
-                        "datatype": "number",
-                        "validation": {
-                          "min": -90,
-                          "max": 90
-                        },
-                        "normalization": {
-                          "trim": true
-                        },
-                        "required": false,
-                        "ask_user": true,
-                        "ai_fillable": true
-                      }
-                    },
-                    {
-                      "id": "longitude",
-                      "label": {
-                        "de": "Längengrad",
-                        "en": "Longitude"
-                      },
-                      "description": {
-                        "de": "Länge (-180 bis +180)",
-                        "en": "Longitude (-180 to +180)"
-                      },
-                      "prompt": {
-                        "de": "Längengrad, z.B. 13.4050.",
-                        "en": "Longitude, e.g. 13.4050."
-                      },
-                      "system": {
-                        "datatype": "number",
-                        "validation": {
-                          "min": -180,
-                          "max": 180
-                        },
-                        "normalization": {
-                          "trim": true
-                        },
-                        "required": false,
-                        "ask_user": true,
-                        "ai_fillable": true
-                      }
-                    }
+                    { "id": "latitude", "label": { "de": "Breitengrad", "en": "Latitude" }, "description": { "de": "Breite (-90 bis +90)", "en": "Latitude (-90 to +90)" }, "prompt": { "de": "Breitengrad, z.B. 52.5200.", "en": "Latitude, e.g. 52.5200." }, "system": { "datatype": "number", "validation": { "min": -90, "max": 90 }, "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } },
+                    { "id": "longitude", "label": { "de": "Längengrad", "en": "Longitude" }, "description": { "de": "Länge (-180 bis +180)", "en": "Longitude (-180 to +180)" }, "prompt": { "de": "Längengrad, z.B. 13.4050.", "en": "Longitude, e.g. 13.4050." }, "system": { "datatype": "number", "validation": { "min": -180, "max": 180 }, "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true } }
                   ],
-                  "system": {
-                    "datatype": "object",
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
+                  "system": { "datatype": "object", "required": false, "ask_user": true, "ai_fillable": true }
                 }
               ]
             },
             {
               "@type": "VirtualLocation",
-              "label": {
-                "de": "Virtueller Ort",
-                "en": "Virtual Location"
-              },
-              "description": {
-                "de": "Online-Plattform oder virtueller Raum",
-                "en": "Online platform or virtual space"
-              },
+              "label": { "de": "Virtueller Ort", "en": "Virtual Location" },
+              "description": { "de": "Online-Plattform oder virtueller Raum", "en": "Online platform or virtual space" },
               "fields": [
                 {
                   "id": "url",
-                  "label": {
-                    "de": "URL",
-                    "en": "URL"
-                  },
-                  "description": {
-                    "de": "Link zum virtuellen Ort",
-                    "en": "Link to the virtual location"
-                  },
-                  "prompt": {
-                    "de": "URL zum virtuellen Ort, z.B. Zoom-Link.",
-                    "en": "URL to the virtual location, e.g. Zoom link."
-                  },
-                  "system": {
-                    "datatype": "string",
-                    "validation": {
-                      "format": "url"
-                    },
-                    "normalization": {
-                      "trim": true
-                    },
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
+                  "label": { "de": "URL", "en": "URL" },
+                  "description": { "de": "Link zum virtuellen Ort", "en": "Link to the virtual location" },
+                  "prompt": { "de": "URL zum virtuellen Ort, z.B. Zoom-Link.", "en": "URL to the virtual location, e.g. Zoom link." },
+                  "system": { "datatype": "string", "validation": { "format": "url" }, "normalization": { "trim": true }, "required": false, "ask_user": true, "ai_fillable": true }
                 }
               ]
             }
           ]
         },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -1646,261 +1094,24 @@
           "variants": [
             {
               "@type": "Default",
-              "label": {
-                "de": "Preise/Angebote",
-                "en": "Prices/Offers"
-              },
-              "description": {
-                "de": "Preisinfos für das Programm",
-                "en": "Price information for the program"
-              },
+              "label": { "de": "Preise/Angebote", "en": "Prices/Offers" },
+              "description": { "de": "Preisinfos für das Programm", "en": "Price information for the program" },
               "fields": [
-                {
-                  "id": "price",
-                  "label": {
-                    "de": "Preis",
-                    "en": "Price"
-                  },
-                  "description": {
-                    "de": "Betrag",
-                    "en": "Amount"
-                  },
-                  "prompt": {
-                    "de": "Preis als Zahl, z.B. 500, 1200.50.",
-                    "en": "Price as number, e.g. 500, 1200.50."
-                  },
-                  "system": {
-                    "path": "price",
-                    "uri": "https://schema.org/price",
-                    "datatype": "number",
-                    "multiple": false,
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
-                },
-                {
-                  "id": "priceCurrency",
-                  "label": {
-                    "de": "Währung",
-                    "en": "Currency"
-                  },
-                  "description": {
-                    "de": "ISO 4217 Code",
-                    "en": "ISO 4217 code"
-                  },
-                  "prompt": {
-                    "de": "Währungscode, z.B. 'EUR', 'USD', 'CHF'.",
-                    "en": "Currency code, e.g. 'EUR', 'USD', 'CHF'."
-                  },
-                  "system": {
-                    "path": "priceCurrency",
-                    "uri": "https://schema.org/priceCurrency",
-                    "datatype": "string",
-                    "multiple": false,
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
-                },
-                {
-                  "id": "url",
-                  "label": {
-                    "de": "URL",
-                    "en": "URL"
-                  },
-                  "description": {
-                    "de": "Link zur Angebotsseite",
-                    "en": "Link to offer page"
-                  },
-                  "prompt": {
-                    "de": "URL zur Angebotsseite.",
-                    "en": "URL to the offer page."
-                  },
-                  "system": {
-                    "path": "url",
-                    "uri": "https://schema.org/url",
-                    "datatype": "string",
-                    "multiple": false,
-                    "required": false,
-                    "ask_user": true,
-                    "ai_fillable": true
-                  }
-                }
+                { "id": "price", "label": { "de": "Preis", "en": "Price" }, "description": { "de": "Betrag", "en": "Amount" }, "prompt": { "de": "Preis als Zahl, z.B. 500, 1200.50.", "en": "Price as number, e.g. 500, 1200.50." }, "system": { "path": "price", "uri": "https://schema.org/price", "datatype": "number", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true } },
+                { "id": "priceCurrency", "label": { "de": "Währung", "en": "Currency" }, "description": { "de": "ISO 4217 Code", "en": "ISO 4217 code" }, "prompt": { "de": "Währungscode, z.B. 'EUR', 'USD', 'CHF'.", "en": "Currency code, e.g. 'EUR', 'USD', 'CHF'." }, "system": { "path": "priceCurrency", "uri": "https://schema.org/priceCurrency", "datatype": "string", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true } },
+                { "id": "url", "label": { "de": "URL", "en": "URL" }, "description": { "de": "Link zur Angebotsseite", "en": "Link to offer page" }, "prompt": { "de": "URL zur Angebotsseite.", "en": "URL to the offer page." }, "system": { "path": "url", "uri": "https://schema.org/url", "datatype": "string", "multiple": false, "required": false, "ask_user": true, "ai_fillable": true } }
               ]
             }
           ]
         },
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
-      }
-    },
-    {
-      "id": "ccm:oeh_publisher_combined",
-      "group": "license",
-      "label": {
-        "de": "Publisher / Herausgeber",
-        "en": "Publisher"
-      },
-      "description": {
-        "de": "Verlag oder Herausgeber",
-        "en": "Publisher"
-      },
-      "prompt": {
-        "de": "Extrahiere den Verlag, die Plattform oder die herausgebende Organisation – nicht den/die Autor:in. Suche nach Impressum, Copyright-Hinweisen, Domainnamen oder Logos. Gib nur EINEN Namen als String zurück. Beispiele: 'Bundeszentrale für politische Bildung', 'Cornelsen Verlag', 'Serlo Education e.V.'.",
-        "en": "Extract the publisher, platform, or publishing organization – not the author. Look for imprint, copyright notices, domain names, or logos. Return only ONE name as string. Examples: 'Federal Agency for Civic Education', 'Oxford University Press', 'Khan Academy'."
-      },
-      "system": {
-        "path": "ccm:oeh_publisher_combined",
-        "uri": "ccm:oeh_publisher_combined",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        }
-      }
-    },
-    {
-      "id": "ccm:educationalintendedenduserrole",
-      "group": "education",
-      "label": {
-        "de": "Zielgruppe",
-        "en": "Intended Audience"
-      },
-      "description": {
-        "de": "Zielgruppe(n) auswählen",
-        "en": "Select target audience(s)"
-      },
-      "prompt": {
-        "de": "Bestimme die Zielgruppe(n) der Ressource. Wähle NUR aus den vorgegebenen Vokabular-URIs – erfinde keine eigenen. Typische Zuordnungen: Unterrichtsmaterialien → Lehrer/in + Lerner/in; Elternratgeber → Eltern; Verwaltungsvorlagen → Verwaltung. Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent'].",
-        "en": "Determine the target audience(s). Choose ONLY from provided vocabulary URIs – do not invent new ones. Typical mappings: teaching materials → teacher + learner; parent guides → parent; admin templates → manager. Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent']."
-      },
-      "promptInstructions": {
-        "labelExactMatch": true
-      },
-      "system": {
-        "path": "ccm:educationalintendedenduserrole",
-        "uri": "ccm:educationalintendedenduserrole",
-        "datatype": "array",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "vocabulary": {
-          "type": "skos",
-          "scheme": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/",
-          "concepts": [
-            {
-              "label": {
-                "de": "Autor/in",
-                "en": "author"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/author"
-            },
-            {
-              "label": {
-                "de": "Berater/in",
-                "en": "counsellor"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/counsellor"
-            },
-            {
-              "label": {
-                "de": "Lerner/in",
-                "en": "learner"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner"
-            },
-            {
-              "label": {
-                "de": "Verwaltung",
-                "en": "manager"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/manager"
-            },
-            {
-              "label": {
-                "de": "Eltern",
-                "en": "parent"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent"
-            },
-            {
-              "label": {
-                "de": "Lehrer/in",
-                "en": "teacher"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher"
-            },
-            {
-              "label": {
-                "de": "andere",
-                "en": "other"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/other"
-            }
-          ]
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true,
-          "map_labels_to_uris": true
-        }
-      }
-    },
-    {
-      "id": "schema:teaches",
-      "group": "outcomes",
-      "label": {
-        "de": "Vermittelte Kompetenzen",
-        "en": "Competencies Taught"
-      },
-      "description": {
-        "de": "Kompetenzen, Fähigkeiten oder Wissen, die vermittelt werden",
-        "en": "Competencies, skills, or knowledge that are taught"
-      },
-      "prompt": {
-        "de": "Welche Kompetenzen, Fähigkeiten oder Kenntnisse werden vermittelt? Gib ein JSON-Array zurück. Beispiele: ['Programmierung in Python', 'Datenanalyse', 'Kritisches Denken'], ['Grundlagen der Buchführung', 'Bilanzierung'].",
-        "en": "What competencies, skills, or knowledge are taught? Return a JSON array. Examples: ['Python Programming', 'Data Analysis', 'Critical Thinking'], ['Accounting Basics', 'Financial Reporting']."
-      },
-      "system": {
-        "path": "schema:teaches",
-        "uri": "https://schema.org/teaches",
-        "datatype": "array",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": false,
-        "index": {
-          "keyword": true,
-          "fulltext": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        }
       }
     }
   ],
   "output_template": {
+    "@type": ["schema:EducationalOccupationalProgram"],
     "oeh:educationalOffering": [],
     "oeh:concretenessType": "",
     "oeh:granularityLevel": "",
@@ -1924,14 +1135,8 @@
     "schema:occupationalCategory": [],
     "schema:financialAidEligible": [],
     "schema:hasCourse": [],
-    "schema:provider": {
-      "name": "",
-      "url": ""
-    },
+    "schema:provider": { "name": "", "url": "" },
     "schema:location": [],
-    "schema:offers": [],
-    "ccm:oeh_publisher_combined": "",
-    "ccm:educationalintendedenduserrole": [],
-    "schema:teaches": []
+    "schema:offers": []
   }
 }

@@ -208,7 +208,7 @@
             <div class="sep"></div>
             <span class="section-label" style="min-width:auto">Kontext</span>
             <button class="btn active" data-ctx="default" onclick="setContext('default', this)">default</button>
-            <button class="btn" data-ctx="redesign_26" onclick="setContext('redesign_26', this)">redesign_26</button>
+            <button class="btn" data-ctx="mds_oeh" onclick="setContext('mds_oeh', this)">mds_oeh</button>
             <div class="sep"></div>
             <span class="section-label" style="min-width:auto">Version</span>
             <button class="btn active" data-ver="latest" onclick="setVersion('latest', this)">latest</button>
@@ -223,9 +223,9 @@
             <button class="btn" data-layout="plugin" onclick="setLayout('plugin', this)">Plugin</button>
             <button class="btn" data-layout="dialog" onclick="setLayout('dialog', this)">Dialog</button>
             <button class="btn" data-layout="detail" onclick="setLayout('detail', this)">Detail</button>
-            <button class="btn" data-layout="metadatenpruefdialog" onclick="setLayout('metadatenpruefdialog', this)">Prüfdialog</button>
+            <button class="btn" data-layout="clean" onclick="setLayout('clean', this)">Clean</button>
             <button class="btn" data-layout="prueftisch" onclick="setLayout('prueftisch', this)">Prüftisch</button>
-            <button class="btn" data-layout="prueftisch-gross" onclick="setLayout('prueftisch-gross', this)">Prüftisch groß</button>
+            <button class="btn" data-layout="prueftisch-org" onclick="setLayout('prueftisch-org', this)">Prueftisch Org</button>
             <div class="sep"></div>
             <span class="section-label" style="min-width:auto">Spalten</span>
             <button class="btn active" data-col="1" onclick="setColumns(1, this)">1</button>
@@ -265,6 +265,7 @@
             <div class="toggle" data-attr="readonly" onclick="toggleAttr(this)"><span class="dot"></span> Readonly</div>
             <div class="toggle on" data-attr="borderless" onclick="toggleAttr(this)"><span class="dot"></span> Randlos</div>
             <div class="toggle on" data-attr="highlight-ai" onclick="toggleAttr(this)"><span class="dot"></span> KI-Highlight</div>
+            <div class="toggle" data-attr="flat-groups" onclick="toggleAttr(this)"><span class="dot"></span> Flat Groups</div>
             <div class="sep"></div>
             <span class="section-label" style="min-width:auto">Hintergrund</span>
             <div class="swatch active" style="background:#ffffff" data-bg="#ffffff" onclick="setBgColor('#ffffff', this)" title="Weiß"></div>
@@ -283,7 +284,7 @@
     <div class="widget-container" id="widgetContainer">
         <metadata-agent-canvas
             id="canvas"
-            api-url="https://metadata-agent-api.vercel.app"
+            api-url=""
             layout="default"
             context-name="default"
             schema-version="latest"
@@ -302,11 +303,18 @@
             readonly="false"
             borderless="true"
             highlight-ai="true"
-            auto-extract="false">
+            auto-extract="false"
+            flat-groups="false"
+            show-preview="true"
+            enable-screenshot="true"
+            screenshot-method="pageshot">
         </metadata-agent-canvas>
     </div>
 
     <pre class="json-preview" id="jsonPreview"></pre>
+
+    <!-- Set API URL BEFORE Angular bootstraps (inline runs before defer scripts) -->
+    <script>document.getElementById('canvas').setAttribute('api-url', window.location.origin);</script>
 
     <!-- Widget Scripts -->
     <script src="../dist/runtime.js" defer></script>
@@ -314,9 +322,8 @@
     <script src="../dist/main.js" defer></script>
 
     <script>
-        const apiUrl = 'https://metadata-agent-api.vercel.app';
+        const apiUrl = window.location.origin;
         const canvas = document.getElementById('canvas');
-        canvas.setAttribute('api-url', apiUrl);
 
         let currentLayout = 'default';
         let currentColumns = 1;

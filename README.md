@@ -16,6 +16,7 @@ Generiert strukturierte Metadaten nach dem [WLO/OEH-Schema](https://wirlernenonl
   - [POST /export/markdown](#post-exportmarkdown)
   - [POST /upload](#post-upload)
   - [POST /upload/verify/{node_id}](#post-uploadverifynodeid)
+  - [POST /screenshot](#post-screenshot)
   - [Info-Endpunkte](#info-endpunkte)
 - [Nutzungsbeispiele](#nutzungsbeispiele)
 - [Umgebungsvariablen](#umgebungsvariablen)
@@ -46,8 +47,12 @@ venv\Scripts\activate         # Windows
 # Dependencies
 pip install -r requirements.txt
 
+# Optional: Playwright für lokale Screenshots (screenshot_method=playwright)
+playwright install chromium
+
 # API-Key konfigurieren
-echo "B_API_KEY=dein-key-hier" > .env
+cp .env.template .env
+# B_API_KEY eintragen
 
 # Starten
 uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
@@ -55,11 +60,19 @@ uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 
 ### Mit Docker
 
+Das Docker-Image enthält **Playwright + Chromium** für datenschutzfreundliche Screenshots (`screenshot_method=playwright`). Auf Vercel steht nur die externe `pageshot`-Methode zur Verfügung.
+
 ```bash
+# .env-Datei anlegen (siehe .env.template)
+cp .env.template .env
+# B_API_KEY eintragen, optional: WLO_GUEST_USERNAME/PASSWORD für /upload
+
+# Mit docker-compose (empfohlen)
 docker-compose up -d
-# oder manuell:
+
+# Oder manuell:
 docker build -t metadata-agent-api .
-docker run -d -p 8000:8000 -e B_API_KEY=dein-key metadata-agent-api
+docker run -d -p 8000:8000 --env-file .env metadata-agent-api
 ```
 
 ### Testen
@@ -100,6 +113,7 @@ Request → Input Source → LLM Extraction → Normalization → Response
 | `output_normalizer.py` | Strukturanpassung für Canvas-Webkomponente |
 | `geocoding_service.py` | Adressen → Koordinaten via Photon/Komoot API |
 | `repository_service.py` | Upload ins WLO edu-sharing Repository (Aspects, VCARD, Geo) |
+| `screenshot_service.py` | Screenshot-Erfassung via PageShot API oder Playwright (Chromium) |
 | `schema_loader.py` | Schema-Laden, Caching, Versions-Auflösung |
 
 ---
@@ -141,6 +155,9 @@ Generiert vollständige Metadaten aus Text, URL oder Repository-Node.
 | `existing_metadata` | object | — | Bestehende Metadaten als Basis |
 | `regenerate_fields` | array | — | Nur diese Feld-IDs neu extrahieren |
 | `regenerate_empty` | bool | `false` | Leere Felder in `existing_metadata` neu extrahieren |
+| **Screenshot** ||||
+| `screenshot_method` | string | — | `pageshot` (extern) oder `playwright` (intern, datenschutzfreundlich). Ohne Angabe: kein Screenshot |
+| `preview_url` | string | — | URL für Screenshot (auto-detected aus `source_url` oder `ccm:wwwurl`) |
 
 #### Input-Quellen
 
@@ -158,7 +175,7 @@ Die Metadaten-Felder liegen **direkt auf Top-Level** (nicht in einem `metadata`-
 ```json
 {
   "contextName": "default",
-  "schemaVersion": "1.8.0",
+  "schemaVersion": "1.8.1",
   "metadataset": "event.json",
   "language": "de",
   "exportedAt": "2026-01-23T08:00:00+00:00",
@@ -195,6 +212,8 @@ Die Metadaten-Felder liegen **direkt auf Top-Level** (nicht in einem `metadata`-
 ```
 
 > **Hinweis:** Leere Default-Werte (`""`, `[]`, `{}`, `null`) werden aus der Response gefiltert — nur Felder mit tatsächlichen Werten erscheinen.
+>
+> **Screenshot:** Wenn `screenshot_method` angegeben wurde und ein Screenshot erfolgreich war, enthält die Response zusätzlich `preview_image_url` als Base64 Data-URL (`data:image/png;base64,...`).
 
 #### Verfügbare Schemas
 
@@ -217,9 +236,10 @@ Die Metadaten-Felder liegen **direkt auf Top-Level** (nicht in einem `metadata`-
 
 | Kontext | Beschreibung | Schemas |
 |---------|--------------|--------|
-| `default` | WLO/OEH Standard | 11 Schemas (alle) |
-| `redesign_26` | Redesign 2026 | 11 Schemas (alle, angepasste Felder/Gruppen) |
-| `mds_oeh` | OEH Metadatenset (kompakt) | 5 Schemas (core, event, education_offer, organization, person) |
+| `default` | WLO/OEH Standard | 11 Schemas (+ 3 deaktiviert) |
+| `mds_oeh` | OEH Metadatenset | 11 Schemas (+ 3 deaktiviert) |
+
+> **Deaktivierte Schemas:** `education_program.json`, `course.json`, `curriculum.json` — vorhanden aber nicht in der automatischen Erkennung.
 
 ---
 
@@ -260,7 +280,7 @@ Extrahiert oder regeneriert ein einzelnes Feld. Nützlich um einzelne Felder zu 
   "changed": true,
   "normalized": false,
   "context": "default",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "schema_file": "event.json",
   "processing": {
     "llm_provider": "b-api-openai",
@@ -326,7 +346,7 @@ Erkennt den Inhaltstyp (Schema) eines Textes via LLM.
     }
   ],
   "context": "default",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "processing_time_ms": 800
 }
 ```
@@ -347,13 +367,13 @@ Der Body kann **direkt der `/generate`-Output** sein (flaches Format) oder ein O
 # Variante 1: Direkter /generate-Output
 curl -X POST http://localhost:8000/validate \
   -H "Content-Type: application/json" \
-  -d '{"contextName":"default","schemaVersion":"1.8.0","metadataset":"event.json",
+  -d '{"contextName":"default","schemaVersion":"1.8.1","metadataset":"event.json",
        "cclom:title":"Mein Workshop","schema:startDate":"2026-03-15"}'
 
 # Variante 2: Explizit mit metadata-Wrapper
 curl -X POST http://localhost:8000/validate \
   -H "Content-Type: application/json" \
-  -d '{"metadata": {...}, "context": "default", "version": "1.8.0"}'
+  -d '{"metadata": {...}, "context": "default", "version": "1.8.1"}'
 ```
 
 | Parameter | Typ | Default | Beschreibung |
@@ -446,6 +466,10 @@ Lädt Metadaten ins WLO edu-sharing Repository hoch.
 | `check_duplicates` | bool | `true` | Dublettenprüfung via `ccm:wwwurl` |
 | `start_workflow` | bool | `true` | Review-Workflow starten |
 | `source` | string | — | Bezugsquelle / Publisher-Override. Überschreibt `ccm:oeh_publisher_combined` |
+| `preview_url` | string | — | URL für Vorschaubild-Screenshot. Wenn leer, wird `ccm:wwwurl` aus den Metadaten verwendet |
+| `screenshot_method` | string | `pageshot` | Screenshot-Methode: `pageshot` (extern) oder `playwright` (intern, datenschutzfreundlich) |
+| `write_extended_data` | bool | `true` | Extended-Felder schreiben (`ccm:oeh_extendedType`, `ccm:oeh_extendedData`, `ccm:oeh_extendedText`) |
+| `extended_text` | string | — | Rohtext vor der KI-Extraktion. Wird in `ccm:oeh_extendedText` geschrieben |
 
 #### Repositories
 
@@ -461,7 +485,20 @@ Lädt Metadaten ins WLO edu-sharing Repository hoch.
 3. **Aspects setzen** — Fügt benötigte Alfresco-Aspects hinzu (siehe unten)
 4. **Metadaten setzen** — Überträgt alle Metadaten-Felder (`obeyMds=false`)
 5. **Collections** — Fügt Node zu Collections hinzu (falls in Metadaten)
-6. **Workflow starten** — Startet Review-Prozess (optional)
+6. **Extended Fields** — Schreibt `ccm:oeh_extendedType/Data/Text` (optional, Standard: aktiv)
+7. **Workflow starten** — Startet Review-Prozess (optional)
+
+#### Extended Metadata Fields
+
+Wenn `write_extended_data=true` (Standard), werden nach dem Haupt-Metadaten-Upload drei zusätzliche Felder geschrieben:
+
+| Feld | Inhalt | Quelle |
+|------|--------|--------|
+| `ccm:oeh_extendedType` | URI des Inhaltstyps | `metadataset` → `core.json` Vocabulary-URI (z.B. `http://w3id.org/openeduhub/vocabs/contentTypes/event`) |
+| `ccm:oeh_extendedData` | Vollständiges Metadaten-JSON | Alle Metadaten-Felder als JSON-String (ohne interne Processing-Keys) |
+| `ccm:oeh_extendedText` | Rohtext vor Extraktion | `extended_text`-Parameter (User-Eingabe, extrahierter Seiteninhalt, etc.) |
+
+Diese Felder werden mit `obeyMds=false` geschrieben und umgehen den MDS-Filter.
 
 #### Automatische Transformationen beim Upload
 
@@ -575,6 +612,67 @@ Prüft hochgeladene Metadaten gegen die tatsächlichen Werte im Repository (SOLL
 
 ---
 
+### POST /screenshot
+
+Erstellt einen Screenshot einer Webseite. Optional kann der Screenshot direkt als Vorschaubild auf einen edu-sharing Node hochgeladen werden.
+
+#### Request
+
+| Parameter | Typ | Default | Beschreibung |
+|-----------|-----|---------|--------------|
+| `url` | string | **erforderlich** | URL der Webseite |
+| `method` | enum | `pageshot` | `pageshot` (extern, schnell) oder `playwright` (intern, datenschutzfreundlich) |
+| `width` | int | `800` | Viewport-Breite (320–3840) |
+| `height` | int | `500` | Viewport-Höhe (200–2160) |
+| `format` | string | `png` | Bildformat: `png`, `jpeg`, `webp` |
+| `full_page` | bool | `false` | Gesamte scrollbare Seite erfassen |
+| `delay` | int | `2000` | Wartezeit vor Aufnahme in ms (0–10000) |
+| `node_id` | string | — | Optional: Screenshot als Vorschaubild auf diesen Node hochladen |
+| `repository` | string | `staging` | Repository für Preview-Upload: `staging` oder `prod` |
+
+#### Methoden
+
+| Methode | Datenschutz | Geschwindigkeit | Beschreibung |
+|---------|-------------|-----------------|-------------|
+| `pageshot` | ⚠️ URL wird an externen Service gesendet | ~3s | Externer PageShot API Service (Standard) |
+| `playwright` | ✅ Intern, keine Daten nach außen | ~3–5s | Lokaler Chromium-Browser (erfordert Playwright-Installation) |
+
+#### Response
+
+```json
+{
+  "success": true,
+  "method": "pageshot",
+  "url": "https://example.com",
+  "format": "png",
+  "mimetype": "image/png",
+  "width": 800,
+  "height": 500,
+  "size_bytes": 245000,
+  "capture_time_ms": 2800,
+  "image_base64": "iVBORw0KGgo...",
+  "preview_uploaded": null,
+  "node_id": null
+}
+```
+
+#### Mit Preview-Upload
+
+```bash
+curl -X POST http://localhost:8000/screenshot \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://example.com/event",
+    "method": "pageshot",
+    "node_id": "abc123-def456-...",
+    "repository": "staging"
+  }'
+```
+
+> **Hinweis:** Für Preview-Upload werden `WLO_GUEST_USERNAME` und `WLO_GUEST_PASSWORD` benötigt.
+
+---
+
 ### Info-Endpunkte
 
 #### GET /health
@@ -593,20 +691,14 @@ Listet alle verfügbaren Schema-Kontexte mit Versionen.
     {
       "name": "default",
       "display_name": "WLO/OEH Standard",
-      "versions": ["1.8.0"],
-      "default_version": "1.8.0"
-    },
-    {
-      "name": "redesign_26",
-      "display_name": "Redesign 2026",
-      "versions": ["1.8.0"],
-      "default_version": "1.8.0"
+      "versions": ["1.8.1", "1.8.0"],
+      "default_version": "1.8.1"
     },
     {
       "name": "mds_oeh",
       "display_name": "OEH Metadatenset",
-      "versions": ["1.8.0"],
-      "default_version": "1.8.0"
+      "versions": ["1.8.1", "1.8.0"],
+      "default_version": "1.8.1"
     }
   ],
   "default_context": "default"
@@ -845,7 +937,7 @@ Prefix `METADATA_AGENT_` wird automatisch vorangestellt (außer API-Keys).
 | Variable | Default | Beschreibung |
 |----------|---------|--------------|
 | `METADATA_AGENT_DEFAULT_CONTEXT` | `default` | Standard-Kontext |
-| `METADATA_AGENT_DEFAULT_VERSION` | `1.8.0` | Standard-Version |
+| `METADATA_AGENT_DEFAULT_VERSION` | `latest` | Standard-Version (`latest` = automatische Erkennung, oder z.B. `1.8.0`) |
 
 ### Repository & Crawler
 
@@ -928,9 +1020,11 @@ Jedes Layout ist eine eigenständige Angular-Komponente mit eigener Darstellung.
 | `plugin` | Kompakte Sidebar für Browser-Extension — Eingabe, Fortschrittsbalken |
 | `dialog` | Review-Dialog für Modals — kein Eingabebereich, schwebende Speichern/Abbrechen-Buttons |
 | `detail` | Mehrspaltige (1–4) Nur-Lese-Vorschau — Standard: readonly |
-| `metadatenpruefdialog` | Metadaten-Prüfdialog mit Fortschrittsbalken |
+| `clean` | Minimale rahmenlose Ansicht für Einbettung/Review — editierbar, kompakt, borderless |
 | `prueftisch` | 1-spaltige Prüftabelle mit gruppierten Karten |
-| `prueftisch-gross` | 2-spaltige Prüftabelle (gleiche Komponente wie prueftisch, andere Variante) |
+| `prueftisch-org` | Organisatorischer Prüftisch — borderless, readonly, graue Gruppen-Header |
+
+> **Aliase:** `metadatenpruefdialog` → `clean`, `prueftisch-gross` → `prueftisch` (mit `columns=2`), `prueftisch-org-large` → `prueftisch-org` (mit `columns=2`)
 
 > **Hinweis:** `readonly` ist kein Layout, sondern ein universelles Attribut, kombinierbar mit jedem Layout via `readonly="true"`.
 
@@ -944,10 +1038,9 @@ Alle Attribute können auch per JavaScript gesetzt werden: `canvas.layout = 'det
 |----------|-------|-------------|
 | `api-url` | URL | URL der Metadata Agent API **(Pflicht)** |
 | `layout` | siehe oben | Layout-Variante |
-| `context-name` | `default`, `redesign_26` | Schema-Kontext |
-| `schema-version` | `1.8.0`, `latest` | Schema-Version |
-| `language` | `de`, `en` | Sprache (i18n) |
-| `columns` | `1`–`4` | Spaltenanzahl (nur detail-Layout) |
+| `context-name` | `default`, `mds_oeh` | Schema-Kontext |
+| `schema-version` | `1.8.1`, `latest` | Schema-Version |
+| `columns` | `1`–`4` | Spaltenanzahl (Standard: 1, detail-Layout: 4) |
 | `background-color` | CSS-Farbe | Hintergrundfarbe, z.B. `#f5f5f5` |
 | `input-mode` | `text`, `url`, `nodeId` | Eingabemodus |
 
@@ -960,11 +1053,17 @@ Alle Attribute können auch per JavaScript gesetzt werden: `canvas.layout = 'det
 | `show-core-fields` | Kernfelder (Titel, Beschreibung, Keywords) |
 | `show-special-fields` | Spezialfelder (Fach, Bildungsstufe etc.) |
 | `show-footer` | Fußzeile |
-| `show-floating-controls` | Floating Controls (Content-Type-Selector) |
-| `show-field-actions` | Feld-Aktionsbuttons (Bearbeiten, KI-Generieren) |
+| `show-floating-controls` | Floating Controls (Content-Type-Selector, Buttons) |
+| `show-field-actions` | Feld-Aktionsbuttons (Status, Info, Geo, Copy) |
 | `show-upload-button` | Upload-Button in Floating Controls |
-| `show-page-mode` | Seitenmodus-Umschalter (Plugin: „Webseite laden") |
+| `show-save-button` | Save/Download-Button in Floating Controls |
+| `show-json-loader` | JSON-Import-Button in Floating Controls |
+| `show-language-switcher` | Sprachumschalter (de/en) in Floating Controls |
+| `show-reset-button` | Reset-Button (Eingabe + Floating Controls) |
+| `show-content-type` | Content-Type-Button in Floating Controls |
+| `show-page-mode` | Seitenmodus-Umschalter (Plugin: „Webseite laden“) |
 | `show-content-type-only` | Nur Content-Type-Selector in Controls |
+| `show-preview` | Vorschaubild anzeigen (Standard: `true`) |
 | `controls` | Alias für `show-floating-controls` (OEH-Kompatibilität) |
 
 #### Verhalten
@@ -975,7 +1074,11 @@ Alle Attribute können auch per JavaScript gesetzt werden: `canvas.layout = 'det
 | `viewer-mode` | Alias für `readonly` (Rückwärtskompatibilität) |
 | `borderless` | Rahmenloser Modus |
 | `highlight-ai` | KI-generierte Felder farblich hervorheben (Standard: `true`) |
+| `flat-groups` | Feldgruppen pro Schema zusammenfassen (Standard: `false`) |
 | `auto-extract` | Automatisch extrahieren nach Laden |
+| `force-reset` | Programmatischer Reset ohne Bestätigungsdialog |
+| `enable-screenshot` | Screenshot bei URL-Extraktion (Standard: `true`) |
+| `screenshot-method` | Screenshot-Methode: `pageshot` (Standard) oder `playwright` |
 
 #### Daten direkt setzen
 
@@ -983,9 +1086,9 @@ Alle Attribute können auch per JavaScript gesetzt werden: `canvas.layout = 'det
 |----------|-------------|
 | `text` | Text direkt als Eingabe |
 | `url` | URL als Eingabe (löst URL-Modus aus) |
-| `node-id` | edu-sharing Node-ID für automatische Extraktion |
 | `metadata-input` | JSON-Objekt mit vorausgefüllten Metadaten (per JavaScript) |
 | `content-type` | Inhaltstyp setzen (Schema-Dateiname, z.B. `event.json`) |
+| `preview-image` | Vorschaubild als Base64 Data-URL oder URL (per JavaScript) |
 
 ### Events
 
@@ -1022,10 +1125,14 @@ Unter `/widget/examples/` sind interaktive Beispiele verfügbar:
 | `detail.html` | Detail-Ansicht (mehrspaltig, readonly) |
 | `minimal.html` | Minimale Einbindung |
 | `prueftisch.html` | 1-spaltige Prüftabelle |
-| `prueftisch-gross.html` | 2-spaltige Prüftabelle |
-| `metadatenpruefdialog.html` | Prüfdialog mit Fortschritt |
-| `json-import.html` | JSON-Import mit Layout-Switcher |
-| `test.html` | Test-Seite mit Toggle-Controls |
+| `prueftisch-gross.html` | 2-spaltige Prüftabelle (Prueftisch Org) |
+| `metadatenpruefdialog.html` | Clean-Layout (Prüfdialog) mit Fortschritt |
+| `json-import.html` | JSON-Import mit Layout-Switcher und allen Toggles |
+| `uri-test.html` | URI-basierte Content-Type-Steuerung |
+| `canvas-parameter-demo.html` | Interaktive Demo aller Parameter (Sidebar mit Toggles) |
+| `floating-controls-demo.html` | Demo der Floating Controls mit allen Button-Toggles |
+
+> **Alle Beispiele** enthalten einen **Layout-Switcher** (alle 7 Layouts) und einen **Flat Groups Toggle**.
 
 ### API-Endpunkt
 
@@ -1037,17 +1144,53 @@ Unter `/widget/examples/` sind interaktive Beispiele verfügbar:
 
 ### Docker (empfohlen)
 
+Das Docker-Image enthält **Playwright + Chromium** für datenschutzfreundliche Screenshots (`screenshot_method=playwright`).
+
 ```bash
-# Mit docker-compose
+# 1. .env-Datei erstellen
+cp .env.template .env
+# Mindestens B_API_KEY eintragen
+
+# 2. Starten
 docker-compose up -d
 
-# Manuell
+# Oder manuell:
 docker build -t metadata-agent-api .
-docker run -d -p 8000:8000 \
-  -e B_API_KEY=dein-key \
-  -e METADATA_AGENT_LLM_PROVIDER=b-api-openai \
-  metadata-agent-api
+docker run -d -p 8000:8000 --env-file .env metadata-agent-api
 ```
+
+#### Erforderliche Umgebungsvariablen (Docker)
+
+| Variable | Erforderlich | Beschreibung |
+|----------|:---:|-------------|
+| `B_API_KEY` | ✅ | B-API Key für LLM-Zugriff (oder `OPENAI_API_KEY`) |
+| `METADATA_AGENT_LLM_PROVIDER` | — | `b-api-openai` (Standard), `b-api-academiccloud`, `openai` |
+| `WLO_GUEST_USERNAME` | für `/upload` | WLO Repository Upload-Benutzername |
+| `WLO_GUEST_PASSWORD` | für `/upload` | WLO Repository Upload-Passwort |
+
+> Alle weiteren Variablen siehe [Umgebungsvariablen](#umgebungsvariablen) und `.env.template`.
+
+#### Docker vs. Vercel
+
+| Feature | Docker | Vercel |
+|---------|--------|--------|
+| Screenshot `pageshot` | ✅ Extern (PageShot API) | ✅ Extern (PageShot API) |
+| Screenshot `playwright` | ✅ Intern (Chromium im Container) | ❌ Nicht verfügbar |
+| `/upload` Endpoint | ✅ Mit `WLO_GUEST_*` Env-Vars | ✅ Mit Vercel Env-Vars |
+| Widget/Webkomponente | ✅ Unter `/widget/dist/` | ✅ Unter `/widget/dist/` |
+| Health Check | ✅ Integriert (`/health`) | — |
+
+### Vercel
+
+Das Projekt ist für Vercel vorkonfiguriert (`vercel.json`). Playwright ist auf Vercel **nicht** verfügbar — nur `pageshot` funktioniert.
+
+```bash
+# Vercel CLI
+npm i -g vercel
+vercel --prod
+```
+
+> **Hinweis:** Widget-Dateien müssen in `src/static/widget/dist/` committet sein (siehe `scripts/deploy-widget.ps1`).
 
 ### Railway
 
@@ -1094,6 +1237,16 @@ spec:
             secretKeyRef:
               name: api-secrets
               key: b-api-key
+        - name: WLO_GUEST_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: wlo-guest-username
+        - name: WLO_GUEST_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: wlo-guest-password
         livenessProbe:
           httpGet:
             path: /health

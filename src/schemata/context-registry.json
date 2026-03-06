@@ -8,17 +8,10 @@
     },
     "mds_oeh": {
       "name": "MDS OEH",
-      "description": "Reduziertes Schema-Set: Events, Personen, Organisationen, Bildungsangebote",
-      "defaultVersion": "1.8.0",
+      "description": "OEH Metadatenset — vollständiges Schema-Set mit MDS-spezifischen Anpassungen",
+      "defaultVersion": "1.8.1",
       "path": "mds_oeh",
-      "basedOn": "default@1.8.0"
-    },
-    "redesign_26": {
-      "name": "Redesign 26",
-      "description": "Neues Schema-Set (bereinigt).",
-      "defaultVersion": "1.8.0",
-      "path": "redesign_26",
-      "basedOn": "default@1.8.0"
+      "basedOn": "default@1.8.1"
     }
   },
   "defaultContext": "default"

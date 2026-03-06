@@ -128,6 +128,12 @@
     "NOVEMBER": "November",
     "DECEMBER": "Dezember"
   },
+  "PREVIEW": {
+    "TITLE": "Vorschaubild"
+  },
+  "SCREENSHOT": {
+    "TOGGLE": "Vorschaubild"
+  },
   "EMPTY_STATE": {
     "TITLE": "Bereit für die Extraktion",
     "MESSAGE": "Geben Sie eine Beschreibung ein und klicken Sie auf \"Extraktion starten\"",
@@ -229,6 +235,10 @@
     "VIEWER": {
       "NAME": "Ansicht",
       "DESCRIPTION": "Einbettungsmodus für Web Component (Read-only)"
+    },
+    "CLEAN": {
+      "NAME": "Clean",
+      "DESCRIPTION": "Minimale, rahmenlose Ansicht für Einbettung und Review"
     }
   }
 }

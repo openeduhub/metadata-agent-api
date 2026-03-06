@@ -1187,6 +1187,7 @@ IMPORTANT RULES:
         text: str,
         content_types: list[dict[str, Any]],
         language: str = "de",
+        prompt_hint: str = None,
     ) -> str:
         """Detect the content type from text."""
         if not content_types:
@@ -1195,33 +1196,48 @@ IMPORTANT RULES:
         # Truncate text for content type detection — only first ~5000 chars needed
         detection_text = text[:5000] if len(text) > 5000 else text
         
-        # Build options list
+        # Build options list (Label → schema_file)
         options = []
         for ct in content_types:
             label = self._get_localized(ct.get("label", {}), language)
             schema_file = ct.get("schema_file", "")
-            options.append(f"- {label}: {schema_file}")
+            options.append(f"- {label} → {schema_file}")
+        
+        options_block = chr(10).join(options)
+        
+        # Include classification hints from schema prompt if available
+        hint_block = ""
+        if prompt_hint:
+            hint_block = f"\n{prompt_hint}\n"
         
         if language == "de":
-            prompt = f"""Analysiere folgenden Text und bestimme den passenden Inhaltstyp:
+            prompt = f"""Analysiere folgenden Text und bestimme den passenden Inhaltstyp.
+
+WICHTIG: Bewerte die DARGESTELLTE RESSOURCE auf der Seite, NICHT den Betreiber der Website.
+Beispiel: Eine Veranstaltungsseite auf weimar.de ist eine Veranstaltung, NICHT eine Organisation.
+Frage dich: Was wird dem Besucher auf dieser konkreten Seite präsentiert?
+{hint_block}
+Erlaubte Werte (wähle GENAU EINEN der folgenden schema_file-Werte):
+{options_block}
 
 --- TEXT ---
 {detection_text}
 --- ENDE ---
 
-Verfügbare Inhaltstypen:
-{chr(10).join(options)}
-
 Antworte mit JSON: {{"content_type": "<schema_file>"}}"""
         else:
-            prompt = f"""Analyze the following text and determine the appropriate content type:
+            prompt = f"""Analyze the following text and determine the appropriate content type.
+
+IMPORTANT: Evaluate the RESOURCE PRESENTED on the page, NOT the website operator.
+Example: An event page on a city website is an Event, NOT an Organization.
+Ask yourself: What is being presented to the visitor on this specific page?
+{hint_block}
+Allowed values (choose EXACTLY ONE of the following schema_file values):
+{options_block}
 
 --- TEXT ---
 {detection_text}
 --- END ---
-
-Available content types:
-{chr(10).join(options)}
 
 Respond with JSON: {{"content_type": "<schema_file>"}}"""
         

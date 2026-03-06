@@ -8,7 +8,7 @@ from typing import Any, Optional
 from ..config import get_settings
 from ..utils.text_utils import levenshtein_distance
 from ..utils.schema_loader import (
-    load_schema, get_content_types, detect_schema_from_text,
+    load_schema, get_content_types, get_content_type_prompt, detect_schema_from_text,
     get_ai_fillable_fields, get_schema_fields,
 )
 from .llm_service import get_llm_service
@@ -193,8 +193,9 @@ class MetadataService:
             # Try LLM detection first
             content_types = get_content_types(context, version)
             if content_types:
+                prompt_hint = get_content_type_prompt(context, version, language)
                 schema_file = await self.llm_service.detect_content_type(
-                    text, content_types, language
+                    text, content_types, language, prompt_hint=prompt_hint
                 )
             else:
                 # Fallback to keyword detection

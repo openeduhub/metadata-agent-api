@@ -3,6 +3,7 @@ import re
 import json
 import time
 from pathlib import Path
+import httpx
 from fastapi import FastAPI, HTTPException, Request, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
@@ -40,18 +41,25 @@ from .models.schemas import (
     InputSource,
     Repository,
     ExtractionMethod,
+    ScreenshotRequest,
+    ScreenshotResponse,
+    ScreenshotMethod,
 )
 from .services.input_source_service import get_input_source_service
 from .services.metadata_service import get_metadata_service
 from .services.repository_service import get_repository_service
 from .services.llm_service import get_llm_service
 from .services.field_normalizer import get_field_normalizer
+from .services.screenshot_service import get_screenshot_service, ScreenshotError
 from .utils.schema_loader import (
     get_available_contexts,
     get_available_schemas,
     load_schema,
     get_content_types,
+    get_content_type_prompt,
     get_latest_version,
+    resolve_schema_file_or_uri,
+    get_content_type_uri,
 )
 
 
@@ -287,7 +295,7 @@ async def widget_info(request: Request):
                 "attributes": {
                     "api-url": "URL der Metadata Agent API",
                     "layout": "Layout-Variante: default, compact, minimal, detail",
-                    "context-name": "Schema-Kontext, z.B. 'default' oder 'redesign_26'",
+                    "context-name": "Schema-Kontext, z.B. 'default' oder 'mds_oeh'",
                     "show-input": "Eingabebereich anzeigen (true/false)",
                     "show-status-bar": "Statusleiste anzeigen (true/false)",
                     "show-controls": "Floating Controls anzeigen (true/false)",
@@ -352,7 +360,7 @@ async def widget_info(request: Request):
             "json_import": f"{examples_base}/json-import.html",
             "prueftisch": f"{examples_base}/prueftisch.html",
             "prueftisch_gross": f"{examples_base}/prueftisch-gross.html",
-            "metadatenpruefdialog": f"{examples_base}/metadatenpruefdialog.html",
+            "clean": f"{examples_base}/clean.html",
             "default": f"{examples_base}/default.html",
             "interactive_test": f"{examples_base}/test.html",
         },
@@ -606,12 +614,17 @@ async def detect_content_type(req: DetectContentTypeRequest):
             if req.input_source == InputSource.URL:
                 if not req.source_url:
                     raise HTTPException(status_code=400, detail="source_url required for input_source='url'")
-                text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language, output_format=req.output_format.value)
+                extracted_text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language, output_format=req.output_format.value)
+                # Prepend source URL so LLM can use URL path signals for classification
+                text = f"Quell-URL / Source URL: {req.source_url}\n\n{extracted_text}"
             elif req.input_source == InputSource.NODE_ID:
                 if not req.node_id:
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_id'")
                 input_data = await input_service.fetch_from_node_id(req.node_id, req.repository.value)
-                text = input_data.text
+                if input_data.source_url:
+                    text = f"Quell-URL / Source URL: {input_data.source_url}\n\n{input_data.text}"
+                else:
+                    text = input_data.text
             elif req.input_source == InputSource.NODE_URL:
                 if not req.node_id:
                     raise HTTPException(status_code=400, detail="node_id required for input_source='node_url'")
@@ -619,7 +632,11 @@ async def detect_content_type(req: DetectContentTypeRequest):
                     req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value,
                     lang=req.language, output_format=req.output_format.value
                 )
-                text = input_data.text
+                source_url_info = input_data.source_url or req.source_url
+                if source_url_info:
+                    text = f"Quell-URL / Source URL: {source_url_info}\n\n{input_data.text}"
+                else:
+                    text = input_data.text
         except HTTPException:
             raise
         except Exception as e:
@@ -653,6 +670,7 @@ async def detect_content_type(req: DetectContentTypeRequest):
         schema_file = ct.get("schema_file", "")
         available.append(ContentTypeInfo(
             schema_file=schema_file,
+            uri=ct.get("uri") or None,
             profile_id=ct.get("profile_id"),
             label=LocalizedString(
                 de=ct.get("label", {}).get("de", schema_file),
@@ -666,8 +684,9 @@ async def detect_content_type(req: DetectContentTypeRequest):
         llm_provider=req.llm_provider,
         llm_model=req.llm_model
     )
+    prompt_hint = get_content_type_prompt(req.context or "default", req.version or "latest", req.language)
     detected_schema = await service.llm_service.detect_content_type(
-        text, content_types, req.language
+        text, content_types, req.language, prompt_hint=prompt_hint
     )
     
     # Close non-default LLM service HTTP client to prevent leak
@@ -680,6 +699,7 @@ async def detect_content_type(req: DetectContentTypeRequest):
         if ct.get("schema_file") == detected_schema:
             detected_info = ContentTypeInfo(
                 schema_file=detected_schema,
+                uri=ct.get("uri") or None,
                 profile_id=ct.get("profile_id"),
                 label=LocalizedString(
                     de=ct.get("label", {}).get("de", detected_schema),
@@ -693,6 +713,7 @@ async def detect_content_type(req: DetectContentTypeRequest):
         # Fallback if detection returned unknown schema
         detected_info = ContentTypeInfo(
             schema_file=detected_schema,
+            uri=None,
             profile_id=None,
             label=LocalizedString(de=detected_schema, en=detected_schema),
             confidence="low"
@@ -931,9 +952,16 @@ async def extract_field(req: ExtractFieldRequest):
     if version == "latest" or not version:
         version = get_latest_version(req.context)
     
+    # Resolve schema_file: accept URI or filename
+    resolved_schema_file = req.schema_file
+    try:
+        resolved_schema_file = resolve_schema_file_or_uri(req.schema_file, req.context, version)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
     # Load schema to get field definition
     try:
-        schema = load_schema(req.context, version, req.schema_file)
+        schema = load_schema(req.context, version, resolved_schema_file)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     
@@ -958,7 +986,7 @@ async def extract_field(req: ExtractFieldRequest):
     if not field_def:
         raise HTTPException(
             status_code=404,
-            detail=f"Field '{req.field_id}' not found in schema '{req.schema_file}' or core.json"
+            detail=f"Field '{req.field_id}' not found in schema '{resolved_schema_file}' or core.json"
         )
     
     # Get LLM service with optional overrides
@@ -1022,7 +1050,7 @@ async def extract_field(req: ExtractFieldRequest):
         normalized=normalized,
         context=req.context,
         version=version,
-        schema_file=req.schema_file,
+        schema_file=resolved_schema_file,
         processing={
             "llm_provider": llm_service.provider,
             "llm_model": llm_service.model,
@@ -1092,6 +1120,12 @@ async def extract_field(req: ExtractFieldRequest):
 - **regenerate_fields**: Liste von Feld-IDs die neu extrahiert werden sollen
 - **regenerate_empty**: Leere Felder in existing_metadata neu extrahieren (Standard: `false`)
 
+## Screenshot-Optionen (Vorschaubild parallel zur Extraktion)
+
+- **screenshot_method**: `pageshot` (externe API, Standard) oder `playwright` (intern, privacy-safe). Wenn nicht gesetzt: kein Screenshot.
+- **preview_url**: URL für Screenshot (optional). Wenn nicht gesetzt: wird aus `source_url` oder bestehenden Metadaten (`ccm:wwwurl`) ermittelt.
+- Antwort enthält `preview_image_url` als Base64 Data-URL wenn Screenshot erfolgreich.
+
 ## LLM-Optionen
 
 - **llm_provider**: `b-api-openai` (Standard), `openai`, `b-api-academiccloud`
@@ -1126,12 +1160,14 @@ async def extract_field(req: ExtractFieldRequest):
                                 "regenerate_fields": [],
                                 "regenerate_empty": False,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
+                                "llm_model": "gpt-4.1-mini",
+                                "screenshot_method": "",
+                                "preview_url": ""
                             }
                         },
                         "url_input": {
                             "summary": "2. URL-Eingabe (Crawler)",
-                            "description": "Text von URL abrufen via Text-Extraction-API. extraction_method: 'simple' (schnell) oder 'browser' (JS-Rendering).",
+                            "description": "Text von URL abrufen via Text-Extraction-API. extraction_method: 'simple' (schnell) oder 'browser' (JS-Rendering). Mit screenshot_method wird parallel ein Vorschaubild erstellt.",
                             "value": {
                                 "input_source": "url",
                                 "text": "",
@@ -1152,7 +1188,9 @@ async def extract_field(req: ExtractFieldRequest):
                                 "regenerate_fields": [],
                                 "regenerate_empty": False,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
+                                "llm_model": "gpt-4.1-mini",
+                                "screenshot_method": "pageshot",
+                                "preview_url": ""
                             }
                         },
                         "node_id_input": {
@@ -1178,7 +1216,9 @@ async def extract_field(req: ExtractFieldRequest):
                                 "regenerate_fields": [],
                                 "regenerate_empty": False,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
+                                "llm_model": "gpt-4.1-mini",
+                                "screenshot_method": "pageshot",
+                                "preview_url": ""
                             }
                         },
                         "node_url_input": {
@@ -1204,7 +1244,9 @@ async def extract_field(req: ExtractFieldRequest):
                                 "regenerate_fields": [],
                                 "regenerate_empty": False,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
+                                "llm_model": "gpt-4.1-mini",
+                                "screenshot_method": "pageshot",
+                                "preview_url": ""
                             }
                         },
                         "mit_existing_metadata": {
@@ -1233,7 +1275,9 @@ async def extract_field(req: ExtractFieldRequest):
                                 "regenerate_fields": ["schema:startDate"],
                                 "regenerate_empty": True,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
+                                "llm_model": "gpt-4.1-mini",
+                                "screenshot_method": "",
+                                "preview_url": ""
                             }
                         }
                     }
@@ -1393,17 +1437,48 @@ async def generate_metadata(request: Request):
     if version == "latest" or not version:
         version = get_latest_version(req.context)
     
+    # Resolve schema_file: accept URI or filename
+    schema_file = req.schema_file
+    if schema_file and schema_file != "auto":
+        try:
+            schema_file = resolve_schema_file_or_uri(schema_file, req.context, version)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+    
     # Get service with optional LLM overrides
     service = get_metadata_service(
         llm_provider=req.llm_provider,
         llm_model=req.llm_model
     )
     
+    # --- Async screenshot capture (parallel to KI extraction) ---
+    screenshot_task = None
+    if req.screenshot_method:
+        import asyncio
+        import base64
+        # Determine screenshot URL: explicit preview_url > source_url > from existing metadata
+        screenshot_url = req.preview_url or req.source_url
+        if not screenshot_url and existing_metadata:
+            screenshot_url = existing_metadata.get("ccm:wwwurl")
+            if isinstance(screenshot_url, list):
+                screenshot_url = screenshot_url[0] if screenshot_url else None
+        
+        if screenshot_url:
+            method = req.screenshot_method if req.screenshot_method in ("pageshot", "playwright") else "pageshot"
+            try:
+                ss_service = get_screenshot_service()
+                print(f"📸 Starting async screenshot in /generate: {screenshot_url} (method: {method})")
+                screenshot_task = asyncio.create_task(
+                    ss_service.capture(url=screenshot_url, method=method)
+                )
+            except Exception as e:
+                print(f"⚠️ Screenshot task creation failed: {e}")
+    
     result = await service.generate_metadata(
         text=text,
         context=req.context,
         version=version,
-        schema_file=req.schema_file,
+        schema_file=schema_file,
         existing_metadata=existing_metadata,
         language=req.language,
         max_workers=req.max_workers,
@@ -1416,15 +1491,32 @@ async def generate_metadata(request: Request):
         origins=origins,
     )
     
+    # --- Await screenshot result ---
+    preview_image_url = None
+    if screenshot_task:
+        try:
+            ss_result = await screenshot_task
+            if ss_result and ss_result.image_bytes:
+                # Return as base64 data URL for immediate display in web component
+                b64 = base64.b64encode(ss_result.image_bytes).decode("ascii")
+                preview_image_url = f"data:image/{ss_result.format or 'png'};base64,{b64}"
+                print(f"📸 Screenshot captured: {len(ss_result.image_bytes)} bytes ({ss_result.capture_time_ms}ms)")
+        except Exception as e:
+            print(f"⚠️ Screenshot capture failed: {e}")
+    
     # Close non-default LLM service HTTP client to prevent leak
     if req.llm_provider is not None or req.llm_model is not None:
         await service.llm_service.close()
+    
+    # Resolve metadataset_uri from the detected/used schema_file
+    metadataset_uri = get_content_type_uri(result["metadataset"], req.context, version)
     
     # Build flat response (metadata fields at top level)
     response = {
         "contextName": result["contextName"],
         "schemaVersion": result["schemaVersion"],
         "metadataset": result["metadataset"],
+        "metadataset_uri": metadataset_uri,
         "language": result["language"],
         "exportedAt": result["exportedAt"],
     }
@@ -1437,6 +1529,14 @@ async def generate_metadata(request: Request):
     # Add _origins tracking (ai/user per field)
     if result.get("_origins"):
         response["_origins"] = result["_origins"]
+    
+    # Add _source_text (raw text before extraction) for extended data upload
+    if text:
+        response["_source_text"] = text
+    
+    # Add preview image URL if screenshot was captured
+    if preview_image_url:
+        response["preview_image_url"] = preview_image_url
     
     # Add processing info at the end
     response["processing"] = result["processing"]
@@ -1532,6 +1632,12 @@ async def validate_metadata(request: Request):
     # Resolve "latest" to actual version
     if version == "latest":
         version = get_latest_version(context)
+    
+    # Resolve schema_file: accept URI or filename
+    try:
+        schema_file = resolve_schema_file_or_uri(schema_file, context, version)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     
     service = get_metadata_service()
     result = service.validate_metadata(
@@ -1631,6 +1737,12 @@ async def export_markdown(request: Request):
     if version == "latest":
         version = get_latest_version(context)
     
+    # Resolve schema_file: accept URI or filename
+    try:
+        schema_file = resolve_schema_file_or_uri(schema_file, context, version)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
     service = get_metadata_service()
     markdown = service.export_to_markdown(
         metadata=metadata,
@@ -1668,6 +1780,10 @@ Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
 | `repository` | `staging` (Standard), `prod` | Ziel-Repository (staging = repository.staging.openeduhub.net, prod = redaktion.openeduhub.net) |
 | `check_duplicates` | `true` (Standard), `false` | Duplikat-Prüfung via ccm:wwwurl |
 | `start_workflow` | `true` (Standard), `false` | Review-Workflow starten |
+| `preview_url` | URL (leer = auto) | URL für Vorschaubild-Screenshot. Wenn leer, wird `ccm:wwwurl` aus den Metadaten verwendet. |
+| `screenshot_method` | `pageshot` (Standard), `playwright` | Methode für Screenshot-Erfassung. `pageshot` = externe API, `playwright` = intern/privacy-safe. |
+| `write_extended_data` | `true` (Standard), `false` | Extended-Felder schreiben (`ccm:oeh_extendedType`, `ccm:oeh_extendedData`, `ccm:oeh_extendedText`). |
+| `extended_text` | String (leer = auto) | Rohtext vor der Extraktion. Wird in `ccm:oeh_extendedText` geschrieben. |
 
 ## Workflow
 
@@ -1675,7 +1791,8 @@ Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
 2. **Node erstellen**: Legt neuen Node mit Basisdaten an
 3. **Metadaten setzen**: Überträgt alle Metadaten
 4. **Collections**: Fügt Node zu Collections hinzu (falls angegeben)
-5. **Workflow starten** (optional): Startet Review-Prozess
+5. **Extended Fields** (optional): Schreibt `ccm:oeh_extendedType` (Inhaltstyp-URI), `ccm:oeh_extendedData` (Metadaten-JSON), `ccm:oeh_extendedText` (Rohtext)
+6. **Workflow starten** (optional): Startet Review-Prozess
 
 ## Response
 
@@ -1691,7 +1808,7 @@ Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
                     "examples": {
                         "direkt": {
                             "summary": "Direkter Output von /generate",
-                            "description": "Kopiere den Output von /generate hier rein. Optional: repository, check_duplicates, start_workflow",
+                            "description": "Kopiere den Output von /generate hier rein. Optional: repository, check_duplicates, start_workflow, preview_url, screenshot_method",
                             "value": {
                                 "contextName": "default",
                                 "schemaVersion": "1.8.1",
@@ -1700,7 +1817,11 @@ Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
                                 "ccm:wwwurl": "https://example.com/workshop",
                                 "repository": "staging",
                                 "check_duplicates": True,
-                                "start_workflow": True
+                                "start_workflow": True,
+                                "preview_url": "",
+                                "screenshot_method": "pageshot",
+                                "write_extended_data": True,
+                                "extended_text": "Rohtext der Webseite vor der KI-Extraktion..."
                             }
                         }
                     }
@@ -1736,6 +1857,8 @@ async def upload_to_repository(request: Request):
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
     
+    import asyncio
+    
     # If direct metadata (no "metadata" wrapper), wrap it for Pydantic model
     if "metadata" not in data or not isinstance(data.get("metadata"), dict):
         # Extract upload options before wrapping
@@ -1743,12 +1866,20 @@ async def upload_to_repository(request: Request):
         check_duplicates = data.pop("check_duplicates", True)
         start_workflow = data.pop("start_workflow", True)
         source = data.pop("source", None)
+        preview_url = data.pop("preview_url", None)
+        screenshot_method = data.pop("screenshot_method", "pageshot") or "pageshot"
+        write_extended_data = data.pop("write_extended_data", True)
+        extended_text = data.pop("extended_text", None)
         data = {
             "metadata": data,
             "repository": repository,
             "check_duplicates": check_duplicates,
             "start_workflow": start_workflow,
             "source": source,
+            "preview_url": preview_url,
+            "screenshot_method": screenshot_method,
+            "write_extended_data": write_extended_data,
+            "extended_text": extended_text,
         }
     
     # Validate with Pydantic model
@@ -1779,6 +1910,29 @@ async def upload_to_repository(request: Request):
     if req.source:
         req.metadata["ccm:oeh_publisher_combined"] = req.source
     
+    # ── Start screenshot capture async (runs in parallel with metadata upload) ──
+    screenshot_task = None
+    preview_url = req.preview_url
+    
+    # Auto-detect preview_url from metadata if not explicitly provided
+    if not preview_url:
+        wwwurl = req.metadata.get("ccm:wwwurl")
+        if isinstance(wwwurl, list):
+            wwwurl = wwwurl[0] if wwwurl else None
+        if isinstance(wwwurl, str) and wwwurl.startswith("http"):
+            preview_url = wwwurl
+    
+    if preview_url:
+        screenshot_service = get_screenshot_service()
+        print(f"📸 Starting async screenshot capture: {preview_url} (method: {req.screenshot_method.value})")
+        screenshot_task = asyncio.create_task(
+            screenshot_service.capture(
+                url=preview_url,
+                method=req.screenshot_method.value,
+            )
+        )
+    
+    # ── Upload metadata (runs in parallel with screenshot) ──
     result = await repo_service.upload_metadata(
         metadata=req.metadata,
         repository=req.repository,
@@ -1786,7 +1940,45 @@ async def upload_to_repository(request: Request):
         start_workflow=req.start_workflow,
         context=context,
         version=version,
+        write_extended_data=req.write_extended_data,
+        extended_text=req.extended_text,
     )
+    
+    # ── Upload screenshot as preview (if screenshot was started and node was created) ──
+    preview_status = None
+    if screenshot_task and result.get("success") and result.get("node", {}).get("nodeId"):
+        node_id = result["node"]["nodeId"]
+        try:
+            screenshot_result = await screenshot_task
+            print(f"📸 Screenshot ready: {screenshot_result.size_bytes} bytes ({screenshot_result.capture_time_ms}ms)")
+            
+            # Upload as preview
+            from .services.repository_service import _get_repository_configs
+            config = _get_repository_configs().get(req.repository)
+            if config:
+                base_url = config["base_url"]
+                upload_url = (
+                    f"{base_url}/rest/node/v1/nodes/-home-/{node_id}/preview"
+                    f"?mimetype={screenshot_result.mimetype}&createVersion=true"
+                )
+                async with httpx.AsyncClient(timeout=45.0) as client:
+                    resp = await client.post(
+                        upload_url,
+                        headers={"Authorization": repo_service._auth_header},
+                        files={"image": ("screenshot.png", screenshot_result.image_bytes, screenshot_result.mimetype)},
+                    )
+                    if resp.status_code in (200, 201, 204):
+                        print(f"✅ Preview uploaded to node {node_id}")
+                        preview_status = {"success": True, "method": screenshot_result.method, "capture_time_ms": screenshot_result.capture_time_ms, "size_bytes": screenshot_result.size_bytes}
+                    else:
+                        print(f"⚠️ Preview upload failed: {resp.status_code}")
+                        preview_status = {"success": False, "error": f"HTTP {resp.status_code}"}
+        except Exception as e:
+            print(f"⚠️ Screenshot/preview failed: {type(e).__name__}: {e}")
+            preview_status = {"success": False, "error": str(e)}
+    elif screenshot_task:
+        # Cancel screenshot if upload failed
+        screenshot_task.cancel()
     
     # Convert nested node dict to UploadedNodeInfo if present
     node_info = None
@@ -1799,6 +1991,10 @@ async def upload_to_repository(request: Request):
     if raw_errors:
         field_errors = [FieldUploadError(**e) for e in raw_errors]
     
+    # Add preview info to result
+    if preview_status:
+        result["preview"] = preview_status
+    
     return UploadResponse(
         success=result.get("success", False),
         duplicate=result.get("duplicate"),
@@ -1809,7 +2005,89 @@ async def upload_to_repository(request: Request):
         fields_written=result.get("fields_written"),
         fields_skipped=result.get("fields_skipped"),
         field_errors=field_errors,
+        preview=preview_status,
     )
+
+
+# ============================================================================
+# Screenshot Endpoint
+# ============================================================================
+
+@app.post(
+    "/screenshot",
+    response_model=ScreenshotResponse,
+    summary="Screenshot einer Webseite erstellen",
+    description="""Erstellt einen Screenshot einer Webseite.
+
+## Methoden
+
+| Methode | Datenschutz | Geschwindigkeit | Beschreibung |
+|---------|-------------|-----------------|-------------|
+| **pageshot** | ⚠️ URL wird an externen Service gesendet | ~3s | Externer PageShot API Service (Standard) |
+| **playwright** | ✅ Intern, keine Daten nach außen | ~3-5s | Lokaler Chromium-Browser (erfordert Playwright-Installation) |
+
+## Optional: Preview-Upload
+
+Wenn `node_id` angegeben wird, wird der Screenshot direkt als Vorschaubild auf den edu-sharing Node hochgeladen.
+""",
+    tags=["Screenshot"],
+)
+async def take_screenshot(req: ScreenshotRequest):
+    """Capture a screenshot and optionally upload as preview to edu-sharing node."""
+    import base64
+    
+    screenshot_service = get_screenshot_service()
+    
+    try:
+        result = await screenshot_service.capture(
+            url=req.url,
+            method=req.method.value,
+            width=req.width,
+            height=req.height,
+            format=req.format,
+            full_page=req.full_page,
+            delay=req.delay,
+        )
+    except ScreenshotError as e:
+        raise HTTPException(status_code=502, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Screenshot failed: {type(e).__name__}: {e}")
+    
+    response = ScreenshotResponse(
+        success=True,
+        method=result.method,
+        url=result.url,
+        format=result.format,
+        mimetype=result.mimetype,
+        width=result.width,
+        height=result.height,
+        size_bytes=result.size_bytes,
+        capture_time_ms=result.capture_time_ms,
+        image_base64=base64.b64encode(result.image_bytes).decode(),
+    )
+    
+    # Optional: upload as preview to node
+    if req.node_id:
+        repo_service = get_repository_service()
+        if not repo_service:
+            response.error = "Repository service not configured (missing credentials)"
+            response.preview_uploaded = False
+        else:
+            upload_result = await screenshot_service.capture_and_upload_preview(
+                url=req.url,
+                node_id=req.node_id,
+                repository=req.repository,
+                auth_header=repo_service._auth_header,
+                method=req.method.value,
+                width=req.width,
+                height=req.height,
+            )
+            response.preview_uploaded = upload_result.get("success", False)
+            response.node_id = req.node_id
+            if not upload_result.get("success"):
+                response.error = upload_result.get("error")
+    
+    return response
 
 
 # ============================================================================

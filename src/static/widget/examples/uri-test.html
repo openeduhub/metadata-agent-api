@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metadata Agent – Metadatenprüfdialog</title>
+    <title>Metadata Agent – URI-basierter Inhaltstyp-Test</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
@@ -60,7 +60,7 @@
             font-family: 'Roboto', sans-serif;
             color: #1d1b20;
             cursor: pointer;
-            min-width: 220px;
+            min-width: 320px;
             transition: border-color 0.2s;
         }
 
@@ -95,6 +95,18 @@
             border-color: #1976d2;
         }
 
+        .uri-info {
+            max-width: 1400px;
+            margin: 0 auto 8px;
+            padding: 8px 16px;
+            background: #fff3e0;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #e65100;
+            font-family: monospace;
+            word-break: break-all;
+        }
+
         /* ===== Widget Container ===== */
         .widget-container {
             max-width: 1400px;
@@ -124,25 +136,25 @@
 <body>
 
     <div class="page-header">
-        <h1>Metadatenprüfdialog</h1>
-        <p>Prüf- und Bearbeitungsansicht mit extern steuerbarem Inhaltstyp. Lädt Beispiel-Metadaten aus JSON.</p>
+        <h1>URI-basierter Inhaltstyp-Test</h1>
+        <p>Readonly Prüftisch-Ansicht. Inhaltstyp wird über Vocabulary-URI gesetzt (statt Dateiname). Lädt Beispiel-Metadaten aus JSON.</p>
     </div>
 
-    <!-- Externer Content-Type Switcher + Optionen -->
+    <!-- Externer Content-Type Switcher mit URI -->
     <div class="content-type-bar">
-        <span class="label">Inhaltstyp:</span>
+        <span class="label">Inhaltstyp (URI):</span>
         <select class="ct-select" id="ctSelect" disabled>
             <option value="">Lade Inhaltstypen…</option>
         </select>
 
         <span class="label" style="margin-left: 16px;">Layout:</span>
         <select class="ct-select" id="layoutSelect" style="min-width:140px" onchange="switchLayout(this.value)">
-            <option value="prueftisch" selected>Prueftisch</option>
+            <option value="detail" selected>Detail</option>
             <option value="default">Default</option>
             <option value="plugin">Plugin</option>
             <option value="dialog">Dialog</option>
-            <option value="detail">Detail</option>
             <option value="clean">Clean</option>
+            <option value="prueftisch">Prueftisch</option>
             <option value="prueftisch-org">Prueftisch Org</option>
         </select>
 
@@ -155,14 +167,10 @@
         </button>
     </div>
 
+    <!-- Show currently selected URI -->
+    <div class="uri-info" id="uriInfo">Keine URI ausgewählt</div>
+
     <div class="widget-container">
-        <!--
-            Prüftisch: layout="prueftisch"
-            - readonly="false" → Bearbeiten erlaubt
-            - Alle internen UI-Elemente ausgeblendet
-            - Inhaltstyp wird extern per JavaScript gesteuert
-            Siehe full.html für die vollständige Attribut-Dokumentation.
-        -->
         <metadata-agent-canvas
             id="canvas"
             api-url=""
@@ -176,25 +184,24 @@
             show-special-fields="true"
             show-footer="false"
             show-floating-controls="false"
-            show-field-actions="true"
+            show-field-actions="false"
             show-upload-button="false"
             show-page-mode="false"
             show-content-type-only="false"
-            readonly="false"
+            readonly="true"
             borderless="true"
-            highlight-ai="true"
+            highlight-ai="false"
             auto-extract="false"
-            flat-groups="false"
-            show-preview="true"
-            enable-screenshot="true"
-            screenshot-method="pageshot">
+            flat-groups="false">
         </metadata-agent-canvas>
     </div>
 
     <div class="info-box">
-        <strong>Hinweis:</strong> Die Inhaltstyp-Buttons oben steuern die Webkomponente von außen per JavaScript.
-        Der aktive Typ bestimmt, welche Schema-Felder angezeigt werden.
-        Die Metadaten wurden aus <code>metadata-2026-02-11.json</code> geladen und können bearbeitet werden.
+        <strong>Test:</strong> Der Inhaltstyp wird über die <strong>Vocabulary-URI</strong> gesetzt
+        (z.B. <code>http://w3id.org/openeduhub/vocabs/contentTypes/event</code>)
+        statt über den Schema-Dateinamen (<code>event.json</code>).
+        Die Webkomponente muss die URI intern zum passenden Schema auflösen.
+        Die Metadaten stammen aus <code>metadata-2026-02-11.json</code>.
     </div>
 
     <!-- Set API URL BEFORE Angular bootstraps (inline runs before defer scripts) -->
@@ -209,49 +216,43 @@
         const API_URL = window.location.origin;
         const canvas = document.getElementById('canvas');
 
-        let currentSchemaFile = null;
+        // URI → Label mapping (from core.json vocabulary)
+        const URI_CONTENT_TYPES = [
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/learning_material', label: 'Lernmaterial', icon: 'menu_book' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/education_offer',   label: 'Bildungsangebot / Kurs', icon: 'school' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/event',             label: 'Veranstaltung', icon: 'event' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/person',            label: 'Person', icon: 'person' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/organization',      label: 'Organisation', icon: 'business' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/tool_service',      label: 'Tool / Dienst', icon: 'build' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/profession',        label: 'Beruf', icon: 'work' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/didactic_concepts', label: 'Didaktische Planung', icon: 'psychology' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/source',            label: 'Quelle', icon: 'cloud_download' },
+            { uri: 'http://w3id.org/openeduhub/vocabs/contentTypes/ai_prompt',         label: 'KI-Prompt', icon: 'smart_toy' },
+        ];
 
-        const SCHEMA_LABELS = {
-            'core.json': 'Kernmetadaten',
-            'event.json': 'Veranstaltung',
-            'education_offer.json': 'Bildungsangebot',
-            'learning_material.json': 'Lernmaterial',
-            'person.json': 'Person',
-            'organization.json': 'Organisation',
-            'tool_service.json': 'Tool / Service',
-            'occupation.json': 'Beruf',
-            'didactic_planning_tools.json': 'Didaktische Planungswerkzeuge',
-            'source.json': 'Quelle',
-            'prompt.json': 'Prompt'
-        };
-
-        async function loadContentTypes() {
+        function populateSelect() {
             const select = document.getElementById('ctSelect');
-            try {
-                const resp = await fetch(`${API_URL}/info/schemas/default/latest`);
-                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-                const schemas = await resp.json();
+            select.innerHTML = '<option value="">— Inhaltstyp per URI wählen —</option>';
 
-                select.innerHTML = '<option value="">— Inhaltstyp wählen —</option>';
-                schemas.forEach(schema => {
-                    const label = SCHEMA_LABELS[schema.file] || schema.file.replace('.json', '');
-                    const opt = document.createElement('option');
-                    opt.value = schema.file;
-                    opt.textContent = label;
-                    select.appendChild(opt);
-                });
-                select.disabled = false;
+            URI_CONTENT_TYPES.forEach(ct => {
+                const opt = document.createElement('option');
+                opt.value = ct.uri;
+                opt.textContent = ct.label;
+                select.appendChild(opt);
+            });
+            select.disabled = false;
 
-                select.addEventListener('change', () => {
-                    const file = select.value;
-                    if (file) {
-                        currentSchemaFile = file;
-                        canvas.contentType = file;
-                    }
-                });
-            } catch (err) {
-                select.innerHTML = `<option value="">Fehler: ${err.message}</option>`;
-            }
+            select.addEventListener('change', () => {
+                const uri = select.value;
+                const infoEl = document.getElementById('uriInfo');
+                if (uri) {
+                    infoEl.textContent = 'Aktive URI: ' + uri;
+                    console.log('[URI-Test] Setting contentType via URI:', uri);
+                    canvas.contentType = uri;
+                } else {
+                    infoEl.textContent = 'Keine URI ausgewählt';
+                }
+            });
         }
 
         function toggleCoreFields(btn) {
@@ -269,26 +270,26 @@
         }
 
         /**
-         * Load example JSON metadata into the component
+         * Load example JSON metadata into the component.
          */
         async function loadExampleData() {
             try {
                 const resp = await fetch('metadata-2026-02-11.json');
                 if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
                 const data = await resp.json();
+                console.log('[URI-Test] Loading example metadata:', Object.keys(data).length, 'keys');
                 canvas.metadataInput = data;
             } catch (err) {
-                console.error('Failed to load example JSON:', err);
+                console.error('[URI-Test] Failed to load example JSON:', err);
             }
         }
 
         /**
-         * Initialize: wait for web component, then load content types + example data
+         * Initialize after web component is ready.
          */
         customElements.whenDefined('metadata-agent-canvas').then(() => {
-            // Small delay to let Angular bootstrap complete
             setTimeout(async () => {
-                await loadContentTypes();
+                populateSelect();
                 await loadExampleData();
             }, 800);
         });

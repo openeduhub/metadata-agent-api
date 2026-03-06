@@ -52,7 +52,7 @@
     ],
     "schema:startDate": "2026-02-10T16:00",
     "schema:endDate": "2026-02-10T16:00",
-    "schema:doorTime": "2026-02-10T16:00",
+    "schema:doorTime": "16:00",
     "schema:eventStatus": "https://schema.org/EventScheduled",
     "schema:eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "schema:location": [

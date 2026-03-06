@@ -7,7 +7,7 @@ import httpx
 
 logger = logging.getLogger(__name__)
 
-from ..utils.schema_loader import get_repo_fields
+from ..utils.schema_loader import get_repo_fields, get_content_type_uri
 
 
 def _get_repository_configs() -> dict:
@@ -29,6 +29,18 @@ def _get_repository_configs() -> dict:
             "inbox_id": settings.wlo_inbox_id_prod,
         }
     }
+
+
+# Mapping: ccm:oeh_extendedType URI → oeh:new_lrt URI
+# Sets the learning resource type (LRT) based on the detected content type.
+EXTENDED_TYPE_TO_NEW_LRT = {
+    "http://w3id.org/openeduhub/vocabs/contentTypes/event": "http://w3id.org/openeduhub/vocabs/new_lrt/955590ae-5f06-4513-98e9-91dfa8d5a05e",
+    "http://w3id.org/openeduhub/vocabs/contentTypes/source": "http://w3id.org/openeduhub/vocabs/new_lrt/3869b453-d3c1-4b34-8f25-9127e9d68766",
+    "http://w3id.org/openeduhub/vocabs/contentTypes/education_offer": "http://w3id.org/openeduhub/vocabs/new_lrt/03ab835b-c39c-48d1-b5af-7611de2f6464",
+    "http://w3id.org/openeduhub/vocabs/contentTypes/tool_service": "http://w3id.org/openeduhub/vocabs/new_lrt/cefccf75-cba3-427d-9a0f-35b4fedcbba1",
+    "http://w3id.org/openeduhub/vocabs/contentTypes/didactic_concepts": "http://w3id.org/openeduhub/vocabs/new_lrt/0a79a1d0-583b-47ce-86a7-517ab352d796",
+    "http://w3id.org/openeduhub/vocabs/contentTypes/learning_material": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb",
+}
 
 
 class RepositoryService:
@@ -69,6 +81,8 @@ class RepositoryService:
         start_workflow: bool = True,
         context: str = "default",
         version: str = "latest",
+        write_extended_data: bool = True,
+        extended_text: Optional[str] = None,
     ) -> dict[str, Any]:
         """
         Upload metadata to WLO repository.
@@ -78,6 +92,8 @@ class RepositoryService:
             repository: "staging" or "production"
             check_duplicates: Check for duplicates by ccm:wwwurl
             start_workflow: Start review workflow after upload
+            write_extended_data: Write ccm:oeh_extendedType/Data/Text fields
+            extended_text: Raw source text before extraction
             
         Returns:
             Upload result with nodeId, success status, etc.
@@ -150,18 +166,25 @@ class RepositoryService:
                 if collection_ids:
                     await self._set_collections(client, base_url, node_id, collection_ids)
                 
-                # 5. Start workflow
+                # 5. Write extended data fields (bypasses repo_field filter)
+                extended_result = None
+                if write_extended_data:
+                    extended_result = await self._write_extended_fields(
+                        client, base_url, node_id, metadata, context, version, extended_text
+                    )
+                
+                # 6. Start workflow
                 if start_workflow:
                     await self._start_workflow(client, base_url, node_id)
                 
-                # Extract key metadata for response
-                title = clean_metadata.get("cclom:title")
+                # Extract key metadata for response (with fallbacks for organization schema)
+                title = clean_metadata.get("cclom:title") or clean_metadata.get("schema:name")
                 if isinstance(title, list):
                     title = title[0] if title else None
-                description = clean_metadata.get("cclom:general_description")
+                description = clean_metadata.get("cclom:general_description") or clean_metadata.get("schema:description")
                 if isinstance(description, list):
                     description = description[0] if description else None
-                wwwurl = clean_metadata.get("ccm:wwwurl")
+                wwwurl = clean_metadata.get("ccm:wwwurl") or clean_metadata.get("schema:url")
                 if isinstance(wwwurl, list):
                     wwwurl = wwwurl[0] if wwwurl else None
                 
@@ -300,18 +323,25 @@ class RepositoryService:
         """Create node with minimal essential fields."""
         create_url = f"{base_url}/rest/node/v1/nodes/-home-/{inbox_id}/children?type=ccm:io&renameIfExists=true&versionComment=MAIN_FILE_UPLOAD"
         
-        # Only 5 essential fields for node creation
-        essential_fields = [
-            "cclom:title",
-            "cclom:general_description", 
-            "cclom:general_keyword",
-            "ccm:wwwurl",
-            "cclom:general_language"
+        # Essential fields for node creation, with fallbacks for different schemas
+        # (e.g. organization uses schema:name instead of cclom:title)
+        essential_fields_with_fallbacks = [
+            ("cclom:title", ["schema:name"]),
+            ("cclom:general_description", ["schema:description"]),
+            ("cclom:general_keyword", []),
+            ("ccm:wwwurl", ["schema:url"]),
+            ("cclom:general_language", []),
         ]
         
         clean_metadata = {"ccm:linktype": ["USER_GENERATED"]}
-        for field in essential_fields:
+        for field, fallbacks in essential_fields_with_fallbacks:
             value = metadata.get(field)
+            # Try fallbacks if primary field is empty
+            if value is None or value == "" or value == []:
+                for fb in fallbacks:
+                    value = metadata.get(fb)
+                    if value is not None and value != "" and value != []:
+                        break
             if value is not None and value != "" and value != []:
                 # Normalize to array
                 if isinstance(value, list):
@@ -368,6 +398,11 @@ class RepositoryService:
         
         # Handle license transformation
         self._transform_license(normalized, metadata)
+        
+        # Default license: COPYRIGHT_FREE if no license was set
+        if "ccm:commonlicense_key" not in normalized:
+            normalized["ccm:commonlicense_key"] = ["COPYRIGHT_FREE"]
+            print("📜 Default license: COPYRIGHT_FREE (no license detected)")
         
         # Extract geo coordinates from schema:location → cm:latitude / cm:longitude
         self._extract_geo_coordinates(normalized, metadata)
@@ -455,6 +490,108 @@ class RepositoryService:
             "fields_skipped": fields_skipped,
             "field_errors": field_errors
         }
+    
+    async def _write_extended_fields(
+        self,
+        client: httpx.AsyncClient,
+        base_url: str,
+        node_id: str,
+        metadata: dict[str, Any],
+        context: str,
+        version: str,
+        extended_text: Optional[str] = None,
+    ) -> dict[str, Any]:
+        """
+        Write the 3 extended metadata fields to a node (bypasses repo_field filter).
+        
+        Fields:
+        - ccm:oeh_extendedType: URI of the content type from core.json vocabulary
+        - ccm:oeh_extendedData: Full metadata JSON after generation/extraction
+        - ccm:oeh_extendedText: Raw source text before extraction
+        """
+        metadata_url = f"{base_url}/rest/node/v1/nodes/-home-/{node_id}/metadata?versionComment=EXTENDED_DATA&obeyMds=false"
+        
+        extended_fields: dict[str, list[str]] = {}
+        
+        # 1. ccm:oeh_extendedType — resolve URI from metadataset (schema_file)
+        type_uri = None
+        schema_file = metadata.get("metadataset")
+        if schema_file:
+            type_uri = get_content_type_uri(schema_file, context, version)
+            if type_uri:
+                extended_fields["ccm:oeh_extendedType"] = [type_uri]
+                print(f"📎 extendedType: {type_uri} (from {schema_file})")
+            else:
+                print(f"⚠️ extendedType: No URI found for schema_file={schema_file}")
+        
+        # 1b. ccm:oeh_lrt — map extended type to learning resource type
+        if type_uri and type_uri in EXTENDED_TYPE_TO_NEW_LRT:
+            lrt_uri = EXTENDED_TYPE_TO_NEW_LRT[type_uri]
+            extended_fields["ccm:oeh_lrt"] = [lrt_uri]
+            print(f"📎 new_lrt: {lrt_uri} (from extendedType {type_uri.split('/')[-1]})")
+        
+        # 2. ccm:oeh_extendedData — full metadata as JSON string
+        # Remove internal processing keys, keep only actual metadata fields
+        excluded_keys = {"contextName", "schemaVersion", "metadataset", "metadataset_uri", "language", "exportedAt", "processing", "_origins", "_source_text", "preview_image_url"}
+        data_dict = {k: v for k, v in metadata.items() if k not in excluded_keys}
+        if data_dict:
+            extended_fields["ccm:oeh_extendedData"] = [json.dumps(data_dict, ensure_ascii=False)]
+            print(f"📎 extendedData: {len(json.dumps(data_dict, ensure_ascii=False))} chars")
+        
+        # 3. ccm:oeh_extendedText — raw source text
+        if extended_text:
+            extended_fields["ccm:oeh_extendedText"] = [extended_text]
+            print(f"📎 extendedText: {len(extended_text)} chars")
+        
+        if not extended_fields:
+            print("⚠️ No extended fields to write")
+            return {"success": True, "fields_written": 0}
+        
+        # Write all extended fields in one request
+        try:
+            response = await client.post(
+                metadata_url,
+                headers={
+                    "Authorization": self._auth_header,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                json=extended_fields
+            )
+            
+            if response.status_code in (200, 201):
+                print(f"✅ Extended fields written: {list(extended_fields.keys())}")
+                return {"success": True, "fields_written": len(extended_fields)}
+            else:
+                error_text = response.text[:300]
+                print(f"⚠️ Extended fields bulk write failed ({response.status_code}): {error_text}")
+                
+                # Fallback: write field-by-field
+                written = 0
+                for field_id, field_value in extended_fields.items():
+                    try:
+                        single_resp = await client.post(
+                            metadata_url,
+                            headers={
+                                "Authorization": self._auth_header,
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+                            },
+                            json={field_id: field_value}
+                        )
+                        if single_resp.status_code in (200, 201):
+                            written += 1
+                            print(f"   ✅ {field_id}")
+                        else:
+                            print(f"   ❌ {field_id}: {single_resp.status_code}")
+                    except Exception as e:
+                        print(f"   ❌ {field_id}: {e}")
+                
+                return {"success": written > 0, "fields_written": written}
+                
+        except Exception as e:
+            print(f"❌ Extended fields write failed: {e}")
+            return {"success": False, "fields_written": 0, "error": str(e)}
     
     def _normalize_for_repo(
         self, metadata: dict, repo_field_ids: set[str] | None = None
@@ -857,9 +994,10 @@ class RepositoryService:
         """
         # Clean expected metadata (remove processing/header keys)
         excluded = {
-            "contextName", "schemaVersion", "metadataset",
-            "language", "exportedAt", "processing", "_origins",
+            "contextName", "schemaVersion", "metadataset", "metadataset_uri",
+            "language", "exportedAt", "processing", "_origins", "_source_text",
             "repository", "check_duplicates", "start_workflow",
+            "preview_url", "preview:url", "preview_image_url",
         }
         clean_expected = {k: v for k, v in expected.items() if k not in excluded}
         
@@ -966,7 +1104,47 @@ class RepositoryService:
         # Normalize both to comparable form
         exp_norm = self._normalize_compare(expected)
         act_norm = self._normalize_compare(actual)
-        return exp_norm == act_norm
+        if exp_norm == act_norm:
+            return True
+        
+        # Special case: ISO date string vs epoch millis (repo auto-converts)
+        return self._dates_match(exp_norm, act_norm)
+    
+    def _dates_match(self, a: Any, b: Any) -> bool:
+        """Check if two values represent the same datetime (ISO vs epoch millis)."""
+        try:
+            a_ts = self._to_epoch_ms(str(a))
+            b_ts = self._to_epoch_ms(str(b))
+            if a_ts is not None and b_ts is not None:
+                # Allow 60s tolerance (repo may round)
+                return abs(a_ts - b_ts) < 60_000
+            return False
+        except Exception:
+            return False
+    
+    def _to_epoch_ms(self, value: str) -> int | None:
+        """Try to interpret a string as epoch milliseconds."""
+        from datetime import datetime, timezone
+        
+        # Already epoch millis?
+        try:
+            num = int(value)
+            if num > 1_000_000_000_000:  # clearly epoch millis (> year 2001)
+                return num
+            if num > 1_000_000_000:  # epoch seconds
+                return num * 1000
+        except (ValueError, TypeError):
+            pass
+        
+        # ISO date string?
+        for fmt in ("%Y-%m-%dT%H:%M:%S.%fZ", "%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M"):
+            try:
+                dt = datetime.strptime(value, fmt).replace(tzinfo=timezone.utc)
+                return int(dt.timestamp() * 1000)
+            except (ValueError, TypeError):
+                continue
+        
+        return None
     
     def _normalize_compare(self, value: Any) -> Any:
         """Normalize a value for comparison."""

@@ -73,7 +73,7 @@
                 <label>Context</label>
                 <select id="selContext" onchange="setAttr('context-name', this.value)">
                     <option value="default">Default</option>
-                    <option value="redesign_26">Redesign 26</option>
+                    <option value="mds_oeh">MDS OEH</option>
                 </select>
             </div>
 
@@ -103,7 +103,7 @@
         <div class="canvas-wrapper">
             <metadata-agent-canvas
                 id="canvas"
-                api-url="https://metadata-agent-api.vercel.app"
+                api-url=""
                 layout="default"
                 show-input="true"
                 show-status-bar="true"
@@ -118,15 +118,15 @@
         </div>
     </div>
 
+    <!-- Set API URL BEFORE Angular bootstraps (inline runs before defer scripts) -->
+    <script>document.getElementById('canvas').setAttribute('api-url', window.location.origin);</script>
+
     <!-- Widget Scripts -->
     <script src="../dist/runtime.js" defer></script>
     <script src="../dist/polyfills.js" defer></script>
     <script src="../dist/main.js" defer></script>
 
     <script>
-        const apiUrl = 'https://metadata-agent-api.vercel.app';
-        document.getElementById('canvas').setAttribute('api-url', apiUrl);
-
         function setAttr(name, value) {
             document.getElementById('canvas').setAttribute(name, value);
             log(`${name} = "${value}"`);

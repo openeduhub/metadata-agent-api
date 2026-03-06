@@ -1,4 +1,4 @@
-{
+﻿{
   "profileId": "oeh:educationalOffering",
   "version": "1.8.1",
   "@context": {
@@ -93,22 +93,6 @@
       "label": {
         "de": "Preise & Angebote",
         "en": "Prices & Offers"
-      }
-    },
-    {
-      "id": "license",
-      "icon": "gavel",
-      "label": {
-        "de": "Lizenz, Quelle, Mitwirkende",
-        "en": "License, Source, Contributors"
-      }
-    },
-    {
-      "id": "education",
-      "icon": "school",
-      "label": {
-        "de": "Pädagogisch/Didaktisch",
-        "en": "Educational"
       }
     }
   ],
@@ -2560,133 +2544,13 @@
         },
         "repo_field": false
       }
-    },
-    {
-      "id": "ccm:oeh_publisher_combined",
-      "group": "license",
-      "label": {
-        "de": "Publisher / Herausgeber",
-        "en": "Publisher"
-      },
-      "description": {
-        "de": "Verlag oder Herausgeber",
-        "en": "Publisher"
-      },
-      "prompt": {
-        "de": "Extrahiere den Verlag, die Plattform oder die herausgebende Organisation – nicht den/die Autor:in. Suche nach Impressum, Copyright-Hinweisen, Domainnamen oder Logos. Gib nur EINEN Namen als String zurück. Beispiele: 'Bundeszentrale für politische Bildung', 'Cornelsen Verlag', 'Serlo Education e.V.'.",
-        "en": "Extract the publisher, platform, or publishing organization – not the author. Look for imprint, copyright notices, domain names, or logos. Return only ONE name as string. Examples: 'Federal Agency for Civic Education', 'Oxford University Press', 'Khan Academy'."
-      },
-      "system": {
-        "path": "ccm:oeh_publisher_combined",
-        "uri": "ccm:oeh_publisher_combined",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        }
-      }
-    },
-    {
-      "id": "ccm:educationalintendedenduserrole",
-      "group": "education",
-      "label": {
-        "de": "Zielgruppe",
-        "en": "Intended Audience"
-      },
-      "description": {
-        "de": "Zielgruppe(n) auswählen",
-        "en": "Select target audience(s)"
-      },
-      "prompt": {
-        "de": "Bestimme die Zielgruppe(n) der Ressource. Wähle NUR aus den vorgegebenen Vokabular-URIs – erfinde keine eigenen. Typische Zuordnungen: Unterrichtsmaterialien → Lehrer/in + Lerner/in; Elternratgeber → Eltern; Verwaltungsvorlagen → Verwaltung. Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent'].",
-        "en": "Determine the target audience(s). Choose ONLY from provided vocabulary URIs – do not invent new ones. Typical mappings: teaching materials → teacher + learner; parent guides → parent; admin templates → manager. Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent']."
-      },
-      "promptInstructions": {
-        "labelExactMatch": true
-      },
-      "system": {
-        "path": "ccm:educationalintendedenduserrole",
-        "uri": "ccm:educationalintendedenduserrole",
-        "datatype": "array",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "vocabulary": {
-          "type": "skos",
-          "scheme": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/",
-          "concepts": [
-            {
-              "label": {
-                "de": "Autor/in",
-                "en": "author"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/author"
-            },
-            {
-              "label": {
-                "de": "Berater/in",
-                "en": "counsellor"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/counsellor"
-            },
-            {
-              "label": {
-                "de": "Lerner/in",
-                "en": "learner"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner"
-            },
-            {
-              "label": {
-                "de": "Verwaltung",
-                "en": "manager"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/manager"
-            },
-            {
-              "label": {
-                "de": "Eltern",
-                "en": "parent"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent"
-            },
-            {
-              "label": {
-                "de": "Lehrer/in",
-                "en": "teacher"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher"
-            },
-            {
-              "label": {
-                "de": "andere",
-                "en": "other"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/other"
-            }
-          ]
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true,
-          "map_labels_to_uris": true
-        }
-      }
     }
   ],
   "output_template": {
+    "@type": [
+      "schema:Course",
+      "schema:EducationalOccupationalProgram"
+    ],
     "oeh:educationalOffering": [],
     "oeh:concretenessType": "",
     "oeh:granularityLevel": "",
@@ -2723,8 +2587,6 @@
       "url": ""
     },
     "schema:instructor": [],
-    "schema:offers": [],
-    "ccm:oeh_publisher_combined": "",
-    "ccm:educationalintendedenduserrole": []
+    "schema:offers": []
   }
 }

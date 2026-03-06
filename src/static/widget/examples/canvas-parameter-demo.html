@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>window.__zone_symbol__PASSIVE_EVENTS = ['scroll', 'wheel', 'touchstart', 'touchmove', 'touchend', 'mousewheel'];</script>
+    <title>Canvas Parameter Demo - Alle Kontrollparameter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="../dist/styles.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background: #f0f2f5; color: #333; }
+
+        /* Top bar */
+        .top-bar {
+            background: #fff; border-bottom: 1px solid #e0e0e0; padding: 10px 20px;
+            display: flex; align-items: center; gap: 12px;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .top-bar h1 { font-size: 15px; font-weight: 500; color: #1a1a1a; white-space: nowrap; }
+        .top-bar .sep { width: 1px; height: 20px; background: #e0e0e0; }
+        .badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+        .badge-layout { background: #e8f5e9; color: #2e7d32; }
+        .badge-info { background: #e3f2fd; color: #1565c0; }
+
+        .page { display: flex; height: calc(100vh - 45px); }
+
+        /* Sidebar */
+        .sidebar {
+            width: 290px; min-width: 290px; background: #fff;
+            border-right: 1px solid #e0e0e0; overflow-y: auto; padding: 12px 0;
+            z-index: 500; font-size: 12px;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+        .section-title {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.8px; color: #999; padding: 0 14px; margin-bottom: 6px;
+        }
+        .section-title:not(:first-child) { margin-top: 14px; padding-top: 12px; border-top: 1px solid #f0f0f0; }
+
+        /* Toggle rows */
+        .row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 4px 14px; cursor: pointer; transition: background 0.1s; user-select: none;
+        }
+        .row:hover { background: #f5f7fa; }
+        .row.master { background: #f0f4ff; padding: 7px 14px; margin-bottom: 2px; border-left: 3px solid #1976d2; }
+        .row.master .lbl { font-weight: 600; color: #1976d2; }
+        .row.sub { padding-left: 28px; }
+        .row.sub .lbl { font-size: 11px; }
+        .row.disabled .lbl, .row.disabled .desc { opacity: 0.35; }
+
+        .info { flex: 1; min-width: 0; }
+        .lbl { font-size: 12px; color: #1a1a1a; display: flex; align-items: center; gap: 5px; }
+        .lbl .material-icons { font-size: 14px; color: #888; }
+        .desc { font-size: 10px; color: #aaa; margin-top: 1px; }
+
+        /* Switch */
+        .sw { position: relative; width: 32px; height: 18px; flex-shrink: 0; margin-left: 8px; }
+        .sw input { opacity: 0; width: 0; height: 0; }
+        .sl {
+            position: absolute; cursor: pointer; inset: 0; background: #ccc;
+            border-radius: 18px; transition: 0.2s;
+        }
+        .sl::before {
+            content: ''; position: absolute; height: 12px; width: 12px;
+            left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: 0.2s;
+        }
+        .sw input:checked + .sl { background: #4caf50; }
+        .sw input:checked + .sl::before { transform: translateX(14px); }
+        .sw input:disabled + .sl { opacity: 0.35; cursor: not-allowed; }
+
+        /* Select/input rows */
+        .ctrl-row { padding: 4px 14px; margin-bottom: 4px; }
+        .ctrl-row label { font-size: 11px; color: #666; display: block; margin-bottom: 2px; }
+        .ctrl-row select, .ctrl-row input[type=number], .ctrl-row input[type=color] {
+            width: 100%; padding: 5px 8px; border: 1px solid #e0e0e0;
+            border-radius: 5px; font-size: 12px; font-family: inherit; background: #fff; color: #333;
+        }
+        .ctrl-row input[type=color] { height: 30px; padding: 2px; cursor: pointer; }
+
+        /* Quick actions */
+        .qactions { display: flex; gap: 4px; padding: 6px 14px; flex-wrap: wrap; }
+        .qbtn {
+            padding: 4px 8px; border: 1px solid #e0e0e0; border-radius: 5px;
+            background: #fff; cursor: pointer; font-size: 10px; font-weight: 500;
+            color: #555; transition: all 0.1s;
+        }
+        .qbtn:hover { background: #f0f2f5; border-color: #bbb; }
+        .qbtn.primary { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+        .qbtn.danger { background: #fce4ec; color: #c62828; border-color: #ef9a9a; }
+
+        /* Main */
+        .main { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+        metadata-agent-canvas { display: block; width: 100%; flex: 1; min-height: 0; }
+
+        /* Event log */
+        .log-panel {
+            background: #1e1e2e; color: #ccc; font-family: 'Roboto Mono', monospace;
+            font-size: 11px; max-height: 160px; min-height: 80px; overflow-y: auto;
+            border-top: 2px solid #333; flex-shrink: 0;
+        }
+        .log-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 4px 12px; background: #16161e; border-bottom: 1px solid #333;
+            font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #888;
+        }
+        .log-header button {
+            background: none; border: 1px solid #444; color: #888; padding: 1px 8px;
+            border-radius: 3px; cursor: pointer; font-size: 10px; font-family: inherit;
+        }
+        .log-header button:hover { border-color: #888; color: #ccc; }
+        .log-body { padding: 4px 12px; }
+        .log-entry { padding: 1px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .log-ts { color: #555; }
+        .log-type { font-weight: 500; margin: 0 4px; }
+        .log-type.event { color: #64b5f6; }
+        .log-type.prop { color: #81c784; }
+        .log-type.data { color: #ffb74d; }
+        .log-type.info { color: #ce93d8; }
+        .log-type.error { color: #ef5350; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <h1>Canvas Parameter Demo</h1>
+    <div class="sep"></div>
+    <span class="badge badge-layout" id="badge-layout">default</span>
+    <span class="badge badge-info" id="badge-info">Alle Parameter</span>
+</div>
+
+<div class="page">
+<aside class="sidebar">
+
+    <!-- ===== LAYOUT ===== -->
+    <div class="section-title">Layout</div>
+    <div class="ctrl-row">
+        <label>layout</label>
+        <select id="sel-layout" onchange="setProp('layout', this.value)">
+            <option value="default" selected>default</option>
+            <option value="plugin">plugin</option>
+            <option value="dialog">dialog</option>
+            <option value="detail">detail</option>
+            <option value="clean">clean</option>
+            <option value="prueftisch">prueftisch</option>
+            <option value="prueftisch-org">prueftisch-org</option>
+        </select>
+    </div>
+
+    <!-- ===== ELEMENT VISIBILITY ===== -->
+    <div class="section-title">Bereiche</div>
+
+    <div class="row" onclick="tog('chk-inputArea')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">text_fields</span> showInputArea</div>
+            <div class="desc">Texteingabe-Bereich</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-inputArea" checked onchange="setProp('showInputArea', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-statusBar')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">info</span> showStatusBar</div>
+            <div class="desc">Fortschrittsanzeige</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-statusBar" checked onchange="setProp('showStatusBar', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-coreFields')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">view_list</span> showCoreFields</div>
+            <div class="desc">Kernfelder (Titel, Beschreibung...)</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-coreFields" checked onchange="setProp('showCoreFields', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-specialFields')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">tune</span> showSpecialFields</div>
+            <div class="desc">Spezialfelder (Typisierung...)</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-specialFields" checked onchange="setProp('showSpecialFields', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-footer')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">call_to_action</span> showFooter</div>
+            <div class="desc">Footer mit Aktionen</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-footer" checked onchange="setProp('showFooter', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-fieldActions')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">more_vert</span> showFieldActions</div>
+            <div class="desc">Feld-Aktionsbuttons</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-fieldActions" checked onchange="setProp('showFieldActions', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <!-- ===== DISPLAY OPTIONS ===== -->
+    <div class="section-title">Darstellung</div>
+
+    <div class="row" onclick="tog('chk-readonly')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">visibility</span> readonly</div>
+            <div class="desc">Nur-Lese-Modus</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-readonly" onchange="setProp('readonly', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-borderless')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">border_clear</span> borderless</div>
+            <div class="desc">Rahmen um Gruppen entfernen</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-borderless" onchange="setProp('borderless', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-flatGroups')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">view_stream</span> flatGroups</div>
+            <div class="desc">Alle Felder unter einer Überschrift (Content-Type Name)</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-flatGroups" onchange="setProp('flatGroups', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <!-- ===== FLOATING CONTROLS ===== -->
+    <div class="section-title">Floating Controls</div>
+
+    <div class="row master" onclick="tog('chk-floatingControls')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">toggle_on</span> showFloatingControls</div>
+            <div class="desc">Gesamte Floating Bar</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-floatingControls" checked onchange="setProp('showFloatingControls', this.checked); updateFloatingDisabled()">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row sub" onclick="tog('chk-contentType')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">category</span> showContentType</div>
+            <div class="desc">Content-Type Split-Button</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-contentType" checked onchange="setProp('showContentType', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row sub" onclick="tog('chk-languageSwitcher')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">translate</span> showLanguageSwitcher</div>
+            <div class="desc">Sprachwechsel-Pill</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-languageSwitcher" checked onchange="setProp('showLanguageSwitcher', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row sub" onclick="tog('chk-resetButton')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">refresh</span> showResetButton</div>
+            <div class="desc">Reset-Button</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-resetButton" checked onchange="setProp('showResetButton', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row sub" onclick="tog('chk-saveButton')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">save</span> showSaveButton</div>
+            <div class="desc">Speichern-Button</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-saveButton" checked onchange="setProp('showSaveButton', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row sub" onclick="tog('chk-uploadButton')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">cloud_upload</span> showUploadButton</div>
+            <div class="desc">Upload ins Repository</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-uploadButton" checked onchange="setProp('showUploadButton', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row sub" onclick="tog('chk-jsonLoader')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">upload_file</span> showJsonLoader</div>
+            <div class="desc">JSON-Datei importieren</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-jsonLoader" checked onchange="setProp('showJsonLoader', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row sub" onclick="tog('chk-contentTypeOnly')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">filter_alt</span> showContentTypeOnly</div>
+            <div class="desc">Nur Content-Type, keine Buttons</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-contentTypeOnly" onchange="setProp('showContentTypeOnly', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <!-- ===== STYLE ===== -->
+    <div class="section-title">Style</div>
+
+    <div class="ctrl-row">
+        <label>columns (1-4)</label>
+        <select id="sel-columns" onchange="setProp('columns', parseInt(this.value))">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+    </div>
+
+    <div class="ctrl-row">
+        <label>backgroundColor</label>
+        <input type="color" id="inp-bgColor" value="#f5f7fb" onchange="setProp('backgroundColor', this.value)">
+    </div>
+
+    <!-- ===== BEHAVIOR ===== -->
+    <div class="section-title">Verhalten</div>
+
+    <div class="row" onclick="tog('chk-highlightAi')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">auto_awesome</span> highlightAi</div>
+            <div class="desc">KI-Felder lila markieren</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-highlightAi" onchange="setProp('highlightAi', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-showPreview')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">image</span> showPreview</div>
+            <div class="desc">Vorschaubild anzeigen</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-showPreview" checked onchange="setProp('showPreview', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="tog('chk-enableScreenshot')">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">photo_camera</span> enableScreenshot</div>
+            <div class="desc">Screenshot bei URL-Extraktion</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-enableScreenshot" checked onchange="setProp('enableScreenshot', this.checked)">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="ctrl-row">
+        <label>inputMode</label>
+        <select id="sel-inputMode" onchange="setProp('inputMode', this.value)">
+            <option value="text" selected>text</option>
+            <option value="url">url</option>
+            <option value="nodeId">nodeId</option>
+        </select>
+    </div>
+
+    <!-- ===== DATA ===== -->
+    <div class="section-title">Daten</div>
+
+    <div class="row" onclick="toggleExampleJson()">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">data_object</span> Beispiel-JSON laden</div>
+            <div class="desc">metadata-2026-02-11.json</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-loadJson" checked onchange="toggleExampleJson()">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <div class="row" onclick="triggerForceReset()">
+        <div class="info">
+            <div class="lbl"><span class="material-icons">delete_sweep</span> forceReset</div>
+            <div class="desc">Alle Felder leeren</div>
+        </div>
+        <label class="sw" onclick="event.stopPropagation()">
+            <input type="checkbox" id="chk-forceReset" onchange="triggerForceReset()">
+            <span class="sl"></span>
+        </label>
+    </div>
+
+    <!-- ===== QUICK ACTIONS ===== -->
+    <div class="section-title">Schnellaktionen</div>
+    <div class="qactions">
+        <button class="qbtn primary" onclick="presetDefault()">Default</button>
+        <button class="qbtn" onclick="presetPlugin()">Plugin</button>
+        <button class="qbtn" onclick="presetDialog()">Dialog</button>
+        <button class="qbtn" onclick="presetDetail()">Detail</button>
+        <button class="qbtn" onclick="presetMinimal()">Minimal</button>
+        <button class="qbtn danger" onclick="presetAllOff()">Alles aus</button>
+        <button class="qbtn primary" onclick="presetAllOn()">Alles an</button>
+    </div>
+
+</aside>
+
+<div class="main">
+    <metadata-agent-canvas id="canvas" api-url="" layout="default" flat-groups="false"></metadata-agent-canvas>
+
+    <div class="log-panel">
+        <div class="log-header">
+            <span>Events &amp; Log</span>
+            <button onclick="clearLog()">Clear</button>
+        </div>
+        <div class="log-body" id="log"></div>
+    </div>
+</div>
+</div>
+
+<!-- Set API URL BEFORE Angular bootstraps -->
+<script>document.getElementById('canvas').setAttribute('api-url', window.location.origin);</script>
+
+<!-- Widget Scripts -->
+<script src="../dist/runtime.js" defer></script>
+<script src="../dist/polyfills.js" defer></script>
+<script src="../dist/main.js" defer></script>
+
+<script>
+    let canvas;
+    const logEl = document.getElementById('log');
+    let exampleData = null;
+
+    const FLOATING_SUB_IDS = [
+        'chk-contentType', 'chk-languageSwitcher', 'chk-resetButton',
+        'chk-saveButton', 'chk-uploadButton', 'chk-jsonLoader', 'chk-contentTypeOnly'
+    ];
+
+    // Wait for web component
+    customElements.whenDefined('metadata-agent-canvas').then(() => {
+        canvas = document.getElementById('canvas');
+        log('info', 'Web Component bereit (v' + (canvas.version || '?') + ')');
+
+        // Pre-fetch example JSON and auto-load if checkbox is checked
+        fetch('metadata-2026-02-11.json')
+            .then(r => r.json())
+            .then(data => {
+                exampleData = data;
+                log('info', 'metadata-2026-02-11.json vorgeladen (' + Object.keys(data).length + ' Keys)');
+                if (document.getElementById('chk-loadJson').checked) {
+                    canvas.metadataInput = data;
+                    log('data', 'Beispieldaten geladen');
+                }
+            })
+            .catch(e => log('error', 'JSON vorladen fehlgeschlagen: ' + e.message));
+
+        // Listen to events
+        canvas.addEventListener('metadataChange', (e) => {
+            const d = e.detail || {};
+            const keys = Object.keys(d);
+            const filled = keys.filter(k => {
+                const v = d[k];
+                return v !== null && v !== undefined && v !== '' && !(Array.isArray(v) && v.length === 0);
+            });
+            log('event', 'metadataChange — ' + filled.length + '/' + keys.length + ' Felder gefüllt');
+        });
+
+        canvas.addEventListener('metadataSubmit', (e) => {
+            log('event', 'metadataSubmit — ' + JSON.stringify(e.detail).substring(0, 120) + '...');
+        });
+
+        canvas.addEventListener('uploadResult', (e) => {
+            const d = e.detail || {};
+            log('event', 'uploadResult — success=' + d.success + (d.nodeId ? ' nodeId=' + d.nodeId : '') + (d.error ? ' error=' + d.error : ''));
+        });
+
+        updateFloatingDisabled();
+    });
+
+    // ===== Core functions =====
+
+    function setProp(name, value) {
+        if (!canvas) return;
+        canvas[name] = value;
+        log('prop', name + ' = ' + JSON.stringify(value));
+
+        // Update badge
+        if (name === 'layout') {
+            document.getElementById('badge-layout').textContent = value;
+        }
+    }
+
+    function tog(id) {
+        const chk = document.getElementById(id);
+        if (chk && !chk.disabled) { chk.checked = !chk.checked; chk.dispatchEvent(new Event('change')); }
+    }
+
+    function updateFloatingDisabled() {
+        const masterOn = document.getElementById('chk-floatingControls').checked;
+        FLOATING_SUB_IDS.forEach(id => {
+            const chk = document.getElementById(id);
+            if (chk) {
+                chk.disabled = !masterOn;
+                chk.closest('.row').classList.toggle('disabled', !masterOn);
+            }
+        });
+    }
+
+    function toggleExampleJson() {
+        if (!canvas) return;
+        const chk = document.getElementById('chk-loadJson');
+        if (chk.checked && exampleData) {
+            canvas.metadataInput = exampleData;
+            log('data', 'Beispieldaten geladen');
+        } else if (!chk.checked) {
+            canvas.forceReset = Date.now();
+            log('data', 'Daten zurückgesetzt');
+        }
+    }
+
+    function triggerForceReset() {
+        if (!canvas) return;
+        canvas.forceReset = Date.now();
+        document.getElementById('chk-loadJson').checked = false;
+        document.getElementById('chk-forceReset').checked = false;
+        log('prop', 'forceReset ausgelöst');
+    }
+
+    // ===== Presets =====
+
+    function applyPreset(opts) {
+        if (!canvas) return;
+
+        // Layout
+        if (opts.layout) {
+            document.getElementById('sel-layout').value = opts.layout;
+            setProp('layout', opts.layout);
+        }
+
+        // Boolean toggles
+        const boolMap = {
+            showInputArea: 'chk-inputArea',
+            showStatusBar: 'chk-statusBar',
+            showCoreFields: 'chk-coreFields',
+            showSpecialFields: 'chk-specialFields',
+            showFooter: 'chk-footer',
+            showFieldActions: 'chk-fieldActions',
+            showFloatingControls: 'chk-floatingControls',
+            showContentType: 'chk-contentType',
+            showLanguageSwitcher: 'chk-languageSwitcher',
+            showResetButton: 'chk-resetButton',
+            showSaveButton: 'chk-saveButton',
+            showUploadButton: 'chk-uploadButton',
+            showJsonLoader: 'chk-jsonLoader',
+            showContentTypeOnly: 'chk-contentTypeOnly',
+            borderless: 'chk-borderless',
+            readonly: 'chk-readonly',
+            highlightAi: 'chk-highlightAi',
+            flatGroups: 'chk-flatGroups',
+            showPreview: 'chk-showPreview',
+            enableScreenshot: 'chk-enableScreenshot'
+        };
+
+        Object.entries(boolMap).forEach(([prop, chkId]) => {
+            if (prop in opts) {
+                const chk = document.getElementById(chkId);
+                if (chk) { chk.checked = opts[prop]; }
+                canvas[prop] = opts[prop];
+            }
+        });
+
+        // Columns
+        if (opts.columns) {
+            document.getElementById('sel-columns').value = opts.columns;
+            canvas.columns = opts.columns;
+        }
+
+        // inputMode
+        if (opts.inputMode) {
+            document.getElementById('sel-inputMode').value = opts.inputMode;
+            canvas.inputMode = opts.inputMode;
+        }
+
+        updateFloatingDisabled();
+        log('info', 'Preset: ' + (opts._name || 'custom'));
+    }
+
+    function presetDefault() {
+        applyPreset({
+            _name: 'Default', layout: 'default', columns: 2,
+            showInputArea: true, showStatusBar: true, showCoreFields: true,
+            showSpecialFields: true, showFooter: true, showFieldActions: true,
+            showFloatingControls: true, showContentType: true, showLanguageSwitcher: true,
+            showResetButton: true, showSaveButton: true, showUploadButton: true,
+            showJsonLoader: true, showContentTypeOnly: false,
+            borderless: false, readonly: false, highlightAi: false, flatGroups: false,
+            showPreview: true, enableScreenshot: true,
+            inputMode: 'text'
+        });
+    }
+
+    function presetPlugin() {
+        applyPreset({
+            _name: 'Plugin', layout: 'plugin', columns: 1,
+            showInputArea: true, showStatusBar: false, showCoreFields: true,
+            showSpecialFields: true, showFooter: false, showFieldActions: true,
+            showFloatingControls: true, showContentType: true, showLanguageSwitcher: true,
+            showResetButton: true, showSaveButton: false, showUploadButton: true,
+            showJsonLoader: false, showContentTypeOnly: false,
+            borderless: true, readonly: false, highlightAi: false, flatGroups: false,
+            showPreview: true, enableScreenshot: true,
+            inputMode: 'text'
+        });
+    }
+
+    function presetDialog() {
+        applyPreset({
+            _name: 'Dialog', layout: 'dialog', columns: 2,
+            showInputArea: false, showStatusBar: false, showCoreFields: true,
+            showSpecialFields: true, showFooter: false, showFieldActions: true,
+            showFloatingControls: true, showContentType: true, showLanguageSwitcher: true,
+            showResetButton: true, showSaveButton: true, showUploadButton: true,
+            showJsonLoader: false, showContentTypeOnly: false,
+            borderless: true, readonly: false, highlightAi: false, flatGroups: false,
+            inputMode: 'text'
+        });
+    }
+
+    function presetDetail() {
+        applyPreset({
+            _name: 'Detail (readonly)', layout: 'detail', columns: 4,
+            showInputArea: false, showStatusBar: false, showCoreFields: true,
+            showSpecialFields: true, showFooter: false, showFieldActions: false,
+            showFloatingControls: true, showContentType: true, showLanguageSwitcher: true,
+            showResetButton: false, showSaveButton: false, showUploadButton: false,
+            showJsonLoader: false, showContentTypeOnly: true,
+            borderless: true, readonly: true, highlightAi: false, flatGroups: false,
+            inputMode: 'text'
+        });
+    }
+
+    function presetMinimal() {
+        applyPreset({
+            _name: 'Minimal', layout: 'default', columns: 1,
+            showInputArea: false, showStatusBar: false, showCoreFields: true,
+            showSpecialFields: false, showFooter: false, showFieldActions: false,
+            showFloatingControls: false, showContentType: false, showLanguageSwitcher: false,
+            showResetButton: false, showSaveButton: false, showUploadButton: false,
+            showJsonLoader: false, showContentTypeOnly: false,
+            borderless: true, readonly: true, highlightAi: false, flatGroups: false,
+            inputMode: 'text'
+        });
+    }
+
+    function presetAllOff() {
+        applyPreset({
+            _name: 'Alles aus',
+            showInputArea: false, showStatusBar: false, showCoreFields: false,
+            showSpecialFields: false, showFooter: false, showFieldActions: false,
+            showFloatingControls: false, showContentType: false, showLanguageSwitcher: false,
+            showResetButton: false, showSaveButton: false, showUploadButton: false,
+            showJsonLoader: false, showContentTypeOnly: false,
+            borderless: false, readonly: false, highlightAi: false, flatGroups: false,
+            showPreview: true, enableScreenshot: true
+        });
+    }
+
+    function presetAllOn() {
+        applyPreset({
+            _name: 'Alles an',
+            showInputArea: true, showStatusBar: true, showCoreFields: true,
+            showSpecialFields: true, showFooter: true, showFieldActions: true,
+            showFloatingControls: true, showContentType: true, showLanguageSwitcher: true,
+            showResetButton: true, showSaveButton: true, showUploadButton: true,
+            showJsonLoader: true, showContentTypeOnly: false,
+            borderless: false, readonly: false, highlightAi: true, flatGroups: false,
+            showPreview: true, enableScreenshot: true
+        });
+    }
+
+    // ===== Log =====
+
+    function log(type, msg) {
+        const ts = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 1 });
+        const entry = document.createElement('div');
+        entry.className = 'log-entry';
+        entry.innerHTML = '<span class="log-ts">' + ts + '</span><span class="log-type ' + type + '">' + type.toUpperCase() + '</span> ' + escHtml(msg);
+        logEl.insertBefore(entry, logEl.firstChild);
+        while (logEl.children.length > 100) logEl.removeChild(logEl.lastChild);
+    }
+
+    function clearLog() { logEl.innerHTML = ''; log('info', 'Log geleert'); }
+
+    function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+</script>
+
+</body>
+</html>

@@ -118,7 +118,7 @@ class GenerateRequest(BaseModel):
     )
     schema_file: str = Field(
         default="auto",
-        description="Schema file to use ('auto' for automatic detection, or specific like 'event.json')"
+        description="Schema file to use ('auto' for automatic detection, specific filename like 'event.json', or a vocab URI like 'http://w3id.org/openeduhub/vocabs/contentTypes/event')"
     )
     language: str = Field(
         default="de",
@@ -165,6 +165,16 @@ class GenerateRequest(BaseModel):
         description="LLM model to use. Examples: 'gpt-4.1-mini' (default for b-api-openai), 'gpt-4o-mini' (for openai), 'deepseek-r1' (for b-api-academiccloud). If not set, uses the provider's default model from environment."
     )
     
+    # Screenshot options (async preview generation during extraction)
+    preview_url: Optional[str] = Field(
+        default=None,
+        description="URL to capture as preview screenshot (runs async parallel to KI extraction). If not set, auto-detected from source_url or ccm:wwwurl."
+    )
+    screenshot_method: Optional[str] = Field(
+        default=None,
+        description="Screenshot method: 'pageshot' (external API, default) or 'playwright' (internal, privacy-safe). If not set, no screenshot is captured."
+    )
+    
     @field_validator('text', mode='before')
     @classmethod
     def sanitize_text_input(cls, v: Any) -> str:
@@ -186,7 +196,9 @@ class GenerateRequest(BaseModel):
                     "include_core": True,
                     "max_workers": 10,
                     "llm_provider": "b-api-openai",
-                    "llm_model": "gpt-4.1-mini"
+                    "llm_model": "gpt-4.1-mini",
+                    "screenshot_method": "pageshot",
+                    "preview_url": ""
                 }
             ]
         }
@@ -216,6 +228,7 @@ class GenerateResponse(BaseModel):
     contextName: str = Field(description="Schema context name")
     schemaVersion: str = Field(description="Schema version used")
     metadataset: str = Field(description="Schema file that was used")
+    metadataset_uri: Optional[str] = Field(default=None, description="Vocab URI for the metadataset (e.g., 'http://w3id.org/openeduhub/vocabs/contentTypes/event')")
     language: str = Field(description="Language used for extraction")
     exportedAt: str = Field(description="ISO timestamp of generation")
     
@@ -235,6 +248,7 @@ class GenerateResponse(BaseModel):
             "contextName": self.contextName,
             "schemaVersion": self.schemaVersion,
             "metadataset": self.metadataset,
+            "metadataset_uri": self.metadataset_uri,
             "language": self.language,
             "exportedAt": self.exportedAt,
         }
@@ -423,6 +437,94 @@ class SchemataInfoResponse(BaseModel):
     default_context: str
 
 
+class ScreenshotMethod(str, Enum):
+    """Screenshot capture method."""
+    PAGESHOT = "pageshot"       # External PageShot API (fast, free, no key)
+    PLAYWRIGHT = "playwright"   # Internal Playwright (privacy-safe, requires install)
+
+
+class ScreenshotRequest(BaseModel):
+    """Request model for standalone screenshot capture."""
+    url: str = Field(
+        description="Webpage URL to capture"
+    )
+    method: ScreenshotMethod = Field(
+        default=ScreenshotMethod.PAGESHOT,
+        description="Capture method: 'pageshot' (external API, default) or 'playwright' (internal, privacy-safe)"
+    )
+    width: int = Field(
+        default=800,
+        ge=320, le=3840,
+        description="Viewport width (320-3840)"
+    )
+    height: int = Field(
+        default=500,
+        ge=200, le=2160,
+        description="Viewport height (200-2160)"
+    )
+    format: str = Field(
+        default="png",
+        description="Image format: 'png', 'jpeg', 'webp'"
+    )
+    full_page: bool = Field(
+        default=False,
+        description="Capture entire scrollable page"
+    )
+    delay: int = Field(
+        default=2000,
+        ge=0, le=10000,
+        description="Wait before capture in ms (0-10000)"
+    )
+    # Optional: upload directly to a node
+    node_id: Optional[str] = Field(
+        default=None,
+        description="If provided, upload screenshot as preview to this edu-sharing node"
+    )
+    repository: str = Field(
+        default="staging",
+        description="Repository for preview upload: 'staging' or 'prod'"
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
+                "url": "https://klexikon.zum.de/wiki/Erde",
+                "method": "pageshot",
+                "width": 800,
+                "height": 500,
+                "format": "png"
+            }]
+        }
+    }
+
+
+class ScreenshotResponse(BaseModel):
+    """Response from screenshot capture."""
+    success: bool
+    method: str = Field(description="Method used: 'pageshot' or 'playwright'")
+    url: str = Field(description="Captured URL")
+    format: str = Field(description="Image format")
+    mimetype: str = Field(description="MIME type (e.g. image/png)")
+    width: int = Field(description="Viewport width")
+    height: int = Field(description="Viewport height")
+    size_bytes: int = Field(description="Image size in bytes")
+    capture_time_ms: int = Field(description="Capture duration in ms")
+    image_base64: Optional[str] = Field(
+        default=None,
+        description="Base64-encoded image (only in JSON response mode)"
+    )
+    # Preview upload result (if node_id was provided)
+    preview_uploaded: Optional[bool] = Field(
+        default=None,
+        description="Whether preview was uploaded to node"
+    )
+    node_id: Optional[str] = Field(
+        default=None,
+        description="Node ID if preview was uploaded"
+    )
+    error: Optional[str] = None
+
+
 class UploadRequest(BaseModel):
     """
     Request model for uploading metadata to WLO repository.
@@ -449,6 +551,33 @@ class UploadRequest(BaseModel):
         default=None,
         description="Bezugsquelle / Publisher-Name. Wenn angegeben, wird ccm:oeh_publisher_combined mit diesem Wert überschrieben."
     )
+    # Screenshot / Preview options
+    preview_url: Optional[str] = Field(
+        default=None,
+        description="URL for preview screenshot. If provided, a screenshot is captured async and uploaded as node preview."
+    )
+    screenshot_method: ScreenshotMethod = Field(
+        default=ScreenshotMethod.PAGESHOT,
+        description="Screenshot method: 'pageshot' (default) or 'playwright' (privacy-safe)"
+    )
+    
+    @field_validator('screenshot_method', mode='before')
+    @classmethod
+    def sanitize_screenshot_method(cls, v: Any) -> str:
+        """Convert empty string to default 'pageshot'."""
+        if not v or (isinstance(v, str) and not v.strip()):
+            return "pageshot"
+        return v
+    
+    # Extended Data options
+    write_extended_data: bool = Field(
+        default=True,
+        description="Write extended fields (ccm:oeh_extendedType, ccm:oeh_extendedData, ccm:oeh_extendedText) to node. Default: true."
+    )
+    extended_text: Optional[str] = Field(
+        default=None,
+        description="Raw source text before extraction (user input, extracted page content, etc.). Written to ccm:oeh_extendedText."
+    )
     
     model_config = {
         "json_schema_extra": {
@@ -464,7 +593,11 @@ class UploadRequest(BaseModel):
                 "repository": "staging",
                 "check_duplicates": True,
                 "start_workflow": True,
-                "source": "Klexikon"
+                "source": "Klexikon",
+                "preview_url": "https://example.com/event",
+                "screenshot_method": "pageshot",
+                "write_extended_data": True,
+                "extended_text": "Raw text content..."
             }]
         }
     }
@@ -497,6 +630,10 @@ class UploadResponse(BaseModel):
     fields_written: Optional[int] = None
     fields_skipped: Optional[int] = None
     field_errors: Optional[list[FieldUploadError]] = None
+    preview: Optional[dict[str, Any]] = Field(
+        default=None,
+        description="Preview screenshot status: {success, method, capture_time_ms, size_bytes} or {success: false, error}"
+    )
 
 
 class FieldDiff(BaseModel):
@@ -638,6 +775,7 @@ class DetectContentTypeRequest(BaseModel):
 class ContentTypeInfo(BaseModel):
     """Information about a detected content type."""
     schema_file: str = Field(description="Schema file name (e.g., 'event.json')")
+    uri: Optional[str] = Field(default=None, description="Vocab URI for this content type (e.g., 'http://w3id.org/openeduhub/vocabs/contentTypes/event')")
     profile_id: Optional[str] = Field(default=None, description="Profile ID if available")
     label: LocalizedString = Field(description="Localized label for the content type")
     confidence: Optional[str] = Field(default=None, description="Detection confidence (high/medium/low)")
@@ -694,7 +832,7 @@ class ExtractFieldRequest(BaseModel):
     # Field-specific options
     context: str = Field(default="default", description="Schema context to use")
     version: str = Field(default="latest", description="Schema version to use ('latest' for newest)")
-    schema_file: str = Field(..., description="Schema file containing the field (e.g., 'event.json', 'core.json')")
+    schema_file: str = Field(..., description="Schema file containing the field (e.g., 'event.json', 'core.json') or a vocab URI (e.g., 'http://w3id.org/openeduhub/vocabs/contentTypes/event')")
     field_id: str = Field(..., description="Field ID to extract (e.g., 'schema:startDate', 'cclom:title')")
     existing_metadata: Optional[dict[str, Any]] = Field(
         default=None,

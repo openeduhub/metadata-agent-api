@@ -54,14 +54,6 @@
         "de": "Verweise & Dokumente",
         "en": "References & Documents"
       }
-    },
-    {
-      "id": "license",
-      "icon": "gavel",
-      "label": {
-        "de": "Lizenz, Quelle, Mitwirkende",
-        "en": "License, Source, Contributors"
-      }
     }
   ],
   "fields": [
@@ -88,158 +80,32 @@
         "required": true,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
+        "index": { "keyword": true },
         "vocabulary": {
           "type": "closed",
           "hierarchical": true,
           "concepts": [
-            {
-              "label": {
-                "de": "Schulcurriculum",
-                "en": "School Curriculum"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum"
-            },
-            {
-              "label": {
-                "de": "Lehrplan",
-                "en": "Curriculum"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/lehrplan",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum"
-            },
-            {
-              "label": {
-                "de": "Rahmenplan",
-                "en": "Framework Plan"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/rahmenplan",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum"
-            },
-            {
-              "label": {
-                "de": "Rahmenlehrplan",
-                "en": "Framework Curriculum"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/rahmenlehrplan",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum"
-            },
-            {
-              "label": {
-                "de": "Kerncurriculum",
-                "en": "Core Curriculum"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/kerncurriculum",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum"
-            },
-            {
-              "label": {
-                "de": "Bildungsplan",
-                "en": "Education Plan"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/bildungsplan",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum"
-            },
-            {
-              "label": {
-                "de": "Fachanforderungen",
-                "en": "Subject Requirements"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/fachanforderungen",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum"
-            },
-            {
-              "label": {
-                "de": "Berufliches Ordnungsmittel",
-                "en": "Vocational Regulation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation"
-            },
-            {
-              "label": {
-                "de": "Ausbildungsordnung",
-                "en": "Training Regulation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/ausbildungsordnung",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation"
-            },
-            {
-              "label": {
-                "de": "Ausbildungsrahmenplan",
-                "en": "Training Framework Plan"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/ausbildungsrahmenplan",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation"
-            },
-            {
-              "label": {
-                "de": "Prüfungsordnung",
-                "en": "Examination Regulation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/pruefungsordnung",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation"
-            },
-            {
-              "label": {
-                "de": "Hochschulordnung",
-                "en": "Higher Education Regulation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation"
-            },
-            {
-              "label": {
-                "de": "Modulhandbuch",
-                "en": "Module Handbook"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/modulhandbuch",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation"
-            },
-            {
-              "label": {
-                "de": "Studienordnung",
-                "en": "Study Regulation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/studienordnung",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation"
-            },
-            {
-              "label": {
-                "de": "Übergreifendes Rahmenwerk",
-                "en": "Cross-cutting Framework"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework"
-            },
-            {
-              "label": {
-                "de": "Bildungsstandard",
-                "en": "Educational Standard"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/bildungsstandard",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework"
-            },
-            {
-              "label": {
-                "de": "Orientierungsrahmen",
-                "en": "Orientation Framework"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/orientierungsrahmen",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework"
-            },
-            {
-              "label": {
-                "de": "Kompetenzrahmen",
-                "en": "Competency Framework"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/kompetenzrahmen",
-              "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework"
-            }
+            { "label": { "de": "Schulcurriculum", "en": "School Curriculum" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Lehrplan", "en": "Curriculum" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/lehrplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Rahmenplan", "en": "Framework Plan" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/rahmenplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Rahmenlehrplan", "en": "Framework Curriculum" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/rahmenlehrplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Kerncurriculum", "en": "Core Curriculum" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/kerncurriculum", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Bildungsplan", "en": "Education Plan" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/bildungsplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Fachanforderungen", "en": "Subject Requirements" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/fachanforderungen", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/school-curriculum" },
+            { "label": { "de": "Berufliches Ordnungsmittel", "en": "Vocational Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation" },
+            { "label": { "de": "Ausbildungsordnung", "en": "Training Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/ausbildungsordnung", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation" },
+            { "label": { "de": "Ausbildungsrahmenplan", "en": "Training Framework Plan" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/ausbildungsrahmenplan", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation" },
+            { "label": { "de": "Prüfungsordnung", "en": "Examination Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/pruefungsordnung", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/vocational-regulation" },
+            { "label": { "de": "Hochschulordnung", "en": "Higher Education Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation" },
+            { "label": { "de": "Modulhandbuch", "en": "Module Handbook" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/modulhandbuch", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation" },
+            { "label": { "de": "Studienordnung", "en": "Study Regulation" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/studienordnung", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/higher-education-regulation" },
+            { "label": { "de": "Übergreifendes Rahmenwerk", "en": "Cross-cutting Framework" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework" },
+            { "label": { "de": "Bildungsstandard", "en": "Educational Standard" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/bildungsstandard", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework" },
+            { "label": { "de": "Orientierungsrahmen", "en": "Orientation Framework" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/orientierungsrahmen", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework" },
+            { "label": { "de": "Kompetenzrahmen", "en": "Competency Framework" }, "uri": "http://w3id.org/openeduhub/vocabs/curriculumType/kompetenzrahmen", "broader": "http://w3id.org/openeduhub/vocabs/curriculumType/cross-cutting-framework" }
           ]
         },
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -266,16 +132,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -302,16 +161,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -338,12 +190,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -370,16 +218,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -406,45 +247,17 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
+        "index": { "keyword": true },
         "vocabulary": {
           "type": "closed",
           "concepts": [
-            {
-              "label": {
-                "de": "Bund",
-                "en": "Federal"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/federal"
-            },
-            {
-              "label": {
-                "de": "Land",
-                "en": "State"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/state"
-            },
-            {
-              "label": {
-                "de": "Kommune",
-                "en": "Municipal"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/municipal"
-            },
-            {
-              "label": {
-                "de": "Schule/Einrichtung",
-                "en": "School/Institution"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/institution"
-            }
+            { "label": { "de": "Bund", "en": "Federal" }, "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/federal" },
+            { "label": { "de": "Land", "en": "State" }, "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/state" },
+            { "label": { "de": "Kommune", "en": "Municipal" }, "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/municipal" },
+            { "label": { "de": "Schule/Einrichtung", "en": "School/Institution" }, "uri": "http://w3id.org/openeduhub/vocabs/jurisdictionLevel/institution" }
           ]
         },
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -471,16 +284,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -507,12 +313,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -539,9 +341,7 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -568,9 +368,7 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -597,9 +395,7 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -626,9 +422,7 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "normalization": {
-          "trim": true
-        },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -655,16 +449,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -691,16 +478,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "fulltext": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "fulltext": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -727,16 +507,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -763,16 +536,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "keyword": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -799,12 +565,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        },
+        "index": { "keyword": true },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -831,16 +593,9 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "index": {
-          "fulltext": true
-        },
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "index": { "fulltext": true },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
       }
     },
@@ -867,12 +622,8 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "validation": {
-          "format": "url"
-        },
-        "normalization": {
-          "trim": true
-        },
+        "validation": { "format": "url" },
+        "normalization": { "trim": true },
         "repo_field": false
       }
     },
@@ -899,82 +650,14 @@
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
-        "items": {
-          "type": "string"
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
+        "items": { "type": "string" },
+        "normalization": { "trim": true, "deduplicate": true },
         "repo_field": false
-      }
-    },
-    {
-      "id": "ccm:oeh_publisher_combined",
-      "group": "license",
-      "label": {
-        "de": "Publisher / Herausgeber",
-        "en": "Publisher"
-      },
-      "description": {
-        "de": "Verlag oder Herausgeber",
-        "en": "Publisher"
-      },
-      "prompt": {
-        "de": "Extrahiere den Verlag, die Plattform oder die herausgebende Organisation – nicht den/die Autor:in. Suche nach Impressum, Copyright-Hinweisen, Domainnamen oder Logos. Gib nur EINEN Namen als String zurück. Beispiele: 'Bundeszentrale für politische Bildung', 'Cornelsen Verlag', 'Serlo Education e.V.'.",
-        "en": "Extract the publisher, platform, or publishing organization – not the author. Look for imprint, copyright notices, domain names, or logos. Return only ONE name as string. Examples: 'Federal Agency for Civic Education', 'Oxford University Press', 'Khan Academy'."
-      },
-      "system": {
-        "path": "ccm:oeh_publisher_combined",
-        "uri": "ccm:oeh_publisher_combined",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        }
-      }
-    },
-    {
-      "id": "ccm:custom_license",
-      "group": "license",
-      "label": {
-        "de": "Benutzerdefinierte Lizenz",
-        "en": "Custom License"
-      },
-      "description": {
-        "de": "Individuelle Lizenzangabe",
-        "en": "Custom license text"
-      },
-      "prompt": {
-        "de": "Extrahiere individuelle Lizenzbedingungen, die NICHT zu einer Standard-CC-Lizenz passen. Das können Copyright-Vermerke, Nutzungshinweise oder Links zu eigenen Lizenztexten sein. NUR befüllen, wenn keine passende CC-Lizenz zutrifft. Beispiele: '© 2024 Universität München – nur für Bildungszwecke', 'Frei nutzbar für nicht-kommerzielle Lehre', 'https://example.com/nutzungsbedingungen'.",
-        "en": "Extract individual license terms that do NOT match a standard CC license. This can include copyright statements, usage notices, or links to custom license texts. Only populate if no standard CC license applies. Examples: '© 2024 University of Munich – educational use only', 'Free for non-commercial teaching', 'https://example.com/terms-of-use'."
-      },
-      "system": {
-        "path": "ccm:custom_license",
-        "uri": "ccm:custom_license",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        }
       }
     }
   ],
   "output_template": {
+    "@type": ["oeh:Curriculum"],
     "oeh:curriculumType": "",
     "oeh:curriculumSubject": [],
     "schema:educationalLevel": [],
@@ -994,8 +677,6 @@
     "schema:inLanguage": "",
     "schema:isBasedOn": [],
     "schema:url": "",
-    "schema:sameAs": [],
-    "ccm:oeh_publisher_combined": "",
-    "ccm:custom_license": ""
+    "schema:sameAs": []
   }
 }

@@ -71,22 +71,6 @@
         "de": "Kontext (Modalität/Ort)",
         "en": "Context (Modality/Location)"
       }
-    },
-    {
-      "id": "license",
-      "icon": "gavel",
-      "label": {
-        "de": "Lizenz, Quelle, Mitwirkende",
-        "en": "License, Source, Contributors"
-      }
-    },
-    {
-      "id": "education",
-      "icon": "school",
-      "label": {
-        "de": "Pädagogisch/Didaktisch",
-        "en": "Educational"
-      }
     }
   ],
   "fields": [
@@ -138,75 +122,11 @@
             },
             {
               "label": {
-                "de": "Aufmerksamkeitsfokus",
-                "en": "Attention Focus"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11"
-            },
-            {
-              "label": {
-                "de": "Vorwissensaktivierung",
-                "en": "Prior Knowledge Activation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11"
-            },
-            {
-              "label": {
-                "de": "Ziel-/Nutzenklärung",
-                "en": "Goal/Benefit Clarification"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11"
-            },
-            {
-              "label": {
-                "de": "Lernklima aufbauen",
-                "en": "Building Learning Climate"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/11"
-            },
-            {
-              "label": {
                 "de": "Orientierung & Vorstrukturierung",
                 "en": "Orientation & Pre-structuring"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/1"
-            },
-            {
-              "label": {
-                "de": "Struktur-/Graphic-Organizer",
-                "en": "Structure/Graphic Organizer"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12"
-            },
-            {
-              "label": {
-                "de": "Problempräsentation",
-                "en": "Problem Presentation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12"
-            },
-            {
-              "label": {
-                "de": "Rezeption mit Medien",
-                "en": "Media Reception"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12"
-            },
-            {
-              "label": {
-                "de": "Notiz-/Annotationstechniken",
-                "en": "Note/Annotation Techniques"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/12"
             },
             {
               "label": {
@@ -218,75 +138,11 @@
             },
             {
               "label": {
-                "de": "Impuls/Mini-Lecture",
-                "en": "Impulse/Mini-Lecture"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13"
-            },
-            {
-              "label": {
-                "de": "Demonstration/Modellieren",
-                "en": "Demonstration/Modeling"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13"
-            },
-            {
-              "label": {
-                "de": "Worked/Model Examples",
-                "en": "Worked/Model Examples"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13"
-            },
-            {
-              "label": {
-                "de": "Strukturierende Zusammenfassung",
-                "en": "Structuring Summary"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/13"
-            },
-            {
-              "label": {
                 "de": "Erarbeitung & Konstruktion",
                 "en": "Development & Construction"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/1"
-            },
-            {
-              "label": {
-                "de": "Angeleitete Erarbeitung",
-                "en": "Guided Discovery"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14"
-            },
-            {
-              "label": {
-                "de": "Offene Erkundung/Entdeckung",
-                "en": "Open Exploration/Discovery"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14"
-            },
-            {
-              "label": {
-                "de": "Begriffs-/Konzeptbildung",
-                "en": "Concept Formation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14"
-            },
-            {
-              "label": {
-                "de": "Analyse & Interpretation",
-                "en": "Analysis & Interpretation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/14"
             },
             {
               "label": {
@@ -298,75 +154,11 @@
             },
             {
               "label": {
-                "de": "Wiederholen & Abrufen",
-                "en": "Retrieval Practice"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15"
-            },
-            {
-              "label": {
-                "de": "Anwendung am Beispiel",
-                "en": "Application by Example"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15"
-            },
-            {
-              "label": {
-                "de": "Automatisierung/Routine",
-                "en": "Automatization/Routine"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15"
-            },
-            {
-              "label": {
-                "de": "Fehleranalyse & Korrektur",
-                "en": "Error Analysis & Correction"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/15"
-            },
-            {
-              "label": {
                 "de": "Anwendung & Problemlösen",
                 "en": "Application & Problem Solving"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/1"
-            },
-            {
-              "label": {
-                "de": "Fallbearbeitung/Szenarien",
-                "en": "Case Work/Scenarios"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16"
-            },
-            {
-              "label": {
-                "de": "Projekt-/Produktaufgaben",
-                "en": "Project/Product Tasks"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16"
-            },
-            {
-              "label": {
-                "de": "Design-/Konstruktionsaufgaben",
-                "en": "Design/Construction Tasks"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16"
-            },
-            {
-              "label": {
-                "de": "Transferaufgaben",
-                "en": "Transfer Tasks"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/16"
             },
             {
               "label": {
@@ -378,75 +170,11 @@
             },
             {
               "label": {
-                "de": "Strukturierte Diskussion/Debatte",
-                "en": "Structured Discussion/Debate"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17"
-            },
-            {
-              "label": {
-                "de": "Argumentation/Begründung",
-                "en": "Argumentation/Reasoning"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17"
-            },
-            {
-              "label": {
-                "de": "Fragend-entwickelnd",
-                "en": "Questioning-Developing"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17"
-            },
-            {
-              "label": {
-                "de": "Perspektivenwechsel/Kontroverse",
-                "en": "Perspective Change/Controversy"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/17"
-            },
-            {
-              "label": {
                 "de": "Kooperation & Kollaboration",
                 "en": "Cooperation & Collaboration"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/1"
-            },
-            {
-              "label": {
-                "de": "Think-Pair-Share",
-                "en": "Think-Pair-Share"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18"
-            },
-            {
-              "label": {
-                "de": "Jigsaw/Expertengruppen",
-                "en": "Jigsaw/Expert Groups"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18"
-            },
-            {
-              "label": {
-                "de": "Cooperative Script",
-                "en": "Cooperative Script"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18"
-            },
-            {
-              "label": {
-                "de": "Rollen- & Aufgabenkoordination",
-                "en": "Role & Task Coordination"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/18"
             },
             {
               "label": {
@@ -458,75 +186,11 @@
             },
             {
               "label": {
-                "de": "Simulation/Planszenario",
-                "en": "Simulation/Planning Scenario"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19"
-            },
-            {
-              "label": {
-                "de": "Rollen-/Szenisches Spiel",
-                "en": "Role Play/Dramatic Play"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19"
-            },
-            {
-              "label": {
-                "de": "Praktische Experimente/Übungen",
-                "en": "Practical Experiments/Exercises"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19"
-            },
-            {
-              "label": {
-                "de": "Exkursion/Feldstudie",
-                "en": "Excursion/Field Study"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/19"
-            },
-            {
-              "label": {
                 "de": "Kreative Produktion & Gestaltung",
                 "en": "Creative Production & Design"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/1"
-            },
-            {
-              "label": {
-                "de": "Ideenfindung/Konzept",
-                "en": "Ideation/Concept"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110"
-            },
-            {
-              "label": {
-                "de": "Prototyping/Gestaltung",
-                "en": "Prototyping/Design"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110"
-            },
-            {
-              "label": {
-                "de": "Storytelling/Inszenierung",
-                "en": "Storytelling/Staging"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110"
-            },
-            {
-              "label": {
-                "de": "Medienproduktion & Remix",
-                "en": "Media Production & Remix"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/110"
             },
             {
               "label": {
@@ -538,38 +202,6 @@
             },
             {
               "label": {
-                "de": "Lerntagebuch/Selbstreflexion",
-                "en": "Learning Journal/Self-Reflection"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111"
-            },
-            {
-              "label": {
-                "de": "Peer-/Fremdfeedback",
-                "en": "Peer Feedback"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111"
-            },
-            {
-              "label": {
-                "de": "Lernbilanz/Retrospektive",
-                "en": "Learning Review/Retrospective"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111"
-            },
-            {
-              "label": {
-                "de": "Strategie-Reflexion",
-                "en": "Strategy Reflection"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/111"
-            },
-            {
-              "label": {
                 "de": "Assessment & Prüfung",
                 "en": "Assessment & Examination"
               },
@@ -578,75 +210,11 @@
             },
             {
               "label": {
-                "de": "Exit Ticket/Formativer Kurz-Check",
-                "en": "Exit Ticket/Formative Quick Check"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112"
-            },
-            {
-              "label": {
-                "de": "Kriterienraster/Rubrics",
-                "en": "Criteria Grid/Rubrics"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112"
-            },
-            {
-              "label": {
-                "de": "Selbst- & Peer-Assessment",
-                "en": "Self & Peer Assessment"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112"
-            },
-            {
-              "label": {
-                "de": "Authentische Leistungsaufgabe",
-                "en": "Authentic Performance Task"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/112"
-            },
-            {
-              "label": {
                 "de": "Lernorganisation & Steuerung",
                 "en": "Learning Organization & Control"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/1"
-            },
-            {
-              "label": {
-                "de": "Zielsetzung & Lernplanung",
-                "en": "Goal Setting & Learning Planning"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113"
-            },
-            {
-              "label": {
-                "de": "Lernpfade/Wahlmöglichkeiten",
-                "en": "Learning Paths/Choices"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113"
-            },
-            {
-              "label": {
-                "de": "Lernverträge/Vereinbarungen",
-                "en": "Learning Contracts/Agreements"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113"
-            },
-            {
-              "label": {
-                "de": "Routinen & Klassenmanagement",
-                "en": "Routines & Classroom Management"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/113"
             },
             {
               "label": {
@@ -665,131 +233,11 @@
             },
             {
               "label": {
-                "de": "Kognitive Prozesse & Belastung",
-                "en": "Cognitive Processes & Load"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
-            },
-            {
-              "label": {
-                "de": "Motivation & Engagement",
-                "en": "Motivation & Engagement"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
-            },
-            {
-              "label": {
-                "de": "Verstehen & Konstruktion",
-                "en": "Understanding & Construction"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
-            },
-            {
-              "label": {
-                "de": "Problemlösung",
-                "en": "Problem Solving"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
-            },
-            {
-              "label": {
-                "de": "Mustererkennung/Struktur",
-                "en": "Pattern Recognition/Structure"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
-            },
-            {
-              "label": {
-                "de": "Lernziele & Outcomes",
-                "en": "Learning Objectives & Outcomes"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
-            },
-            {
-              "label": {
-                "de": "Metakognition & Selbststeuerung",
-                "en": "Metacognition & Self-Regulation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
-            },
-            {
-              "label": {
-                "de": "Individualisierung & Differenzierung",
-                "en": "Individualization & Differentiation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21-8",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/21"
-            },
-            {
-              "label": {
                 "de": "Lernumgebung & Raumgestaltung",
                 "en": "Learning Environment & Space Design"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/2"
-            },
-            {
-              "label": {
-                "de": "Physische Lernumgebung",
-                "en": "Physical Learning Environment"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22"
-            },
-            {
-              "label": {
-                "de": "Raumkonfiguration",
-                "en": "Room Configuration"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22"
-            },
-            {
-              "label": {
-                "de": "Licht & Akustik",
-                "en": "Light & Acoustics"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22"
-            },
-            {
-              "label": {
-                "de": "Flexibilität",
-                "en": "Flexibility"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22"
-            },
-            {
-              "label": {
-                "de": "Natürliche Elemente",
-                "en": "Natural Elements"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22"
-            },
-            {
-              "label": {
-                "de": "Sicherheit & Orientierung",
-                "en": "Safety & Orientation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22"
-            },
-            {
-              "label": {
-                "de": "Maßstab & Proportionen",
-                "en": "Scale & Proportions"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/22"
             },
             {
               "label": {
@@ -801,147 +249,11 @@
             },
             {
               "label": {
-                "de": "Kollaboration",
-                "en": "Collaboration"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23"
-            },
-            {
-              "label": {
-                "de": "Peer Learning",
-                "en": "Peer Learning"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23"
-            },
-            {
-              "label": {
-                "de": "Kommunikation",
-                "en": "Communication"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23"
-            },
-            {
-              "label": {
-                "de": "Beteiligung/Equity of Voice",
-                "en": "Participation/Equity of Voice"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23"
-            },
-            {
-              "label": {
-                "de": "Partizipation Lernender",
-                "en": "Learner Participation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23"
-            },
-            {
-              "label": {
-                "de": "Community Building",
-                "en": "Community Building"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23"
-            },
-            {
-              "label": {
-                "de": "Lernnetzwerke",
-                "en": "Learning Networks"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/23"
-            },
-            {
-              "label": {
                 "de": "Methodische Ausrichtung",
                 "en": "Methodical Orientation"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/2"
-            },
-            {
-              "label": {
-                "de": "Instruktionsdesign/Sequenzierung",
-                "en": "Instructional Design/Sequencing"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Instruktion - Konstruktion",
-                "en": "Instruction - Construction"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Konstruktive Aktivierung",
-                "en": "Constructive Activation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Anwendungs- & Problemorientierung",
-                "en": "Application & Problem Orientation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Differenzierung",
-                "en": "Differentiation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Interdisziplinarität",
-                "en": "Interdisciplinarity"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Überfachliche Kompetenzen",
-                "en": "Cross-curricular Competencies"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Theorie-Praxis-Verzahnung",
-                "en": "Theory-Practice Integration"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-8",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Kontinuität/Progression",
-                "en": "Continuity/Progression"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-9",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
-            },
-            {
-              "label": {
-                "de": "Großgruppen-Begleitung/Skalierung",
-                "en": "Large Group Facilitation/Scaling"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24-10",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/24"
             },
             {
               "label": {
@@ -953,115 +265,11 @@
             },
             {
               "label": {
-                "de": "Digitale Kompetenzen/E-Learning",
-                "en": "Digital Competencies/E-Learning"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
-            },
-            {
-              "label": {
-                "de": "Medienauswahl & Passung",
-                "en": "Media Selection & Fit"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
-            },
-            {
-              "label": {
-                "de": "Blended-Integration",
-                "en": "Blended Integration"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
-            },
-            {
-              "label": {
-                "de": "Infrastruktur",
-                "en": "Infrastructure"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
-            },
-            {
-              "label": {
-                "de": "Interaktivität/Rückkanal",
-                "en": "Interactivity/Feedback Channel"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
-            },
-            {
-              "label": {
-                "de": "Einsatzleitlinien & Workflows",
-                "en": "Usage Guidelines & Workflows"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
-            },
-            {
-              "label": {
-                "de": "Support/Schulung",
-                "en": "Support/Training"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
-            },
-            {
-              "label": {
-                "de": "Werkzeugtauglichkeit",
-                "en": "Tool Suitability"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25-8",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/25"
-            },
-            {
-              "label": {
                 "de": "Assessment & Feedback",
                 "en": "Assessment & Feedback"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/2"
-            },
-            {
-              "label": {
-                "de": "Bewertungsmethoden & Kriterienklarheit",
-                "en": "Assessment Methods & Criteria Clarity"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26"
-            },
-            {
-              "label": {
-                "de": "Formative Rückmeldung",
-                "en": "Formative Feedback"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26"
-            },
-            {
-              "label": {
-                "de": "Peer-Bewertung",
-                "en": "Peer Assessment"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26"
-            },
-            {
-              "label": {
-                "de": "Selbsteinschätzung",
-                "en": "Self-Assessment"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26"
-            },
-            {
-              "label": {
-                "de": "Prozessbezogene Prüfungsformate",
-                "en": "Process-related Assessment Formats"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/26"
             },
             {
               "label": {
@@ -1073,83 +281,11 @@
             },
             {
               "label": {
-                "de": "Sequenzierung",
-                "en": "Sequencing"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27"
-            },
-            {
-              "label": {
-                "de": "Wissensdimensionen",
-                "en": "Knowledge Dimensions"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27"
-            },
-            {
-              "label": {
-                "de": "Kompetenzniveaus",
-                "en": "Competence Levels"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27"
-            },
-            {
-              "label": {
-                "de": "Fächerintegration",
-                "en": "Subject Integration"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/27"
-            },
-            {
-              "label": {
                 "de": "Individuelle Förderung & Inklusion",
                 "en": "Individual Support & Inclusion"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/2"
-            },
-            {
-              "label": {
-                "de": "Heterogene Lernstände",
-                "en": "Heterogeneous Learning Levels"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28"
-            },
-            {
-              "label": {
-                "de": "Lernstrategien & Selbstregulation",
-                "en": "Learning Strategies & Self-Regulation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28"
-            },
-            {
-              "label": {
-                "de": "UDL - Universelles Design für Lernen",
-                "en": "UDL - Universal Design for Learning"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28"
-            },
-            {
-              "label": {
-                "de": "Adaptive/Personalisierte Wege",
-                "en": "Adaptive/Personalized Pathways"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28"
-            },
-            {
-              "label": {
-                "de": "Unterstützung bei Leistungsrisiko",
-                "en": "Support for At-Risk Learners"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/28"
             },
             {
               "label": {
@@ -1168,99 +304,11 @@
             },
             {
               "label": {
-                "de": "Gagnés 9 Events",
-                "en": "Gagné's 9 Events"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31"
-            },
-            {
-              "label": {
-                "de": "Madeline Hunter Lesson Design",
-                "en": "Madeline Hunter Lesson Design"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31"
-            },
-            {
-              "label": {
-                "de": "BOPPPS",
-                "en": "BOPPPS"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31"
-            },
-            {
-              "label": {
-                "de": "Direkte Instruktion / GRR (I-We-You)",
-                "en": "Direct Instruction / GRR (I-We-You)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31"
-            },
-            {
-              "label": {
-                "de": "Rosenshine-Abfolge",
-                "en": "Rosenshine Sequence"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/31"
-            },
-            {
-              "label": {
                 "de": "Entdeckend & forschend",
                 "en": "Discovering & Researching"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/3"
-            },
-            {
-              "label": {
-                "de": "BSCS 5E (Engage-Explore-Explain-Elaborate-Evaluate)",
-                "en": "BSCS 5E"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32"
-            },
-            {
-              "label": {
-                "de": "Karplus 3E",
-                "en": "Karplus 3E"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32"
-            },
-            {
-              "label": {
-                "de": "Scientific Method",
-                "en": "Scientific Method"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32"
-            },
-            {
-              "label": {
-                "de": "POE (Predict-Observe-Explain)",
-                "en": "POE (Predict-Observe-Explain)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32"
-            },
-            {
-              "label": {
-                "de": "K-W-L",
-                "en": "K-W-L"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32"
-            },
-            {
-              "label": {
-                "de": "CER (Claim-Evidence-Reasoning)",
-                "en": "CER (Claim-Evidence-Reasoning)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/32"
             },
             {
               "label": {
@@ -1272,107 +320,11 @@
             },
             {
               "label": {
-                "de": "PBL 7-Step (Maastricht)",
-                "en": "PBL 7-Step (Maastricht)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33"
-            },
-            {
-              "label": {
-                "de": "Polya 4-Schritte",
-                "en": "Polya 4 Steps"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33"
-            },
-            {
-              "label": {
-                "de": "IDEAL-Modell",
-                "en": "IDEAL Model"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33"
-            },
-            {
-              "label": {
-                "de": "Case-Cycle (Analyse-Optionen-Begründung-Transfer)",
-                "en": "Case Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33"
-            },
-            {
-              "label": {
-                "de": "Clinical Reasoning Loop",
-                "en": "Clinical Reasoning Loop"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/33"
-            },
-            {
-              "label": {
                 "de": "Diskursiv & gemeinsam weiterdenken",
                 "en": "Discursive & Collaborative Thinking"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/3"
-            },
-            {
-              "label": {
-                "de": "Socratic Seminar",
-                "en": "Socratic Seminar"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34"
-            },
-            {
-              "label": {
-                "de": "Harkness",
-                "en": "Harkness"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34"
-            },
-            {
-              "label": {
-                "de": "Structured Academic Controversy (SAC)",
-                "en": "Structured Academic Controversy (SAC)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34"
-            },
-            {
-              "label": {
-                "de": "Debattenformate (Oxford, Karl-Popper, Lincoln-Douglas, Public Forum)",
-                "en": "Debate Formats"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34"
-            },
-            {
-              "label": {
-                "de": "Fishbowl",
-                "en": "Fishbowl"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34"
-            },
-            {
-              "label": {
-                "de": "Jigsaw / Expertengruppen",
-                "en": "Jigsaw / Expert Groups"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34"
-            },
-            {
-              "label": {
-                "de": "Think-Pair-Share-Loop",
-                "en": "Think-Pair-Share Loop"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/34"
             },
             {
               "label": {
@@ -1384,99 +336,11 @@
             },
             {
               "label": {
-                "de": "Design Thinking (Double Diamond / Stanford)",
-                "en": "Design Thinking (Double Diamond / Stanford)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35"
-            },
-            {
-              "label": {
-                "de": "Engineering Design Process",
-                "en": "Engineering Design Process"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35"
-            },
-            {
-              "label": {
-                "de": "PjBL-Fahrplan (BIE / Gold Standard)",
-                "en": "PjBL Roadmap (BIE / Gold Standard)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35"
-            },
-            {
-              "label": {
-                "de": "Agile Sprint (Plan-Build-Review-Retro)",
-                "en": "Agile Sprint (Plan-Build-Review-Retro)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35"
-            },
-            {
-              "label": {
-                "de": "Studio-Critique-Zyklus",
-                "en": "Studio Critique Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35"
-            },
-            {
-              "label": {
-                "de": "Service-Learning-Zyklus",
-                "en": "Service Learning Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/35"
-            },
-            {
-              "label": {
                 "de": "Erfahrungsorientiert & praktisch",
                 "en": "Experience-oriented & practical"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/3"
-            },
-            {
-              "label": {
-                "de": "Kolbs Erfahrungslernzyklus (CE-RO-AC-AE)",
-                "en": "Kolb's Experiential Learning Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36"
-            },
-            {
-              "label": {
-                "de": "PDSA / PDCA",
-                "en": "PDSA / PDCA"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36"
-            },
-            {
-              "label": {
-                "de": "Brief-Experience-Debrief-Transfer",
-                "en": "Brief-Experience-Debrief-Transfer"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36"
-            },
-            {
-              "label": {
-                "de": "Feldforschungs-Zyklus",
-                "en": "Field Research Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36"
-            },
-            {
-              "label": {
-                "de": "Missions-/Level-Fortschritt (Gamification)",
-                "en": "Mission/Level Progress (Gamification)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/36"
             },
             {
               "label": {
@@ -1488,91 +352,11 @@
             },
             {
               "label": {
-                "de": "Mastery Learning Cycle",
-                "en": "Mastery Learning Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37"
-            },
-            {
-              "label": {
-                "de": "Deliberate Practice Loop",
-                "en": "Deliberate Practice Loop"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37"
-            },
-            {
-              "label": {
-                "de": "Workshop-Modell (Mini-Lesson-Work Time-Share)",
-                "en": "Workshop Model"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37"
-            },
-            {
-              "label": {
-                "de": "Interleaving-Sequenz",
-                "en": "Interleaving Sequence"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37"
-            },
-            {
-              "label": {
-                "de": "Spaced-Practice-Plan",
-                "en": "Spaced Practice Plan"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/37"
-            },
-            {
-              "label": {
                 "de": "Ergebnis- & rückwärtsorientiert",
                 "en": "Outcome- & backward-oriented"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/3"
-            },
-            {
-              "label": {
-                "de": "Backward Design / UbD",
-                "en": "Backward Design / UbD"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38"
-            },
-            {
-              "label": {
-                "de": "Constructive Alignment (Biggs)",
-                "en": "Constructive Alignment (Biggs)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38"
-            },
-            {
-              "label": {
-                "de": "Formative Assessment Cycle (Elicit-Interpret-Act)",
-                "en": "Formative Assessment Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38"
-            },
-            {
-              "label": {
-                "de": "Diagnose-Intervention-Re-Assessment",
-                "en": "Diagnosis-Intervention-Re-Assessment"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38"
-            },
-            {
-              "label": {
-                "de": "Portfolio-Evidenz-Zyklus",
-                "en": "Portfolio Evidence Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/38"
             },
             {
               "label": {
@@ -1584,75 +368,11 @@
             },
             {
               "label": {
-                "de": "SRL-Zyklus nach Zimmerman",
-                "en": "SRL Cycle (Zimmerman)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/39-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/39"
-            },
-            {
-              "label": {
-                "de": "Goal-Plan-Do-Review",
-                "en": "Goal-Plan-Do-Review"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/39-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/39"
-            },
-            {
-              "label": {
-                "de": "Lernjournal-Zyklus",
-                "en": "Learning Journal Cycle"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/39-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/39"
-            },
-            {
-              "label": {
                 "de": "Wahl-/pfadgesteuert & personalisiert",
                 "en": "Choice/path-driven & personalized"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/3"
-            },
-            {
-              "label": {
-                "de": "Choice Boards",
-                "en": "Choice Boards"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310"
-            },
-            {
-              "label": {
-                "de": "Learning Menus / Tic-Tac-Toe",
-                "en": "Learning Menus / Tic-Tac-Toe"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310"
-            },
-            {
-              "label": {
-                "de": "Playlists / Pathways",
-                "en": "Playlists / Pathways"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310"
-            },
-            {
-              "label": {
-                "de": "HyperDocs-Flows",
-                "en": "HyperDocs Flows"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310"
-            },
-            {
-              "label": {
-                "de": "Mastery Paths (Adaptive Release)",
-                "en": "Mastery Paths (Adaptive Release)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/310"
             },
             {
               "label": {
@@ -1664,62 +384,6 @@
             },
             {
               "label": {
-                "de": "Flipped Classroom",
-                "en": "Flipped Classroom"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311"
-            },
-            {
-              "label": {
-                "de": "HyFlex",
-                "en": "HyFlex"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311"
-            },
-            {
-              "label": {
-                "de": "Präsenz-Online-Wechselrhythmus",
-                "en": "In-person-Online Alternation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311"
-            },
-            {
-              "label": {
-                "de": "Station Rotation",
-                "en": "Station Rotation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311"
-            },
-            {
-              "label": {
-                "de": "Lab Rotation",
-                "en": "Lab Rotation"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311"
-            },
-            {
-              "label": {
-                "de": "Flex-Modell",
-                "en": "Flex Model"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311"
-            },
-            {
-              "label": {
-                "de": "A-La-Carte / Enriched Virtual",
-                "en": "A La Carte / Enriched Virtual"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/311"
-            },
-            {
-              "label": {
                 "de": "Konkrete Unterrichtspläne",
                 "en": "Concrete lesson plans"
               },
@@ -1727,315 +391,35 @@
             },
             {
               "label": {
-                "de": "Baustein (10-40 min)",
-                "en": "Module (10-40 min)"
+                "de": "Baustein (10–40 min)",
+                "en": "Module (10–40 min)"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/4"
             },
             {
               "label": {
-                "de": "Pro-Contra-Diskurs",
-                "en": "Pro-Con Discourse"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Dilemma-Diskussion",
-                "en": "Dilemma Discussion"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Rollen-/Szenario-Baustein",
-                "en": "Role/Scenario Module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Expertengruppen-Baustein",
-                "en": "Expert Group Module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Fallstudien-Baustein",
-                "en": "Case Study Module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Experimentier-Baustein",
-                "en": "Experiment Module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Recherche-/Erkundungs-Baustein",
-                "en": "Research/Exploration Module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Begriffsnetz-Baustein",
-                "en": "Concept Map Module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-8",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Gestaltungs-Baustein",
-                "en": "Design Module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-9",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Kurzreflexion",
-                "en": "Short Reflection"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-10",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Kurzassessment",
-                "en": "Quick Assessment"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41-11",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/41"
-            },
-            {
-              "label": {
-                "de": "Stunde / Block (45-180 min)",
-                "en": "Hour / Block (45-180 min)"
+                "de": "Stunde / Block (45–180 min)",
+                "en": "Hour / Block (45–180 min)"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/4"
             },
             {
               "label": {
-                "de": "Diskussionsstunde",
-                "en": "Discussion Lesson"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Fallarbeit-Stunde",
-                "en": "Case Work Lesson"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Experimentierstunde",
-                "en": "Experiment Lesson"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Erarbeitungsstunde",
-                "en": "Development Lesson"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Projekt-Kickoff",
-                "en": "Project Kickoff"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Formative-Check-Stunde",
-                "en": "Formative Check Lesson"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Förder-/Aufholstunde",
-                "en": "Support/Catch-up Lesson"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-7",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Vertretungsstunde (Plug & Teach)",
-                "en": "Substitute Lesson (Plug & Teach)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-8",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Simulation/Planspiel-Sitzung",
-                "en": "Simulation/Planning Game Session"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-9",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Werkstatt-/Stations-Sitzung",
-                "en": "Workshop/Station Session"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-10",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Hybrid-Sitzung",
-                "en": "Hybrid Session"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-11",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Online-Livesitzung (synchron)",
-                "en": "Online Live Session (Synchronous)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-12",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Asynchrones Selbstlernmodul",
-                "en": "Asynchronous Self-Learning Module"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-13",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Exkursion / Lernort extern",
-                "en": "Excursion / External Learning Site"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42-14",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/42"
-            },
-            {
-              "label": {
-                "de": "Einheit (2-8 Wochen)",
-                "en": "Unit (2-8 weeks)"
+                "de": "Einheit (2–8 Wochen)",
+                "en": "Unit (2–8 weeks)"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/4"
             },
             {
               "label": {
-                "de": "Einheitenplan",
-                "en": "Unit Plan"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43"
-            },
-            {
-              "label": {
-                "de": "Projektfahrplan / Service-Learning-Plan",
-                "en": "Project Roadmap / Service Learning Plan"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43"
-            },
-            {
-              "label": {
-                "de": "Lernpfad (sequenziert mit Wahloptionen)",
-                "en": "Learning Path (Sequenced with Options)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43"
-            },
-            {
-              "label": {
-                "de": "Kompetenzraster-Einheit",
-                "en": "Competency Grid Unit"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43"
-            },
-            {
-              "label": {
-                "de": "Förder-/Aufholreihe",
-                "en": "Support/Catch-up Series"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43-5",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43"
-            },
-            {
-              "label": {
-                "de": "Assessment-Zyklus Einheit",
-                "en": "Assessment Cycle Unit"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43-6",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/43"
-            },
-            {
-              "label": {
-                "de": "Modul / Kurs (8-16+ Wochen)",
-                "en": "Module / Course (8-16+ weeks)"
+                "de": "Modul / Kurs (8–16+ Wochen)",
+                "en": "Module / Course (8–16+ weeks)"
               },
               "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44",
               "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/4"
-            },
-            {
-              "label": {
-                "de": "Modulskizze",
-                "en": "Module Outline"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44-1",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44"
-            },
-            {
-              "label": {
-                "de": "Modulbeschreibung (Syllabus/Handbuch)",
-                "en": "Module Description (Syllabus)"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44-2",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44"
-            },
-            {
-              "label": {
-                "de": "Prüf-/Feedbackplan Modul",
-                "en": "Assessment/Feedback Plan"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44-3",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44"
-            },
-            {
-              "label": {
-                "de": "Kurs-Blueprint",
-                "en": "Course Blueprint"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44-4",
-              "broader": "http://w3id.org/openeduhub/vocabs/didacticPlanningTools/44"
             }
           ],
           "hierarchical": true
@@ -4431,317 +2815,6 @@
           "keyword": true
         }
       }
-    },
-    {
-      "id": "cm:author",
-      "group": "license",
-      "label": {
-        "de": "Autor:in / Urheber:in",
-        "en": "Author / Creator"
-      },
-      "description": {
-        "de": "Autor:innen (kommagetrennt)",
-        "en": "Author(s) (comma-separated)"
-      },
-      "prompt": {
-        "de": "Extrahiere namentlich genannte Autor:innen oder Urheber:innen. Format: 'Vorname Nachname'. Bei Organisationen den vollständigen Namen. Nur explizit im Text genannte Personen – keine Herausgeber, Plattformbetreiber oder Redaktionen. Gib ein JSON-Array zurück. Beispiele: ['Prof. Dr. Maria Schmidt'], ['Max Mustermann', 'Erika Musterfrau'], ['Landesinstitut für Schulentwicklung'].",
-        "en": "Extract explicitly named author(s) or creator(s). Format: 'First Last'. For organizations, use full name. Only persons explicitly named in the text – no editors, platform operators, or editorial teams. Return a JSON array. Examples: ['Prof. Dr. Maria Schmidt'], ['John Doe', 'Jane Smith'], ['National Institute for School Development']."
-      },
-      "system": {
-        "path": "cm:author",
-        "uri": "cm:author",
-        "datatype": "array",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        }
-      }
-    },
-    {
-      "id": "ccm:oeh_publisher_combined",
-      "group": "license",
-      "label": {
-        "de": "Publisher / Herausgeber",
-        "en": "Publisher"
-      },
-      "description": {
-        "de": "Verlag oder Herausgeber",
-        "en": "Publisher"
-      },
-      "prompt": {
-        "de": "Extrahiere den Verlag, die Plattform oder die herausgebende Organisation – nicht den/die Autor:in. Suche nach Impressum, Copyright-Hinweisen, Domainnamen oder Logos. Gib nur EINEN Namen als String zurück. Beispiele: 'Bundeszentrale für politische Bildung', 'Cornelsen Verlag', 'Serlo Education e.V.'.",
-        "en": "Extract the publisher, platform, or publishing organization – not the author. Look for imprint, copyright notices, domain names, or logos. Return only ONE name as string. Examples: 'Federal Agency for Civic Education', 'Oxford University Press', 'Khan Academy'."
-      },
-      "system": {
-        "path": "ccm:oeh_publisher_combined",
-        "uri": "ccm:oeh_publisher_combined",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        }
-      }
-    },
-    {
-      "id": "ccm:custom_license",
-      "group": "license",
-      "label": {
-        "de": "Benutzerdefinierte Lizenz",
-        "en": "Custom License"
-      },
-      "description": {
-        "de": "Individuelle Lizenzangabe",
-        "en": "Custom license text"
-      },
-      "prompt": {
-        "de": "Extrahiere individuelle Lizenzbedingungen, die NICHT zu einer Standard-CC-Lizenz passen. Das können Copyright-Vermerke, Nutzungshinweise oder Links zu eigenen Lizenztexten sein. NUR befüllen, wenn keine passende CC-Lizenz zutrifft. Beispiele: '© 2024 Universität München – nur für Bildungszwecke', 'Frei nutzbar für nicht-kommerzielle Lehre', 'https://example.com/nutzungsbedingungen'.",
-        "en": "Extract individual license terms that do NOT match a standard CC license. This can include copyright statements, usage notices, or links to custom license texts. Only populate if no standard CC license applies. Examples: '© 2024 University of Munich – educational use only', 'Free for non-commercial teaching', 'https://example.com/terms-of-use'."
-      },
-      "system": {
-        "path": "ccm:custom_license",
-        "uri": "ccm:custom_license",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true
-        }
-      }
-    },
-    {
-      "id": "ccm:commonlicense_key",
-      "group": "license",
-      "label": {
-        "de": "Lizenztyp (CC)",
-        "en": "License Type (CC)"
-      },
-      "description": {
-        "de": "CC-Lizenztyp wählen",
-        "en": "Select CC license type"
-      },
-      "prompt": {
-        "de": "Erkenne die Creative-Commons-Lizenz der Ressource. Suche nach CC-Symbolen, Lizenz-Badges, Fußzeilen oder Lizenz-URLs (z.B. creativecommons.org/licenses/by-sa/). Gib NUR das Kürzel zurück, OHNE Versionsnummer. Erlaubte Werte: CC0, CC BY, CC BY-SA, CC BY-ND, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND. Wenn keine CC-Lizenz erkennbar: null. Beispiele: 'CC BY-SA' (bei 'Namensnennung - Weitergabe unter gleichen Bedingungen'), 'CC0' (bei 'Public Domain'), 'CC BY-NC' (bei 'nur nicht-kommerziell').",
-        "en": "Identify the Creative Commons license. Look for CC symbols, license badges, footers, or license URLs (e.g., creativecommons.org/licenses/by-sa/). Return ONLY the abbreviation, WITHOUT version number. Allowed values: CC0, CC BY, CC BY-SA, CC BY-ND, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND. If no CC license found: null. Examples: 'CC BY-SA' (for 'Attribution-ShareAlike'), 'CC0' (for 'Public Domain'), 'CC BY-NC' (for 'non-commercial only')."
-      },
-      "system": {
-        "path": "ccm:commonlicense_key",
-        "uri": "ccm:commonlicense_key",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "vocabulary": {
-          "type": "closed",
-          "concepts": [
-            {
-              "label": {
-                "de": "CC0",
-                "en": "CC0"
-              },
-              "value": "CC0"
-            },
-            {
-              "label": {
-                "de": "CC BY",
-                "en": "CC BY"
-              },
-              "value": "CC BY"
-            },
-            {
-              "label": {
-                "de": "CC BY-SA",
-                "en": "CC BY-SA"
-              },
-              "value": "CC BY-SA"
-            },
-            {
-              "label": {
-                "de": "CC BY-ND",
-                "en": "CC BY-ND"
-              },
-              "value": "CC BY-ND"
-            },
-            {
-              "label": {
-                "de": "CC BY-NC",
-                "en": "CC BY-NC"
-              },
-              "value": "CC BY-NC"
-            },
-            {
-              "label": {
-                "de": "CC BY-NC-SA",
-                "en": "CC BY-NC-SA"
-              },
-              "value": "CC BY-NC-SA"
-            },
-            {
-              "label": {
-                "de": "CC BY-NC-ND",
-                "en": "CC BY-NC-ND"
-              },
-              "value": "CC BY-NC-ND"
-            }
-          ]
-        },
-        "normalization": {
-          "trim": true,
-          "case": "upper"
-        }
-      }
-    },
-    {
-      "id": "ccm:commonlicense_cc_version",
-      "group": "license",
-      "label": {
-        "de": "Lizenzversion",
-        "en": "License Version"
-      },
-      "description": {
-        "de": "Version, z.B. 4.0",
-        "en": "Version, e.g. 4.0"
-      },
-      "prompt": {
-        "de": "Extrahiere die Versionsnummer der CC-Lizenz. Suche in Lizenz-URLs (z.B. '/licenses/by/4.0/') oder im Lizenztext. Gängige Versionen: 4.0, 3.0, 2.5, 2.0, 1.0. Gib NUR die Nummer zurück (z.B. '4.0'). Wenn keine Version erkennbar, aber eine CC-Lizenz vorhanden: '4.0' als Standard annehmen. Beispiele: '4.0', '3.0'.",
-        "en": "Extract the CC license version number. Look in license URLs (e.g., '/licenses/by/4.0/') or license text. Common versions: 4.0, 3.0, 2.5, 2.0, 1.0. Return ONLY the number (e.g., '4.0'). If no version found but CC license present: assume '4.0'. Examples: '4.0', '3.0'."
-      },
-      "system": {
-        "path": "ccm:commonlicense_cc_version",
-        "uri": "ccm:commonlicense_cc_version",
-        "datatype": "string",
-        "multiple": false,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "validation": {
-          "pattern": "^[0-9]+(\\.[0-9]+)?$"
-        },
-        "normalization": {
-          "trim": true
-        }
-      }
-    },
-    {
-      "id": "ccm:educationalintendedenduserrole",
-      "group": "education",
-      "label": {
-        "de": "Zielgruppe",
-        "en": "Intended Audience"
-      },
-      "description": {
-        "de": "Zielgruppe(n) auswählen",
-        "en": "Select target audience(s)"
-      },
-      "prompt": {
-        "de": "Bestimme die Zielgruppe(n) der Ressource. Wähle NUR aus den vorgegebenen Vokabular-URIs – erfinde keine eigenen. Typische Zuordnungen: Unterrichtsmaterialien → Lehrer/in + Lerner/in; Elternratgeber → Eltern; Verwaltungsvorlagen → Verwaltung. Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent'].",
-        "en": "Determine the target audience(s). Choose ONLY from provided vocabulary URIs – do not invent new ones. Typical mappings: teaching materials → teacher + learner; parent guides → parent; admin templates → manager. Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent']."
-      },
-      "promptInstructions": {
-        "labelExactMatch": true
-      },
-      "system": {
-        "path": "ccm:educationalintendedenduserrole",
-        "uri": "ccm:educationalintendedenduserrole",
-        "datatype": "array",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "repo_field": true,
-        "index": {
-          "keyword": true
-        },
-        "vocabulary": {
-          "type": "skos",
-          "scheme": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/",
-          "concepts": [
-            {
-              "label": {
-                "de": "Autor/in",
-                "en": "author"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/author"
-            },
-            {
-              "label": {
-                "de": "Berater/in",
-                "en": "counsellor"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/counsellor"
-            },
-            {
-              "label": {
-                "de": "Lerner/in",
-                "en": "learner"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner"
-            },
-            {
-              "label": {
-                "de": "Verwaltung",
-                "en": "manager"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/manager"
-            },
-            {
-              "label": {
-                "de": "Eltern",
-                "en": "parent"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent"
-            },
-            {
-              "label": {
-                "de": "Lehrer/in",
-                "en": "teacher"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher"
-            },
-            {
-              "label": {
-                "de": "andere",
-                "en": "other"
-              },
-              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/other"
-            }
-          ]
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true,
-          "map_labels_to_uris": true
-        }
-      }
     }
   ],
   "output_template": {
@@ -4774,12 +2847,6 @@
     "dpf:process_support": [],
     "dpf:product_flex": [],
     "dpf:pace_policy": [],
-    "dpf:diff_strategies": [],
-    "cm:author": [],
-    "ccm:oeh_publisher_combined": "",
-    "ccm:custom_license": "",
-    "ccm:commonlicense_key": "",
-    "ccm:commonlicense_cc_version": "",
-    "ccm:educationalintendedenduserrole": []
+    "dpf:diff_strategies": []
   }
 }

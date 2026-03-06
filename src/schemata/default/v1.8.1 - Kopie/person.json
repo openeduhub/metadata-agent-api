@@ -1,6 +1,6 @@
 {
   "profileId": "core:person",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "@context": {
     "schema": "https://schema.org/",
     "sdo": "https://schema.org/",
@@ -10,6 +10,7 @@
   "groups": [
     {
       "id": "identity",
+      "icon": "badge",
       "label": {
         "de": "Identität & Namen",
         "en": "Identity & Names"
@@ -17,6 +18,7 @@
     },
     {
       "id": "contact",
+      "icon": "contacts",
       "label": {
         "de": "Kontakt & Präsenzen",
         "en": "Contact & Presences"
@@ -24,6 +26,7 @@
     },
     {
       "id": "life",
+      "icon": "cake",
       "label": {
         "de": "Lebensdaten",
         "en": "Life Data"
@@ -31,6 +34,7 @@
     },
     {
       "id": "work",
+      "icon": "work",
       "label": {
         "de": "Beruf & Organisation",
         "en": "Profession & Organization"
@@ -38,6 +42,7 @@
     },
     {
       "id": "edu",
+      "icon": "school",
       "label": {
         "de": "Bildung, Expertise & Leistungen",
         "en": "Education, Expertise & Achievements"
@@ -45,6 +50,7 @@
     },
     {
       "id": "roles",
+      "icon": "admin_panel_settings",
       "label": {
         "de": "Rollen (Open-eduHub)",
         "en": "Roles (Open-eduHub)"
@@ -52,6 +58,7 @@
     },
     {
       "id": "links",
+      "icon": "link",
       "label": {
         "de": "Verknüpfungen & IDs",
         "en": "Connections & IDs"
@@ -71,8 +78,8 @@
         "en": "Display Name (composed of name components)."
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Vollständiger Anzeigename der Person, z.B. 'Prof. Dr. Maria Müller'. Zusammengesetzt aus Titel, Vorname, Nachname.",
+        "en": "Full display name of the person, e.g. 'Prof. Dr. Maria Müller'. Composed of title, first name, last name."
       },
       "system": {
         "path": "schema:name",
@@ -104,8 +111,8 @@
         "en": "Given name(s)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Vorname(n) der Person, z.B. 'Maria', 'Hans-Peter'.",
+        "en": "First name(s) of the person, e.g. 'Maria', 'Hans-Peter'."
       },
       "system": {
         "path": "schema:givenName",
@@ -136,8 +143,8 @@
         "en": "Family name or surname"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Nachname der Person, z.B. 'Müller', 'Schmidt-Weber'.",
+        "en": "Last name of the person, e.g. 'Müller', 'Schmidt-Weber'."
       },
       "system": {
         "path": "schema:familyName",
@@ -168,8 +175,8 @@
         "en": "Additional or middle name(s)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Weitere Namen wie Zweitnamen, Künstlernamen oder Pseudonyme.",
+        "en": "Additional names such as middle names, stage names, or pseudonyms."
       },
       "system": {
         "path": "schema:additionalName",
@@ -201,8 +208,8 @@
         "en": "Title before name (e.g., Dr., Prof.)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Titel vor dem Namen, z.B. 'Dr.', 'Prof.', 'Prof. Dr.'.",
+        "en": "Title before the name, e.g. 'Dr.', 'Prof.', 'Prof. Dr.'."
       },
       "system": {
         "path": "schema:honorificPrefix",
@@ -233,8 +240,8 @@
         "en": "Name suffix (e.g., Jr., Sr.)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Namenszusatz nach dem Namen, z.B. 'PhD', 'M.A.', 'Jr.'.",
+        "en": "Suffix after the name, e.g. 'PhD', 'M.A.', 'Jr.'."
       },
       "system": {
         "path": "schema:honorificSuffix",
@@ -265,8 +272,8 @@
         "en": "Email address"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "E-Mail-Adresse(n) der Person, z.B. 'maria.mueller@uni-berlin.de'.",
+        "en": "Email address(es) of the person, e.g. 'maria.mueller@uni-berlin.de'."
       },
       "system": {
         "path": "schema:email",
@@ -302,8 +309,8 @@
         "en": "Telephone number"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Telefonnummer(n) mit Vorwahl, z.B. '+49 30 12345678'.",
+        "en": "Phone number(s) with area code, e.g. '+49 30 12345678'."
       },
       "system": {
         "path": "schema:telephone",
@@ -335,8 +342,8 @@
         "en": "Address"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Postanschrift der Person mit Straße, PLZ, Ort und Land.",
+        "en": "Postal address of the person with street, postal code, city, and country."
       },
       "system": {
         "path": "schema:address",
@@ -360,8 +367,8 @@
               "en": "Address (optional)"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Postanschrift der Person",
+              "en": "Postal address of the person"
             },
             "fields": [
               {
@@ -371,12 +378,12 @@
                   "en": "Street Address"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Straße und Hausnummer",
+                  "en": "Street and house number"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Straße und Hausnummer, z.B. 'Unter den Linden 6'.",
+                  "en": "Street and house number, e.g. 'Unter den Linden 6'."
                 },
                 "system": {
                   "path": "streetAddress",
@@ -395,12 +402,12 @@
                   "en": "Postal Code"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Postleitzahl",
+                  "en": "Postal code"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Postleitzahl, z.B. '10117'.",
+                  "en": "Postal code, e.g. '10117'."
                 },
                 "system": {
                   "path": "postalCode",
@@ -419,12 +426,12 @@
                   "en": "City"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Stadt oder Gemeinde",
+                  "en": "City or municipality"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Stadt, z.B. 'Berlin'.",
+                  "en": "City, e.g. 'Berlin'."
                 },
                 "system": {
                   "path": "addressLocality",
@@ -443,12 +450,12 @@
                   "en": "State/Region"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Bundesland oder Region",
+                  "en": "State or region"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Bundesland, z.B. 'Berlin', 'Bayern'.",
+                  "en": "State, e.g. 'Berlin', 'Bavaria'."
                 },
                 "system": {
                   "path": "addressRegion",
@@ -467,12 +474,12 @@
                   "en": "Country"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Land (ISO-Code)",
+                  "en": "Country (ISO code)"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Ländercode, z.B. 'DE', 'AT', 'CH'.",
+                  "en": "Country code, e.g. 'DE', 'AT', 'CH'."
                 },
                 "system": {
                   "path": "addressCountry",
@@ -501,8 +508,8 @@
         "en": "Contact point"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Kontaktstellen der Person, z.B. Büro, Sprechstunde.",
+        "en": "Contact points of the person, e.g. office, consultation hours."
       },
       "system": {
         "path": "schema:contactPoint",
@@ -525,8 +532,8 @@
               "en": "Contact point(s)"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Kontaktstelle mit Typ, E-Mail, Telefon",
+              "en": "Contact point with type, email, phone"
             },
             "fields": [
               {
@@ -536,12 +543,12 @@
                   "en": "Contact Type"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Art der Kontaktstelle",
+                  "en": "Type of contact point"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Art der Kontaktstelle, z.B. 'Büro', 'Sprechstunde', 'Sekretariat'.",
+                  "en": "Type of contact point, e.g. 'Office', 'Consultation hours', 'Secretary'."
                 },
                 "system": {
                   "path": "contactType",
@@ -560,12 +567,12 @@
                   "en": "Email"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "E-Mail-Adresse",
+                  "en": "Email address"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "E-Mail-Adresse dieser Kontaktstelle.",
+                  "en": "Email address of this contact point."
                 },
                 "system": {
                   "path": "email",
@@ -584,12 +591,12 @@
                   "en": "Telephone"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Telefonnummer",
+                  "en": "Phone number"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Telefonnummer dieser Kontaktstelle.",
+                  "en": "Phone number of this contact point."
                 },
                 "system": {
                   "path": "telephone",
@@ -608,12 +615,12 @@
                   "en": "URL"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Webseite der Kontaktstelle",
+                  "en": "Website of the contact point"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "URL zur Kontaktseite.",
+                  "en": "URL to the contact page."
                 },
                 "system": {
                   "path": "url",
@@ -632,12 +639,12 @@
                   "en": "Area Served"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Zuständigkeitsgebiet",
+                  "en": "Area of responsibility"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Region oder Gebiet, z.B. 'Berlin', 'Deutschland'.",
+                  "en": "Region or area, e.g. 'Berlin', 'Germany'."
                 },
                 "system": {
                   "path": "areaServed",
@@ -656,12 +663,12 @@
                   "en": "Available Languages"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Sprachen der Kontaktstelle",
+                  "en": "Languages of the contact point"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Verfügbare Sprachen, z.B. 'Deutsch, Englisch'.",
+                  "en": "Available languages, e.g. 'German, English'."
                 },
                 "system": {
                   "path": "availableLanguage",
@@ -690,8 +697,8 @@
         "en": "URL or web address"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Persönliche Website oder Profilseite, z.B. 'https://www.uni-berlin.de/mueller'.",
+        "en": "Personal website or profile page, e.g. 'https://www.uni-berlin.de/mueller'."
       },
       "system": {
         "path": "schema:url",
@@ -726,8 +733,8 @@
         "en": "Reference to external resource or identifier"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "URLs zu Social-Media-Profilen und persönlichen Webpräsenzen, z.B. LinkedIn, Twitter/X, Mastodon, Wikipedia-Personenseite. NICHT für strukturierte Identifier wie ORCID oder GND – diese gehören in 'Identifier'.",
+        "en": "URLs to social media profiles and personal web presences, e.g. LinkedIn, Twitter/X, Mastodon, Wikipedia person page. NOT for structured identifiers like ORCID or GND – those belong in 'Identifier'."
       },
       "system": {
         "path": "schema:sameAs",
@@ -762,8 +769,8 @@
         "en": "Image or photo"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "URL zu einem Foto oder Bild der Person (jpg, png, webp).",
+        "en": "URL to a photo or image of the person (jpg, png, webp)."
       },
       "system": {
         "path": "schema:image",
@@ -794,8 +801,8 @@
         "en": "Date of birth in YYYY-MM-DD format, e.g. 1985-03-15"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Geburtsdatum im Format YYYY-MM-DD, z.B. '1985-03-15'. Auch Teilangaben möglich: '1985' oder '1985-03'.",
+        "en": "Date of birth in YYYY-MM-DD format, e.g. '1985-03-15'. Partial dates allowed: '1985' or '1985-03'."
       },
       "system": {
         "path": "schema:birthDate",
@@ -820,8 +827,8 @@
         "en": "Place of birth"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Geburtsort der Person, z.B. 'Berlin', 'München, Deutschland'.",
+        "en": "Place of birth, e.g. 'Berlin', 'Munich, Germany'."
       },
       "system": {
         "path": "schema:birthPlace",
@@ -849,8 +856,8 @@
         "en": "Date of death in YYYY-MM-DD format, e.g. 2020-12-31"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Sterbedatum im Format YYYY-MM-DD. Nur angeben, wenn die Person verstorben ist.",
+        "en": "Date of death in YYYY-MM-DD format. Only provide if the person is deceased."
       },
       "system": {
         "path": "schema:deathDate",
@@ -875,8 +882,8 @@
         "en": "Place of death"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Sterbeort. Nur angeben, wenn die Person verstorben ist.",
+        "en": "Place of death. Only provide if the person is deceased."
       },
       "system": {
         "path": "schema:deathPlace",
@@ -904,8 +911,8 @@
         "en": "Gender"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Geschlecht der Person, z.B. 'male', 'female', 'diverse' oder Schema-URI.",
+        "en": "Gender of the person, e.g. 'male', 'female', 'diverse' or schema URI."
       },
       "system": {
         "path": "schema:gender",
@@ -936,8 +943,8 @@
         "en": "Nationality or citizenship"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Nationalität als ISO-Ländercode. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'Deutschland', 'Österreich'.",
+        "en": "Nationality as ISO country code. Use EXACT labels from the vocabulary, e.g. 'Germany', 'Austria'."
       },
       "system": {
         "path": "schema:nationality",
@@ -1015,8 +1022,8 @@
         "en": "Languages spoken"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Sprachkenntnisse als BCP-47-Code. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'Deutsch', 'Englisch', 'Französisch'.",
+        "en": "Language skills as BCP-47 code. Use EXACT labels from the vocabulary, e.g. 'German', 'English', 'French'."
       },
       "system": {
         "path": "schema:knowsLanguage",
@@ -1094,8 +1101,8 @@
         "en": "Job title"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Berufsbezeichnung oder Jobtitel, z.B. 'Professorin für Informatik', 'Lehrer'.",
+        "en": "Job title, e.g. 'Professor of Computer Science', 'Teacher'."
       },
       "system": {
         "path": "schema:jobTitle",
@@ -1119,16 +1126,16 @@
       "id": "schema:hasOccupation",
       "group": "work",
       "label": {
-        "de": "Beruf (Occupation)",
-        "en": "Occupation"
+        "de": "Beruf / Tätigkeit (strukturiert)",
+        "en": "Occupation / Activity (structured)"
       },
       "description": {
-        "de": "Beruf oder berufliche Tätigkeit",
-        "en": "Occupation or professional activity"
+        "de": "Generischer Beruf oder berufliche Tätigkeit mit optionaler Kategorie, Kennung und Verlinkung",
+        "en": "Generic occupation or professional activity with optional category, identifier and link"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Generische Berufsbezeichnung(en) der Person – NICHT den konkreten Jobtitel (der steht in 'Jobtitel'). Hier den allgemeinen Beruf angeben, z.B. 'Informatikerin', 'Physiker', 'Lehrerin'. Optional mit Berufskategorie (z.B. 'Bildung', 'IT'), Kennung (z.B. ISCO-Code, Wikidata-URI) und URL zum Berufsprofil.",
+        "en": "Generic occupation(s) of the person – NOT the specific job title (that goes in 'Job Title'). Enter the general occupation, e.g. 'Computer Scientist', 'Physicist', 'Teacher'. Optionally with occupational category (e.g. 'Education', 'IT'), identifier (e.g. ISCO code, Wikidata URI) and URL to the occupation profile."
       },
       "system": {
         "path": "schema:hasOccupation",
@@ -1147,12 +1154,12 @@
           {
             "@type": "Occupation",
             "label": {
-              "de": "Beruf (Occupation)",
-              "en": "Occupation"
+              "de": "Beruf / Tätigkeit (strukturiert)",
+              "en": "Occupation / Activity (structured)"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Beruf mit Name, Kategorie, Kennung und URL",
+              "en": "Occupation with name, category, identifier and URL"
             },
             "fields": [
               {
@@ -1162,12 +1169,12 @@
                   "en": "Name"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Generische Berufsbezeichnung",
+                  "en": "Generic occupation name"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Generische Berufsbezeichnung, z.B. 'Informatikerin', 'Lehrerin', 'Physiker'.",
+                  "en": "Generic occupation name, e.g. 'Computer Scientist', 'Teacher', 'Physicist'."
                 },
                 "system": {
                   "path": "name",
@@ -1187,16 +1194,64 @@
                 },
                 "description": {
                   "de": "Berufskategorie oder Berufsfeld",
-                  "en": "Occupational category"
+                  "en": "Occupational category or field"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Berufskategorie, z.B. 'Bildung', 'IT', 'Wissenschaft', 'Medizin'.",
+                  "en": "Occupational category, e.g. 'Education', 'IT', 'Science', 'Medicine'."
                 },
                 "system": {
                   "path": "occupationalCategory",
                   "uri": "https://schema.org/occupationalCategory",
                   "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "identifier",
+                "label": {
+                  "de": "Kennung (ISCO, Wikidata etc.)",
+                  "en": "Identifier (ISCO, Wikidata etc.)"
+                },
+                "description": {
+                  "de": "Externe Kennung oder URI des Berufs",
+                  "en": "External identifier or URI of the occupation"
+                },
+                "prompt": {
+                  "de": "Externe Kennung, z.B. ISCO-Code '2511' oder Wikidata-URI 'https://www.wikidata.org/wiki/Q82594'.",
+                  "en": "External identifier, e.g. ISCO code '2511' or Wikidata URI 'https://www.wikidata.org/wiki/Q82594'."
+                },
+                "system": {
+                  "path": "identifier",
+                  "uri": "https://schema.org/identifier",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "url",
+                "label": {
+                  "de": "URL zum Berufsprofil",
+                  "en": "URL to occupation profile"
+                },
+                "description": {
+                  "de": "Link zu einer Berufsbeschreibung",
+                  "en": "Link to an occupation description"
+                },
+                "prompt": {
+                  "de": "URL zu einer Berufsbeschreibung, z.B. Berufenet, ESCO oder Wikipedia.",
+                  "en": "URL to an occupation description, e.g. O*NET, ESCO or Wikipedia."
+                },
+                "system": {
+                  "path": "url",
+                  "uri": "https://schema.org/url",
+                  "datatype": "uri",
                   "multiple": false,
                   "required": false,
                   "ask_user": true,
@@ -1220,8 +1275,8 @@
         "en": "Employer or organization"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Arbeitgeber oder Organisation, bei der die Person beschäftigt ist.",
+        "en": "Employer or organization where the person works."
       },
       "system": {
         "path": "schema:worksFor",
@@ -1244,8 +1299,8 @@
               "en": "Employer / Organization"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Arbeitgeber mit Name und URL",
+              "en": "Employer with name and URL"
             },
             "fields": [
               {
@@ -1255,12 +1310,12 @@
                   "en": "Name"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name des Arbeitgebers",
+                  "en": "Name of the employer"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name des Arbeitgebers, z.B. 'Humboldt-Universität zu Berlin'.",
+                  "en": "Name of the employer, e.g. 'Humboldt University of Berlin'."
                 },
                 "system": {
                   "path": "name",
@@ -1279,12 +1334,12 @@
                   "en": "URL"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Website des Arbeitgebers",
+                  "en": "Website of the employer"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Website des Arbeitgebers.",
+                  "en": "Website of the employer."
                 },
                 "system": {
                   "path": "url",
@@ -1305,16 +1360,16 @@
       "id": "schema:affiliation",
       "group": "work",
       "label": {
-        "de": "Zugehörigkeit / Mitgliedschaft",
-        "en": "Affiliation / Membership"
+        "de": "Zugehörigkeiten & Mitgliedschaften",
+        "en": "Affiliations & Memberships"
       },
       "description": {
-        "de": "Zugehörigkeit zu einer Organisation",
-        "en": "Affiliation with an organization"
+        "de": "Alle Organisationszugehörigkeiten, Mitgliedschaften und Netzwerke (außer dem Hauptarbeitgeber, der in 'Arbeitgeber' steht)",
+        "en": "All organizational affiliations, memberships and networks (except the main employer, which goes in 'Employer')"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Alle Organisationen, denen die Person angehört, bei denen sie Mitglied ist oder mit denen sie verbunden ist – AUSSER dem Hauptarbeitgeber (der steht in 'Arbeitgeber'). Inkl. Fachgesellschaften, Netzwerke, Beiräte, Vereine etc. Optional mit Rolle und URL. Beispiele: [{'name': 'GEW', 'roleName': 'Mitglied'}, {'name': 'Wikimedia Deutschland', 'url': 'https://www.wikimedia.de'}].",
+        "en": "All organizations the person is affiliated with, member of, or connected to – EXCEPT the main employer (that goes in 'Employer'). Incl. professional societies, networks, advisory boards, associations etc. Optionally with role and URL. Examples: [{'name': 'GEW', 'roleName': 'Member'}, {'name': 'Wikimedia Germany', 'url': 'https://www.wikimedia.de'}]."
       },
       "system": {
         "path": "schema:affiliation",
@@ -1333,12 +1388,12 @@
           {
             "@type": "Organization",
             "label": {
-              "de": "Zugehörigkeit / Mitgliedschaft",
-              "en": "Affiliation / Membership"
+              "de": "Zugehörigkeiten & Mitgliedschaften",
+              "en": "Affiliations & Memberships"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Organisation mit Name, Rolle und URL",
+              "en": "Organization with name, role and URL"
             },
             "fields": [
               {
@@ -1348,16 +1403,40 @@
                   "en": "Name"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name der Organisation",
+                  "en": "Name of the organization"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name der Organisation, z.B. 'GEW', 'Deutsche Physikalische Gesellschaft', 'Wikimedia Deutschland'.",
+                  "en": "Name of the organization, e.g. 'GEW', 'German Physical Society', 'Wikimedia Germany'."
                 },
                 "system": {
                   "path": "name",
                   "uri": "https://schema.org/name",
+                  "datatype": "string",
+                  "multiple": false,
+                  "required": false,
+                  "ask_user": true,
+                  "ai_fillable": true
+                }
+              },
+              {
+                "id": "roleName",
+                "label": {
+                  "de": "Rolle / Funktion",
+                  "en": "Role / Function"
+                },
+                "description": {
+                  "de": "Rolle der Person in der Organisation",
+                  "en": "Role of the person in the organization"
+                },
+                "prompt": {
+                  "de": "Rolle oder Funktion, z.B. 'Mitglied', 'Beirat', 'Vorstandsmitglied', 'Botschafter'.",
+                  "en": "Role or function, e.g. 'Member', 'Advisory Board', 'Board Member', 'Ambassador'."
+                },
+                "system": {
+                  "path": "roleName",
+                  "uri": "https://schema.org/roleName",
                   "datatype": "string",
                   "multiple": false,
                   "required": false,
@@ -1372,12 +1451,12 @@
                   "en": "URL"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Website der Organisation",
+                  "en": "Website of the organization"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Website der Organisation.",
+                  "en": "Website of the organization."
                 },
                 "system": {
                   "path": "url",
@@ -1406,8 +1485,8 @@
         "en": "Former affiliation (alumni)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Bildungseinrichtung(en), an denen die Person studiert oder gelernt hat.",
+        "en": "Educational institution(s) where the person studied or trained."
       },
       "system": {
         "path": "schema:alumniOf",
@@ -1430,8 +1509,8 @@
               "en": "Alumni of (Organization/Institution)"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Bildungseinrichtung mit Name und URL",
+              "en": "Educational institution with name and URL"
             },
             "fields": [
               {
@@ -1441,12 +1520,12 @@
                   "en": "Name"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name der Einrichtung",
+                  "en": "Name of the institution"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name der Bildungseinrichtung, z.B. 'Universität Hamburg', 'TU München'.",
+                  "en": "Name of the institution, e.g. 'University of Hamburg', 'TU Munich'."
                 },
                 "system": {
                   "path": "name",
@@ -1465,12 +1544,12 @@
                   "en": "URL"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Website der Einrichtung",
+                  "en": "Website of the institution"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Website der Bildungseinrichtung.",
+                  "en": "Website of the educational institution."
                 },
                 "system": {
                   "path": "url",
@@ -1499,8 +1578,8 @@
         "en": "Work location"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Arbeitsort mit Name und Adresse, z.B. 'Universität Berlin, Unter den Linden 6'.",
+        "en": "Work location with name and address, e.g. 'University of Berlin, Unter den Linden 6'."
       },
       "system": {
         "path": "schema:workLocation",
@@ -1523,8 +1602,8 @@
               "en": "Work location (Location/Contact point)"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Ort mit Name und Adresse",
+              "en": "Place with name and address"
             },
             "fields": [
               {
@@ -1534,12 +1613,12 @@
                   "en": "Name"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name des Arbeitsortes",
+                  "en": "Name of the work location"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name des Arbeitsortes, z.B. 'Humboldt-Universität, Hauptgebäude'.",
+                  "en": "Name of the work location, e.g. 'Humboldt University, Main Building'."
                 },
                 "system": {
                   "path": "name",
@@ -1554,16 +1633,16 @@
               {
                 "id": "address",
                 "label": {
-                  "de": "address",
-                  "en": "address"
-                },
-                "description": {
-                  "de": "Adresse oder Anschrift",
+                  "de": "Adresse",
                   "en": "Address"
                 },
+                "description": {
+                  "de": "Adresse des Arbeitsortes",
+                  "en": "Address of the work location"
+                },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Adresse des Arbeitsortes, z.B. 'Unter den Linden 6, 10099 Berlin'.",
+                  "en": "Address of the work location, e.g. 'Unter den Linden 6, 10099 Berlin'."
                 },
                 "system": {
                   "path": "address",
@@ -1581,96 +1660,31 @@
       }
     },
     {
-      "id": "ccm:activity_field",
+      "id": "ccm:expertise",
       "group": "edu",
       "label": {
-        "de": "Aktivität im Bildungsbereich (Kurztext/Vokabular)",
-        "en": "Activity in the education sector (Short text/Vocabulary)"
+        "de": "Expertise, Schwerpunkte & Tätigkeitsfelder",
+        "en": "Expertise, Focus Areas & Fields of Activity"
       },
       "description": {
-        "de": "Tätigkeitsbereich oder Fachgebiet",
-        "en": "Field of activity or expertise"
+        "de": "Fachliche Expertise, Arbeitsschwerpunkte, Forschungsgebiete und Tätigkeitsfelder der Person",
+        "en": "Professional expertise, focus areas, research fields and activity areas of the person"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Sammle alle fachlichen Kompetenzen, Arbeitsschwerpunkte, Forschungsgebiete und Tätigkeitsfelder in einer gemeinsamen Liste. Verwende prägnante Stichworte. Beispiele: ['Digitale Bildung', 'OER-Erstellung', 'Künstliche Intelligenz', 'MINT-Didaktik', 'Medienkompetenz', 'Lehrerfortbildung'].",
+        "en": "Collect all professional competencies, focus areas, research fields and activity areas in a single list. Use concise keywords. Examples: ['Digital Education', 'OER Creation', 'Artificial Intelligence', 'STEM Didactics', 'Media Literacy', 'Teacher Training']."
       },
       "system": {
-        "path": "ccm:activity_field",
-        "uri": "ccm:activity_field",
+        "path": "ccm:expertise",
+        "uri": "ccm:expertise",
         "datatype": "array",
         "multiple": true,
         "required": false,
         "ask_user": true,
         "ai_fillable": true,
         "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
-        "repo_field": false
-      }
-    },
-    {
-      "id": "ccm:expertise_title",
-      "group": "edu",
-      "label": {
-        "de": "Titel/Expertise (Stichworte)",
-        "en": "Title/Expertise (Keywords)"
-      },
-      "description": {
-        "de": "Fachliche Expertise oder Spezialisierung",
-        "en": "Professional expertise or specialization"
-      },
-      "prompt": {
-        "de": "",
-        "en": ""
-      },
-      "system": {
-        "path": "ccm:expertise_title",
-        "uri": "ccm:expertise_title",
-        "datatype": "array",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "normalization": {
-          "trim": true,
-          "deduplicate": true
-        },
-        "repo_field": false
-      }
-    },
-    {
-      "id": "ccm:focus_areas",
-      "group": "edu",
-      "label": {
-        "de": "Arbeitsschwerpunkte",
-        "en": "Areas of Focus"
-      },
-      "description": {
-        "de": "Schwerpunktthemen oder Forschungsgebiete",
-        "en": "Focus areas or research fields"
-      },
-      "prompt": {
-        "de": "",
-        "en": ""
-      },
-      "system": {
-        "path": "ccm:focus_areas",
-        "uri": "ccm:focus_areas",
-        "datatype": "array",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "index": {
-          "keyword": true
+          "keyword": true,
+          "fulltext": true
         },
         "normalization": {
           "trim": true,
@@ -1691,8 +1705,8 @@
         "en": "Services offered"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Angebotene Leistungen, z.B. 'Mentoring', 'Workshops', 'Vorträge', 'Beratung'.",
+        "en": "Services offered, e.g. 'Mentoring', 'Workshops', 'Lectures', 'Consulting'."
       },
       "system": {
         "path": "ccm:services_offered",
@@ -1724,8 +1738,8 @@
         "en": "Publications"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Publikationen mit Titel und optional URL, z.B. Bücher, Paper, Artikel.",
+        "en": "Publications with title and optional URL, e.g. books, papers, articles."
       },
       "system": {
         "path": "ccm:publications",
@@ -1770,12 +1784,12 @@
                     "en": "Name"
                   },
                   "description": {
-                    "de": "Name oder Bezeichnung",
-                    "en": "Name or designation"
+                    "de": "Titel der Publikation",
+                    "en": "Title of the publication"
                   },
                   "prompt": {
-                    "de": "",
-                    "en": ""
+                    "de": "Titel der Publikation, z.B. 'Open Educational Resources in der Praxis'.",
+                    "en": "Title of the publication, e.g. 'Open Educational Resources in Practice'."
                   },
                   "system": {
                     "path": "name",
@@ -1794,12 +1808,12 @@
                     "en": "URL"
                   },
                   "description": {
-                    "de": "URL oder Webadresse",
-                    "en": "URL or web address"
+                    "de": "Link zur Publikation",
+                    "en": "Link to the publication"
                   },
                   "prompt": {
-                    "de": "",
-                    "en": ""
+                    "de": "URL zur Publikation, z.B. DOI-Link oder Verlagsseite.",
+                    "en": "URL to the publication, e.g. DOI link or publisher page."
                   },
                   "system": {
                     "path": "url",
@@ -1814,71 +1828,7 @@
               ]
             }
           ]
-        },
-        "discriminator": "@type",
-        "variants": [
-          {
-            "@type": "CreativeWork",
-            "label": {
-              "de": "CreativeWork",
-              "en": "CreativeWork"
-            },
-            "description": {
-              "de": "",
-              "en": ""
-            },
-            "fields": [
-              {
-                "id": "name",
-                "label": {
-                  "de": "Name",
-                  "en": "Name"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "name",
-                  "uri": "https://schema.org/name",
-                  "datatype": "string",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              },
-              {
-                "id": "url",
-                "label": {
-                  "de": "URL",
-                  "en": "URL"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "url",
-                  "uri": "https://schema.org/url",
-                  "datatype": "uri",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              }
-            ]
-          }
-        ]
+        }
       }
     },
     {
@@ -1893,8 +1843,8 @@
         "en": "Type of person (e.g., individual, group)"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Rolle(n) der Person. Verwende EXAKT die Labels aus dem Vokabular, z.B. 'Lehrperson', 'Wissenschaftler/in', 'E-Learning-Experte'.",
+        "en": "Role(s) of the person. Use EXACT labels from the vocabulary, e.g. 'teacher', 'Scientist/Researcher', 'E-Learning expert'."
       },
       "system": {
         "path": "ccm:person_kind",
@@ -1997,8 +1947,8 @@
         "en": "Unique identifier"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Eindeutige Kennungen wie ORCID, UUID oder interne IDs mit Typ und Wert.",
+        "en": "Unique identifiers such as ORCID, UUID, or internal IDs with type and value."
       },
       "system": {
         "path": "schema:identifier",
@@ -2047,8 +1997,8 @@
                     "en": "Type of identifier (e.g., ORCID, DOI)"
                   },
                   "prompt": {
-                    "de": "",
-                    "en": ""
+                    "de": "Art der Kennung, z.B. 'ORCID', 'DOI', 'GND'.",
+                    "en": "Type of identifier, e.g. 'ORCID', 'DOI', 'GND'."
                   },
                   "system": {
                     "path": "propertyID",
@@ -2067,12 +2017,12 @@
                     "en": "Value"
                   },
                   "description": {
-                    "de": "Wert oder Inhalt",
-                    "en": "Value or content"
+                    "de": "Wert der Kennung",
+                    "en": "Value of the identifier"
                   },
                   "prompt": {
-                    "de": "",
-                    "en": ""
+                    "de": "Wert der Kennung, z.B. '0000-0002-1825-0097'.",
+                    "en": "Value of the identifier, e.g. '0000-0002-1825-0097'."
                   },
                   "system": {
                     "path": "value",
@@ -2091,12 +2041,12 @@
                     "en": "URL"
                   },
                   "description": {
-                    "de": "URL oder Webadresse",
-                    "en": "URL or web address"
+                    "de": "URL der Kennung",
+                    "en": "URL of the identifier"
                   },
                   "prompt": {
-                    "de": "",
-                    "en": ""
+                    "de": "URL zur Kennung, z.B. 'https://orcid.org/0000-0002-1825-0097'.",
+                    "en": "URL to the identifier, e.g. 'https://orcid.org/0000-0002-1825-0097'."
                   },
                   "system": {
                     "path": "url",
@@ -2111,212 +2061,7 @@
               ]
             }
           ]
-        },
-        "discriminator": "@type",
-        "variants": [
-          {
-            "@type": "PropertyValue",
-            "label": {
-              "de": "PropertyValue",
-              "en": "PropertyValue"
-            },
-            "description": {
-              "de": "",
-              "en": ""
-            },
-            "fields": [
-              {
-                "id": "propertyID",
-                "label": {
-                  "de": "Kennung-Typ",
-                  "en": "Property ID"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "propertyID",
-                  "uri": "https://schema.org/propertyID",
-                  "datatype": "string",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              },
-              {
-                "id": "value",
-                "label": {
-                  "de": "Wert",
-                  "en": "Value"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "value",
-                  "uri": "https://schema.org/value",
-                  "datatype": "string",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              },
-              {
-                "id": "url",
-                "label": {
-                  "de": "URL",
-                  "en": "URL"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "url",
-                  "uri": "https://schema.org/url",
-                  "datatype": "uri",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ccm:linked_occupation",
-      "group": "links",
-      "label": {
-        "de": "Verknüpfte Berufe (URI/Objekt)",
-        "en": "Linked professions (URI/object)"
-      },
-      "description": {
-        "de": "Verknüpfte Berufe oder Tätigkeiten",
-        "en": "Linked occupations or activities"
-      },
-      "prompt": {
-        "de": "",
-        "en": ""
-      },
-      "system": {
-        "path": "ccm:linked_occupation",
-        "uri": "sdo:hasOccupation",
-        "datatype": "object",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "repo_field": false,
-        "discriminator": "@type",
-        "variants": [
-          {
-            "@type": "Occupation",
-            "label": {
-              "de": "Verknüpfte Berufe (URI/Objekt)",
-              "en": "Linked professions (URI/object)"
-            },
-            "description": {
-              "de": "",
-              "en": ""
-            },
-            "fields": [
-              {
-                "id": "name",
-                "label": {
-                  "de": "Name",
-                  "en": "Name"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "name",
-                  "uri": "https://schema.org/name",
-                  "datatype": "string",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              },
-              {
-                "id": "identifier",
-                "label": {
-                  "de": "Kennung",
-                  "en": "Identifier"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "identifier",
-                  "uri": "https://schema.org/identifier",
-                  "datatype": "string",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              },
-              {
-                "id": "url",
-                "label": {
-                  "de": "URL",
-                  "en": "URL"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "url",
-                  "uri": "https://schema.org/url",
-                  "datatype": "uri",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              }
-            ]
-          }
-        ]
+        }
       }
     },
     {
@@ -2331,8 +2076,8 @@
         "en": "Linked events"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Veranstaltungen, an denen die Person teilnimmt oder die sie leitet.",
+        "en": "Events the person participates in or leads."
       },
       "system": {
         "path": "ccm:linked_event",
@@ -2355,8 +2100,8 @@
               "en": "Linked events (participation/leadership)"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Veranstaltung mit Name, URL und Rolle",
+              "en": "Event with name, URL, and role"
             },
             "fields": [
               {
@@ -2366,12 +2111,12 @@
                   "en": "Name"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name der Veranstaltung",
+                  "en": "Name of the event"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name der Veranstaltung, z.B. 'OER-Konferenz 2024'.",
+                  "en": "Name of the event, e.g. 'OER Conference 2024'."
                 },
                 "system": {
                   "path": "name",
@@ -2390,12 +2135,12 @@
                   "en": "URL"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Website der Veranstaltung",
+                  "en": "Website of the event"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "URL zur Veranstaltungsseite.",
+                  "en": "URL to the event page."
                 },
                 "system": {
                   "path": "url",
@@ -2414,110 +2159,17 @@
                   "en": "Role Name"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Rolle bei der Veranstaltung",
+                  "en": "Role at the event"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Rolle der Person, z.B. 'Referent', 'Moderatorin', 'Teilnehmer'.",
+                  "en": "Role of the person, e.g. 'Speaker', 'Moderator', 'Participant'."
                 },
                 "system": {
                   "path": "roleName",
                   "uri": "https://schema.org/roleName",
                   "datatype": "string",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ccm:linked_organization",
-      "group": "links",
-      "label": {
-        "de": "Verknüpfte Organisationen (zusätzlich zu worksFor/affiliation)",
-        "en": "Linked Organizations (in addition to worksFor/affiliation)"
-      },
-      "description": {
-        "de": "Verknüpfte Organisationen",
-        "en": "Linked organizations"
-      },
-      "prompt": {
-        "de": "",
-        "en": ""
-      },
-      "system": {
-        "path": "ccm:linked_organization",
-        "uri": "schema:memberOf",
-        "datatype": "object",
-        "multiple": true,
-        "required": false,
-        "ask_user": true,
-        "ai_fillable": true,
-        "index": {
-          "keyword": true
-        },
-        "repo_field": false,
-        "discriminator": "@type",
-        "variants": [
-          {
-            "@type": "Organization",
-            "label": {
-              "de": "Verknüpfte Organisationen (zusätzlich zu worksFor/affiliation)",
-              "en": "Linked Organizations (in addition to worksFor/affiliation)"
-            },
-            "description": {
-              "de": "",
-              "en": ""
-            },
-            "fields": [
-              {
-                "id": "name",
-                "label": {
-                  "de": "Name",
-                  "en": "Name"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "name",
-                  "uri": "https://schema.org/name",
-                  "datatype": "string",
-                  "multiple": false,
-                  "required": false,
-                  "ask_user": true,
-                  "ai_fillable": true
-                }
-              },
-              {
-                "id": "url",
-                "label": {
-                  "de": "URL",
-                  "en": "URL"
-                },
-                "description": {
-                  "de": "",
-                  "en": ""
-                },
-                "prompt": {
-                  "de": "",
-                  "en": ""
-                },
-                "system": {
-                  "path": "url",
-                  "uri": "https://schema.org/url",
-                  "datatype": "uri",
                   "multiple": false,
                   "required": false,
                   "ask_user": true,
@@ -2541,8 +2193,8 @@
         "en": "Linked sources or resources"
       },
       "prompt": {
-        "de": "",
-        "en": ""
+        "de": "Verknüpfte Quellen wie Kanäle, Repositories oder Plattformen.",
+        "en": "Linked sources such as channels, repositories, or platforms."
       },
       "system": {
         "path": "ccm:linked_source",
@@ -2565,8 +2217,8 @@
               "en": "Linked Source (Channel/Repository)"
             },
             "description": {
-              "de": "",
-              "en": ""
+              "de": "Quelle mit URL und Name",
+              "en": "Source with URL and name"
             },
             "fields": [
               {
@@ -2576,12 +2228,12 @@
                   "en": "URL"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "URL der Quelle",
+                  "en": "URL of the source"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "URL der Quelle, z.B. YouTube-Kanal oder Repository.",
+                  "en": "URL of the source, e.g. YouTube channel or repository."
                 },
                 "system": {
                   "path": "url",
@@ -2600,12 +2252,12 @@
                   "en": "Name"
                 },
                 "description": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name der Quelle",
+                  "en": "Name of the source"
                 },
                 "prompt": {
-                  "de": "",
-                  "en": ""
+                  "de": "Name der Quelle, z.B. 'YouTube-Kanal Bildung Digital'.",
+                  "en": "Name of the source, e.g. 'YouTube Channel Digital Education'."
                 },
                 "system": {
                   "path": "name",
@@ -2650,16 +2302,12 @@
     "schema:affiliation": [],
     "schema:alumniOf": [],
     "schema:workLocation": {},
-    "ccm:activity_field": [],
-    "ccm:expertise_title": [],
-    "ccm:focus_areas": [],
+    "ccm:expertise": [],
     "ccm:services_offered": [],
     "ccm:publications": [],
     "ccm:person_kind": [],
     "schema:identifier": [],
-    "ccm:linked_occupation": [],
     "ccm:linked_event": [],
-    "ccm:linked_organization": [],
     "ccm:linked_source": []
   }
 }

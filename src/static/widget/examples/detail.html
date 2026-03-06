@@ -137,9 +137,23 @@
             <option value="">Lade Inhaltstypen…</option>
         </select>
 
+        <span class="label" style="margin-left: 16px;">Layout:</span>
+        <select class="ct-select" id="layoutSelect" style="min-width:140px" onchange="switchLayout(this.value)">
+            <option value="detail" selected>Detail</option>
+            <option value="default">Default</option>
+            <option value="plugin">Plugin</option>
+            <option value="dialog">Dialog</option>
+            <option value="clean">Clean</option>
+            <option value="prueftisch">Prueftisch</option>
+            <option value="prueftisch-org">Prueftisch Org</option>
+        </select>
+
         <span class="label" style="margin-left: 16px;">Anzeige:</span>
         <button class="toggle-btn on" id="toggleCore" onclick="toggleCoreFields(this)">
             <span class="material-icons" style="font-size:16px">checklist</span> Kernfelder
+        </button>
+        <button class="toggle-btn" id="toggleFlat" onclick="toggleFlatGroups(this)">
+            <span class="material-icons" style="font-size:16px">view_stream</span> Flat Groups
         </button>
     </div>
 
@@ -152,7 +166,7 @@
         -->
         <metadata-agent-canvas
             id="canvas"
-            api-url="https://metadata-agent-api.vercel.app"
+            api-url=""
             layout="detail"
             context-name="default"
             schema-version="latest"
@@ -171,7 +185,11 @@
             readonly="true"
             borderless="true"
             highlight-ai="false"
-            auto-extract="false">
+            auto-extract="false"
+            flat-groups="false"
+            show-preview="true"
+            enable-screenshot="true"
+            screenshot-method="pageshot">
         </metadata-agent-canvas>
     </div>
 
@@ -181,15 +199,17 @@
         Die Metadaten stammen aus <code>metadata-2026-02-11.json</code>.
     </div>
 
+    <!-- Set API URL BEFORE Angular bootstraps (inline runs before defer scripts) -->
+    <script>document.getElementById('canvas').setAttribute('api-url', window.location.origin);</script>
+
     <!-- Widget Scripts -->
     <script src="../dist/runtime.js" defer></script>
     <script src="../dist/polyfills.js" defer></script>
     <script src="../dist/main.js" defer></script>
 
     <script>
-        const API_URL = 'https://metadata-agent-api.vercel.app';
+        const API_URL = window.location.origin;
         const canvas = document.getElementById('canvas');
-        canvas.setAttribute('api-url', API_URL);
 
         const SCHEMA_LABELS = {
             'core.json': 'Kernmetadaten',
@@ -234,6 +254,15 @@
         function toggleCoreFields(btn) {
             const isOn = btn.classList.toggle('on');
             canvas.setAttribute('show-core-fields', isOn ? 'true' : 'false');
+        }
+
+        function switchLayout(value) {
+            canvas.setAttribute('layout', value);
+        }
+
+        function toggleFlatGroups(btn) {
+            const isOn = btn.classList.toggle('on');
+            canvas.setAttribute('flat-groups', isOn ? 'true' : 'false');
         }
 
         /**

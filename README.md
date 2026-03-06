@@ -1146,17 +1146,17 @@ Unter `/widget/examples/` sind interaktive Beispiele verfügbar:
 
 Das Docker-Image enthält **Playwright + Chromium** für datenschutzfreundliche Screenshots (`screenshot_method=playwright`).
 
+**Docker Hub:** https://hub.docker.com/r/openeduhub/metadata-agent-api
+
 ```bash
-# 1. .env-Datei erstellen
+# Fertiges Image von Docker Hub
+docker pull openeduhub/metadata-agent-api:main
+docker run -d -p 8000:8000 -e B_API_KEY=<key> openeduhub/metadata-agent-api:main
+
+# Oder lokal bauen:
 cp .env.template .env
-# Mindestens B_API_KEY eintragen
-
-# 2. Starten
+# B_API_KEY eintragen
 docker-compose up -d
-
-# Oder manuell:
-docker build -t metadata-agent-api .
-docker run -d -p 8000:8000 --env-file .env metadata-agent-api
 ```
 
 #### Erforderliche Umgebungsvariablen (Docker)
@@ -1228,7 +1228,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: metadata-agent-api:latest
+        image: openeduhub/metadata-agent-api:main
         ports:
         - containerPort: 8000
         env:

@@ -2,21 +2,21 @@
 
 ## Container Image
 
-Das Image wird automatisch bei jedem Push auf `main` und bei neuen Tags gebaut und zu GHCR gepusht:
+Das Image wird automatisch bei jedem Push auf `main` und bei neuen Tags gebaut und zu Docker Hub gepusht:
 
 ```
-ghcr.io/openeduhub/metadata-agent-api:latest
+openeduhub/metadata-agent-api
 ```
+
+**Docker Hub:** https://hub.docker.com/r/openeduhub/metadata-agent-api
 
 **Verfügbare Tags:**
-- `latest` — aktueller Stand von `main`
+- `main` — aktueller Stand von `main`
 - `v2.0.0` — spezifische Version (bei Git-Tag `v2.0.0`)
-- `2.0` — Major.Minor (bei Git-Tag)
-- `<sha>` — kurzer Commit-Hash
 
 **Pull:**
 ```bash
-docker pull ghcr.io/openeduhub/metadata-agent-api:latest
+docker pull openeduhub/metadata-agent-api:main
 ```
 
 ---
@@ -30,7 +30,7 @@ docker run -d \
   -e B_API_KEY=<key> \
   -e WLO_GUEST_USERNAME=<user> \
   -e WLO_GUEST_PASSWORD=<pass> \
-  ghcr.io/openeduhub/metadata-agent-api:latest
+  openeduhub/metadata-agent-api:main
 ```
 
 ---
@@ -140,7 +140,7 @@ spec:
     spec:
       containers:
         - name: metadata-agent-api
-          image: ghcr.io/openeduhub/metadata-agent-api:latest
+          image: openeduhub/metadata-agent-api:main
           ports:
             - containerPort: 8000
           env:

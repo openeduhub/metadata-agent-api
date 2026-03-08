@@ -1087,7 +1087,7 @@ Alle Attribute können auch per JavaScript gesetzt werden: `canvas.layout = 'det
 | `text` | Text direkt als Eingabe |
 | `url` | URL als Eingabe (löst URL-Modus aus) |
 | `metadata-input` | JSON-Objekt mit vorausgefüllten Metadaten (per JavaScript) |
-| `content-type` | Inhaltstyp setzen (Schema-Dateiname, z.B. `event.json`) |
+| `content-type` | Inhaltstyp setzen — per Schema-Dateiname (`event.json`) oder Vokabular-URI (`http://w3id.org/openeduhub/vocabs/contentTypes/event`) |
 | `preview-image` | Vorschaubild als Base64 Data-URL oder URL (per JavaScript) |
 
 ### Events
@@ -1098,20 +1098,14 @@ const canvas = document.querySelector('metadata-agent-canvas');
 // Metadaten wurden geändert (bei jeder Feldänderung)
 canvas.addEventListener('metadataChange', (e) => console.log(e.detail));
 
-// Metadaten abgesendet (Upload/Submit-Button geklickt)
+// Metadaten abgesendet (Speichern/Submit-Button geklickt)
 canvas.addEventListener('metadataSubmit', (e) => console.log(e.detail));
-
-// KI-Extraktion abgeschlossen
-canvas.addEventListener('extractionComplete', (e) => console.log(e.detail));
-
-// Inhaltstyp erkannt
-canvas.addEventListener('contentTypeDetected', (e) => console.log(e.detail));
 
 // Upload-Ergebnis (Erfolg oder Fehler)
 canvas.addEventListener('uploadResult', (e) => console.log(e.detail));
 
 // Nutzer hat "Seite neu laden" geklickt (Plugin-Modus)
-canvas.addEventListener('reloadFromPage', (e) => console.log('reload'));
+canvas.addEventListener('reloadFromPage', () => console.log('reload'));
 ```
 
 ### Beispiel-Seiten

@@ -183,7 +183,7 @@ def custom_openapi():
     # Inject missing request schemas
     schemas = openapi_schema.setdefault("components", {}).setdefault("schemas", {})
     for model in [GenerateRequest, DetectContentTypeRequest, ExtractFieldRequest,
-                  ValidateRequest, ExportMarkdownRequest, UploadRequest]:
+                  ValidateRequest, ExportMarkdownRequest, UploadRequest, VerifyRequest]:
         model_schema = model.model_json_schema(ref_template="#/components/schemas/{model}")
         # Extract $defs (sub-schemas like enums) and merge into top-level schemas
         defs = model_schema.pop("$defs", {})

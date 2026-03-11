@@ -220,15 +220,15 @@
         customElements.whenDefined('metadata-agent-canvas').then(() => {
 
             canvas.addEventListener('metadataChange', (e) => {
-                console.log('Metadata changed:', e.detail);
+                if (canvas.debug) console.log('Metadata changed:', e.detail);
             });
 
             canvas.addEventListener('metadataSubmit', (e) => {
-                console.log('Metadata submitted:', e.detail);
+                if (canvas.debug) console.log('Metadata submitted:', e.detail);
             });
 
             canvas.addEventListener('extractionComplete', (e) => {
-                console.log('Extraction complete:', e.detail);
+                if (canvas.debug) console.log('Extraction complete:', e.detail);
             });
         });
     </script>

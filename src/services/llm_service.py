@@ -194,11 +194,13 @@ class LLMService:
             return False
         
         concepts = vocabulary.get("concepts", [])
-        valid_uris = {c.get("uri") for c in concepts}
+        # Accept both 'uri' and 'value' keys (e.g. language vocab uses 'value': 'de')
+        valid_entries = {c.get("uri") for c in concepts if c.get("uri")}
+        valid_entries.update(c.get("value") for c in concepts if c.get("value"))
         
         if isinstance(value, list):
-            return all(v in valid_uris for v in value if v is not None)
-        return value in valid_uris
+            return all(v in valid_entries for v in value if v is not None)
+        return value in valid_entries
     
     async def normalize_with_llm(
         self,
@@ -271,7 +273,7 @@ class LLMService:
                 parts.append("\nVerfügbare Werte (verwende exakt diese):")
                 for c in vocabulary.get("concepts", [])[:15]:
                     label_text = self._get_localized(c.get("label", {}), language)
-                    parts.append(f"  - {label_text}: {c.get('uri', '')}")
+                    parts.append(f"  - {label_text}: {c.get('uri', c.get('value', ''))}")
         else:
             parts.append(f"Normalize the following value for field '{label}':")
             parts.append(f"Input: {value}")
@@ -483,7 +485,7 @@ IMPORTANT RULES:
                         parts.append("❌ Do NOT invent your own URIs or labels!")
                 
                 for concept in concepts[:20]:  # Limit to 20 concepts
-                    uri = concept.get("uri", "")
+                    uri = concept.get("uri", concept.get("value", ""))
                     concept_label = self._get_localized(concept.get("label", {}), language)
                     parts.append(f"  - {concept_label}: {uri}")
                 
@@ -501,18 +503,40 @@ IMPORTANT RULES:
         
         # Add existing value context
         if existing_value is not None:
-            if language == "de":
-                parts.append(f"\n📋 AKTUELLER WERT: {json.dumps(existing_value, ensure_ascii=False)}")
-                parts.append("AKTUALISIERUNGS-REGELN:")
-                parts.append("1. Wenn der Text NEUE oder GEÄNDERTE Informationen für dieses Feld enthält → Aktualisiere den Wert")
-                parts.append("2. Wenn der Text KEINE Informationen zu diesem Feld enthält → Behalte den aktuellen Wert")
-                parts.append("3. Prüfe genau auf: Datumsänderungen, Ortsänderungen, Namensänderungen etc.")
+            # Detect if this is a correction/update re-extraction
+            is_correction = "--- KORREKTUR" in text or "--- UPDATE" in text
+            
+            if is_correction:
+                # Strong preservation rules for correction mode
+                if language == "de":
+                    parts.append(f"\n🔒 AKTUELLER WERT: {json.dumps(existing_value, ensure_ascii=False)}")
+                    parts.append("⚠️ KORREKTUR-MODUS — WICHTIGE REGELN:")
+                    parts.append("1. Der Text enthält einen KORREKTUR-Abschnitt mit einer gezielten Änderungsanweisung.")
+                    parts.append(f"2. Prüfe: Bezieht sich die Korrekturanweisung EXPLIZIT auf das Feld '{label}'?")
+                    parts.append("3. WENN JA → Führe NUR die angeforderte Änderung durch (z.B. kürzen, ergänzen, korrigieren)")
+                    parts.append("4. WENN NEIN → Gib den AKTUELLEN WERT EXAKT und UNVERÄNDERT zurück!")
+                    parts.append("5. Ändere NIEMALS Felder, die nicht in der Korrekturanweisung genannt werden.")
+                else:
+                    parts.append(f"\n🔒 CURRENT VALUE: {json.dumps(existing_value, ensure_ascii=False)}")
+                    parts.append("⚠️ CORRECTION MODE — IMPORTANT RULES:")
+                    parts.append("1. The text contains a CORRECTION section with a targeted change instruction.")
+                    parts.append(f"2. Check: Does the correction instruction EXPLICITLY refer to the field '{label}'?")
+                    parts.append("3. IF YES → Apply ONLY the requested change (e.g. shorten, add, correct)")
+                    parts.append("4. IF NO → Return the CURRENT VALUE EXACTLY and UNCHANGED!")
+                    parts.append("5. NEVER modify fields that are not mentioned in the correction instruction.")
             else:
-                parts.append(f"\n📋 CURRENT VALUE: {json.dumps(existing_value, ensure_ascii=False)}")
-                parts.append("UPDATE RULES:")
-                parts.append("1. If the text contains NEW or CHANGED information for this field → Update the value")
-                parts.append("2. If the text contains NO information about this field → Keep the current value")
-                parts.append("3. Check carefully for: date changes, location changes, name changes etc.")
+                if language == "de":
+                    parts.append(f"\n📋 AKTUELLER WERT: {json.dumps(existing_value, ensure_ascii=False)}")
+                    parts.append("AKTUALISIERUNGS-REGELN:")
+                    parts.append("1. Wenn der Text NEUE oder GEÄNDERTE Informationen für dieses Feld enthält → Aktualisiere den Wert")
+                    parts.append("2. Wenn der Text KEINE Informationen zu diesem Feld enthält → Behalte den aktuellen Wert")
+                    parts.append("3. Prüfe genau auf: Datumsänderungen, Ortsänderungen, Namensänderungen etc.")
+                else:
+                    parts.append(f"\n📋 CURRENT VALUE: {json.dumps(existing_value, ensure_ascii=False)}")
+                    parts.append("UPDATE RULES:")
+                    parts.append("1. If the text contains NEW or CHANGED information for this field → Update the value")
+                    parts.append("2. If the text contains NO information about this field → Keep the current value")
+                    parts.append("3. Check carefully for: date changes, location changes, name changes etc.")
         
         # Final instruction
         if language == "de":
@@ -1132,22 +1156,25 @@ IMPORTANT RULES:
         
         value_lower = str(value).lower().strip()
         
-        # Check if already a valid URI
+        # Check if already a valid URI or value
         uri_match = next((c for c in concepts if c.get("uri") == value), None)
         if uri_match:
+            return value
+        value_match = next((c for c in concepts if c.get("value") == value), None)
+        if value_match:
             return value
         
         # Find by label (exact match)
         for concept in concepts:
             label = self._get_localized(concept.get("label", {}), "de")
             if label.lower() == value_lower:
-                return concept.get("uri", label)
+                return concept.get("uri", concept.get("value", label))
             
             # Check alt labels
             alt_labels = concept.get("altLabels", [])
             for alt in alt_labels:
                 if alt.lower() == value_lower:
-                    return concept.get("uri", label)
+                    return concept.get("uri", concept.get("value", label))
         
         # For closed vocabulary, try fuzzy matching
         if is_closed:

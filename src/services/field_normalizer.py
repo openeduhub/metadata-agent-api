@@ -60,12 +60,20 @@ class FieldNormalizer:
         is_multiple = field_schema.get('multiple', False)
         
         # Handle arrays
-        if is_multiple and isinstance(value, list):
-            return [
-                self._normalize_single_value(v, datatype, vocabulary, normalize_vocabularies)
-                for v in value
-                if v is not None and v != ''
-            ]
+        if isinstance(value, list):
+            if is_multiple:
+                return [
+                    self._normalize_single_value(v, datatype, vocabulary, normalize_vocabularies)
+                    for v in value
+                    if v is not None and v != ''
+                ]
+            else:
+                # Field is not multiple but value is a list — unwrap first element
+                if len(value) == 0:
+                    return None
+                value = value[0]
+                if value is None or value == '':
+                    return value
         
         return self._normalize_single_value(value, datatype, vocabulary, normalize_vocabularies)
     
@@ -266,23 +274,25 @@ class FieldNormalizer:
         if not concepts:
             return value
         
-        # Check if concepts have URIs
+        # Check if concepts have URIs or plain values
         has_uris = any(c.get('uri') for c in concepts)
+        has_values = any(c.get('value') for c in concepts)
         
         # Handle array values
         if isinstance(value, list):
-            normalized = [self._match_concept(v, concepts, has_uris, vocab_type) for v in value]
+            normalized = [self._match_concept(v, concepts, has_uris, has_values, vocab_type) for v in value]
             if vocab_type == 'closed':
                 return [n for n in normalized if n is not None]
             return normalized
         
-        return self._match_concept(value, concepts, has_uris, vocab_type)
+        return self._match_concept(value, concepts, has_uris, has_values, vocab_type)
     
     def _match_concept(
         self,
         value: str,
         concepts: list,
         has_uris: bool,
+        has_values: bool,
         vocab_type: str
     ) -> Optional[str]:
         """Match a single value against vocabulary concepts."""
@@ -297,6 +307,12 @@ class FieldNormalizer:
                 if concept.get('uri') == value:
                     return value
         
+        # Exact value match (e.g. language codes like 'de', 'en')
+        if has_values:
+            for concept in concepts:
+                if concept.get('value') == value:
+                    return value
+        
         # Exact label match
         for concept in concepts:
             label = concept.get('label', '')
@@ -304,19 +320,31 @@ class FieldNormalizer:
                 label = label.get('de', label.get('en', ''))
             
             if label.lower() == value_lower:
-                return concept.get('uri') if has_uris and concept.get('uri') else label
+                if has_uris and concept.get('uri'):
+                    return concept.get('uri')
+                if has_values and concept.get('value'):
+                    return concept.get('value')
+                return label
             
             # Check altLabels
             alt_labels = concept.get('altLabels', [])
             for alt in alt_labels:
                 if alt.lower() == value_lower:
-                    return concept.get('uri') if has_uris and concept.get('uri') else label
+                    if has_uris and concept.get('uri'):
+                        return concept.get('uri')
+                    if has_values and concept.get('value'):
+                        return concept.get('value')
+                    return label
         
         # Fuzzy match for closed vocabularies
         if vocab_type == 'closed':
             best_match = self._find_fuzzy_match(value_lower, concepts)
             if best_match:
-                return best_match.get('uri') if has_uris and best_match.get('uri') else best_match.get('label')
+                if has_uris and best_match.get('uri'):
+                    return best_match.get('uri')
+                if has_values and best_match.get('value'):
+                    return best_match.get('value')
+                return best_match.get('label')
             return None
         
         return value

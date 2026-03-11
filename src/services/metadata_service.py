@@ -267,6 +267,15 @@ class MetadataService:
         extracted_values = result.get("values", {})
         errors.extend(result.get("errors", []))
         
+        # Debug: trace extraction results during re-extraction
+        if existing_metadata:
+            extracted_keys = [k for k in extracted_values if extracted_values[k] is not None]
+            null_keys = [k for k in extracted_values if extracted_values[k] is None]
+            print(f"🔄 RE-EXTRACTION: LLM extracted {len(extracted_keys)} non-null values, {len(null_keys)} null values")
+            for fid in extracted_keys[:5]:
+                val = extracted_values[fid]
+                print(f"  📝 {fid}: {str(val)[:100]}")
+        
         # Build flat metadata (just field_id: value)
         flat_metadata = {}
         # Track field origins: 'ai' for LLM-extracted, 'user' for manually entered
@@ -279,10 +288,29 @@ class MetadataService:
                     flat_metadata[key] = value
         
         # Add extracted values (overwrites existing) and mark as AI-generated
+        # But do NOT overwrite existing non-empty values with effectively empty ones
+        # to prevent value loss during re-extraction with correction instructions.
+        # "Effectively empty" includes: [], "", {}, None, [None], [""], [{}]
+        def _is_effectively_empty(v):
+            if v is None or v == [] or v == "" or v == {}:
+                return True
+            if isinstance(v, list):
+                return all(item is None or item == "" or item == {} for item in v)
+            return False
+        
+        skipped_empty = []
         for field_id, value in extracted_values.items():
             if value is not None:
+                existing_val = flat_metadata.get(field_id)
+                if _is_effectively_empty(value) and not _is_effectively_empty(existing_val):
+                    # Keep existing value, don't overwrite with empty
+                    skipped_empty.append(field_id)
+                    continue
                 flat_metadata[field_id] = value
                 field_origins[field_id] = "ai"
+        
+        if skipped_empty:
+            print(f"🛡️ RE-EXTRACTION: protected {len(skipped_empty)} fields from empty overwrite: {skipped_empty}")
         
         # Normalize field values based on schema
         if normalize_output:

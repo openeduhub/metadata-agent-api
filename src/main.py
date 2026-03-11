@@ -1352,8 +1352,36 @@ async def generate_metadata(request: Request):
     text = req.text
     existing_metadata = req.existing_metadata or {}
     
-    # Extract _origins from existing_metadata (passed by web component)
+    # Extract _origins and _source_text from existing_metadata (passed by web component)
     origins = existing_metadata.pop("_origins", None) if existing_metadata else None
+    original_source_text = existing_metadata.pop("_source_text", None) if existing_metadata else None
+    
+    # Re-extraction: combine original source text + extracted values + correction instruction.
+    # The LLM needs three things to handle corrections properly:
+    # 1. The original source document (context)
+    # 2. The extracted values from pass 1 (BISHERIGER STAND — what was extracted)
+    # 3. The correction instruction (what to change)
+    if original_source_text and text and text.strip():
+        # Build a human-readable summary of the current extracted metadata
+        metadata_lines = []
+        for key, value in existing_metadata.items():
+            if not key.startswith("_"):
+                if isinstance(value, list):
+                    metadata_lines.append(f"  {key}: {', '.join(str(v) for v in value)}")
+                else:
+                    metadata_lines.append(f"  {key}: {value}")
+        
+        bisheriger_stand = "\n".join(metadata_lines) if metadata_lines else "(keine)"
+        
+        combined = (
+            f"{original_source_text}\n\n"
+            f"--- BISHERIGER STAND (extrahierte Metadaten aus Durchlauf 1) ---\n"
+            f"{bisheriger_stand}\n\n"
+            f"--- KORREKTUR / UPDATE ---\n"
+            f"{text.strip()}"
+        )
+        print(f"🔄 RE-EXTRACTION: source ({len(original_source_text)} chars) + {len(metadata_lines)} extracted fields + instruction → {len(combined)} chars total")
+        text = combined
     
     if req.input_source == InputSource.TEXT:
         # Direct text input
@@ -1902,13 +1930,22 @@ async def upload_to_repository(request: Request):
             detail=f"Invalid repository: {req.repository}. Use 'staging' or 'prod'."
         )
     
-    # Extract context/version from metadata for schema-driven field resolution
+    # Extract context/version from metadata (before potential unwrapping)
     context = req.metadata.get("contextName", "default")
     version = req.metadata.get("schemaVersion", "latest")
     
+    # Normalize: if web component sent nested format (metadata.metadata),
+    # keep the original wrapper for _write_extended_fields but work with
+    # unwrapped fields for source override and wwwurl detection
+    _inner = req.metadata.get("metadata") if isinstance(req.metadata.get("metadata"), dict) else None
+    _fields = _inner if _inner is not None else req.metadata
+    
     # Apply source override if provided
     if req.source:
-        req.metadata["ccm:oeh_publisher_combined"] = req.source
+        _fields["ccm:oeh_publisher_combined"] = req.source
+        # Also write to nested metadata if present so _extract_metadata_fields picks it up
+        if _inner is not None:
+            _inner["ccm:oeh_publisher_combined"] = req.source
     
     # ── Start screenshot capture async (runs in parallel with metadata upload) ──
     screenshot_task = None
@@ -1916,7 +1953,7 @@ async def upload_to_repository(request: Request):
     
     # Auto-detect preview_url from metadata if not explicitly provided
     if not preview_url:
-        wwwurl = req.metadata.get("ccm:wwwurl")
+        wwwurl = _fields.get("ccm:wwwurl")
         if isinstance(wwwurl, list):
             wwwurl = wwwurl[0] if wwwurl else None
         if isinstance(wwwurl, str) and wwwurl.startswith("http"):

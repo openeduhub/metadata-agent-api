@@ -235,12 +235,23 @@ class RepositoryService:
             }
     
     def _extract_metadata_fields(self, metadata: dict) -> dict:
-        """Extract only metadata fields, removing processing info."""
+        """Extract only metadata fields, removing processing/system info.
+        
+        Handles two formats:
+        - Flat (from /generate API): fields at root level alongside system keys
+        - Nested (from web component export): fields inside a 'metadata' sub-dict
+        """
+        # If there's a nested 'metadata' dict, unwrap it (web component export format)
+        if "metadata" in metadata and isinstance(metadata.get("metadata"), dict):
+            return {k: v for k, v in metadata["metadata"].items() if not k.startswith("_")}
+        
+        # Flat format: strip system and meta keys
         excluded_keys = {
-            "contextName", "schemaVersion", "metadataset", 
-            "language", "exportedAt", "processing"
+            "contextName", "schemaVersion", "metadataset", "metadataset_uri",
+            "language", "exportedAt", "processing", "preview_image_url",
         }
-        return {k: v for k, v in metadata.items() if k not in excluded_keys}
+        return {k: v for k, v in metadata.items()
+                if k not in excluded_keys and not k.startswith("_")}
     
     def _extract_collection_ids(self, metadata: dict) -> list[str]:
         """Extract collection IDs from metadata."""
@@ -532,8 +543,12 @@ class RepositoryService:
         
         # 2. ccm:oeh_extendedData — full metadata as JSON string
         # Remove internal processing keys, keep only actual metadata fields
-        excluded_keys = {"contextName", "schemaVersion", "metadataset", "metadataset_uri", "language", "exportedAt", "processing", "_origins", "_source_text", "preview_image_url"}
-        data_dict = {k: v for k, v in metadata.items() if k not in excluded_keys}
+        # Handle nested format (web component export) vs flat format (API response)
+        if "metadata" in metadata and isinstance(metadata.get("metadata"), dict):
+            data_dict = {k: v for k, v in metadata["metadata"].items() if not k.startswith("_")}
+        else:
+            excluded_keys = {"contextName", "schemaVersion", "metadataset", "metadataset_uri", "language", "exportedAt", "processing", "_origins", "_source_text", "preview_image_url"}
+            data_dict = {k: v for k, v in metadata.items() if k not in excluded_keys}
         if data_dict:
             extended_fields["ccm:oeh_extendedData"] = [json.dumps(data_dict, ensure_ascii=False)]
             print(f"📎 extendedData: {len(json.dumps(data_dict, ensure_ascii=False))} chars")

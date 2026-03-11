@@ -207,11 +207,22 @@ Die Metadaten-Felder liegen **direkt auf Top-Level** (nicht in einem `metadata`-
     "llm_model": "gpt-4.1-mini",
     "errors": [],
     "warnings": []
-  }
+  },
+
+  "_origins": {
+    "cclom:title": "ai",
+    "cclom:general_description": "ai",
+    "schema:startDate": "ai"
+  },
+  "_source_text": "Workshop KI in der Bildung am 15. März 2026 in Berlin"
 }
 ```
 
 > **Hinweis:** Leere Default-Werte (`""`, `[]`, `{}`, `null`) werden aus der Response gefiltert — nur Felder mit tatsächlichen Werten erscheinen.
+>
+> **`_origins`:** Enthält die Herkunft jedes extrahierten Feldes (`"ai"` = KI-generiert, `"user"` = manuell). Wird bei Re-Extraktion (`existing_metadata` mit `_origins`) für unveränderte Felder beibehalten.
+>
+> **`_source_text`:** Rohtext vor der KI-Extraktion. Wird bei Text-Input oder nach URL-Crawling mitgeliefert.
 >
 > **Screenshot:** Wenn `screenshot_method` angegeben wurde und ein Screenshot erfolgreich war, enthält die Response zusätzlich `preview_image_url` als Base64 Data-URL (`data:image/png;base64,...`).
 
@@ -461,7 +472,7 @@ Lädt Metadaten ins WLO edu-sharing Repository hoch.
 
 | Parameter | Typ | Default | Beschreibung |
 |-----------|-----|---------|--------------|
-| `metadata` | object | **erforderlich** | Metadaten (oder direkt als Body) |
+| `metadata` | object | **erforderlich** | Metadaten — flaches Format (direkt `/generate`-Output) oder verschachteltes Format (`{ metadata: {...}, _origins: {...} }`) |
 | `repository` | string | `staging` | `staging` oder `prod` |
 | `check_duplicates` | bool | `true` | Dublettenprüfung via `ccm:wwwurl` |
 | `start_workflow` | bool | `true` | Review-Workflow starten |
@@ -1043,6 +1054,23 @@ Alle Attribute können auch per JavaScript gesetzt werden: `canvas.layout = 'det
 | `columns` | `1`–`4` | Spaltenanzahl (Standard: 1, detail-Layout: 4) |
 | `background-color` | CSS-Farbe | Hintergrundfarbe, z.B. `#f5f5f5` |
 | `input-mode` | `text`, `url`, `nodeId` | Eingabemodus |
+| `instance-id` | String | Instanz-Kennung für Multi-Instanz-Betrieb (Default: `default`) |
+
+#### Multi-Instanz
+
+Mehrere `<metadata-agent-canvas>` Elemente auf einer Seite können isoliert oder synchron arbeiten:
+
+```html
+<!-- Isoliert: verschiedene IDs → eigener State + eigene Events -->
+<metadata-agent-canvas api-url="..." instance-id="editor-a" layout="default"></metadata-agent-canvas>
+<metadata-agent-canvas api-url="..." instance-id="editor-b" layout="plugin"></metadata-agent-canvas>
+
+<!-- Synchron: gleiche ID → geteilter State, Events feuern nur 1× -->
+<metadata-agent-canvas api-url="..." instance-id="shared" layout="default"></metadata-agent-canvas>
+<metadata-agent-canvas api-url="..." instance-id="shared" layout="plugin"></metadata-agent-canvas>
+```
+
+Runtime-Wechsel per JavaScript: `element.instanceId = 'new-id';`
 
 #### Sichtbarkeit (true/false)
 
@@ -1073,12 +1101,13 @@ Alle Attribute können auch per JavaScript gesetzt werden: `canvas.layout = 'det
 | `readonly` | Nur-Lese-Modus |
 | `viewer-mode` | Alias für `readonly` (Rückwärtskompatibilität) |
 | `borderless` | Rahmenloser Modus |
-| `highlight-ai` | KI-generierte Felder farblich hervorheben (Standard: `true`) |
+| `highlight-ai` | KI-generierte Felder farblich hervorheben (Standard: `false`) |
 | `flat-groups` | Feldgruppen pro Schema zusammenfassen (Standard: `false`) |
 | `auto-extract` | Automatisch extrahieren nach Laden |
 | `force-reset` | Programmatischer Reset ohne Bestätigungsdialog |
 | `enable-screenshot` | Screenshot bei URL-Extraktion (Standard: `true`) |
 | `screenshot-method` | Screenshot-Methode: `pageshot` (Standard) oder `playwright` |
+| `debug` | Debug-Logging in die Browser-Konsole (i18n, instanceId, apiUrl) |
 
 #### Daten direkt setzen
 
@@ -1125,6 +1154,7 @@ Unter `/widget/examples/` sind interaktive Beispiele verfügbar:
 | `uri-test.html` | URI-basierte Content-Type-Steuerung |
 | `canvas-parameter-demo.html` | Interaktive Demo aller Parameter (Sidebar mit Toggles) |
 | `floating-controls-demo.html` | Demo der Floating Controls mit allen Button-Toggles |
+| `dual-instance-test.html` | Multi-Instanz-Test: 2× Komponente, Toggle isoliert/synchron |
 
 > **Alle Beispiele** enthalten einen **Layout-Switcher** (alle 7 Layouts) und einen **Flat Groups Toggle**.
 
@@ -1173,6 +1203,18 @@ docker-compose up -d
 | `/upload` Endpoint | ✅ Mit `WLO_GUEST_*` Env-Vars | ✅ Mit Vercel Env-Vars |
 | Widget/Webkomponente | ✅ Unter `/widget/dist/` | ✅ Unter `/widget/dist/` |
 | Health Check | ✅ Integriert (`/health`) | — |
+
+#### Wichtig: HTTPS-Anforderung bei Einbettung
+
+Wenn die Webkomponente auf einer **HTTPS-Seite** eingebettet wird (CMS, LMS, Portal), **muss** die API ebenfalls über **HTTPS** erreichbar sein. Andernfalls blockieren alle modernen Browser die Requests als **Mixed Content** — ohne sichtbare Fehlermeldung im Widget.
+
+| Szenario | Ergebnis |
+|---|---|
+| HTTPS-Seite → `api-url="https://api.example.com"` | ✅ Funktioniert |
+| HTTPS-Seite → `api-url="http://192.168.1.100:8000"` | ❌ Blockiert (Mixed Content) |
+| HTTPS-Seite → `api-url="http://localhost:8000"` | ✅ Ausnahme (nur lokal) |
+
+**Empfehlung:** Einen Reverse-Proxy (nginx, Caddy, Traefik) mit HTTPS/TLS vor den Docker-Container stellen. Caddy generiert automatisch Let's Encrypt-Zertifikate — allerdings nur für **Domainnamen**, nicht für bare IPs.
 
 ### Vercel
 

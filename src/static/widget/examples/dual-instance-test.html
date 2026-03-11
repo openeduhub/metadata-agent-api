@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>window.__zone_symbol__PASSIVE_EVENTS = ['scroll', 'wheel', 'touchstart', 'touchmove', 'touchend', 'mousewheel'];</script>
+    <title>Dual Instance Test – Zwei Webkomponenten auf einer Seite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="../dist/styles.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        .top-bar {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .top-bar h1 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1a73e8;
+        }
+
+        .top-bar .badge {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .page-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 0;
+            height: calc(100vh - 53px);
+        }
+
+        .main-area {
+            padding: 24px;
+            overflow-y: auto;
+            background: #f0f2f5;
+        }
+
+        .main-area .instance-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #5f6368;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .main-area .instance-label .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #1a73e8;
+        }
+
+        .main-area metadata-agent-canvas {
+            display: block;
+            height: calc(100% - 32px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .sidebar {
+            background: #fff;
+            border-left: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-header .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #34a853;
+        }
+
+        .sidebar-header span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #5f6368;
+        }
+
+        .sidebar metadata-agent-canvas {
+            display: block;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Event log */
+        .event-log {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            width: 500px;
+            max-height: 200px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 2000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-log-header {
+            padding: 8px 12px;
+            background: #2d2d2d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #404040;
+        }
+
+        .event-log-header span {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .event-log-header button {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .event-log-content {
+            padding: 8px 12px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .event-log-content .entry {
+            padding: 2px 0;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .entry .tag-main { color: #569cd6; }
+        .entry .tag-side { color: #4ec9b0; }
+        .entry .event-name { color: #dcdcaa; }
+        .entry .time { color: #6a9955; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <h1>Dual Instance Test</h1>
+    <span class="badge">2× metadata-agent-canvas</span>
+    <span style="font-size:13px; color:#5f6368;">Testet Multi-Instanz: gleiche ID = Sync, verschiedene ID = isoliert</span>
+    <label style="margin-left:auto; font-size:13px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+      <input type="checkbox" id="isolateToggle" onchange="toggleIsolation()">
+      Isolierte Instanzen (verschiedene IDs)
+    </label>
+</div>
+
+<div class="page-layout">
+    <!-- Hauptbereich: Default Layout -->
+    <div class="main-area">
+        <div class="instance-label">
+            <span class="dot"></span>
+            Instanz 1 — Hauptbereich (default Layout)
+        </div>
+        <metadata-agent-canvas
+            id="canvas-main"
+            api-url="http://localhost:8000"
+            instance-id="shared"
+            layout="default"
+            context-name="default"
+            schema-version="latest"
+            background-color="#ffffff"
+            debug="true"
+        ></metadata-agent-canvas>
+    </div>
+
+    <!-- Seitenleiste: Plugin Layout -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <span class="dot"></span>
+            <span>Instanz 2 — Seitenleiste (plugin Layout)</span>
+        </div>
+        <metadata-agent-canvas
+            id="canvas-sidebar"
+            api-url="http://localhost:8000"
+            instance-id="shared"
+            layout="plugin"
+            context-name="default"
+            schema-version="latest"
+            background-color="#ffffff"
+            debug="true"
+        ></metadata-agent-canvas>
+    </div>
+</div>
+
+<!-- Event Log -->
+<div class="event-log" id="eventLog">
+    <div class="event-log-header">
+        <span>Event Log</span>
+        <button onclick="document.getElementById('logContent').innerHTML = ''">Clear</button>
+    </div>
+    <div class="event-log-content" id="logContent"></div>
+</div>
+
+<script src="../dist/runtime.js"></script>
+<script src="../dist/polyfills.js"></script>
+<script src="../dist/main.js"></script>
+<script>
+    function logEvent(source, eventName, detail) {
+        const log = document.getElementById('logContent');
+        const now = new Date().toLocaleTimeString('de-DE');
+        const tagClass = source === 'main' ? 'tag-main' : 'tag-side';
+        const entry = document.createElement('div');
+        entry.className = 'entry';
+        entry.innerHTML = `<span class="time">${now}</span> <span class="${tagClass}">[${source}]</span> <span class="event-name">${eventName}</span>`;
+        log.prepend(entry);
+
+        // Keep max 50 entries
+        while (log.children.length > 50) log.removeChild(log.lastChild);
+    }
+
+    // Listen to events from both instances
+    const main = document.getElementById('canvas-main');
+    const sidebar = document.getElementById('canvas-sidebar');
+
+    ['metadataChange', 'metadataSubmit', 'uploadResult', 'reloadFromPage'].forEach(evt => {
+        main.addEventListener(evt, (e) => logEvent('main', evt, e.detail));
+        sidebar.addEventListener(evt, (e) => logEvent('sidebar', evt, e.detail));
+    });
+
+    logEvent('system', 'ready', 'Beide Instanzen geladen (instance="shared")');
+
+    function toggleIsolation() {
+      const isolated = document.getElementById('isolateToggle').checked;
+      if (isolated) {
+        console.log('🔀 Switching to ISOLATED mode');
+        main.instanceId = 'main-only';
+        sidebar.instanceId = 'sidebar-only';
+        logEvent('system', 'mode', 'Isolierte Instanzen (verschiedene IDs)');
+      } else {
+        console.log('🔀 Switching to SHARED mode');
+        main.instanceId = 'shared';
+        sidebar.instanceId = 'shared';
+        logEvent('system', 'mode', 'Geteilte Instanz (gleiche ID)');
+      }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Agent — Review-Demo</title>
+
+    <!--
+        ╔══════════════════════════════════════════════════════════════════╗
+        ║  REVIEW-DEMO: Dialog-Layout mit JSON-Import, Content-Type-     ║
+        ║  Umschalter, Core-Felder-Toggle und KI-Highlight-Toggle.       ║
+        ║                                                                 ║
+        ║  Zeigt die Einbettung auf einer FREMDEN Seite, die Widget +    ║
+        ║  Assets von der Vercel-API lädt.                               ║
+        ║                                                                 ║
+        ║  Pflichtschritte:                                              ║
+        ║  ① Fonts + Icons  ② styles.css  ③ Passive Events              ║
+        ║  ④ <metadata-agent-canvas>  ⑤ JS-Dateien  ⑥ apiUrl setzen     ║
+        ╚══════════════════════════════════════════════════════════════════╝
+    -->
+
+    <!-- ① Pflicht: Google Fonts + Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- ② Pflicht: Widget-Stylesheet -->
+    <link rel="stylesheet" href="https://metadata-agent-api.vercel.app/widget/dist/styles.css">
+
+    <!-- ③ Empfohlen: Zone.js Passive Events (verhindert Konsolenwarnungen) -->
+    <script>window.__zone_symbol__PASSIVE_EVENTS = ['scroll','wheel','touchstart','touchmove','touchend','mousewheel'];</script>
+
+    <!-- ④ API-URL BEVOR Angular bootet setzen -->
+    <script>window.__ENV = { agentUrl: 'https://metadata-agent-api.vercel.app' };</script>
+
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 0; background: #f5f5f5; }
+        .container { max-width: 960px; margin: 20px auto; padding: 0 16px; }
+        h2 { font-size: 18px; font-weight: 500; margin-bottom: 12px; color: #333; }
+
+        /* Toolbar */
+        .toolbar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+        .toolbar-group { display: flex; gap: 6px; align-items: center; }
+        .toolbar-sep { width: 1px; height: 24px; background: #ddd; margin: 0 4px; }
+
+        /* Content-Type Buttons */
+        .ct-btn {
+            padding: 6px 14px; border: 1px solid #ddd; border-radius: 20px;
+            background: #fff; cursor: pointer; font-size: 13px; font-family: inherit;
+            transition: all 0.15s;
+        }
+        .ct-btn:hover { background: #f0f0f0; }
+        .ct-btn.active { background: #e8f0fe; border-color: #1a73e8; color: #1a73e8; font-weight: 500; }
+
+        /* Toggle Buttons */
+        .toggle-btn {
+            padding: 6px 12px; border: 1px solid #ddd; border-radius: 20px;
+            background: #fff; cursor: pointer; font-size: 12px; font-family: inherit;
+            display: flex; align-items: center; gap: 4px; transition: all 0.15s;
+            user-select: none;
+        }
+        .toggle-btn:hover { background: #f0f0f0; }
+        .toggle-btn.on { background: #e8f5e9; border-color: #4caf50; color: #2e7d32; }
+        .toggle-btn .material-icons { font-size: 16px; }
+
+        /* Canvas */
+        metadata-agent-canvas { display: block; min-height: 400px; }
+
+        /* Event-Log */
+        .log { margin-top: 16px; padding: 12px; background: #1e1e2e; color: #aaa;
+               font-family: monospace; font-size: 12px; border-radius: 8px;
+               max-height: 150px; overflow-y: auto; }
+        .log div { padding: 2px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Metadaten-Review (Dialog-Layout)</h2>
+
+    <div class="toolbar">
+        <!-- Content-Type Umschalter -->
+        <div class="toolbar-group">
+            <button class="ct-btn active" data-uri="http://w3id.org/openeduhub/vocabs/contentTypes/event">Veranstaltung</button>
+            <button class="ct-btn" data-uri="http://w3id.org/openeduhub/vocabs/contentTypes/learning_material">Lernmaterial</button>
+            <button class="ct-btn" data-uri="http://w3id.org/openeduhub/vocabs/contentTypes/course">Kurs</button>
+            <button class="ct-btn" data-uri="http://w3id.org/openeduhub/vocabs/contentTypes/tool_service">Tool / Dienst</button>
+            <button class="ct-btn" data-uri="http://w3id.org/openeduhub/vocabs/contentTypes/source">Quelle</button>
+        </div>
+
+        <div class="toolbar-sep"></div>
+
+        <!-- Optionen-Toggles -->
+        <div class="toolbar-group">
+            <button class="toggle-btn" id="btn-core" onclick="toggleCore()">
+                <span class="material-icons">view_list</span> Core-Felder
+            </button>
+            <button class="toggle-btn on" id="btn-ai" onclick="toggleAi()">
+                <span class="material-icons">auto_awesome</span> KI-Highlight
+            </button>
+        </div>
+    </div>
+
+    <!--
+        ④ Die Webkomponente.
+
+        WICHTIG: api-url NICHT als HTML-Attribut setzen!
+        → Wird unten per JavaScript gesetzt (⑥), damit i18n + Schema korrekt laden.
+    -->
+    <metadata-agent-canvas
+        id="canvas"
+        instance-id="review-1"
+        layout="dialog"
+        columns="2"
+        show-input-area="false"
+        show-status-bar="false"
+        show-core-fields="false"
+        show-footer="false"
+        show-preview="false"
+        show-floating-controls="false"
+        highlight-ai="true"
+        content-type="http://w3id.org/openeduhub/vocabs/contentTypes/event"
+    ></metadata-agent-canvas>
+
+    <div class="log" id="log"></div>
+</div>
+
+<!-- ⑤ Pflicht: Angular Widget laden (3 Dateien, Reihenfolge wichtig) -->
+<script src="https://metadata-agent-api.vercel.app/widget/dist/runtime.js" defer></script>
+<script src="https://metadata-agent-api.vercel.app/widget/dist/polyfills.js" defer></script>
+<script src="https://metadata-agent-api.vercel.app/widget/dist/main.js" defer></script>
+
+<script>
+    // ⑥ API-URL ist bereits über window.__ENV.agentUrl (④) gesetzt.
+    const API_URL = window.__ENV.agentUrl;
+
+    // State für Toggles (muss zum HTML-Initialzustand passen)
+    let coreVisible = false;   // show-core-fields="false"
+    let aiHighlight = true;    // highlight-ai="true"
+
+    // Warten bis die Web Component registriert ist
+    customElements.whenDefined('metadata-agent-canvas').then(() => {
+        const canvas = document.getElementById('canvas');
+        const logEl  = document.getElementById('log');
+
+        // ───── 1. Existierendes JSON laden ─────
+        canvas.metadataInput = {
+            "contextName": "default",
+            "schemaVersion": "v1.8.1",
+            "metadataset": "event.json",
+            "metadataset_uri": "http://w3id.org/openeduhub/vocabs/contentTypes/event",
+            "language": "de",
+            "metadata": {
+                "cclom:title": "Goethe und die Frauen – Musikalisch-literarische Reise",
+                "cclom:general_description": "Die Veranstaltung bietet einen musikalisch-literarischen Einblick in das turbulente Liebesleben Johann Wolfgang von Goethes...",
+                "cclom:general_keyword": ["Goethe", "Liebesleben", "Liebesgedichte", "Theater", "Weimar"],
+                "ccm:wwwurl": "https://www.weimar.de/kultur/veranstaltungen/veranstaltungskalender/veranstaltung/goethe-und-die-frauen-2026-03-10t20-00-00/",
+                "ccm:oeh_event_begin": "2026-03-10T20:00",
+                "ccm:oeh_event_end": "2026-03-10T21:30",
+                "schema:location": [{
+                    "name": "Theater im Gewölbe",
+                    "address": { "streetAddress": "Cranach-Haus Markt 11/12", "postalCode": "99423", "addressLocality": "Weimar", "addressCountry": "DE" },
+                    "geo": { "latitude": 50.9793806, "longitude": 11.3303353 }
+                }],
+                "schema:organizer": [{ "name": "Theater im Gewölbe", "url": "https://www.theater-im-gewoelbe.de" }],
+                "schema:performer": [{ "name": "Eva-Maria Ortmann" }, { "name": "Matthias Bega" }, { "name": "Prof. Ines Mainz" }]
+            },
+            "_origins": {
+                "cclom:title": "ai",
+                "cclom:general_description": "ai",
+                "cclom:general_keyword": "ai",
+                "ccm:wwwurl": "ai",
+                "ccm:oeh_event_begin": "ai",
+                "ccm:oeh_event_end": "ai",
+                "schema:location": "ai",
+                "schema:organizer": "ai",
+                "schema:performer": "ai"
+            }
+        };
+        log('JSON geladen');
+
+        // ───── 2. Content-Type Umschalter ─────
+        document.querySelectorAll('.ct-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.ct-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                canvas.contentType = btn.dataset.uri;
+                log('Content-Type: ' + btn.textContent.trim());
+            });
+        });
+
+        // ───── 3. Core-Felder Toggle ─────
+        window.toggleCore = function() {
+            coreVisible = !coreVisible;
+            canvas.showCoreFields = coreVisible;
+            document.getElementById('btn-core').classList.toggle('on', coreVisible);
+            log('Core-Felder: ' + (coreVisible ? 'EIN' : 'AUS'));
+        };
+
+        // ───── 4. KI-Highlight Toggle ─────
+        window.toggleAi = function() {
+            aiHighlight = !aiHighlight;
+            canvas.highlightAi = aiHighlight;
+            document.getElementById('btn-ai').classList.toggle('on', aiHighlight);
+            log('KI-Highlight: ' + (aiHighlight ? 'EIN' : 'AUS'));
+        };
+
+        // ───── 5. Events abgreifen ─────
+        canvas.addEventListener('metadataChange', (e) => {
+            log('metadataChange — Typ: ' + e.detail.metadataset);
+        });
+
+        function log(msg) {
+            const div = document.createElement('div');
+            div.textContent = new Date().toLocaleTimeString('de') + ' — ' + msg;
+            logEl.insertBefore(div, logEl.firstChild);
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   "versions": {
     "1.8.1": {
       "releaseDate": "2026-02-23",
-      "isDefault": true,
+      "isDefault": false,
       "schemas": [
         "core.json",
         "event.json",
@@ -41,6 +41,28 @@
         "prompt.json"
       ],
       "deactivated": [
+        "education_program.json",
+        "course.json",
+        "curriculum.json"
+      ]
+    },
+    "2.0.0": {
+      "releaseDate": "2026-03-20",
+      "isDefault": true,
+      "schemas": [
+        "core.json",
+        "event.json",
+        "education_offer.json",
+        "learning_material.json",
+        "person.json",
+        "organization.json",
+        "tool_service.json",
+        "occupation.json",
+        "didactic_planning_tools.json"
+      ],
+      "deactivated": [
+        "source.json",
+        "prompt.json",
         "education_program.json",
         "course.json",
         "curriculum.json"

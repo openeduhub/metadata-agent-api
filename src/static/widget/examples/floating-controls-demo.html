@@ -274,8 +274,8 @@
     </div>
 </div>
 
-<!-- Set API URL BEFORE Angular bootstraps -->
-<script>document.getElementById('canvas').setAttribute('api-url', window.location.origin);</script>
+<!-- API-URL: window.__ENV.agentUrl hat Vorrang (für externe Einbettung), sonst origin -->
+<script>window.__ENV = window.__ENV || { agentUrl: window.location.origin };</script>
 
 <!-- Widget Scripts -->
 <script src="../dist/runtime.js" defer></script>

@@ -1,0 +1,2044 @@
+{
+  "profileId": "core:descriptive",
+  "version": "2.0.0",
+  "@context": {
+    "schema": "https://schema.org/",
+    "cclom": "https://example.org/cclom/",
+    "ccm": "https://example.org/ccm/",
+    "preview": "https://example.org/preview/"
+  },
+  "groups": [
+    {
+      "id": "description",
+      "icon": "description",
+      "label": {
+        "de": "Beschreibung",
+        "en": "Description"
+      }
+    },
+    {
+      "id": "typification",
+      "icon": "category",
+      "label": {
+        "de": "Typisierung",
+        "en": "Typification"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "cclom:title",
+      "group": "description",
+      "label": {
+        "de": "Titel",
+        "en": "Title"
+      },
+      "description": {
+        "de": "Titel der Ressource",
+        "en": "Title of the resource"
+      },
+      "examples": {
+        "de": [
+          "Zukunft der Hochschullehre"
+        ],
+        "en": [
+          "Zukunft der Hochschullehre"
+        ]
+      },
+      "prompt": {
+        "de": "GENERIERE einen aussagekräftigen, eigenständigen Titel, der den Inhalt prägnant zusammenfasst. Der Titel muss ohne zusätzlichen Kontext verständlich sein. Verwende NICHT den Namen der Website oder Plattform. Vermeide generische Floskeln wie 'Überblick über…' oder 'Informationen zu…'. Maximal 80 Zeichen. Beispiele: 'Künstliche Intelligenz in der Hochschullehre', 'Photosynthese – Ablauf und Bedeutung für Ökosysteme', 'Demokratie im antiken Griechenland'.",
+        "en": "GENERATE a concise, self-contained title summarizing the resource content. The title must be understandable without additional context. Do NOT use the website or platform name. Avoid generic phrases like 'Overview of…' or 'Information about…'. Maximum 80 characters. Examples: 'Artificial Intelligence in Higher Education', 'Photosynthesis – Process and Significance', 'Democracy in Ancient Greece'."
+      },
+      "system": {
+        "path": "cclom:title",
+        "uri": "cclom:title",
+        "datatype": "string",
+        "multiple": false,
+        "required": true,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "fulltext": true,
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "collapseWhitespace": true
+        }
+      }
+    },
+    {
+      "id": "cclom:general_description",
+      "group": "description",
+      "label": {
+        "de": "Beschreibungstext",
+        "en": "Description Text"
+      },
+      "description": {
+        "de": "Kurzbeschreibung / Abstract",
+        "en": "Short description / abstract"
+      },
+      "prompt": {
+        "de": "GENERIERE eine informative Zusammenfassung in 2–4 Sätzen (mind. 40 Zeichen). Beschreibe den zentralen Inhalt, das Ziel und ggf. die Zielgruppe. Schreibe sachlich in dritter Person – keine Ich-Form, keine Anrede. Vermeide Wiederholungen des Titels. Beispiele: 'Das Arbeitsblatt vermittelt Grundlagen der Bruchrechnung für die Klassen 5–6. Anhand von Alltagsbeispielen üben Lernende das Kürzen und Erweitern von Brüchen.', 'Der Fachartikel analysiert den Einfluss von KI-Werkzeugen auf die Hochschuldidaktik und zeigt Chancen und Risiken anhand aktueller Studien auf.'",
+        "en": "GENERATE an informative summary in 2–4 sentences (min. 40 characters). Describe the core content, purpose, and target audience. Write objectively in third person – no first person, no direct address. Avoid repeating the title. Examples: 'This worksheet teaches fraction basics for grades 5–6. Learners practice simplifying and expanding fractions using real-world examples.', 'The article analyzes the impact of AI tools on higher education pedagogy, presenting opportunities and risks based on current studies.'"
+      },
+      "system": {
+        "path": "cclom:general_description",
+        "uri": "cclom:general_description",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "collapseWhitespace": true
+        },
+        "validation": {
+          "minLength": 40
+        }
+      }
+    },
+    {
+      "id": "cclom:general_keyword",
+      "group": "typification",
+      "label": {
+        "de": "Schlagwörter",
+        "en": "Keywords"
+      },
+      "description": {
+        "de": "Schlagwörter (kommagetrennt)",
+        "en": "Keywords (comma-separated)"
+      },
+      "examples": {
+        "de": [
+          "KI, Hochschuldidaktik",
+          [
+            "Künstliche Intelligenz",
+            "Digitale Lehre"
+          ]
+        ],
+        "en": [
+          "KI, Hochschuldidaktik",
+          [
+            "Künstliche Intelligenz",
+            "Digitale Lehre"
+          ]
+        ]
+      },
+      "prompt": {
+        "de": "Extrahiere 3–8 fachlich relevante Schlagwörter, die den Inhalt treffend beschreiben. Verwende etablierte Fachbegriffe, keine ganzen Sätze. Jedes Schlagwort soll eigenständig suchbar sein. Vermeide zu allgemeine Begriffe wie 'Bildung' oder 'Lernen', wenn spezifischere passen. Gib ein JSON-Array zurück. Beispiele: ['Bruchrechnung', 'Mathematik', 'Klasse 5', 'Arbeitsblatt'], ['Künstliche Intelligenz', 'Hochschuldidaktik', 'Prompt Engineering', 'ChatGPT'], ['Photosynthese', 'Biologie', 'Chloroplasten', 'Lichtreaktion'].",
+        "en": "Extract 3–8 subject-relevant keywords accurately describing the content. Use established technical terms, not full sentences. Each keyword should be independently searchable. Avoid overly generic terms like 'education' when more specific ones apply. Return a JSON array. Examples: ['Fractions', 'Mathematics', 'Grade 5', 'Worksheet'], ['Artificial Intelligence', 'Higher Education', 'Prompt Engineering', 'ChatGPT'], ['Photosynthesis', 'Biology', 'Chloroplasts', 'Light Reaction']."
+      },
+      "system": {
+        "path": "cclom:general_keyword",
+        "uri": "cclom:general_keyword",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "collapseWhitespace": true
+        }
+      }
+    },
+    {
+      "id": "ccm:wwwurl",
+      "group": "description",
+      "label": {
+        "de": "Web-URL",
+        "en": "Web URL"
+      },
+      "description": {
+        "de": "URL der Ressource",
+        "en": "URL of the resource"
+      },
+      "examples": {
+        "de": [
+          "https://www.beispiel.de/angebot"
+        ],
+        "en": [
+          "https://www.beispiel.de/angebot"
+        ]
+      },
+      "prompt": {
+        "de": "Extrahiere die primäre, öffentlich erreichbare URL der Ressource. Verwende die kanonische URL ohne Tracking-Parameter oder Session-IDs. Muss mit http:// oder https:// beginnen. Bei mehreren URLs die Haupt-URL wählen, nicht Unterseiten-Links. Beispiele: 'https://www.goethe.de/prj/klb/de/home.html', 'https://mint-zirkel.de/2024/01/photosynthese/', 'https://www.bpb.de/kurz-knapp/lexika/das-junge-politik-lexikon/320468/demokratie/'.",
+        "en": "Extract the primary, publicly accessible URL of the resource. Use the canonical URL without tracking parameters or session IDs. Must start with http:// or https://. If multiple URLs exist, choose the main resource URL, not sub-page links. Examples: 'https://www.goethe.de/prj/klb/en/home.html', 'https://mint-zirkel.de/2024/01/photosynthesis/', 'https://www.bpb.de/kurz-knapp/lexika/320468/democracy/'."
+      },
+      "system": {
+        "path": "ccm:wwwurl",
+        "uri": "ccm:wwwurl",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^(https?://[^\\s]+)$"
+        },
+        "normalization": {
+          "trim": true
+        }
+      }
+    },
+    {
+      "id": "preview:url",
+      "group": "description",
+      "label": {
+        "de": "URL des Vorschaubildes",
+        "en": "Preview Image URL"
+      },
+      "description": {
+        "de": "Link zum Vorschaubild",
+        "en": "Preview image link"
+      },
+      "examples": {
+        "de": [
+          "https://cdn.beispiel.de/thumbs/123.jpg"
+        ],
+        "en": [
+          "https://cdn.beispiel.de/thumbs/123.jpg"
+        ]
+      },
+      "prompt": {
+        "de": "Extrahiere die URL eines repräsentativen Vorschaubilds (Thumbnail, Open-Graph-Image, Hero-Image). Suche nach og:image, twitter:image oder prominent eingebundenen Bildern. Nur direkte Bild-URLs mit Endung .jpg, .jpeg, .png oder .webp. Keine Platzhalter, Icons oder SVGs. Beispiele: 'https://example.com/images/og-preview.jpg', 'https://cdn.portal.de/media/header-photo.png'.",
+        "en": "Extract the URL of a representative preview image (thumbnail, Open Graph image, hero image). Look for og:image, twitter:image, or prominently embedded images. Only direct image URLs ending in .jpg, .jpeg, .png, or .webp. No placeholders, icons, or SVGs. Examples: 'https://example.com/images/og-preview.jpg', 'https://cdn.portal.de/media/header-photo.png'."
+      },
+      "system": {
+        "path": "preview:url",
+        "uri": "preview:url",
+        "datatype": "uri",
+        "multiple": false,
+        "required": false,
+        "ask_user": false,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^(https?://[^\\s]+\\.(jpg|jpeg|png|webp))$"
+        },
+        "normalization": {
+          "trim": true
+        }
+      }
+    },
+    {
+      "id": "cclom:general_language",
+      "group": "description",
+      "label": {
+        "de": "Sprache",
+        "en": "Language"
+      },
+      "description": {
+        "de": "Sprache der Ressource",
+        "en": "Resource language"
+      },
+      "prompt": {
+        "de": "Erkenne die Hauptsprache des Textes. Gib den ISO-639-1-Code in Kleinbuchstaben zurück. Nur die dominante Sprache – nicht Sprachen aus Zitaten oder Links. Wähle aus dem vorgegebenen Vokabular. Beispiele: 'de' (deutschsprachiger Text), 'en' (englischsprachiger Text), 'fr' (französischsprachiger Text).",
+        "en": "Detect the main language of the text. Return ISO 639-1 code in lowercase. Only the dominant language – not languages from quotes or links. Choose from provided vocabulary. Examples: 'de' (German text), 'en' (English text), 'fr' (French text)."
+      },
+      "system": {
+        "path": "cclom:general_language",
+        "uri": "cclom:general_language",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Bulgarisch",
+                "en": "Bulgarian"
+              },
+              "value": "bg"
+            },
+            {
+              "label": {
+                "de": "Dänisch",
+                "en": "Danish"
+              },
+              "value": "da"
+            },
+            {
+              "label": {
+                "de": "Deutsch",
+                "en": "German"
+              },
+              "value": "de"
+            },
+            {
+              "label": {
+                "de": "Englisch",
+                "en": "English"
+              },
+              "value": "en"
+            },
+            {
+              "label": {
+                "de": "Estnisch",
+                "en": "Estonian"
+              },
+              "value": "et"
+            },
+            {
+              "label": {
+                "de": "Finnisch",
+                "en": "Finnish"
+              },
+              "value": "fi"
+            },
+            {
+              "label": {
+                "de": "Französisch",
+                "en": "French"
+              },
+              "value": "fr"
+            },
+            {
+              "label": {
+                "de": "Griechisch",
+                "en": "Greek"
+              },
+              "value": "el"
+            },
+            {
+              "label": {
+                "de": "Irisch",
+                "en": "Irish"
+              },
+              "value": "ga"
+            },
+            {
+              "label": {
+                "de": "Italienisch",
+                "en": "Italian"
+              },
+              "value": "it"
+            },
+            {
+              "label": {
+                "de": "Kroatisch",
+                "en": "Croatian"
+              },
+              "value": "hr"
+            },
+            {
+              "label": {
+                "de": "Lettisch",
+                "en": "Latvian"
+              },
+              "value": "lv"
+            },
+            {
+              "label": {
+                "de": "Litauisch",
+                "en": "Lithuanian"
+              },
+              "value": "lt"
+            },
+            {
+              "label": {
+                "de": "Maltesisch",
+                "en": "Maltese"
+              },
+              "value": "mt"
+            },
+            {
+              "label": {
+                "de": "Niederländisch",
+                "en": "Dutch"
+              },
+              "value": "nl"
+            },
+            {
+              "label": {
+                "de": "Polnisch",
+                "en": "Polish"
+              },
+              "value": "pl"
+            },
+            {
+              "label": {
+                "de": "Portugiesisch",
+                "en": "Portuguese"
+              },
+              "value": "pt"
+            },
+            {
+              "label": {
+                "de": "Rumänisch",
+                "en": "Romanian"
+              },
+              "value": "ro"
+            },
+            {
+              "label": {
+                "de": "Schwedisch",
+                "en": "Swedish"
+              },
+              "value": "sv"
+            },
+            {
+              "label": {
+                "de": "Slowakisch",
+                "en": "Slovak"
+              },
+              "value": "sk"
+            },
+            {
+              "label": {
+                "de": "Slowenisch",
+                "en": "Slovenian"
+              },
+              "value": "sl"
+            },
+            {
+              "label": {
+                "de": "Spanisch",
+                "en": "Spanish"
+              },
+              "value": "es"
+            },
+            {
+              "label": {
+                "de": "Tschechisch",
+                "en": "Czech"
+              },
+              "value": "cs"
+            },
+            {
+              "label": {
+                "de": "Ungarisch",
+                "en": "Hungarian"
+              },
+              "value": "hu"
+            },
+            {
+              "label": {
+                "de": "Norwegisch",
+                "en": "Norwegian"
+              },
+              "value": "no"
+            },
+            {
+              "label": {
+                "de": "Russisch",
+                "en": "Russian"
+              },
+              "value": "ru"
+            },
+            {
+              "label": {
+                "de": "Ukrainisch",
+                "en": "Ukrainian"
+              },
+              "value": "uk"
+            },
+            {
+              "label": {
+                "de": "Türkisch",
+                "en": "Turkish"
+              },
+              "value": "tr"
+            },
+            {
+              "label": {
+                "de": "Arabisch",
+                "en": "Arabic"
+              },
+              "value": "ar"
+            },
+            {
+              "label": {
+                "de": "Persisch",
+                "en": "Persian"
+              },
+              "value": "fa"
+            },
+            {
+              "label": {
+                "de": "Dari",
+                "en": "Dari"
+              },
+              "value": "prs"
+            },
+            {
+              "label": {
+                "de": "Paschtu",
+                "en": "Pashto"
+              },
+              "value": "ps"
+            },
+            {
+              "label": {
+                "de": "Chinesisch",
+                "en": "Chinese"
+              },
+              "value": "zh"
+            },
+            {
+              "label": {
+                "de": "Japanisch",
+                "en": "Japanese"
+              },
+              "value": "ja"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "lowercase_lang": true
+        }
+      }
+    },
+    {
+      "id": "ccm:oeh_extendedType",
+      "group": "typification",
+      "label": {
+        "de": "Inhaltsart(en)",
+        "en": "Content Type(s)"
+      },
+      "description": {
+        "de": "Inhaltstyp der Ressource – bestimmt welche Zusatz-Felder angezeigt werden.",
+        "en": "Content type of the resource – determines which additional fields are shown."
+      },
+      "prompt": {
+        "de": "Bewerte die DARGESTELLTE RESSOURCE auf der Seite, NICHT den Website-Betreiber. Wähle den passenden Inhaltstyp: Lernmaterial (z.B. Arbeitsblätter, Videos, Audios, interaktive Übungen, OER, Simulationen, Lernspiele, Texte, Bilder), Bildungsangebot (z.B. Kurse, Seminare, Workshops, VHS-Kurse, Studiengänge, Weiterbildungen, Fortbildungen, Zertifikatsprogramme), Veranstaltung (z.B. Konferenzen, Tagungen, Theater, Lesungen, Konzerte, Aufführungen, Vorträge, Messen, Festivals, Ausstellungseröffnungen, Webinare – JEDE Seite mit konkretem Datum/Uhrzeit/Ort), Person (z.B. Autoren, Referenten, Lehrende), Organisation (z.B. Schulen, Hochschulen, Verlage – NUR wenn die Seite die Organisation SELBST vorstellt), Tool/Dienst (z.B. Software, Apps, Plattformen, digitale Werkzeuge), Beruf (z.B. Berufsbilder, Tätigkeitsfelder, Berufsorientierung), Didaktische Planung (z.B. Unterrichtsentwürfe, Methoden, Stundenpläne), Quelle (z.B. Datenportale, Repositorien, Mediatheken, Bilddatenbanken – NUR reine Sammlungs-/Portalseiten, NICHT einzelne Inhalte), KI-Prompt (z.B. Prompt-Templates, Prompt-Sammlungen).",
+        "en": "Evaluate the RESOURCE PRESENTED on the page, NOT the website operator. Select the matching content type: Learning Material (e.g. worksheets, videos, audios, interactive exercises, OER, simulations, learning games, texts, images), Educational Offering (e.g. courses, seminars, workshops, degree programs, continuing education, certificate programs), Event (e.g. conferences, conventions, theater, readings, concerts, performances, lectures, fairs, festivals, exhibition openings, webinars – ANY page with specific date/time/venue), Person (e.g. authors, speakers, educators), Organization (e.g. schools, universities, publishers – ONLY if the page presents the organization ITSELF), Tool/Service (e.g. software, apps, platforms, digital tools), Occupation (e.g. job profiles, career orientation), Didactic Planning (e.g. lesson designs, methods, lesson plans), Source (e.g. data portals, repositories, media libraries, image databases – ONLY pure collection/portal pages, NOT individual content), AI Prompt (e.g. prompt templates, prompt collections)."
+      },
+      "system": {
+        "path": "ccm:oeh_extendedType",
+        "uri": "ccm:oeh_extendedType",
+        "datatype": "array",
+        "multiple": false,
+        "required": false,
+        "ask_user": false,
+        "ai_fillable": false,
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Lernmaterial",
+                "en": "Learning Material"
+              },
+              "icon": "menu_book",
+              "schema_file": "learning_material.json",
+              "uri": "http://w3id.org/openeduhub/vocabs/contentTypes/learning_material"
+            },
+            {
+              "label": {
+                "de": "Bildungsangebot",
+                "en": "Educational Offering"
+              },
+              "icon": "school",
+              "schema_file": "education_offer.json",
+              "uri": "http://w3id.org/openeduhub/vocabs/contentTypes/education_offer"
+            },
+            {
+              "label": {
+                "de": "Veranstaltung",
+                "en": "Event"
+              },
+              "icon": "event",
+              "schema_file": "event.json",
+              "uri": "http://w3id.org/openeduhub/vocabs/contentTypes/event"
+            },
+            {
+              "label": {
+                "de": "Person",
+                "en": "Person"
+              },
+              "icon": "person",
+              "schema_file": "person.json",
+              "uri": "http://w3id.org/openeduhub/vocabs/contentTypes/person"
+            },
+            {
+              "label": {
+                "de": "Organisation",
+                "en": "Organization"
+              },
+              "icon": "business",
+              "schema_file": "organization.json",
+              "uri": "http://w3id.org/openeduhub/vocabs/contentTypes/organization"
+            },
+            {
+              "label": {
+                "de": "Tool / Dienst",
+                "en": "Tool / Service"
+              },
+              "icon": "build",
+              "schema_file": "tool_service.json",
+              "uri": "http://w3id.org/openeduhub/vocabs/contentTypes/tool_service"
+            },
+            {
+              "label": {
+                "de": "Beruf",
+                "en": "Occupation"
+              },
+              "icon": "work",
+              "schema_file": "occupation.json",
+              "uri": "http://w3id.org/openeduhub/vocabs/contentTypes/profession"
+            },
+            {
+              "label": {
+                "de": "Didaktische Planung",
+                "en": "Didactic Planning"
+              },
+              "icon": "psychology",
+              "schema_file": "didactic_planning_tools.json",
+              "uri": "http://w3id.org/openeduhub/vocabs/contentTypes/didactic_concepts"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "case": "title",
+          "deduplicate": true
+        }
+      }
+    },
+    {
+      "id": "ccm:educationalcontext",
+      "group": "typification",
+      "label": {
+        "de": "Bildungsstufe",
+        "en": "Education Level"
+      },
+      "description": {
+        "de": "Bildungsstufe(n) auswählen",
+        "en": "Select education level(s)"
+      },
+      "prompt": {
+        "de": "Bestimme die passende(n) Bildungsstufe(n). Wähle NUR aus den vorgegebenen Vokabular-URIs. Achte auf Alters-/Niveauhinweise: Klasse 1–4 → Primarstufe; Klasse 5–10 → Sekundarstufe I; Oberstufe/Abitur → Sekundarstufe II; Uni/FH → Hochschule. Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/educationalContext/grundschule'], ['http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_1', 'http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_2'].",
+        "en": "Determine the appropriate education level(s). Choose ONLY from provided vocabulary URIs. Look for age/level indicators: grades 1–4 → primary; grades 5–10 → Secondary I; upper secondary → Secondary II; university → Higher Education. Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/educationalContext/grundschule'], ['http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_1', 'http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_2']."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "ccm:educationalcontext",
+        "uri": "ccm:educationalcontext",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/educationalContext/",
+          "concepts": [
+            {
+              "label": {
+                "de": "Elementarbereich",
+                "en": "elementary level"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/elementarbereich"
+            },
+            {
+              "label": {
+                "de": "Schule",
+                "en": "school"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/schule"
+            },
+            {
+              "label": {
+                "de": "Primarstufe",
+                "en": "primary school"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/grundschule"
+            },
+            {
+              "label": {
+                "de": "Sekundarstufe I",
+                "en": "Secondary I"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_1"
+            },
+            {
+              "label": {
+                "de": "Sekundarstufe II",
+                "en": "Secondary II"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/sekundarstufe_2"
+            },
+            {
+              "label": {
+                "de": "Hochschule",
+                "en": "Higher Education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/hochschule"
+            },
+            {
+              "label": {
+                "de": "Berufliche Bildung",
+                "en": "vocational education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/berufliche_bildung"
+            },
+            {
+              "label": {
+                "de": "Fortbildung",
+                "en": "Further Education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/fortbildung"
+            },
+            {
+              "label": {
+                "de": "Erwachsenenbildung",
+                "en": "continuing education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/erwachsenenbildung"
+            },
+            {
+              "label": {
+                "de": "Förderschule",
+                "en": "special education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/foerderschule"
+            },
+            {
+              "label": {
+                "de": "Fernunterricht",
+                "en": "Distance Learning"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/fernunterricht"
+            },
+            {
+              "label": {
+                "de": "Informelles Lernen",
+                "en": "Informal learning"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/educationalContext/informelles_lernen"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        }
+      }
+    },
+    {
+      "id": "ccm:taxonid",
+      "group": "typification",
+      "label": {
+        "de": "Fach",
+        "en": "Subject"
+      },
+      "description": {
+        "de": "Fach / Disziplin auswählen",
+        "en": "Select subject / discipline"
+      },
+      "prompt": {
+        "de": "Bestimme das/die passende(n) Schulfach/Fächer. Wähle NUR aus den vorgegebenen Vokabular-URIs. Ordne nach dem primären Fachbezug zu – nicht nach Randthemen. Bei fächerübergreifenden Inhalten max. 2–3 Fächer. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/discipline/380'] (Mathematik), ['http://w3id.org/openeduhub/vocabs/discipline/080', 'http://w3id.org/openeduhub/vocabs/discipline/100'] (Biologie + Chemie), ['http://w3id.org/openeduhub/vocabs/discipline/320'] (Informatik).",
+        "en": "Determine the appropriate school subject(s). Choose ONLY from provided vocabulary URIs. Assign by primary subject – not peripheral topics. For cross-curricular content max. 2–3 subjects. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/discipline/380'] (Mathematics), ['http://w3id.org/openeduhub/vocabs/discipline/080', 'http://w3id.org/openeduhub/vocabs/discipline/100'] (Biology + Chemistry), ['http://w3id.org/openeduhub/vocabs/discipline/320'] (Computer Science)."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "ccm:taxonid",
+        "uri": "ccm:taxonid",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/discipline/",
+          "concepts": [
+            {
+              "label": {
+                "de": "Allgemein",
+                "en": "Interdisciplinary media"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/720"
+            },
+            {
+              "label": {
+                "de": "Alt-Griechisch",
+                "en": "Ancient Greek"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20003"
+            },
+            {
+              "label": {
+                "de": "Agrarwirtschaft",
+                "en": "Agricultural economics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04001"
+            },
+            {
+              "label": {
+                "de": "Arbeit, Ernährung, Soziales",
+                "en": "Work, nutrition and social affairs"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/oeh01"
+            },
+            {
+              "label": {
+                "de": "Arbeitslehre",
+                "en": "Career education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/020"
+            },
+            {
+              "label": {
+                "de": "Arbeitssicherheit",
+                "en": "Work safety"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04014"
+            },
+            {
+              "label": {
+                "de": "Astronomie",
+                "en": "Astronomy"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/46014"
+            },
+            {
+              "label": {
+                "de": "Bautechnik",
+                "en": "Construction engineering"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04002"
+            },
+            {
+              "label": {
+                "de": "Berufliche Bildung",
+                "en": "Vocational education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/040"
+            },
+            {
+              "label": {
+                "de": "Biologie",
+                "en": "Biology"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/080"
+            },
+            {
+              "label": {
+                "de": "Chemie",
+                "en": "Chemistry"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/100"
+            },
+            {
+              "label": {
+                "de": "Chinesisch",
+                "en": "Chinese"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20041"
+            },
+            {
+              "label": {
+                "de": "Darstellendes Spiel",
+                "en": "Performing game"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/12002"
+            },
+            {
+              "label": {
+                "de": "Deutsch",
+                "en": "German as mother tongue"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/120"
+            },
+            {
+              "label": {
+                "de": "Deutsch als Zweitsprache",
+                "en": "German as second language"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/28002"
+            },
+            {
+              "label": {
+                "de": "Elektrotechnik",
+                "en": "Electrical engineering"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04005"
+            },
+            {
+              "label": {
+                "de": "Ernährung und Hauswirtschaft",
+                "en": "Nutrition and home economics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04006"
+            },
+            {
+              "label": {
+                "de": "Englisch",
+                "en": "English"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20001"
+            },
+            {
+              "label": {
+                "de": "Pädagogik",
+                "en": "Pedagogy"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/440"
+            },
+            {
+              "label": {
+                "de": "Esperanto",
+                "en": "Esperanto"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20090"
+            },
+            {
+              "label": {
+                "de": "Ethik",
+                "en": "Ethics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/160"
+            },
+            {
+              "label": {
+                "de": "Farbtechnik und Raumgestaltung",
+                "en": "Color technology and interior design"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04007"
+            },
+            {
+              "label": {
+                "de": "Französisch",
+                "en": "French"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20002"
+            },
+            {
+              "label": {
+                "de": "Geografie",
+                "en": "Geography"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/220"
+            },
+            {
+              "label": {
+                "de": "Geschichte",
+                "en": "History"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/240"
+            },
+            {
+              "label": {
+                "de": "Gesellschaftskunde",
+                "en": "social studies"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/48005"
+            },
+            {
+              "label": {
+                "de": "Gesundheit",
+                "en": "Health education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/260"
+            },
+            {
+              "label": {
+                "de": "Hauswirtschaft",
+                "en": "Home economics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/50001"
+            },
+            {
+              "label": {
+                "de": "Holztechnik",
+                "en": "Wood engineering"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04009"
+            },
+            {
+              "label": {
+                "de": "Informatik",
+                "en": "ICT"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/320"
+            },
+            {
+              "label": {
+                "de": "Interkulturelle Bildung",
+                "en": "Intercultural Education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/340"
+            },
+            {
+              "label": {
+                "de": "Italienisch",
+                "en": "Italian"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20004"
+            },
+            {
+              "label": {
+                "de": "Kunst",
+                "en": "Art education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/060"
+            },
+            {
+              "label": {
+                "de": "Körperpflege",
+                "en": "Body care"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04010"
+            },
+            {
+              "label": {
+                "de": "Latein",
+                "en": "Latin"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20005"
+            },
+            {
+              "label": {
+                "de": "Mathematik",
+                "en": "Mathematics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/380"
+            },
+            {
+              "label": {
+                "de": "Mechatronik",
+                "en": "Mechatronics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/oeh04010"
+            },
+            {
+              "label": {
+                "de": "Medienbildung",
+                "en": "media education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/900"
+            },
+            {
+              "label": {
+                "de": "Mediendidaktik",
+                "en": "Media education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/400"
+            },
+            {
+              "label": {
+                "de": "Metalltechnik",
+                "en": "Metal engineering"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04011"
+            },
+            {
+              "label": {
+                "de": "MINT",
+                "en": "MINT"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04003"
+            },
+            {
+              "label": {
+                "de": "Musik",
+                "en": "Music"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/420"
+            },
+            {
+              "label": {
+                "de": "Nachhaltigkeit",
+                "en": "Sustainability"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/64018"
+            },
+            {
+              "label": {
+                "de": "Niederdeutsch",
+                "en": "Platt German"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/niederdeutsch"
+            },
+            {
+              "label": {
+                "de": "Open Educational Resources",
+                "en": "Open Educational Resources"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/44099"
+            },
+            {
+              "label": {
+                "de": "Philosophie",
+                "en": "Philosophy"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/450"
+            },
+            {
+              "label": {
+                "de": "Physik",
+                "en": "Physics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/460"
+            },
+            {
+              "label": {
+                "de": "Politik",
+                "en": "Politics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/480"
+            },
+            {
+              "label": {
+                "de": "Psychologie",
+                "en": "Psychology"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/510"
+            },
+            {
+              "label": {
+                "de": "Religion",
+                "en": "Religious education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/520"
+            },
+            {
+              "label": {
+                "de": "Russisch",
+                "en": "Russian"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20006"
+            },
+            {
+              "label": {
+                "de": "Sachunterricht",
+                "en": "Homeland lessons"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/28010"
+            },
+            {
+              "label": {
+                "de": "Sexualerziehung",
+                "en": "Sex education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/560"
+            },
+            {
+              "label": {
+                "de": "Sonderpädagogik",
+                "en": "Special needs education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/44006"
+            },
+            {
+              "label": {
+                "de": "Sorbisch",
+                "en": "Sorbian"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20009"
+            },
+            {
+              "label": {
+                "de": "Sozialpädagogik",
+                "en": "Social education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/44007"
+            },
+            {
+              "label": {
+                "de": "Spanisch",
+                "en": "Spanish"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20007"
+            },
+            {
+              "label": {
+                "de": "Sport",
+                "en": "Physical education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/600"
+            },
+            {
+              "label": {
+                "de": "Textiltechnik und Bekleidung",
+                "en": "Textile technology and clothing"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04012"
+            },
+            {
+              "label": {
+                "de": "Türkisch",
+                "en": "Turkish"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/20008"
+            },
+            {
+              "label": {
+                "de": "Wirtschaft und Verwaltung",
+                "en": "Business and administration"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/04013"
+            },
+            {
+              "label": {
+                "de": "Wirtschaftskunde",
+                "en": "Economics"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/700"
+            },
+            {
+              "label": {
+                "de": "Umweltgefährdung, Umweltschutz",
+                "en": "Environmental education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/640"
+            },
+            {
+              "label": {
+                "de": "Verkehrserziehung",
+                "en": "Road safety education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/660"
+            },
+            {
+              "label": {
+                "de": "Weiterbildung",
+                "en": "Further education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/680"
+            },
+            {
+              "label": {
+                "de": "Werken",
+                "en": "Handicraft"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/50005"
+            },
+            {
+              "label": {
+                "de": "Zeitgemäße Bildung",
+                "en": "Modern education"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/72001"
+            },
+            {
+              "label": {
+                "de": "Projektmanagement",
+                "en": "Project management"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/72002"
+            },
+            {
+              "label": {
+                "de": "Sonstiges",
+                "en": "Other"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/discipline/999"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        }
+      }
+    },
+    {
+      "id": "oeh:new_lrt",
+      "group": "classification",
+      "label": {
+        "de": "Lernressourcentyp",
+        "en": "Learning Resource Type"
+      },
+      "description": {
+        "de": "Lernressourcentyp(e) aus dem SKOS-Vokabular. Nutze ausschließlich die Vokabular-Labels in exakt gleicher Schreibweise, einschließlich Mehrwort-Bezeichnungen oder Klammern.",
+        "en": "Learning resource type(s) from the SKOS vocabulary. Use the vocabulary labels exactly as listed, including multi-word labels and parentheses."
+      },
+      "prompt": {
+        "de": "Lernressourcentyp(en) aus dem SKOS-Vokabular. Verwende EXAKT die Labels, z.B. 'Video', 'Arbeitsblatt', 'Simulation', 'Kurs'.",
+        "en": "Learning resource type(s) from the SKOS vocabulary. Use EXACT labels, e.g. 'Video', 'Worksheet', 'Simulation', 'Course'."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "oeh:new_lrt",
+        "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/new_lrt/",
+          "concepts": [
+            {
+              "label": {
+                "de": "Material"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Dokumente und textbasierte Inhalte"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "sonstiges Buch und E-Book"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/01551356-a6a3-44fc-9662-7d366d7af0ac",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Checkliste"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/44868358-7b1f-42e4-a6b9-c3889d9d2623",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Anleitung"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/f61c6708-0427-4f0d-9c33-cec4253d2cad",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Webblog (dynamisch)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/5204fc81-5dac-4cc4-a28b-aad5c241fa19",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Skript, Handout und Handreichung"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/6a15628c-0e59-43e3-9fc5-9a7f7fa261c4",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Schülerarbeit und Studienarbeit"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/6abe9218-0f55-46ba-b4c8-af22a63e1bb7",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Wiki (dynamisch)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/6b9748e4-fb3b-4082-ae08-c7a11c717256",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Handbuch, Dokumentation und Regularien"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/776652a6-de35-4d2f-817e-6130dd2fa248",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Wort- und Vokabelliste"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/95f90f7d-0b59-4a1a-be67-7eb3e10b578a",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Lehrbuch und Grundlagenwerk (auch E-Book)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/a5897142-bf57-4cd0-bcd9-7d0f1932e87a",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Primärmaterial"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/ab5b99ea-551c-42f3-995b-e4b5f469ad7e",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Artikel und Einzelpublikation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/b98c0c8c-5696-4537-82fa-dded7236081e",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Nachschlagewerk und Glossareintrag"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/c022c920-c236-4234-bae1-e264a3e2bdf6",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Webseite"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/d8c3ef03-b3ab-4a5e-bcc9-5a546fefa2e9",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Noten"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/f7e92628-4132-4985-bcf5-93c285e300a8",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/0cef3ce9-e106-47ae-836a-48f9ed04384e"
+            },
+            {
+              "label": {
+                "de": "Audio"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/ec2682af-08a9-4ab1-a324-9dca5151e99f",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Erklär-Audio"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/0877626e-0cce-481a-b0ed-c64988ed5989",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/ec2682af-08a9-4ab1-a324-9dca5151e99f"
+            },
+            {
+              "label": {
+                "de": "Sprach- und Lernaudio"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/5dc0b5de-4c75-43aa-8366-fb6d7e3a7553",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/ec2682af-08a9-4ab1-a324-9dca5151e99f"
+            },
+            {
+              "label": {
+                "de": "Radio, Podcastfolge und Interview"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/6e821748-ad12-4ac1-bb14-9b54493e2c50",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/ec2682af-08a9-4ab1-a324-9dca5151e99f"
+            },
+            {
+              "label": {
+                "de": "Klang und Tonaufnahme"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/78cc5a71-5ae2-4fa3-be5f-5cef40c23328",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/ec2682af-08a9-4ab1-a324-9dca5151e99f"
+            },
+            {
+              "label": {
+                "de": "Musik"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/9c23511c-73d0-407b-b443-c93e36364de2",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/ec2682af-08a9-4ab1-a324-9dca5151e99f"
+            },
+            {
+              "label": {
+                "de": "Vortrag (Audio-Aufzeichnung / Lesung)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/e3ca3de5-faf2-4584-bc25-d5f9e784b2b4",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/ec2682af-08a9-4ab1-a324-9dca5151e99f"
+            },
+            {
+              "label": {
+                "de": "Hörverstehen"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/ed4f4834-c098-4b05-b27d-a9d9fbd31307",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/ec2682af-08a9-4ab1-a324-9dca5151e99f"
+            },
+            {
+              "label": {
+                "de": "Weiteres Material"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/213ed49d-f4b2-49b6-8a32-7e9261901ec5",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Unterrichtsplanung"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/7381f17f-50a6-4ce1-b3a0-9d85a482eec0",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Interaktives Medium"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/4665caac-99d7-4da3-b9fb-498d8ece034f",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Virtual Reality"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/11cd7e41-1d65-4de9-9ab8-de9530cac19e",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4665caac-99d7-4da3-b9fb-498d8ece034f"
+            },
+            {
+              "label": {
+                "de": "Simulation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/2e4157ad-e29a-4f10-b4e6-370e0fd59d26",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4665caac-99d7-4da3-b9fb-498d8ece034f"
+            },
+            {
+              "label": {
+                "de": "Animation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/2e67ce4e-49ce-468b-bd94-96a74e4832aa",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4665caac-99d7-4da3-b9fb-498d8ece034f"
+            },
+            {
+              "label": {
+                "de": "Augmented Reality"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/518ae9d5-2420-4567-b32d-f75c27e2cf70",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4665caac-99d7-4da3-b9fb-498d8ece034f"
+            },
+            {
+              "label": {
+                "de": "Lehr- und Lernmaterial"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Recherche- und Lernauftrag"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/1cac68e6-dafe-4ce4-a52f-f33cde26da59",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Projekt (Lehr- und Lernmaterial)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/22823ca9-7175-4b24-892e-19ebbf5fe0e7",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Arbeitsblatt"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/36e68792-6159-481d-a97b-2c00901f4f78",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Experiment (Lehr- und Lernmaterial)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/4735c61a-429b-4909-9f3c-cbf975e2aa0e",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Kurs"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Fallstudie"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/88da6c0d-e0f9-4f37-a382-5ed7e609de8d",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Präsentation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/92c7a50c-6243-45d9-8b11-e79cbbda6305",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Entdeckendes Lernen (Lehr- und Lernmaterial)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/9a86beb5-1a65-48ca-99c8-e8c789cfe2f8",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Übungsmaterial"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/a33ef73d-9210-4305-97f9-7357bbf43486",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Rollenspiel (Lehr- und Lernmaterial)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/ac82dc13-3be1-464d-9cdc-88e608d99c39",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Lernpfad, Lernobjekt"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/ad9b9299-0913-40fb-8ad3-50c5fd367b6a",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Lernspiel"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/b0495f44-b05d-4bde-9dc5-34d7b5234d76",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "offene und kreative Aktivität (Lehr- und Lernmaterial)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/68a43516-889e-4ce9-8e03-248307bd99ff",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/588efe4f-976f-48eb-84aa-8bcb45679f85"
+            },
+            {
+              "label": {
+                "de": "Bild (Material)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Veranschaulichung, Schaubild und Tafelbild"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/1dc4ed81-718c-4b76-86cb-947a86875973",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Mal- und Bastelvorlage"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/39db0dbd-cb6f-4153-910f-9f11177b48f2",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Cliparts, Pictogramme und Icons"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/3b8045af-8fc6-45b5-a352-db46893f7918",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Cartoon, Comic"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/667f5063-70b9-400c-b1f7-7702ec9487f1",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Karte"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/b6ceade0-58d3-4179-af71-d53ebc6e49d4",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Poster und Plakat"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/c382a478-74e0-42f1-96dd-fcfb5c27f746",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Gemälde, Kunstwerke und Zeichnungen"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/e3ddae8a-d94c-40d8-b7f7-9bdaf0cb8325",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Graph, Diagramm und Charts"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/f7228fb5-105d-4313-afea-66dd59b1b6f8",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Foto"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/f9630e1c-2247-42ed-87b0-b1e18e4ec02b",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/a6d1ac52-c557-4151-bc6f-0d99b0b96fb9"
+            },
+            {
+              "label": {
+                "de": "Video (Material)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/7a6e9608-2554-4981-95dc-47ab9ba924de",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Schul- und Bildungssendung (Material)"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/233d0527-7945-4acb-a174-5c23d24513a3",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/7a6e9608-2554-4981-95dc-47ab9ba924de"
+            },
+            {
+              "label": {
+                "de": "TV-Sendung und Video-Podcast"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/3616febb-8cf8-4503-8f80-ebc552d85506",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/7a6e9608-2554-4981-95dc-47ab9ba924de"
+            },
+            {
+              "label": {
+                "de": "Lern- und Übungsvideo"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/62a09b63-320e-4f4d-9da6-8cab9cdef55b",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/7a6e9608-2554-4981-95dc-47ab9ba924de"
+            },
+            {
+              "label": {
+                "de": "Erklärvideo und gefilmtes Experiment"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/a0218a48-a008-4975-a62a-27b1a83d454f",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/7a6e9608-2554-4981-95dc-47ab9ba924de"
+            },
+            {
+              "label": {
+                "de": "Vortrags- und Unterrichtsaufzeichnung"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/facc2239-a827-462a-b2d2-bbab6cfb1178",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/7a6e9608-2554-4981-95dc-47ab9ba924de"
+            },
+            {
+              "label": {
+                "de": "Test und Fragebogen"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/cd625d33-5d7b-4a86-a54a-9a897ded729f",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Selbst-Testaufgabe"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/29f0d682-38c6-4a64-a1fa-04e673c28128",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/cd625d33-5d7b-4a86-a54a-9a897ded729f"
+            },
+            {
+              "label": {
+                "de": "Lösungs(beispiel) und Erwartungshorizont"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/7c236821-bfae-4eeb-bc79-590bf8ea1d96",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/cd625d33-5d7b-4a86-a54a-9a897ded729f"
+            },
+            {
+              "label": {
+                "de": "Klausur, Klassenarbeit und Test"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/9cf3c183-f37c-4b6b-8beb-65f530595dff",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/cd625d33-5d7b-4a86-a54a-9a897ded729f"
+            },
+            {
+              "label": {
+                "de": "Fragebogen und Umfrage"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/d31a5b68-611f-4015-8be9-56bd5eb44c64",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/cd625d33-5d7b-4a86-a54a-9a897ded729f"
+            },
+            {
+              "label": {
+                "de": "Textbaustein zum Wiederverwenden"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/67f579a9-382c-497f-8b5b-06d95638aa0d",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/1846d876-d8fd-476a-b540-b8ffd713fedb"
+            },
+            {
+              "label": {
+                "de": "Darstellung Sachverhalt"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/5bba65b9-fe31-41b9-bb71-a7a2090c7b98",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/67f579a9-382c-497f-8b5b-06d95638aa0d"
+            },
+            {
+              "label": {
+                "de": "Definition"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/6a360309-969b-46ce-a7a2-566051587ce8",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/67f579a9-382c-497f-8b5b-06d95638aa0d"
+            },
+            {
+              "label": {
+                "de": "Merksatz"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/6eb493be-e072-4afc-a5b4-aea34beeca70",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/67f579a9-382c-497f-8b5b-06d95638aa0d"
+            },
+            {
+              "label": {
+                "de": "(Wirkungs-) Zusammenhang und Gesetzmäßigkeit"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/9f47559b-fb38-423e-9184-ea517446d027",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/67f579a9-382c-497f-8b5b-06d95638aa0d"
+            },
+            {
+              "label": {
+                "de": "Regelung und Vorgabe"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/aa7b0bde-b41e-4e75-944b-bfd6ccbe359c",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/67f579a9-382c-497f-8b5b-06d95638aa0d"
+            },
+            {
+              "label": {
+                "de": "Fakt"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/affb1113-d4a0-417a-b809-575048fb358e",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/67f579a9-382c-497f-8b5b-06d95638aa0d"
+            },
+            {
+              "label": {
+                "de": "Beispiel"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/e6ae7ead-4379-4b6d-b1c4-e30b57e69f3d",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/67f579a9-382c-497f-8b5b-06d95638aa0d"
+            },
+            {
+              "label": {
+                "de": "Sprachkurs"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/8d5195dd-2e48-44d4-a9c1-6bccbf85ec96",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1"
+            },
+            {
+              "label": {
+                "de": "Fachkurs"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/8e157383-9ca3-4e20-849d-0881b648fd99",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1"
+            },
+            {
+              "label": {
+                "de": "Propädeutika"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/ff20ae9f-5d83-4f29-ba4f-993cbd743e5c",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1"
+            },
+            {
+              "label": {
+                "de": "Soft Skills"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/89abe72e-d4c6-4797-ac36-175cfce25107",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1"
+            },
+            {
+              "label": {
+                "de": "Business Skills"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/b0774ec7-49c0-49e0-8093-dce3ee6d02a0",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1"
+            },
+            {
+              "label": {
+                "de": "Digital Skills"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/4d64241b-3d8c-4d67-b9fe-9970f240d991",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1"
+            },
+            {
+              "label": {
+                "de": "Academic Skills"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/6f030e55-6193-4587-a374-d002cd43d787",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1"
+            },
+            {
+              "label": {
+                "de": "Career Skills"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/9ac858a9-fc06-41a1-a18e-faf7a1525198",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/4e16015a-7862-49ed-9b5e-6c1c6e0ffcd1"
+            },
+            {
+              "label": {
+                "de": "Nachricht und Neuigkeit"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/dc5763ab-6f47-4aa3-9ff3-1303efbeef6e",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/213ed49d-f4b2-49b6-8a32-7e9261901ec5"
+            },
+            {
+              "label": {
+                "de": "Fachliche News"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/0f519bd5-069c-4d32-b6d3-a373ac96724c",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/dc5763ab-6f47-4aa3-9ff3-1303efbeef6e"
+            },
+            {
+              "label": {
+                "de": "Alltags News"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/49f02705-6e39-4071-aaaf-1f9bad1d01f0",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/dc5763ab-6f47-4aa3-9ff3-1303efbeef6e"
+            },
+            {
+              "label": {
+                "de": "Pädagogische News"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/new_lrt/e1283c68-4a06-47ae-9965-0e664fd36abf",
+              "broader": "http://w3id.org/openeduhub/vocabs/new_lrt/dc5763ab-6f47-4aa3-9ff3-1303efbeef6e"
+            }
+          ],
+          "hierarchical": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:educationalintendedenduserrole",
+      "group": "education",
+      "label": {
+        "de": "Zielgruppe",
+        "en": "Intended Audience"
+      },
+      "description": {
+        "de": "Zielgruppe(n) auswählen",
+        "en": "Select target audience(s)"
+      },
+      "prompt": {
+        "de": "Bestimme die Zielgruppe(n) der Ressource. Wähle NUR aus den vorgegebenen Vokabular-URIs – erfinde keine eigenen. Typische Zuordnungen: Unterrichtsmaterialien → Lehrer/in + Lerner/in; Elternratgeber → Eltern; Verwaltungsvorlagen → Verwaltung. Mehrfachauswahl möglich. Gib URIs als JSON-Array zurück. Beispiele: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent'].",
+        "en": "Determine the target audience(s). Choose ONLY from provided vocabulary URIs – do not invent new ones. Typical mappings: teaching materials → teacher + learner; parent guides → parent; admin templates → manager. Multiple selections allowed. Return URIs as JSON array. Examples: ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher', 'http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner'], ['http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent']."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "ccm:educationalintendedenduserrole",
+        "uri": "ccm:educationalintendedenduserrole",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/",
+          "concepts": [
+            {
+              "label": {
+                "de": "Autor/in",
+                "en": "author"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/author"
+            },
+            {
+              "label": {
+                "de": "Berater/in",
+                "en": "counsellor"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/counsellor"
+            },
+            {
+              "label": {
+                "de": "Lerner/in",
+                "en": "learner"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/learner"
+            },
+            {
+              "label": {
+                "de": "Verwaltung",
+                "en": "manager"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/manager"
+            },
+            {
+              "label": {
+                "de": "Eltern",
+                "en": "parent"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/parent"
+            },
+            {
+              "label": {
+                "de": "Lehrer/in",
+                "en": "teacher"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/teacher"
+            },
+            {
+              "label": {
+                "de": "andere",
+                "en": "other"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/intendedEndUserRole/other"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        }
+      }
+    }
+  ],
+  "output_template": {
+    "cclom:title": "",
+    "cclom:general_description": "",
+    "cclom:general_keyword": [],
+    "ccm:wwwurl": "",
+    "preview:url": "",
+    "cclom:general_language": "",
+    "ccm:oeh_extendedType": [],
+    "ccm:educationalcontext": [],
+    "ccm:taxonid": [],
+    "oeh:new_lrt": [],
+    "ccm:educationalintendedenduserrole": []
+  }
+}

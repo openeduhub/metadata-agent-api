@@ -2,21 +2,20 @@
 
 ## Container Image
 
-Das Image wird automatisch bei jedem Push auf `main` und bei neuen Tags gebaut und zu Docker Hub gepusht:
+Das Image wird automatisch bei jedem Push auf `main`/`develop` und bei neuen Tags gebaut und in die interne Registry gepusht:
 
 ```
-openeduhub/metadata-agent-api
+$DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api
 ```
-
-**Docker Hub:** https://hub.docker.com/r/openeduhub/metadata-agent-api
 
 **Verfügbare Tags:**
 - `main` — aktueller Stand von `main`
+- `develop` — aktueller Stand von `develop`
 - `v2.0.0` — spezifische Version (bei Git-Tag `v2.0.0`)
 
 **Pull:**
 ```bash
-docker pull openeduhub/metadata-agent-api:main
+docker pull $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
 ```
 
 ---
@@ -30,7 +29,7 @@ docker run -d \
   -e B_API_KEY=<key> \
   -e WLO_GUEST_USERNAME=<user> \
   -e WLO_GUEST_PASSWORD=<pass> \
-  openeduhub/metadata-agent-api:main
+  $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
 ```
 
 ---
@@ -140,7 +139,7 @@ spec:
     spec:
       containers:
         - name: metadata-agent-api
-          image: openeduhub/metadata-agent-api:main
+          image: $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
           ports:
             - containerPort: 8000
           env:

@@ -1,13 +1,13 @@
 """FastAPI application for metadata extraction."""
-import re
+
 import json
 import time
 from pathlib import Path
 import httpx
-from fastapi import FastAPI, HTTPException, Request, Body
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.utils import get_openapi
 from contextlib import asynccontextmanager
@@ -16,7 +16,6 @@ from .config import get_settings
 from .models.schemas import (
     GenerateRequest,
     GenerateResponse,
-    ProcessingInfo,
     ValidateRequest,
     ValidateResponse,
     ExportMarkdownRequest,
@@ -35,15 +34,11 @@ from .models.schemas import (
     DetectContentTypeResponse,
     ContentTypeInfo,
     LocalizedString,
-    sanitize_text,
     ExtractFieldRequest,
     ExtractFieldResponse,
     InputSource,
-    Repository,
-    ExtractionMethod,
     ScreenshotRequest,
     ScreenshotResponse,
-    ScreenshotMethod,
 )
 from .services.input_source_service import get_input_source_service
 from .services.metadata_service import get_metadata_service
@@ -70,45 +65,45 @@ def sanitize_json_string(raw_body: str) -> str:
     Handles multi-line text input that wasn't properly escaped.
     """
     # Remove BOM if present
-    raw_body = raw_body.lstrip('\ufeff')
-    
+    raw_body = raw_body.lstrip("\ufeff")
+
     # First, try to parse as-is
     try:
         json.loads(raw_body)
         return raw_body  # Already valid JSON
     except json.JSONDecodeError:
         pass
-    
+
     # Escape literal newlines and tabs inside JSON strings
     # This handles cases where users paste multi-line text without escaping
     result = []
     in_string = False
     escape_next = False
-    
+
     for char in raw_body:
         if escape_next:
             result.append(char)
             escape_next = False
             continue
-        
-        if char == '\\':
+
+        if char == "\\":
             result.append(char)
             escape_next = True
             continue
-        
+
         if char == '"':
             in_string = not in_string
             result.append(char)
             continue
-        
+
         if in_string:
             # Escape control characters inside strings
-            if char == '\n':
-                result.append('\\n')
-            elif char == '\r':
-                result.append('\\r')
-            elif char == '\t':
-                result.append('\\t')
+            if char == "\n":
+                result.append("\\n")
+            elif char == "\r":
+                result.append("\\r")
+            elif char == "\t":
+                result.append("\\t")
             elif ord(char) < 32:
                 # Remove other control characters
                 pass
@@ -116,8 +111,8 @@ def sanitize_json_string(raw_body: str) -> str:
                 result.append(char)
         else:
             result.append(char)
-    
-    return ''.join(result)
+
+    return "".join(result)
 
 
 @asynccontextmanager
@@ -131,17 +126,20 @@ async def lifespan(app: FastAPI):
     print(f"LLM Model: {llm_config['model']}")
     print(f"LLM API Base: {llm_config['api_base']}")
     print(f"Default Workers: {settings.default_max_workers}")
-    
+
     yield
-    
+
     # Shutdown - close HTTP clients
     from .services.llm_service import _llm_service
+
     if _llm_service:
         await _llm_service.close()
     from .services.metadata_service import _metadata_service
+
     if _metadata_service and _metadata_service.llm_service:
         await _metadata_service.llm_service.close()
     from .services.input_source_service import _input_source_service
+
     if _input_source_service:
         await _input_source_service.close()
     print("Shutting down...")
@@ -169,6 +167,7 @@ API-Key wird über den Header `X-API-Key` oder als Bearer Token übergeben.
     lifespan=lifespan,
 )
 
+
 # Custom OpenAPI schema: inject request models that are referenced via $ref
 # but not auto-registered because endpoints use raw Request instead of Pydantic params
 def custom_openapi():
@@ -182,9 +181,18 @@ def custom_openapi():
     )
     # Inject missing request schemas
     schemas = openapi_schema.setdefault("components", {}).setdefault("schemas", {})
-    for model in [GenerateRequest, DetectContentTypeRequest, ExtractFieldRequest,
-                  ValidateRequest, ExportMarkdownRequest, UploadRequest, VerifyRequest]:
-        model_schema = model.model_json_schema(ref_template="#/components/schemas/{model}")
+    for model in [
+        GenerateRequest,
+        DetectContentTypeRequest,
+        ExtractFieldRequest,
+        ValidateRequest,
+        ExportMarkdownRequest,
+        UploadRequest,
+        VerifyRequest,
+    ]:
+        model_schema = model.model_json_schema(
+            ref_template="#/components/schemas/{model}"
+        )
         # Extract $defs (sub-schemas like enums) and merge into top-level schemas
         defs = model_schema.pop("$defs", {})
         for def_name, def_schema in defs.items():
@@ -193,10 +201,15 @@ def custom_openapi():
     app.openapi_schema = openapi_schema
     return openapi_schema
 
+
 app.openapi = custom_openapi
 
 # CORS middleware - origins configurable via METADATA_AGENT_CORS_ORIGINS env var
-_cors_origins = [o.strip() for o in settings.cors_origins.split(",")] if settings.cors_origins != "*" else ["*"]
+_cors_origins = (
+    [o.strip() for o in settings.cors_origins.split(",")]
+    if settings.cors_origins != "*"
+    else ["*"]
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_cors_origins,
@@ -215,10 +228,17 @@ app.add_middleware(GZipMiddleware, minimum_size=500)
 # Mount widget dist files if they exist
 _widget_dir = Path(__file__).parent / "static" / "widget"
 if _widget_dir.exists():
-    app.mount("/widget/assets", StaticFiles(directory=str(_widget_dir / "assets")), name="widget-assets") if (_widget_dir / "assets").exists() else None
-    app.mount("/widget/examples", StaticFiles(directory=str(_widget_dir / "examples"), html=True), name="widget-examples") if (_widget_dir / "examples").exists() else None
+    app.mount(
+        "/widget/examples",
+        StaticFiles(directory=str(_widget_dir / "examples"), html=True),
+        name="widget-examples",
+    ) if (_widget_dir / "examples").exists() else None
     if (_widget_dir / "dist").exists():
-        app.mount("/widget/dist", StaticFiles(directory=str(_widget_dir / "dist")), name="widget-dist")
+        app.mount(
+            "/widget/dist",
+            StaticFiles(directory=str(_widget_dir / "dist")),
+            name="widget-dist",
+        )
 
 
 @app.get(
@@ -232,10 +252,12 @@ async def widget_i18n(lang: str):
     i18n_dir = Path(__file__).parent / "static" / "widget" / "assets" / "i18n"
     file_path = i18n_dir / f"{lang}.json"
     if not file_path.exists():
-        raise HTTPException(status_code=404, detail=f"Language '{lang}' not found. Available: de, en")
+        raise HTTPException(
+            status_code=404, detail=f"Language '{lang}' not found. Available: de, en"
+        )
     return JSONResponse(
         content=json.loads(file_path.read_text(encoding="utf-8")),
-        headers={"Cache-Control": "public, max-age=3600"}
+        headers={"Cache-Control": "public, max-age=3600"},
     )
 
 
@@ -253,12 +275,12 @@ async def widget_info(request: Request):
     base = str(request.base_url).rstrip("/")
     dist_base = f"{base}/widget/dist"
     examples_base = f"{base}/widget/examples"
-    
+
     return {
         "name": "metadata-agent-canvas",
         "version": settings.app_version,
         "description": "Angular Web Component zur Anzeige und Bearbeitung von Metadaten. "
-                       "Kann als <metadata-agent-canvas> Tag in beliebige Webanwendungen eingebettet werden.",
+        "Kann als <metadata-agent-canvas> Tag in beliebige Webanwendungen eingebettet werden.",
         "dist_base_url": dist_base,
         "scripts": {
             "required": [
@@ -277,20 +299,20 @@ async def widget_info(request: Request):
         "variants": {
             "full": {
                 "description": "Volle Webkomponente mit Eingabebereich, KI-Extraktion, Statusbar und allen Layouts. "
-                               "Für interaktive Metadaten-Erfassung und -Bearbeitung.",
+                "Für interaktive Metadaten-Erfassung und -Bearbeitung.",
                 "example_url": f"{examples_base}/full.html",
                 "snippet": (
                     '<link rel="stylesheet" href="' + dist_base + '/styles.css">\n'
                     '<script src="' + dist_base + '/runtime.js" defer></script>\n'
                     '<script src="' + dist_base + '/polyfills.js" defer></script>\n'
                     '<script src="' + dist_base + '/main.js" defer></script>\n\n'
-                    '<metadata-agent-canvas\n'
+                    "<metadata-agent-canvas\n"
                     '  api-url="' + base + '"\n'
                     '  layout="default"\n'
                     '  show-input="true"\n'
                     '  show-status-bar="true"\n'
                     '  show-controls="true">\n'
-                    '</metadata-agent-canvas>'
+                    "</metadata-agent-canvas>"
                 ),
                 "attributes": {
                     "api-url": "URL der Metadata Agent API",
@@ -312,38 +334,38 @@ async def widget_info(request: Request):
             },
             "detail": {
                 "description": "Nur-Lese Detailansicht. Mehrspaltig, ohne Eingabe. "
-                               "Für Repository-Detailseiten und Metadaten-Vorschau.",
+                "Für Repository-Detailseiten und Metadaten-Vorschau.",
                 "example_url": f"{examples_base}/detail.html",
                 "snippet": (
                     '<link rel="stylesheet" href="' + dist_base + '/styles.css">\n'
                     '<script src="' + dist_base + '/runtime.js" defer></script>\n'
                     '<script src="' + dist_base + '/polyfills.js" defer></script>\n'
                     '<script src="' + dist_base + '/main.js" defer></script>\n\n'
-                    '<metadata-agent-canvas\n'
+                    "<metadata-agent-canvas\n"
                     '  api-url="' + base + '"\n'
                     '  layout="detail"\n'
                     '  node-id="DEINE-NODE-ID"\n'
                     '  readonly="true">\n'
-                    '</metadata-agent-canvas>'
+                    "</metadata-agent-canvas>"
                 ),
             },
             "minimal": {
                 "description": "Kompakte Variante ohne Statusbar und Controls. "
-                               "Für Einbettung in bestehende Formulare oder Sidebars.",
+                "Für Einbettung in bestehende Formulare oder Sidebars.",
                 "example_url": f"{examples_base}/minimal.html",
                 "snippet": (
                     '<link rel="stylesheet" href="' + dist_base + '/styles.css">\n'
                     '<script src="' + dist_base + '/runtime.js" defer></script>\n'
                     '<script src="' + dist_base + '/polyfills.js" defer></script>\n'
                     '<script src="' + dist_base + '/main.js" defer></script>\n\n'
-                    '<metadata-agent-canvas\n'
+                    "<metadata-agent-canvas\n"
                     '  api-url="' + base + '"\n'
                     '  layout="compact"\n'
                     '  show-input="true"\n'
                     '  show-status-bar="false"\n'
                     '  show-controls="false"\n'
                     '  borderless="true">\n'
-                    '</metadata-agent-canvas>'
+                    "</metadata-agent-canvas>"
                 ),
             },
         },
@@ -374,10 +396,11 @@ async def widget_info(request: Request):
 # Health & Info Endpoints
 # ============================================================================
 
+
 @app.get(
     "/health",
     summary="Health Check",
-    description="Prüft ob die API läuft und gibt die aktuelle Version zurück."
+    description="Prüft ob die API läuft und gibt die aktuelle Version zurück.",
 )
 async def health_check():
     """Health check endpoint."""
@@ -385,7 +408,7 @@ async def health_check():
 
 
 @app.get(
-    "/info/schemata", 
+    "/info/schemata",
     response_model=SchemataInfoResponse,
     summary="Verfügbare Schema-Kontexte",
     description="""Listet alle verfügbaren Schema-Kontexte mit ihren Versionen auf.
@@ -398,12 +421,12 @@ async def health_check():
 ## Verwendung
 
 Nutze diese Info um gültige Werte für `context` und `version` in anderen Endpoints zu finden.
-"""
+""",
 )
 async def get_schemata_info():
     """Get information about available schemata."""
     contexts = get_available_contexts()
-    
+
     return SchemataInfoResponse(
         contexts=[
             ContextInfo(
@@ -419,7 +442,7 @@ async def get_schemata_info():
 
 
 @app.get(
-    "/info/schemas/{context}/{version}", 
+    "/info/schemas/{context}/{version}",
     response_model=list[SchemaInfo],
     summary="Schemas für Kontext/Version",
     description="""Listet alle verfügbaren Schemas (Content-Types) für einen Kontext und Version.
@@ -437,7 +460,7 @@ Liste von Schemas mit:
 - **label**: Mehrsprachiges Label
 - **groups**: Anzahl Feldgruppen
 - **field_count**: Anzahl Felder
-"""
+""",
 )
 async def get_schemas_for_version(context: str, version: str):
     """Get available schemas for a context and version."""
@@ -474,7 +497,7 @@ Vollständiges Schema mit:
 - **fields**: Alle Felder mit ID, Label, Typ, Vokabular etc.
 - **groups**: Feldgruppen für UI-Anzeige
 - **metadata**: Schema-Metadaten
-"""
+""",
 )
 async def get_schema_definition(context: str, version: str, schema_file: str):
     """Get full schema definition."""
@@ -488,6 +511,7 @@ async def get_schema_definition(context: str, version: str, schema_file: str):
 # ============================================================================
 # Content Type Detection
 # ============================================================================
+
 
 @app.post(
     "/detect-content-type",
@@ -552,8 +576,8 @@ async def get_schema_definition(context: str, version: str, schema_file: str):
                                 "version": "latest",
                                 "language": "de",
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
-                            }
+                                "llm_model": "gpt-4.1-mini",
+                            },
                         },
                         "url_input": {
                             "summary": "2. URL-Eingabe",
@@ -570,8 +594,8 @@ async def get_schema_definition(context: str, version: str, schema_file: str):
                                 "version": "latest",
                                 "language": "de",
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
-                            }
+                                "llm_model": "gpt-4.1-mini",
+                            },
                         },
                         "node_id_input": {
                             "summary": "3. NodeID-Eingabe",
@@ -588,24 +612,24 @@ async def get_schema_definition(context: str, version: str, schema_file: str):
                                 "version": "latest",
                                 "language": "de",
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
-                            }
-                        }
-                    }
+                                "llm_model": "gpt-4.1-mini",
+                            },
+                        },
+                    },
                 }
             }
         }
-    }
+    },
 )
 async def detect_content_type(req: DetectContentTypeRequest):
     """
     Detect content type from text using LLM.
-    
+
     Returns the detected content type along with all available content types
     for the specified context and version.
     """
     start_time = time.time()
-    
+
     # Handle input source
     text = req.text
     if req.input_source != InputSource.TEXT:
@@ -613,24 +637,44 @@ async def detect_content_type(req: DetectContentTypeRequest):
         try:
             if req.input_source == InputSource.URL:
                 if not req.source_url:
-                    raise HTTPException(status_code=400, detail="source_url required for input_source='url'")
-                extracted_text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language, output_format=req.output_format.value)
+                    raise HTTPException(
+                        status_code=400,
+                        detail="source_url required for input_source='url'",
+                    )
+                extracted_text = await input_service.fetch_from_url(
+                    req.source_url,
+                    req.extraction_method.value,
+                    lang=req.language,
+                    output_format=req.output_format.value,
+                )
                 # Prepend source URL so LLM can use URL path signals for classification
                 text = f"Quell-URL / Source URL: {req.source_url}\n\n{extracted_text}"
             elif req.input_source == InputSource.NODE_ID:
                 if not req.node_id:
-                    raise HTTPException(status_code=400, detail="node_id required for input_source='node_id'")
-                input_data = await input_service.fetch_from_node_id(req.node_id, req.repository.value)
+                    raise HTTPException(
+                        status_code=400,
+                        detail="node_id required for input_source='node_id'",
+                    )
+                input_data = await input_service.fetch_from_node_id(
+                    req.node_id, req.repository.value
+                )
                 if input_data.source_url:
                     text = f"Quell-URL / Source URL: {input_data.source_url}\n\n{input_data.text}"
                 else:
                     text = input_data.text
             elif req.input_source == InputSource.NODE_URL:
                 if not req.node_id:
-                    raise HTTPException(status_code=400, detail="node_id required for input_source='node_url'")
+                    raise HTTPException(
+                        status_code=400,
+                        detail="node_id required for input_source='node_url'",
+                    )
                 input_data = await input_service.fetch_from_node_url(
-                    req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value,
-                    lang=req.language, output_format=req.output_format.value
+                    req.node_id,
+                    req.repository.value,
+                    req.source_url or None,
+                    req.extraction_method.value,
+                    lang=req.language,
+                    output_format=req.output_format.value,
                 )
                 source_url_info = input_data.source_url or req.source_url
                 if source_url_info:
@@ -640,59 +684,64 @@ async def detect_content_type(req: DetectContentTypeRequest):
         except HTTPException:
             raise
         except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Failed to fetch input: {str(e)}")
-    
+            raise HTTPException(
+                status_code=400, detail=f"Failed to fetch input: {str(e)}"
+            )
+
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty")
-    
+
     # Truncate excessively long text to prevent exceeding LLM context window
     MAX_TEXT_LENGTH = 500_000
     if len(text) > MAX_TEXT_LENGTH:
         text = text[:MAX_TEXT_LENGTH]
-    
+
     # Resolve "latest" to actual version
     version = req.version
     if version == "latest" or not version:
         version = get_latest_version(req.context)
-    
+
     # Get available content types
     content_types = get_content_types(req.context, version)
-    
+
     if not content_types:
         raise HTTPException(
             status_code=404,
-            detail=f"No content types defined for context '{req.context}' version '{version}'"
+            detail=f"No content types defined for context '{req.context}' version '{version}'",
         )
-    
+
     # Build available list
     available = []
     for ct in content_types:
         schema_file = ct.get("schema_file", "")
-        available.append(ContentTypeInfo(
-            schema_file=schema_file,
-            uri=ct.get("uri") or None,
-            profile_id=ct.get("profile_id"),
-            label=LocalizedString(
-                de=ct.get("label", {}).get("de", schema_file),
-                en=ct.get("label", {}).get("en", schema_file)
-            ),
-            confidence=None
-        ))
-    
+        available.append(
+            ContentTypeInfo(
+                schema_file=schema_file,
+                uri=ct.get("uri") or None,
+                profile_id=ct.get("profile_id"),
+                label=LocalizedString(
+                    de=ct.get("label", {}).get("de", schema_file),
+                    en=ct.get("label", {}).get("en", schema_file),
+                ),
+                confidence=None,
+            )
+        )
+
     # Use LLM to detect content type (with optional overrides)
     service = get_metadata_service(
-        llm_provider=req.llm_provider,
-        llm_model=req.llm_model
+        llm_provider=req.llm_provider, llm_model=req.llm_model
     )
-    prompt_hint = get_content_type_prompt(req.context or "default", req.version or "latest", req.language)
+    prompt_hint = get_content_type_prompt(
+        req.context or "default", req.version or "latest", req.language
+    )
     detected_schema = await service.llm_service.detect_content_type(
         text, content_types, req.language, prompt_hint=prompt_hint
     )
-    
+
     # Close non-default LLM service HTTP client to prevent leak
     if req.llm_provider is not None or req.llm_model is not None:
         await service.llm_service.close()
-    
+
     # Find the detected content type info
     detected_info = None
     for ct in content_types:
@@ -703,12 +752,12 @@ async def detect_content_type(req: DetectContentTypeRequest):
                 profile_id=ct.get("profile_id"),
                 label=LocalizedString(
                     de=ct.get("label", {}).get("de", detected_schema),
-                    en=ct.get("label", {}).get("en", detected_schema)
+                    en=ct.get("label", {}).get("en", detected_schema),
                 ),
-                confidence="high"
+                confidence="high",
             )
             break
-    
+
     if not detected_info:
         # Fallback if detection returned unknown schema
         detected_info = ContentTypeInfo(
@@ -716,23 +765,24 @@ async def detect_content_type(req: DetectContentTypeRequest):
             uri=None,
             profile_id=None,
             label=LocalizedString(de=detected_schema, en=detected_schema),
-            confidence="low"
+            confidence="low",
         )
-    
+
     processing_time = int((time.time() - start_time) * 1000)
-    
+
     return DetectContentTypeResponse(
         detected=detected_info,
         available=available,
         context=req.context,
         version=version,
-        processing_time_ms=processing_time
+        processing_time_ms=processing_time,
     )
 
 
 # ============================================================================
 # Single Field Extraction
 # ============================================================================
+
 
 @app.post(
     "/extract-field",
@@ -808,8 +858,8 @@ async def detect_content_type(req: DetectContentTypeRequest):
                                 "language": "de",
                                 "normalize": True,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
-                            }
+                                "llm_model": "gpt-4.1-mini",
+                            },
                         },
                         "url_input": {
                             "summary": "2. URL-Eingabe",
@@ -830,8 +880,8 @@ async def detect_content_type(req: DetectContentTypeRequest):
                                 "language": "de",
                                 "normalize": True,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
-                            }
+                                "llm_model": "gpt-4.1-mini",
+                            },
                         },
                         "node_id_input": {
                             "summary": "3. NodeID-Eingabe",
@@ -852,8 +902,8 @@ async def detect_content_type(req: DetectContentTypeRequest):
                                 "language": "de",
                                 "normalize": True,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
-                            }
+                                "llm_model": "gpt-4.1-mini",
+                            },
                         },
                         "feld_korrigieren": {
                             "summary": "4. Feld korrigieren",
@@ -870,62 +920,87 @@ async def detect_content_type(req: DetectContentTypeRequest):
                                 "version": "latest",
                                 "schema_file": "event.json",
                                 "field_id": "schema:startDate",
-                                "existing_metadata": {"schema:startDate": "2025-03-15T00:00"},
+                                "existing_metadata": {
+                                    "schema:startDate": "2025-03-15T00:00"
+                                },
                                 "language": "de",
                                 "normalize": True,
                                 "llm_provider": "b-api-openai",
-                                "llm_model": "gpt-4.1-mini"
-                            }
-                        }
-                    }
+                                "llm_model": "gpt-4.1-mini",
+                            },
+                        },
+                    },
                 }
             }
         }
-    }
+    },
 )
 async def extract_field(req: ExtractFieldRequest):
     """
     Extract a single field from text.
-    
+
     Use this endpoint to:
     - Fix individual fields without full re-extraction
     - Test different LLM models on specific fields
     - Update a single field with new information
-    
+
     The extraction uses the same LLM pipeline as /generate but for one field only.
     Normalization is applied by default (dates, vocabularies, etc.).
     """
     start_time = time.time()
-    
+
     # Handle input source
     text = req.text
     existing_metadata = req.existing_metadata or {}
-    
+
     if req.input_source != InputSource.TEXT:
         input_service = get_input_source_service()
         try:
             if req.input_source == InputSource.URL:
                 if not req.source_url:
-                    raise HTTPException(status_code=400, detail="source_url required for input_source='url'")
-                extracted_text = await input_service.fetch_from_url(req.source_url, req.extraction_method.value, lang=req.language, output_format=req.output_format.value)
+                    raise HTTPException(
+                        status_code=400,
+                        detail="source_url required for input_source='url'",
+                    )
+                extracted_text = await input_service.fetch_from_url(
+                    req.source_url,
+                    req.extraction_method.value,
+                    lang=req.language,
+                    output_format=req.output_format.value,
+                )
                 text = f"Quell-URL / Source URL: {req.source_url}\n\n{extracted_text}"
             elif req.input_source == InputSource.NODE_ID:
                 if not req.node_id:
-                    raise HTTPException(status_code=400, detail="node_id required for input_source='node_id'")
-                input_data = await input_service.fetch_from_node_id(req.node_id, req.repository.value)
+                    raise HTTPException(
+                        status_code=400,
+                        detail="node_id required for input_source='node_id'",
+                    )
+                input_data = await input_service.fetch_from_node_id(
+                    req.node_id, req.repository.value
+                )
                 # Prepend source URL if available (from ccm:wwwurl) so LLM can use it
                 if input_data.source_url:
                     text = f"Quell-URL / Source URL: {input_data.source_url}\n\n{input_data.text}"
                 else:
                     text = input_data.text
                 if input_data.existing_metadata:
-                    existing_metadata = {**input_data.existing_metadata, **existing_metadata}
+                    existing_metadata = {
+                        **input_data.existing_metadata,
+                        **existing_metadata,
+                    }
             elif req.input_source == InputSource.NODE_URL:
                 if not req.node_id:
-                    raise HTTPException(status_code=400, detail="node_id required for input_source='node_url'")
+                    raise HTTPException(
+                        status_code=400,
+                        detail="node_id required for input_source='node_url'",
+                    )
                 input_data = await input_service.fetch_from_node_url(
-                    req.node_id, req.repository.value, req.source_url or None, req.extraction_method.value,
-                    lang=req.language, output_format=req.output_format.value
+                    req.node_id,
+                    req.repository.value,
+                    req.source_url or None,
+                    req.extraction_method.value,
+                    lang=req.language,
+                    output_format=req.output_format.value,
                 )
                 source_url_info = input_data.source_url or req.source_url
                 if source_url_info:
@@ -933,45 +1008,52 @@ async def extract_field(req: ExtractFieldRequest):
                 else:
                     text = input_data.text
                 if input_data.existing_metadata:
-                    existing_metadata = {**input_data.existing_metadata, **existing_metadata}
+                    existing_metadata = {
+                        **input_data.existing_metadata,
+                        **existing_metadata,
+                    }
         except HTTPException:
             raise
         except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Failed to fetch input: {str(e)}")
-    
+            raise HTTPException(
+                status_code=400, detail=f"Failed to fetch input: {str(e)}"
+            )
+
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty")
-    
+
     # Truncate excessively long text to prevent exceeding LLM context window
     MAX_TEXT_LENGTH = 500_000
     if len(text) > MAX_TEXT_LENGTH:
         text = text[:MAX_TEXT_LENGTH]
-    
+
     # Resolve "latest" to actual version
     version = req.version
     if version == "latest" or not version:
         version = get_latest_version(req.context)
-    
+
     # Resolve schema_file: accept URI or filename
     resolved_schema_file = req.schema_file
     try:
-        resolved_schema_file = resolve_schema_file_or_uri(req.schema_file, req.context, version)
+        resolved_schema_file = resolve_schema_file_or_uri(
+            req.schema_file, req.context, version
+        )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
+
     # Load schema to get field definition
     try:
         schema = load_schema(req.context, version, resolved_schema_file)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
-    
+
     # Find the field in the schema
     field_def = None
     for field in schema.get("fields", []):
         if field.get("id") == req.field_id:
             field_def = field
             break
-    
+
     if not field_def:
         # Also check core.json if not found
         try:
@@ -982,24 +1064,23 @@ async def extract_field(req: ExtractFieldRequest):
                     break
         except Exception:
             pass
-    
+
     if not field_def:
         raise HTTPException(
             status_code=404,
-            detail=f"Field '{req.field_id}' not found in schema '{resolved_schema_file}' or core.json"
+            detail=f"Field '{req.field_id}' not found in schema '{resolved_schema_file}' or core.json",
         )
-    
+
     # Get LLM service with optional overrides
     llm_service = get_llm_service(
-        llm_provider=req.llm_provider,
-        llm_model=req.llm_model
+        llm_provider=req.llm_provider, llm_model=req.llm_model
     )
-    
+
     # Get existing value from existing_metadata if provided
     existing_value = None
     if existing_metadata:
         existing_value = existing_metadata.get(req.field_id)
-    
+
     # Extract the field (returns tuple: field_id, value, error)
     _, raw_value, error = await llm_service.extract_field(
         field=field_def,
@@ -1007,39 +1088,39 @@ async def extract_field(req: ExtractFieldRequest):
         existing_value=existing_value,
         language=req.language,
     )
-    
+
     # Close non-default LLM service HTTP client to prevent leak
     if req.llm_provider is not None or req.llm_model is not None:
         await llm_service.close()
-    
+
     if error:
         raise HTTPException(status_code=500, detail=f"Extraction failed: {error}")
-    
+
     # Apply normalization if requested
     normalized = False
     value = raw_value
-    
+
     if req.normalize and raw_value is not None:
         normalizer = get_field_normalizer()
         normalized_value = normalizer.normalize_field_value(
             value=raw_value,
             field_schema=field_def.get("system", field_def),
-            normalize_vocabularies=True
+            normalize_vocabularies=True,
         )
         if normalized_value != raw_value:
             value = normalized_value
             normalized = True
-    
+
     # Determine if value changed
     changed = value != existing_value
-    
+
     # Get field label
     field_label = field_def.get("label", {})
     if isinstance(field_label, dict):
         field_label = field_label.get(req.language, field_label.get("de", req.field_id))
-    
+
     processing_time = int((time.time() - start_time) * 1000)
-    
+
     return ExtractFieldResponse(
         field_id=req.field_id,
         field_label=field_label,
@@ -1054,8 +1135,8 @@ async def extract_field(req: ExtractFieldRequest):
         processing={
             "llm_provider": llm_service.provider,
             "llm_model": llm_service.model,
-            "processing_time_ms": processing_time
-        }
+            "processing_time_ms": processing_time,
+        },
     )
 
 
@@ -1063,8 +1144,9 @@ async def extract_field(req: ExtractFieldRequest):
 # Main Endpoints
 # ============================================================================
 
+
 @app.post(
-    "/generate", 
+    "/generate",
     response_model=GenerateResponse,
     summary="Metadaten generieren",
     description="""Generiert vollständige Metadaten aus Text, URL oder Repository-Node mittels LLM.
@@ -1162,8 +1244,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "llm_provider": "b-api-openai",
                                 "llm_model": "gpt-4.1-mini",
                                 "screenshot_method": "",
-                                "preview_url": ""
-                            }
+                                "preview_url": "",
+                            },
                         },
                         "url_input": {
                             "summary": "2. URL-Eingabe (Crawler)",
@@ -1190,8 +1272,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "llm_provider": "b-api-openai",
                                 "llm_model": "gpt-4.1-mini",
                                 "screenshot_method": "pageshot",
-                                "preview_url": ""
-                            }
+                                "preview_url": "",
+                            },
                         },
                         "node_id_input": {
                             "summary": "3. NodeID-Eingabe (Repository)",
@@ -1218,8 +1300,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "llm_provider": "b-api-openai",
                                 "llm_model": "gpt-4.1-mini",
                                 "screenshot_method": "pageshot",
-                                "preview_url": ""
-                            }
+                                "preview_url": "",
+                            },
                         },
                         "node_url_input": {
                             "summary": "4. NodeID+URL (kombiniert)",
@@ -1246,8 +1328,8 @@ async def extract_field(req: ExtractFieldRequest):
                                 "llm_provider": "b-api-openai",
                                 "llm_model": "gpt-4.1-mini",
                                 "screenshot_method": "pageshot",
-                                "preview_url": ""
-                            }
+                                "preview_url": "",
+                            },
                         },
                         "mit_existing_metadata": {
                             "summary": "5. Mit bestehenden Metadaten",
@@ -1262,7 +1344,7 @@ async def extract_field(req: ExtractFieldRequest):
                                 "repository": "staging",
                                 "existing_metadata": {
                                     "cclom:title": "Mein Workshop",
-                                    "cclom:general_keyword": ["KI", "Bildung"]
+                                    "cclom:general_keyword": ["KI", "Bildung"],
                                 },
                                 "context": "default",
                                 "version": "latest",
@@ -1277,10 +1359,10 @@ async def extract_field(req: ExtractFieldRequest):
                                 "llm_provider": "b-api-openai",
                                 "llm_model": "gpt-4.1-mini",
                                 "screenshot_method": "",
-                                "preview_url": ""
-                            }
-                        }
-                    }
+                                "preview_url": "",
+                            },
+                        },
+                    },
                 },
                 "text/plain": {
                     "schema": {"type": "string"},
@@ -1288,20 +1370,20 @@ async def extract_field(req: ExtractFieldRequest):
                         "mehrzeiliger_text": {
                             "summary": "Mehrzeiliger Text (ohne JSON)",
                             "description": "Für mehrzeilige Texte: Einfach den Text einfügen. Schema wird automatisch erkannt.",
-                            "value": "Workshop 'KI in der Bildung' am 15. März 2025 in Berlin.\n\nLernen Sie die Grundlagen der künstlichen Intelligenz kennen.\n\nZielgruppe: Lehrkräfte\nKosten: 49 Euro"
+                            "value": "Workshop 'KI in der Bildung' am 15. März 2025 in Berlin.\n\nLernen Sie die Grundlagen der künstlichen Intelligenz kennen.\n\nZielgruppe: Lehrkräfte\nKosten: 49 Euro",
                         }
-                    }
-                }
+                    },
+                },
             }
         }
-    }
+    },
 )
 async def generate_metadata(request: Request):
     """
     Generate metadata from text.
-    
+
     Extracts metadata from text using AI. Control characters are auto-sanitized.
-    
+
     **Output Format:**
     - Header: contextName, schemaVersion, metadataset, language, exportedAt
     - metadata: Flat key-value pairs (field_id: value)
@@ -1309,11 +1391,11 @@ async def generate_metadata(request: Request):
     """
     # Check content type to handle both JSON and plain text
     content_type = request.headers.get("content-type", "application/json")
-    
+
     try:
         raw_body = await request.body()
-        body_str = raw_body.decode('utf-8')
-        
+        body_str = raw_body.decode("utf-8")
+
         if "text/plain" in content_type:
             # Plain text mode: text is the body, use defaults for other params
             data = {
@@ -1328,34 +1410,36 @@ async def generate_metadata(request: Request):
         else:
             # JSON mode: parse and sanitize
             sanitized = sanitize_json_string(body_str)
-            
+
             try:
                 data = json.loads(sanitized)
             except json.JSONDecodeError as e:
                 raise HTTPException(
-                    status_code=400, 
-                    detail=f"Invalid JSON: {str(e)}. Tip: Use Content-Type 'text/plain' for multi-line text input."
+                    status_code=400,
+                    detail=f"Invalid JSON: {str(e)}. Tip: Use Content-Type 'text/plain' for multi-line text input.",
                 )
-        
+
         # Validate with Pydantic
         try:
             req = GenerateRequest(**data)
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
-            
+
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Request parsing error: {str(e)}")
-    
+
     # Handle different input sources
     text = req.text
     existing_metadata = req.existing_metadata or {}
-    
+
     # Extract _origins and _source_text from existing_metadata (passed by web component)
     origins = existing_metadata.pop("_origins", None) if existing_metadata else None
-    original_source_text = existing_metadata.pop("_source_text", None) if existing_metadata else None
-    
+    original_source_text = (
+        existing_metadata.pop("_source_text", None) if existing_metadata else None
+    )
+
     # Re-extraction: combine original source text + extracted values + correction instruction.
     # The LLM needs three things to handle corrections properly:
     # 1. The original source document (context)
@@ -1367,12 +1451,14 @@ async def generate_metadata(request: Request):
         for key, value in existing_metadata.items():
             if not key.startswith("_"):
                 if isinstance(value, list):
-                    metadata_lines.append(f"  {key}: {', '.join(str(v) for v in value)}")
+                    metadata_lines.append(
+                        f"  {key}: {', '.join(str(v) for v in value)}"
+                    )
                 else:
                     metadata_lines.append(f"  {key}: {value}")
-        
+
         bisheriger_stand = "\n".join(metadata_lines) if metadata_lines else "(keine)"
-        
+
         combined = (
             f"{original_source_text}\n\n"
             f"--- BISHERIGER STAND (extrahierte Metadaten aus Durchlauf 1) ---\n"
@@ -1380,40 +1466,50 @@ async def generate_metadata(request: Request):
             f"--- KORREKTUR / UPDATE ---\n"
             f"{text.strip()}"
         )
-        print(f"🔄 RE-EXTRACTION: source ({len(original_source_text)} chars) + {len(metadata_lines)} extracted fields + instruction → {len(combined)} chars total")
+        print(
+            f"🔄 RE-EXTRACTION: source ({len(original_source_text)} chars) + {len(metadata_lines)} extracted fields + instruction → {len(combined)} chars total"
+        )
         text = combined
-    
+
     if req.input_source == InputSource.TEXT:
         # Direct text input
         if not text or not text.strip():
-            raise HTTPException(status_code=400, detail="Text is required when input_source='text'")
-    
+            raise HTTPException(
+                status_code=400, detail="Text is required when input_source='text'"
+            )
+
     elif req.input_source == InputSource.URL:
         # Fetch text from URL via text extraction API
         if not req.source_url:
-            raise HTTPException(status_code=400, detail="source_url is required when input_source='url'")
+            raise HTTPException(
+                status_code=400, detail="source_url is required when input_source='url'"
+            )
         try:
             input_service = get_input_source_service()
             extracted_text = await input_service.fetch_from_url(
                 url=req.source_url,
                 method=req.extraction_method.value,
                 lang=req.language,
-                output_format=req.output_format.value
+                output_format=req.output_format.value,
             )
             # Prepend source URL to text so LLM can use it for ccm:wwwurl field
             text = f"Quell-URL / Source URL: {req.source_url}\n\n{extracted_text}"
         except Exception as e:
-            raise HTTPException(status_code=502, detail=f"Failed to fetch text from URL: {str(e)}")
-    
+            raise HTTPException(
+                status_code=502, detail=f"Failed to fetch text from URL: {str(e)}"
+            )
+
     elif req.input_source == InputSource.NODE_ID:
         # Fetch from repository by NodeID
         if not req.node_id:
-            raise HTTPException(status_code=400, detail="node_id is required when input_source='node_id'")
+            raise HTTPException(
+                status_code=400,
+                detail="node_id is required when input_source='node_id'",
+            )
         try:
             input_service = get_input_source_service()
             input_data = await input_service.fetch_from_node_id(
-                node_id=req.node_id,
-                repository=req.repository.value
+                node_id=req.node_id, repository=req.repository.value
             )
             # Prepend source URL if available (from ccm:wwwurl) so LLM can use it
             if input_data.source_url:
@@ -1421,14 +1517,23 @@ async def generate_metadata(request: Request):
             else:
                 text = input_data.text
             # Merge fetched metadata with provided existing_metadata (provided takes precedence)
-            existing_metadata = {**input_data.existing_metadata, **existing_metadata} if input_data.existing_metadata else existing_metadata
+            existing_metadata = (
+                {**input_data.existing_metadata, **existing_metadata}
+                if input_data.existing_metadata
+                else existing_metadata
+            )
         except Exception as e:
-            raise HTTPException(status_code=502, detail=f"Failed to fetch from repository: {str(e)}")
-    
+            raise HTTPException(
+                status_code=502, detail=f"Failed to fetch from repository: {str(e)}"
+            )
+
     elif req.input_source == InputSource.NODE_URL:
         # Fetch from repository + URL fallback (URL from ccm:wwwurl if not provided)
         if not req.node_id:
-            raise HTTPException(status_code=400, detail="node_id is required when input_source='node_url'")
+            raise HTTPException(
+                status_code=400,
+                detail="node_id is required when input_source='node_url'",
+            )
         try:
             input_service = get_input_source_service()
             input_data = await input_service.fetch_from_node_url(
@@ -1437,7 +1542,7 @@ async def generate_metadata(request: Request):
                 source_url=req.source_url or None,
                 extraction_method=req.extraction_method.value,
                 lang=req.language,
-                output_format=req.output_format.value
+                output_format=req.output_format.value,
             )
             # Prepend source URL to text so LLM can use it for ccm:wwwurl field
             source_url_info = input_data.source_url or req.source_url
@@ -1446,25 +1551,33 @@ async def generate_metadata(request: Request):
             else:
                 text = input_data.text
             # Merge fetched metadata with provided existing_metadata (provided takes precedence)
-            existing_metadata = {**input_data.existing_metadata, **existing_metadata} if input_data.existing_metadata else existing_metadata
+            existing_metadata = (
+                {**input_data.existing_metadata, **existing_metadata}
+                if input_data.existing_metadata
+                else existing_metadata
+            )
         except Exception as e:
-            raise HTTPException(status_code=502, detail=f"Failed to fetch input data: {str(e)}")
-    
+            raise HTTPException(
+                status_code=502, detail=f"Failed to fetch input data: {str(e)}"
+            )
+
     if not text or not text.strip():
-        raise HTTPException(status_code=400, detail="No text content available from input source")
-    
+        raise HTTPException(
+            status_code=400, detail="No text content available from input source"
+        )
+
     # Truncate excessively long text to prevent exceeding LLM context window
     MAX_TEXT_LENGTH = 500_000  # ~125k tokens — generous limit for long web pages
     if len(text) > MAX_TEXT_LENGTH:
         original_len = len(text)
         text = text[:MAX_TEXT_LENGTH]
         print(f"⚠️ Text truncated from {original_len} to {MAX_TEXT_LENGTH} characters")
-    
+
     # Resolve "latest" to actual version
     version = req.version
     if version == "latest" or not version:
         version = get_latest_version(req.context)
-    
+
     # Resolve schema_file: accept URI or filename
     schema_file = req.schema_file
     if schema_file and schema_file != "auto":
@@ -1472,36 +1585,42 @@ async def generate_metadata(request: Request):
             schema_file = resolve_schema_file_or_uri(schema_file, req.context, version)
         except ValueError as e:
             raise HTTPException(status_code=400, detail=str(e))
-    
+
     # Get service with optional LLM overrides
     service = get_metadata_service(
-        llm_provider=req.llm_provider,
-        llm_model=req.llm_model
+        llm_provider=req.llm_provider, llm_model=req.llm_model
     )
-    
+
     # --- Async screenshot capture (parallel to KI extraction) ---
     screenshot_task = None
     if req.screenshot_method:
         import asyncio
         import base64
+
         # Determine screenshot URL: explicit preview_url > source_url > from existing metadata
         screenshot_url = req.preview_url or req.source_url
         if not screenshot_url and existing_metadata:
             screenshot_url = existing_metadata.get("ccm:wwwurl")
             if isinstance(screenshot_url, list):
                 screenshot_url = screenshot_url[0] if screenshot_url else None
-        
+
         if screenshot_url:
-            method = req.screenshot_method if req.screenshot_method in ("pageshot", "playwright") else "pageshot"
+            method = (
+                req.screenshot_method
+                if req.screenshot_method in ("pageshot", "playwright")
+                else "pageshot"
+            )
             try:
                 ss_service = get_screenshot_service()
-                print(f"📸 Starting async screenshot in /generate: {screenshot_url} (method: {method})")
+                print(
+                    f"📸 Starting async screenshot in /generate: {screenshot_url} (method: {method})"
+                )
                 screenshot_task = asyncio.create_task(
                     ss_service.capture(url=screenshot_url, method=method)
                 )
             except Exception as e:
                 print(f"⚠️ Screenshot task creation failed: {e}")
-    
+
     result = await service.generate_metadata(
         text=text,
         context=req.context,
@@ -1518,7 +1637,7 @@ async def generate_metadata(request: Request):
         regenerate_empty=req.regenerate_empty,
         origins=origins,
     )
-    
+
     # --- Await screenshot result ---
     preview_image_url = None
     if screenshot_task:
@@ -1527,18 +1646,22 @@ async def generate_metadata(request: Request):
             if ss_result and ss_result.image_bytes:
                 # Return as base64 data URL for immediate display in web component
                 b64 = base64.b64encode(ss_result.image_bytes).decode("ascii")
-                preview_image_url = f"data:image/{ss_result.format or 'png'};base64,{b64}"
-                print(f"📸 Screenshot captured: {len(ss_result.image_bytes)} bytes ({ss_result.capture_time_ms}ms)")
+                preview_image_url = (
+                    f"data:image/{ss_result.format or 'png'};base64,{b64}"
+                )
+                print(
+                    f"📸 Screenshot captured: {len(ss_result.image_bytes)} bytes ({ss_result.capture_time_ms}ms)"
+                )
         except Exception as e:
             print(f"⚠️ Screenshot capture failed: {e}")
-    
+
     # Close non-default LLM service HTTP client to prevent leak
     if req.llm_provider is not None or req.llm_model is not None:
         await service.llm_service.close()
-    
+
     # Resolve metadataset_uri from the detected/used schema_file
     metadataset_uri = get_content_type_uri(result["metadataset"], req.context, version)
-    
+
     # Build flat response (metadata fields at top level)
     response = {
         "contextName": result["contextName"],
@@ -1548,32 +1671,32 @@ async def generate_metadata(request: Request):
         "language": result["language"],
         "exportedAt": result["exportedAt"],
     }
-    
+
     # Add metadata fields directly (flat) - skip empty default values
     for key, value in result.get("metadata", {}).items():
         if value is not None and value != "" and value != [] and value != {}:
             response[key] = value
-    
+
     # Add _origins tracking (ai/user per field)
     if result.get("_origins"):
         response["_origins"] = result["_origins"]
-    
+
     # Add _source_text (raw text before extraction) for extended data upload
     if text:
         response["_source_text"] = text
-    
+
     # Add preview image URL if screenshot was captured
     if preview_image_url:
         response["preview_image_url"] = preview_image_url
-    
+
     # Add processing info at the end
     response["processing"] = result["processing"]
-    
+
     return JSONResponse(content=response)
 
 
 @app.post(
-    "/validate", 
+    "/validate",
     response_model=ValidateResponse,
     summary="Metadaten validieren",
     description="""Validiert Metadaten gegen das Schema und prüft Pflichtfelder, Datentypen und Vokabular-Werte.
@@ -1611,62 +1734,62 @@ Kopiere einfach den kompletten Output von `/generate` direkt hier rein – Conte
                                 "language": "de",
                                 "cclom:title": "Workshop KI in der Bildung",
                                 "cclom:general_description": "Ein Workshop über KI...",
-                                "schema:actor": [{"name": "Max Mustermann"}]
-                            }
+                                "schema:actor": [{"name": "Max Mustermann"}],
+                            },
                         }
-                    }
+                    },
                 }
             }
         }
-    }
+    },
 )
 async def validate_metadata(request: Request):
     """
     Validate metadata against schema.
-    
+
     **Einfache Nutzung:** Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
-    
+
     Checks if the provided metadata conforms to the schema rules,
     including required fields, data types, and vocabulary constraints.
-    
+
     **Auto-Detection**: Context, version, and schema are automatically detected from:
     - `contextName`, `schemaVersion`, `metadataset` (new flat format)
     """
     # Parse JSON body - accept both direct metadata or wrapped in "metadata" field
     try:
         raw_body = await request.body()
-        body_str = raw_body.decode('utf-8')
+        body_str = raw_body.decode("utf-8")
         sanitized = sanitize_json_string(body_str)
         data = json.loads(sanitized)
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
-    
+
     # If direct metadata (no "metadata" wrapper), wrap it for Pydantic model
     if "metadata" not in data or not isinstance(data.get("metadata"), dict):
         data = {"metadata": data}
-    
+
     # Validate with Pydantic model
     try:
         req = ValidateRequest(**data)
     except Exception as e:
         raise HTTPException(status_code=422, detail=f"Validation error: {str(e)}")
-    
+
     # Use get_effective_params for clean parameter extraction
     context, version, schema_file, metadata = req.get_effective_params()
-    
+
     # Normalize version: strip leading "v" if present
     if version.startswith("v"):
         version = version[1:]
     # Resolve "latest" to actual version
     if version == "latest":
         version = get_latest_version(context)
-    
+
     # Resolve schema_file: accept URI or filename
     try:
         schema_file = resolve_schema_file_or_uri(schema_file, context, version)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
+
     service = get_metadata_service()
     result = service.validate_metadata(
         metadata=metadata,
@@ -1674,12 +1797,12 @@ async def validate_metadata(request: Request):
         version=version,
         schema_file=schema_file,
     )
-    
+
     return ValidateResponse(**result)
 
 
 @app.post(
-    "/export/markdown", 
+    "/export/markdown",
     response_model=ExportMarkdownResponse,
     summary="Metadaten als Markdown exportieren",
     description="""Konvertiert Metadaten in ein lesbares Markdown-Dokument mit Labels und Struktur.
@@ -1718,59 +1841,59 @@ Das generierte Markdown enthält:
                                 "language": "de",
                                 "cclom:title": "Workshop KI in der Bildung",
                                 "cclom:general_description": "Ein Workshop über KI...",
-                                "schema:actor": [{"name": "Max Mustermann"}]
-                            }
+                                "schema:actor": [{"name": "Max Mustermann"}],
+                            },
                         }
-                    }
+                    },
                 }
             }
         }
-    }
+    },
 )
 async def export_markdown(request: Request):
     """
     Export metadata to human-readable Markdown.
-    
+
     **Einfache Nutzung:** Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
-    
+
     Converts the metadata JSON to a formatted Markdown document
     with proper labels and structure.
     """
     # Parse JSON body - accept both direct metadata or wrapped in "metadata" field
     try:
         raw_body = await request.body()
-        body_str = raw_body.decode('utf-8')
+        body_str = raw_body.decode("utf-8")
         sanitized = sanitize_json_string(body_str)
         data = json.loads(sanitized)
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
-    
+
     # If direct metadata (no "metadata" wrapper), wrap it for Pydantic model
     if "metadata" not in data or not isinstance(data.get("metadata"), dict):
         data = {"metadata": data}
-    
+
     # Validate with Pydantic model
     try:
         req = ExportMarkdownRequest(**data)
     except Exception as e:
         raise HTTPException(status_code=422, detail=f"Validation error: {str(e)}")
-    
+
     # Use get_effective_params for clean parameter extraction
     context, version, schema_file, language, metadata = req.get_effective_params()
-    
+
     # Normalize version: strip leading "v" if present
     if version.startswith("v"):
         version = version[1:]
     # Resolve "latest" to actual version
     if version == "latest":
         version = get_latest_version(context)
-    
+
     # Resolve schema_file: accept URI or filename
     try:
         schema_file = resolve_schema_file_or_uri(schema_file, context, version)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
+
     service = get_metadata_service()
     markdown = service.export_to_markdown(
         metadata=metadata,
@@ -1780,7 +1903,7 @@ async def export_markdown(request: Request):
         language=language,
         include_empty=req.include_empty,
     )
-    
+
     return ExportMarkdownResponse(
         markdown=markdown,
         schema_used=schema_file,
@@ -1791,8 +1914,9 @@ async def export_markdown(request: Request):
 # Repository Upload Endpoint
 # ============================================================================
 
+
 @app.post(
-    "/upload", 
+    "/upload",
     response_model=UploadResponse,
     summary="Metadaten ins Repository hochladen",
     description="""Lädt Metadaten ins WLO edu-sharing Repository hoch und erstellt einen neuen Node.
@@ -1849,26 +1973,26 @@ Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
                                 "preview_url": "",
                                 "screenshot_method": "pageshot",
                                 "write_extended_data": True,
-                                "extended_text": "Rohtext der Webseite vor der KI-Extraktion..."
-                            }
+                                "extended_text": "Rohtext der Webseite vor der KI-Extraktion...",
+                            },
                         }
-                    }
+                    },
                 }
             }
         }
-    }
+    },
 )
 async def upload_to_repository(request: Request):
     """
     Upload metadata to WLO edu-sharing repository.
-    
+
     **Einfache Nutzung:** Kopiere einfach den kompletten Output von `/generate` direkt hier rein.
-    
+
     Optional kannst du Optionen mit übergeben:
     - `repository`: "staging" (default) oder "production"
     - `check_duplicates`: true (default) oder false
     - `start_workflow`: true (default) oder false
-    
+
     **Workflow:**
     1. Check for duplicates by ccm:wwwurl (optional)
     2. Create node with minimal data
@@ -1879,14 +2003,14 @@ async def upload_to_repository(request: Request):
     # Parse JSON body
     try:
         raw_body = await request.body()
-        body_str = raw_body.decode('utf-8')
+        body_str = raw_body.decode("utf-8")
         sanitized = sanitize_json_string(body_str)
         data = json.loads(sanitized)
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
-    
+
     import asyncio
-    
+
     # If direct metadata (no "metadata" wrapper), wrap it for Pydantic model
     if "metadata" not in data or not isinstance(data.get("metadata"), dict):
         # Extract upload options before wrapping
@@ -1909,48 +2033,52 @@ async def upload_to_repository(request: Request):
             "write_extended_data": write_extended_data,
             "extended_text": extended_text,
         }
-    
+
     # Validate with Pydantic model
     try:
         req = UploadRequest(**data)
     except Exception as e:
         raise HTTPException(status_code=422, detail=f"Validation error: {str(e)}")
-    
+
     repo_service = get_repository_service()
-    
+
     if not repo_service:
         raise HTTPException(
             status_code=503,
-            detail="Repository service not configured. Set WLO_GUEST_USERNAME and WLO_GUEST_PASSWORD environment variables."
+            detail="Repository service not configured. Set WLO_GUEST_USERNAME and WLO_GUEST_PASSWORD environment variables.",
         )
-    
+
     if req.repository not in ("staging", "prod", "production"):
         raise HTTPException(
             status_code=400,
-            detail=f"Invalid repository: {req.repository}. Use 'staging' or 'prod'."
+            detail=f"Invalid repository: {req.repository}. Use 'staging' or 'prod'.",
         )
-    
+
     # Extract context/version from metadata (before potential unwrapping)
     context = req.metadata.get("contextName", "default")
     version = req.metadata.get("schemaVersion", "latest")
-    
+
     # Normalize: if web component sent nested format (metadata.metadata),
     # keep the original wrapper for _write_extended_fields but work with
     # unwrapped fields for source override and wwwurl detection
-    _inner = req.metadata.get("metadata") if isinstance(req.metadata.get("metadata"), dict) else None
+    _inner = (
+        req.metadata.get("metadata")
+        if isinstance(req.metadata.get("metadata"), dict)
+        else None
+    )
     _fields = _inner if _inner is not None else req.metadata
-    
+
     # Apply source override if provided
     if req.source:
         _fields["ccm:oeh_publisher_combined"] = req.source
         # Also write to nested metadata if present so _extract_metadata_fields picks it up
         if _inner is not None:
             _inner["ccm:oeh_publisher_combined"] = req.source
-    
+
     # ── Start screenshot capture async (runs in parallel with metadata upload) ──
     screenshot_task = None
     preview_url = req.preview_url
-    
+
     # Auto-detect preview_url from metadata if not explicitly provided
     if not preview_url:
         wwwurl = _fields.get("ccm:wwwurl")
@@ -1958,17 +2086,19 @@ async def upload_to_repository(request: Request):
             wwwurl = wwwurl[0] if wwwurl else None
         if isinstance(wwwurl, str) and wwwurl.startswith("http"):
             preview_url = wwwurl
-    
+
     if preview_url:
         screenshot_service = get_screenshot_service()
-        print(f"📸 Starting async screenshot capture: {preview_url} (method: {req.screenshot_method.value})")
+        print(
+            f"📸 Starting async screenshot capture: {preview_url} (method: {req.screenshot_method.value})"
+        )
         screenshot_task = asyncio.create_task(
             screenshot_service.capture(
                 url=preview_url,
                 method=req.screenshot_method.value,
             )
         )
-    
+
     # ── Upload metadata (runs in parallel with screenshot) ──
     result = await repo_service.upload_metadata(
         metadata=req.metadata,
@@ -1980,17 +2110,24 @@ async def upload_to_repository(request: Request):
         write_extended_data=req.write_extended_data,
         extended_text=req.extended_text,
     )
-    
+
     # ── Upload screenshot as preview (if screenshot was started and node was created) ──
     preview_status = None
-    if screenshot_task and result.get("success") and result.get("node", {}).get("nodeId"):
+    if (
+        screenshot_task
+        and result.get("success")
+        and result.get("node", {}).get("nodeId")
+    ):
         node_id = result["node"]["nodeId"]
         try:
             screenshot_result = await screenshot_task
-            print(f"📸 Screenshot ready: {screenshot_result.size_bytes} bytes ({screenshot_result.capture_time_ms}ms)")
-            
+            print(
+                f"📸 Screenshot ready: {screenshot_result.size_bytes} bytes ({screenshot_result.capture_time_ms}ms)"
+            )
+
             # Upload as preview
             from .services.repository_service import _get_repository_configs
+
             config = _get_repository_configs().get(req.repository)
             if config:
                 base_url = config["base_url"]
@@ -2002,36 +2139,50 @@ async def upload_to_repository(request: Request):
                     resp = await client.post(
                         upload_url,
                         headers={"Authorization": repo_service._auth_header},
-                        files={"image": ("screenshot.png", screenshot_result.image_bytes, screenshot_result.mimetype)},
+                        files={
+                            "image": (
+                                "screenshot.png",
+                                screenshot_result.image_bytes,
+                                screenshot_result.mimetype,
+                            )
+                        },
                     )
                     if resp.status_code in (200, 201, 204):
                         print(f"✅ Preview uploaded to node {node_id}")
-                        preview_status = {"success": True, "method": screenshot_result.method, "capture_time_ms": screenshot_result.capture_time_ms, "size_bytes": screenshot_result.size_bytes}
+                        preview_status = {
+                            "success": True,
+                            "method": screenshot_result.method,
+                            "capture_time_ms": screenshot_result.capture_time_ms,
+                            "size_bytes": screenshot_result.size_bytes,
+                        }
                     else:
                         print(f"⚠️ Preview upload failed: {resp.status_code}")
-                        preview_status = {"success": False, "error": f"HTTP {resp.status_code}"}
+                        preview_status = {
+                            "success": False,
+                            "error": f"HTTP {resp.status_code}",
+                        }
         except Exception as e:
             print(f"⚠️ Screenshot/preview failed: {type(e).__name__}: {e}")
             preview_status = {"success": False, "error": str(e)}
     elif screenshot_task:
         # Cancel screenshot if upload failed
         screenshot_task.cancel()
-    
+
     # Convert nested node dict to UploadedNodeInfo if present
     node_info = None
     if result.get("node"):
         node_info = UploadedNodeInfo(**result["node"])
-    
+
     # Convert field errors to Pydantic models
     field_errors = None
     raw_errors = result.get("field_errors")
     if raw_errors:
         field_errors = [FieldUploadError(**e) for e in raw_errors]
-    
+
     # Add preview info to result
     if preview_status:
         result["preview"] = preview_status
-    
+
     return UploadResponse(
         success=result.get("success", False),
         duplicate=result.get("duplicate"),
@@ -2049,6 +2200,7 @@ async def upload_to_repository(request: Request):
 # ============================================================================
 # Screenshot Endpoint
 # ============================================================================
+
 
 @app.post(
     "/screenshot",
@@ -2072,9 +2224,9 @@ Wenn `node_id` angegeben wird, wird der Screenshot direkt als Vorschaubild auf d
 async def take_screenshot(req: ScreenshotRequest):
     """Capture a screenshot and optionally upload as preview to edu-sharing node."""
     import base64
-    
+
     screenshot_service = get_screenshot_service()
-    
+
     try:
         result = await screenshot_service.capture(
             url=req.url,
@@ -2088,8 +2240,10 @@ async def take_screenshot(req: ScreenshotRequest):
     except ScreenshotError as e:
         raise HTTPException(status_code=502, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Screenshot failed: {type(e).__name__}: {e}")
-    
+        raise HTTPException(
+            status_code=500, detail=f"Screenshot failed: {type(e).__name__}: {e}"
+        )
+
     response = ScreenshotResponse(
         success=True,
         method=result.method,
@@ -2102,7 +2256,7 @@ async def take_screenshot(req: ScreenshotRequest):
         capture_time_ms=result.capture_time_ms,
         image_base64=base64.b64encode(result.image_bytes).decode(),
     )
-    
+
     # Optional: upload as preview to node
     if req.node_id:
         repo_service = get_repository_service()
@@ -2123,13 +2277,14 @@ async def take_screenshot(req: ScreenshotRequest):
             response.node_id = req.node_id
             if not upload_result.get("success"):
                 response.error = upload_result.get("error")
-    
+
     return response
 
 
 # ============================================================================
 # Upload Verification Endpoint
 # ============================================================================
+
 
 @app.post(
     "/upload/verify/{node_id}",
@@ -2167,9 +2322,7 @@ Zählt die Anzahl der Felder pro Status-Kategorie.
                         "nur_lesen": {
                             "summary": "1. Nur Metadaten lesen",
                             "description": "Gibt die aktuellen Repository-Metadaten zurück (kein Vergleich).",
-                            "value": {
-                                "repository": "staging"
-                            }
+                            "value": {"repository": "staging"},
                         },
                         "mit_vergleich": {
                             "summary": "2. SOLL/IST-Vergleich",
@@ -2181,47 +2334,47 @@ Zählt die Anzahl der Felder pro Status-Kategorie.
                                     "metadataset": "event.json",
                                     "cclom:title": "Workshop KI in der Bildung",
                                     "ccm:wwwurl": "https://example.com/workshop",
-                                    "ccm:taxonid": "http://w3id.org/openeduhub/vocabs/discipline/12002"
+                                    "ccm:taxonid": "http://w3id.org/openeduhub/vocabs/discipline/12002",
                                 },
-                                "repository": "staging"
-                            }
-                        }
-                    }
+                                "repository": "staging",
+                            },
+                        },
+                    },
                 }
-            }
+            },
         }
-    }
+    },
 )
 async def verify_upload(node_id: str, request: Request):
     """
     Verify uploaded metadata by reading it back from the repository.
-    
+
     Optionally compares against expected metadata to produce a field-level diff.
     """
     repo_service = get_repository_service()
-    
+
     if not repo_service:
         raise HTTPException(
             status_code=503,
-            detail="Repository service not configured. Set WLO_GUEST_USERNAME and WLO_GUEST_PASSWORD environment variables."
+            detail="Repository service not configured. Set WLO_GUEST_USERNAME and WLO_GUEST_PASSWORD environment variables.",
         )
-    
+
     # Parse optional body
     expected_metadata = None
     repository = "staging"
     context = "default"
     version = "latest"
-    
+
     try:
         raw_body = await request.body()
         if raw_body and raw_body.strip():
             body_str = raw_body.decode("utf-8")
             data = json.loads(sanitize_json_string(body_str))
-            
+
             req = VerifyRequest(**data)
             expected_metadata = req.expected_metadata
             repository = req.repository
-            
+
             # Extract context/version from expected metadata if available
             if expected_metadata:
                 context = expected_metadata.get("contextName", "default")
@@ -2230,13 +2383,13 @@ async def verify_upload(node_id: str, request: Request):
         pass  # No body or invalid JSON → just read
     except Exception:
         pass
-    
+
     if repository not in ("staging", "prod", "production"):
         raise HTTPException(
             status_code=400,
-            detail=f"Invalid repository: {repository}. Use 'staging' or 'prod'."
+            detail=f"Invalid repository: {repository}. Use 'staging' or 'prod'.",
         )
-    
+
     result = await repo_service.verify_node(
         node_id=node_id,
         repository=repository,
@@ -2244,18 +2397,17 @@ async def verify_upload(node_id: str, request: Request):
         context=context,
         version=version,
     )
-    
+
     if not result.get("success"):
         raise HTTPException(
-            status_code=502,
-            detail=result.get("error", "Failed to verify node")
+            status_code=502, detail=result.get("error", "Failed to verify node")
         )
-    
+
     # Build response
     diff_list = None
     if result.get("diff"):
         diff_list = [FieldDiff(**d) for d in result["diff"]]
-    
+
     return VerifyResponse(
         success=True,
         node_id=node_id,
@@ -2268,4 +2420,5 @@ async def verify_upload(node_id: str, request: Request):
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

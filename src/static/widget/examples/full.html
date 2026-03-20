@@ -244,13 +244,13 @@
     </div>
 
     <div class="info-box">
-        <strong>Hinweis:</strong> Die <code>api-url</code> wird automatisch auf den aktuellen Server gesetzt.
-        Bei Einbindung in andere Seiten muss die URL der Metadata Agent API angegeben werden,
-        z.B. <code>api-url="https://metadata-agent-api.vercel.app"</code>.
+        <strong>Hinweis:</strong> Die API-URL wird über <code>window.__ENV.agentUrl</code> gesetzt (Standard: aktueller Server).
+        Bei Einbindung in andere Seiten VOR den Widget-Scripts setzen:
+        <code>&lt;script&gt;window.__ENV = { agentUrl: 'https://metadata-agent-api.vercel.app' };&lt;/script&gt;</code>
     </div>
 
-    <!-- Set API URL BEFORE Angular bootstraps (inline runs before defer scripts) -->
-    <script>document.getElementById('canvas').setAttribute('api-url', window.location.origin);</script>
+    <!-- API-URL: window.__ENV.agentUrl hat Vorrang (für externe Einbettung), sonst origin -->
+    <script>window.__ENV = window.__ENV || { agentUrl: window.location.origin };</script>
 
     <!-- Widget Scripts (order matters: runtime → polyfills → main) -->
     <script src="../dist/runtime.js" defer></script>

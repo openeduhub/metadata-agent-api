@@ -29,7 +29,8 @@ Generiert strukturierte Metadaten nach dem [WLO/OEH-Schema](https://wirlernenonl
 
 ### Voraussetzungen
 
-- Python 3.12+
+- Python 3.13+
+- uv (`pip install uv` oder https://docs.astral.sh/uv/)
 - API-Key: **B-API Key** (Standard) oder **OpenAI API Key**
 
 ### Lokal starten
@@ -39,16 +40,11 @@ Generiert strukturierte Metadaten nach dem [WLO/OEH-Schema](https://wirlernenonl
 git clone <repo-url>
 cd metadata-agent-api
 
-# Virtual Environment
-python -m venv venv
-source venv/bin/activate      # Linux/Mac
-venv\Scripts\activate         # Windows
-
-# Dependencies
-pip install -r requirements.txt
+# Dependencies installieren
+uv sync
 
 # Optional: Playwright für lokale Screenshots (screenshot_method=playwright)
-playwright install chromium
+uv run playwright install chromium
 
 # API-Key konfigurieren
 cp .env.template .env
@@ -1001,6 +997,9 @@ Die API liefert eine einbettbare Angular-Webkomponente (`<metadata-agent-canvas>
 ### Einbindung in eigene Anwendungen
 
 ```html
+<!-- API-URL vor den Scripts setzen (für Early Bootstrap: i18n, Schema) -->
+<script>window.__ENV = { agentUrl: 'https://DEINE-API-URL' };</script>
+
 <!-- Fonts (alle drei werden benötigt) -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
@@ -1020,6 +1019,49 @@ Die API liefert eine einbettbare Angular-Webkomponente (`<metadata-agent-canvas>
   show-floating-controls="true">
 </metadata-agent-canvas>
 ```
+
+### API-URL Konfiguration (`window.__ENV`)
+
+Die Webkomponente benötigt die URL der Metadata Agent API. Es gibt drei Wege, diese zu setzen — mit folgender **Prioritätsreihenfolge**:
+
+| Priorität | Methode | Wann gesetzt | Beschreibung |
+|:---------:|---------|-------------|-------------|
+| 1 (höchste) | `api-url` HTML-Attribut | Nach Angular-Bootstrap (via `@Input`) | Überschreibt alles — Standardmethode |
+| 2 | `window.__ENV.agentUrl` | **Vor** Angular-Bootstrap | Early Bootstrap: wird sofort beim Laden der Übersetzungen und der initialen API-Aufrufe verwendet |
+| 3 (niedrigste) | `environment.apiUrl` | Build-Zeit | Fallback aus `environment.ts` (nur für Standalone-Build) |
+
+#### Warum `window.__ENV`?
+
+Das `api-url` HTML-Attribut wird erst verarbeitet, nachdem Angular vollständig gebootet hat. Bestimmte Initialisierungen (i18n-Übersetzungen, Schema-Laden) starten aber **vor** dem ersten `@Input`-Zyklus. Ohne `window.__ENV.agentUrl` würden diese frühen Requests ins Leere laufen.
+
+**Empfohlene Einbindung mit `window.__ENV`:**
+
+```html
+<!-- 1. API-URL VOR den Scripts setzen -->
+<script>
+  window.__ENV = { agentUrl: 'https://DEINE-API-URL' };
+</script>
+
+<!-- 2. Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+
+<!-- 3. Widget-Scripts (defer: laden parallel, ausführen in Reihenfolge) -->
+<link rel="stylesheet" href="https://DEINE-API-URL/widget/dist/styles.css">
+<script src="https://DEINE-API-URL/widget/dist/runtime.js" defer></script>
+<script src="https://DEINE-API-URL/widget/dist/polyfills.js" defer></script>
+<script src="https://DEINE-API-URL/widget/dist/main.js" defer></script>
+
+<!-- 4. Komponente (api-url ist optional wenn window.__ENV gesetzt) -->
+<metadata-agent-canvas
+  api-url="https://DEINE-API-URL"
+  layout="default">
+</metadata-agent-canvas>
+```
+
+> **Wichtig:** Das `<script>window.__ENV = { ... }</script>` muss **vor** den Widget-Scripts stehen, damit es beim Laden von `main.js` bereits verfügbar ist.
+>
+> **Tipp:** Auch wenn `window.__ENV.agentUrl` gesetzt ist, sollte das `api-url` Attribut trotzdem angegeben werden — es dient als autoritativer Wert und wird z.B. bei dynamischem URL-Wechsel per JavaScript korrekt übernommen.
 
 ### Layouts
 
@@ -1143,18 +1185,21 @@ Unter `/widget/examples/` sind interaktive Beispiele verfügbar:
 
 | Seite | Beschreibung |
 |-------|-------------|
+| `boilerplate.html` | **Minimales Copy-Paste-Template** für externe Einbettung (Vercel-API, `window.__ENV`, passive Events) |
 | `full.html` | Vollständige Webkomponente mit allen Attributen |
 | `default.html` | Standard-Layout |
 | `detail.html` | Detail-Ansicht (mehrspaltig, readonly) |
 | `minimal.html` | Minimale Einbindung |
+| `clean.html` | Clean-Layout (Metadatenprüfdialog) mit Fortschritt |
 | `prueftisch.html` | 1-spaltige Prüftabelle |
 | `prueftisch-gross.html` | 2-spaltige Prüftabelle (Prueftisch Org) |
-| `metadatenpruefdialog.html` | Clean-Layout (Prüfdialog) mit Fortschritt |
 | `json-import.html` | JSON-Import mit Layout-Switcher und allen Toggles |
 | `uri-test.html` | URI-basierte Content-Type-Steuerung |
+| `review-demo.html` | Dialog-Layout mit JSON-Import, Content-Type-Umschalter, KI-Highlight |
 | `canvas-parameter-demo.html` | Interaktive Demo aller Parameter (Sidebar mit Toggles) |
 | `floating-controls-demo.html` | Demo der Floating Controls mit allen Button-Toggles |
 | `dual-instance-test.html` | Multi-Instanz-Test: 2× Komponente, Toggle isoliert/synchron |
+| `test.html` | Interaktiver Test mit Controls-Panel (Layout, Attribute, Events) |
 
 > **Alle Beispiele** enthalten einen **Layout-Switcher** (alle 7 Layouts) und einen **Flat Groups Toggle**.
 
@@ -1170,12 +1215,10 @@ Unter `/widget/examples/` sind interaktive Beispiele verfügbar:
 
 Das Docker-Image enthält **Playwright + Chromium** für datenschutzfreundliche Screenshots (`screenshot_method=playwright`).
 
-**Docker Hub:** https://hub.docker.com/r/openeduhub/metadata-agent-api
-
 ```bash
-# Fertiges Image von Docker Hub
-docker pull openeduhub/metadata-agent-api:main
-docker run -d -p 8000:8000 -e B_API_KEY=<key> openeduhub/metadata-agent-api:main
+# Fertiges Image aus der internen Registry
+docker pull $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
+docker run -d -p 8000:8000 -e B_API_KEY=<key> $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
 
 # Oder lokal bauen:
 cp .env.template .env
@@ -1241,7 +1284,7 @@ railway up
 
 1. Repository mit Render verbinden
 2. Web Service erstellen
-3. Build Command: `pip install -r requirements.txt`
+3. Build Command: `uv sync`
 4. Start Command: `uvicorn src.main:app --host 0.0.0.0 --port $PORT`
 5. Environment Variables konfigurieren
 
@@ -1264,7 +1307,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: openeduhub/metadata-agent-api:main
+        image: $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
         ports:
         - containerPort: 8000
         env:

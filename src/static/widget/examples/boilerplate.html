@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Agent — Minimal Boilerplate</title>
+
+    <!--
+        ╔══════════════════════════════════════════════════════════════════╗
+        ║  MINIMAL BOILERPLATE für die Einbettung der Webkomponente      ║
+        ║                                                                 ║
+        ║  Funktioniert auf JEDER Domain — auch auf localhost.           ║
+        ║                                                                 ║
+        ║  Lösung: window.__ENV.agentUrl wird VOR Angular gesetzt.       ║
+        ║  i18n + Schema laden sofort von der richtigen API-URL.         ║
+        ║                                                                 ║
+        ║  Pflichtschritte:                                              ║
+        ║  ① Fonts + Icons  ② styles.css  ③ Passive Events              ║
+        ║  ④ window.__ENV   ⑤ JS-Dateien  ⑥ Events / Daten             ║
+        ╚══════════════════════════════════════════════════════════════════╝
+    -->
+
+    <!-- ① Pflicht: Google Fonts + Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- ② Pflicht: Widget-Stylesheet (absolut von der API) -->
+    <link rel="stylesheet" href="https://metadata-agent-api.vercel.app/widget/dist/styles.css">
+
+    <!-- ③ Empfohlen: Zone.js Passive Events (verhindert Konsolenwarnungen) -->
+    <script>window.__zone_symbol__PASSIVE_EVENTS = ['scroll','wheel','touchstart','touchmove','touchend','mousewheel'];</script>
+
+    <!-- ④ NEU: API-URL BEVOR Angular bootet setzen.
+         Löst das localhost-Problem: i18n + Schema laden sofort von der richtigen URL.
+         Muss VOR den Widget-Scripts stehen! -->
+    <script>window.__ENV = { agentUrl: 'https://metadata-agent-api.vercel.app' };</script>
+
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 0; background: #f5f5f5; }
+        .container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+        metadata-agent-canvas { display: block; min-height: 500px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!--
+        ④ Die Webkomponente.
+
+        WICHTIG: api-url NICHT hardcoden (kein "http://localhost:8000")!
+        → Wird unten per JavaScript dynamisch gesetzt.
+
+        Alle Attribute sind optional — hier nur die häufigsten gezeigt.
+        Vollständige Referenz: docs/confluence/02a-webkomponente-parameter-referenz.md
+    -->
+    <metadata-agent-canvas
+        id="canvas"
+        layout="default"
+    ></metadata-agent-canvas>
+
+</div>
+
+<!-- ⑤ Pflicht: Angular Widget laden (3 Dateien, Reihenfolge wichtig) -->
+<script src="https://metadata-agent-api.vercel.app/widget/dist/runtime.js" defer></script>
+<script src="https://metadata-agent-api.vercel.app/widget/dist/polyfills.js" defer></script>
+<script src="https://metadata-agent-api.vercel.app/widget/dist/main.js" defer></script>
+
+<script>
+    // ⑥ Warten bis die Web Component registriert ist.
+    //    API-URL ist bereits über window.__ENV.agentUrl (④) gesetzt —
+    //    i18n + Schema laden automatisch von der richtigen URL.
+    customElements.whenDefined('metadata-agent-canvas').then(() => {
+        const canvas = document.getElementById('canvas');
+
+        // ───── Ab hier optional: Events, Daten laden, etc. ─────
+
+        // Beispiel: Erkannten Content-Type loggen
+        canvas.addEventListener('metadataChange', (e) => {
+            console.log('Content-Type:', e.detail.metadataset);
+            console.log('Felder:', Object.keys(e.detail.metadata || {}).length);
+        });
+
+        // Beispiel: Existierendes JSON laden
+        // canvas.metadataInput = { metadataset: 'event.json', metadata: {...}, _origins: {...} };
+
+        // Beispiel: Content-Type per URI setzen
+        // canvas.contentType = 'http://w3id.org/openeduhub/vocabs/contentTypes/event';
+    });
+</script>
+
+</body>
+</html>

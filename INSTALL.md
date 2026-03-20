@@ -1,6 +1,6 @@
 # Metadata Agent API — Installationsanleitung
 
-Vollständige Anleitung zur Installation, Konfiguration und zum Betrieb der Metadata Agent API — lokal, im Docker-Container und mit automatisiertem CI/CD über GitHub Actions.
+Vollständige Anleitung zur Installation, Konfiguration und zum Betrieb der Metadata Agent API — lokal, im Docker-Container und mit automatisiertem CI/CD über GitLab CI.
 
 ---
 
@@ -9,7 +9,7 @@ Vollständige Anleitung zur Installation, Konfiguration und zum Betrieb der Meta
 - [1. Voraussetzungen](#1-voraussetzungen)
 - [2. Lokale Installation (ohne Docker)](#2-lokale-installation-ohne-docker)
 - [3. Docker-Container](#3-docker-container)
-- [4. GitHub Actions — Automatischer Docker-Build](#4-github-actions--automatischer-docker-build)
+- [4. GitLab CI — Automatischer Docker-Build](#4-gitlab-ci--automatischer-docker-build)
 - [5. Umgebungsvariablen — Vollständige Referenz](#5-umgebungsvariablen--vollständige-referenz)
 - [6. Deployment-Varianten](#6-deployment-varianten)
 - [7. Troubleshooting](#7-troubleshooting)
@@ -31,8 +31,8 @@ Vollständige Anleitung zur Installation, Konfiguration und zum Betrieb der Meta
 
 | Software | Version | Zweck |
 |---|---|---|
-| Python | 3.12+ | Runtime |
-| pip | 23+ | Paketmanager |
+| Python | 3.13+ | Runtime |
+| uv | 0.5+ | Paketmanager |
 | Docker | 24+ | Container-Betrieb (optional) |
 | Docker Compose | v2+ | Multi-Container (optional) |
 | Git | 2.x | Quellcode |
@@ -52,26 +52,20 @@ Vollständige Anleitung zur Installation, Konfiguration und zum Betrieb der Meta
 
 ```bash
 # Repository klonen
-git clone https://github.com/openeduhub/metadata-agent-api.git
+git clone <repo-url>
 cd metadata-agent-api
 
-# Virtual Environment erstellen
-python -m venv venv
-
-# Aktivieren
-source venv/bin/activate        # Linux / macOS
-venv\Scripts\activate           # Windows (cmd)
-venv\Scripts\Activate.ps1       # Windows (PowerShell)
+# Virtual Environment erstellen und Dependencies installieren
+uv sync
 ```
 
 ### 2.2 Dependencies installieren
 
 ```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+uv sync
 ```
 
-Enthaltene Pakete (requirements.txt):
+Enthaltene Pakete (pyproject.toml):
 
 | Paket | Version | Zweck |
 |---|---|---|
@@ -93,11 +87,7 @@ Playwright wird für die datenschutzfreundliche Screenshot-Funktion (`screenshot
 
 > **Hinweis:** Playwright ist optional. Ohne Playwright steht nur die externe `pageshot`-Methode zur Verfügung, bei der die URL an einen externen Screenshot-Service gesendet wird.
 
-**Schritt 1: Python-Paket installieren** (bereits in requirements.txt)
-
-```bash
-pip install playwright>=1.49.0
-```
+**Schritt 1: Python-Paket installieren** (bereits in pyproject.toml — wird via `uv sync` installiert)
 
 **Schritt 2: Chromium-Browser herunterladen**
 
@@ -205,9 +195,9 @@ curl -X POST http://localhost:8000/screenshot \
 
 ### 3.1 Übersicht
 
-Das Docker-Image ist ein Multi-Stage Build auf Basis von `python:3.12-slim` und enthält:
+Das Docker-Image ist ein Multi-Stage Build auf Basis von `python:3.13-slim` und enthält:
 
-- Python 3.12 Runtime
+- Python 3.13 Runtime
 - Alle Python-Dependencies (FastAPI, OpenAI, Playwright, etc.)
 - Playwright + Chromium für datenschutzfreundliche Screenshots
 - System-Bibliotheken für headless Chromium
@@ -335,24 +325,25 @@ Das Dockerfile nutzt einen Multi-Stage Build für optimale Image-Größe:
 
 ```
 ┌─────────────────────────────────────────────┐
-│ Stage 1: builder (python:3.12-slim)         │
+│ Stage 1: builder (python:3.13-slim)         │
 │                                             │
-│  pip install -r requirements.txt            │
-│  → Installiert alle Python-Pakete           │
-│  → Wird am Ende verworfen (nur Pakete       │
-│    werden kopiert)                           │
+│  uv sync --locked --no-install-project      │
+│    --no-dev                                 │
+│  → Installiert alle Python-Pakete in .venv  │
+│  → Wird am Ende verworfen (nur .venv        │
+│    wird kopiert)                            │
 └─────────────────────────────────────────────┘
                     │
                     ▼
 ┌─────────────────────────────────────────────┐
-│ Stage 2: production (python:3.12-slim)      │
+│ Stage 2: production (python:3.13-slim)      │
 │                                             │
 │  1. System-Dependencies (apt-get)           │
 │     → libnss3, libgbm1, fonts, etc.         │
 │     → Benötigt für headless Chromium        │
 │                                             │
-│  2. Python-Pakete (COPY --from=builder)     │
-│     → site-packages + bin                   │
+│  2. .venv (COPY --from=builder)             │
+│     → Fertige virtuelle Umgebung            │
 │                                             │
 │  3. Playwright Chromium (playwright install) │
 │     → Lädt Chromium-Browser herunter        │
@@ -368,7 +359,7 @@ Das Dockerfile nutzt einen Multi-Stage Build für optimale Image-Größe:
 ```
 
 **Warum Multi-Stage?**
-- Build-Tools (pip, gcc, etc.) landen nicht im finalen Image
+- Build-Tools (uv, gcc, etc.) landen nicht im finalen Image
 - Kleinere Angriffsfläche (kein Compiler im Produktionsimage)
 - Bessere Layer-Caching-Effizienz
 
@@ -376,7 +367,7 @@ Das Dockerfile nutzt einen Multi-Stage Build für optimale Image-Größe:
 
 Im Docker-Image wird Playwright vollständig vorinstalliert:
 
-- **Python-Paket** — via `requirements.txt` im Builder-Stage
+- **Python-Paket** — via `pyproject.toml` / `uv sync` im Builder-Stage
 - **Chromium-Browser** — via `playwright install chromium` im Dockerfile
 - **System-Dependencies** — via `apt-get install` (17 Pakete)
 
@@ -520,7 +511,7 @@ node_modules/
 
 Die aktuelle Reihenfolge im Dockerfile ist bereits optimal:
 
-1. `requirements.txt` → selten geändert → gecacht
+1. `pyproject.toml` + `uv.lock` → selten geändert → gecacht
 2. System-Dependencies → selten geändert → gecacht
 3. `playwright install chromium` → selten geändert → gecacht
 4. `COPY src/` → häufig geändert → schneller Rebuild
@@ -539,75 +530,40 @@ Die aktuelle Reihenfolge im Dockerfile ist bereits optimal:
 
 ---
 
-## 4. GitHub Actions — Automatischer Docker-Build
+## 4. GitLab CI — Automatischer Docker-Build
 
-### 4.1 Aktueller Workflow (Docker Hub)
+### 4.1 Workflow-Übersicht
 
-Der Workflow `.github/workflows/docker-publish.yml` baut das Image und pusht es zu **Docker Hub**:
+Der Workflow `.gitlab-ci.yml` führt folgende Stages aus:
 
-```yaml
-name: Docker Build & Publish
-
-on:
-  push:
-    branches: [ main ]
-    tags: [ 'v*' ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
-jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: azure/docker-login@v1
-        with:
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Inject slug/short variables
-        uses: rlespinasse/github-slug-action@v4
-      - name: Build Docker image
-        run: docker build --tag ${{ github.repository }}:${{ env.GITHUB_REF_SLUG }} .
-      - name: Publish to DockerHub
-        run: docker push ${{ github.repository }}:${{ env.GITHUB_REF_SLUG }}
-```
-
-**Ergebnis:**
-- Push auf `main` → Image-Tag `main`
-- Git-Tag `v2.0.0` → Image-Tag `v2.0.0`
-- Image auf Docker Hub: `openeduhub/metadata-agent-api`
-
-**Docker Hub:** https://hub.docker.com/r/openeduhub/metadata-agent-api
-
-**Pull:**
-
-```bash
-docker pull openeduhub/metadata-agent-api:main
-```
-
-### 4.2 GitHub Secrets einrichten
-
-Navigiere zu **Repository → Settings → Secrets and variables → Actions** und erstelle:
-
-| Secret | Wert | Zweck |
+| Stage | Jobs | Beschreibung |
 |---|---|---|
-| `DOCKERHUB_PASSWORD` | Docker Hub Passwort oder Access Token | Push zu Docker Hub |
+| `.pre` | `uv-install` | Dependencies installieren, Cache befüllen |
+| `build` | `Ruff Check`, `Ruff Format` | Code-Qualitätsprüfung |
+| `test` | `run tests` | Tests ausführen |
+| `deploy` | Docker build & push | Image in interne Registry pushen |
 
-> **Hinweis:** Das `DOCKERHUB_PASSWORD` Secret wird als Organisations-Secret verwaltet und ist für alle Repos der `openeduhub`-Organisation verfügbar (gleicher Wert wie bei `metadata-agent-canvas`).
+### 4.2 CI/CD-Variablen einrichten
+
+Navigiere zu **GitLab → Repository → Settings → CI/CD → Variables** und stelle sicher, dass folgende Variablen als Gruppen- oder Projekt-Variablen gesetzt sind:
+
+| Variable | Zweck |
+|---|---|
+| `DOCKER_REGISTRY` | URL der internen Docker-Registry |
+| `DOCKER_USERNAME` | Registry-Benutzername |
+| `DOCKER_PASSWORD` | Registry-Passwort |
+| `DIND_IMAGE` | Docker-in-Docker Image |
+| `DIND_HOST` | Docker-Host für DinD |
+| `DIND_DRIVER` | Docker Storage Driver |
+| `DIND_TLS_CERTDIR` | TLS-Zertifikat-Verzeichnis |
 
 ### 4.3 Workflow-Trigger
 
 | Trigger | Tag | Beschreibung |
 |---|---|---|
-| Push auf `main` | `main` | Automatisch bei jedem Merge/Push |
-| Git-Tag `v*` | z.B. `v2.0.0` | Für Releases: `git tag v2.0.0 && git push --tags` |
-| Pull Request | — | Nur Build, kein Push |
-| Manual Dispatch | Branch-Slug | Über GitHub Actions UI |
+| Push auf `main` | Branch-Slug (`main`) | Automatisch bei jedem Merge/Push |
+| Push auf `develop` | Branch-Slug (`develop`) | Automatisch |
+| Git-Tag `v*` | Tag-Name (z.B. `v2.0.0`) | Für Releases |
 
 ### 4.4 Release erstellen (neuen Tag pushen)
 
@@ -616,66 +572,9 @@ Navigiere zu **Repository → Settings → Secrets and variables → Actions** u
 git tag v2.0.0
 git push origin v2.0.0
 
-# → GitHub Actions baut und pusht: openeduhub/metadata-agent-api:v2.0.0
+# → GitLab CI baut und pusht:
+# $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:v2.0.0
 ```
-
-### 4.5 Webhook-basierter Auto-Redeploy
-
-**Variante A: Watchtower (einfachste Lösung)**
-
-```yaml
-# docker-compose.yml auf dem Server
-services:
-  metadata-agent-api:
-    image: openeduhub/metadata-agent-api:main
-    ports: ["8000:8000"]
-    env_file: .env
-    restart: unless-stopped
-
-  # Watchtower prüft regelmäßig auf Image-Updates
-  watchtower:
-    image: containrrr/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_POLL_INTERVAL=300       # Alle 5 Minuten prüfen
-      - WATCHTOWER_CLEANUP=true            # Alte Images entfernen
-      - WATCHTOWER_INCLUDE_STOPPED=false
-      - WATCHTOWER_LABEL_ENABLE=false      # Alle Container überwachen
-    restart: unless-stopped
-```
-
-**Variante B: SSH-Deploy nach Build**
-
-Erweitere den Workflow um ein Deployment-Step:
-
-```yaml
-  deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Deploy to server via SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          script: |
-            cd /opt/metadata-agent
-            docker compose pull
-            docker compose up -d --force-recreate
-            docker image prune -f
-```
-
-Dafür zusätzliche GitHub Secrets anlegen:
-
-| Secret | Wert |
-|---|---|
-| `DEPLOY_HOST` | IP oder Hostname des Servers |
-| `DEPLOY_USER` | SSH-Benutzername |
-| `DEPLOY_SSH_KEY` | SSH Private Key |
 
 ---
 
@@ -764,16 +663,16 @@ Alle Variablen können in `.env`, als System-Umgebungsvariablen oder als Docker-
 
 ### 6.1 Docker Hub (empfohlen für Kubernetes)
 
-Das vorgefertigte Image von Docker Hub verwenden:
+Das vorgefertigte Image aus der internen Registry verwenden:
 
 ```bash
-docker pull openeduhub/metadata-agent-api:main
+docker pull $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
 
 docker run -d \
   --name metadata-agent-api \
   -p 8000:8000 \
   -e B_API_KEY=<key> \
-  openeduhub/metadata-agent-api:main
+  $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
 ```
 
 Vorteile: Playwright/Chromium vorinstalliert, Health Check, einfaches Update, reproduzierbar.
@@ -816,7 +715,7 @@ spec:
     spec:
       containers:
         - name: metadata-agent-api
-          image: openeduhub/metadata-agent-api:main
+          image: $DOCKER_REGISTRY/projects/wlo/meta-services/metadata-agent-api:main
           ports:
             - containerPort: 8000
           env:
@@ -926,10 +825,10 @@ kubectl create secret generic metadata-agent-secrets \
 | `permission denied` auf Dateien | User-Ownership im Dockerfile prüfen |
 | Sehr langsamer Build | `.dockerignore` erstellen (`.git`, `node_modules`, `venv`) |
 
-### GitHub Actions
+### GitLab CI
 
 | Problem | Lösung |
 |---|---|
-| Push zu Docker Hub schlägt fehl | `DOCKERHUB_PASSWORD` Secret prüfen (Settings → Secrets → Actions) |
-| Build-Cache funktioniert nicht | GitHub Actions Cache prüfen |
-| Deploy-Step: SSH Connection refused | `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY` prüfen |
+| Push zu Registry schlägt fehl | `DOCKER_REGISTRY`, `DOCKER_USERNAME`, `DOCKER_PASSWORD` in CI/CD-Variablen prüfen |
+| Build-Cache funktioniert nicht | `uv-install` Job-Log prüfen, `uv.lock` committed? |
+| DinD-Verbindungsfehler | `DIND_HOST`, `DIND_IMAGE` Variablen prüfen |

@@ -233,17 +233,12 @@
     <div class="event-log-content" id="logContent"></div>
 </div>
 
+<!-- API-URL: window.__ENV.agentUrl hat Vorrang (für externe Einbettung), sonst origin -->
+<script>window.__ENV = window.__ENV || { agentUrl: window.location.origin };</script>
+
 <script src="../dist/runtime.js"></script>
 <script src="../dist/polyfills.js"></script>
 <script src="../dist/main.js"></script>
-<script>
-    // Auto-detect API URL from current origin (works on localhost AND Vercel)
-    customElements.whenDefined('metadata-agent-canvas').then(() => {
-        const API_URL = window.location.origin;
-        document.getElementById('canvas-main').apiUrl = API_URL;
-        document.getElementById('canvas-sidebar').apiUrl = API_URL;
-    });
-</script>
 <script>
     function logEvent(source, eventName, detail) {
         const log = document.getElementById('logContent');

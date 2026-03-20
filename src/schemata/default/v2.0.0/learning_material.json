@@ -1,0 +1,3867 @@
+{
+  "profileId": "type:learning_material",
+  "version": "1.8.1",
+  "@context": {
+    "schema": "https://schema.org/",
+    "oeh": "http://w3id.org/openeduhub/vocabs/",
+    "skos": "http://www.w3.org/2004/02/skos/core#"
+  },
+  "groups": [
+    {
+      "id": "classification",
+      "icon": "label",
+      "label": {
+        "de": "Klassifikation",
+        "en": "Classification"
+      }
+    },
+    {
+      "id": "didactics",
+      "icon": "psychology",
+      "label": {
+        "de": "Didaktik",
+        "en": "Didactics"
+      }
+    },
+    {
+      "id": "requirements",
+      "icon": "checklist",
+      "label": {
+        "de": "Anforderungen & Voraussetzungen",
+        "en": "Requirements & Prerequisites"
+      }
+    },
+    {
+      "id": "assessment",
+      "icon": "verified",
+      "label": {
+        "de": "Assessment & Zertifizierung",
+        "en": "Assessment & Certification"
+      }
+    },
+    {
+      "id": "accessibility",
+      "icon": "accessibility",
+      "label": {
+        "de": "Barrierefreiheit",
+        "en": "Accessibility"
+      }
+    },
+    {
+      "id": "costs",
+      "icon": "payments",
+      "label": {
+        "de": "Kosten",
+        "en": "Costs"
+      }
+    },
+    {
+      "id": "license",
+      "icon": "gavel",
+      "label": {
+        "de": "Lizenz, Quelle, Mitwirkende",
+        "en": "License, Source, Contributors"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "oeh:didactic_method",
+      "group": "didactics",
+      "label": {
+        "de": "Didaktische Methode",
+        "en": "Didactic Method"
+      },
+      "description": {
+        "de": "Verwendete didaktische Methode(n) als SKOS-Konzepte",
+        "en": "Used didactic method(s) as SKOS concepts"
+      },
+      "prompt": {
+        "de": "Didaktische Methode(n), z.B. 'Projektarbeit', 'Flipped Classroom', 'Gruppenarbeit', 'Selbstgesteuertes Lernen'.",
+        "en": "Didactic method(s), e.g. 'project work', 'flipped classroom', 'group work', 'self-directed learning'."
+      },
+      "system": {
+        "path": "oeh:didactic_method",
+        "uri": "oeh:didactic_method",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "scheme": "http://w3id.org/openeduhub/vocabs/didactic_method/",
+          "concepts": []
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:format",
+      "group": "didactics",
+      "label": {
+        "de": "Format",
+        "en": "Format"
+      },
+      "description": {
+        "de": "Durchführungsformat des Lernmaterials",
+        "en": "Delivery format of the learning material"
+      },
+      "prompt": {
+        "de": "Erkenne das Format des Lernmaterials. Hinweise: 'vor Ort', 'Präsenz', Raumangabe → 'Präsenz'; 'Selbstlernkurs', 'on demand', 'asynchron', 'jederzeit' → 'Online (Selbstlernkurs)'; 'Blended', 'Kombination Präsenz und Online' → 'Blended Learning mit festen Präsenz-Gruppenterminen'; 'Online mit Terminen', 'Webinar', 'synchron online' → 'Online mit festen Online-Gruppenterminen'; 'MOOC', 'Massive Open Online Course', 'Coursera', 'edX' → 'Massive Open Online Course (MOOC)'. Wähle GENAU eine Option.",
+        "en": "Detect the delivery format. Hints: 'on-site', 'in-person' → 'Präsenz'; 'self-paced', 'on demand', 'asynchronous' → 'Online (Selbstlernkurs)'; 'blended' → 'Blended Learning...'; 'synchronous online', 'webinar' → 'Online mit festen Online-Gruppenterminen'; 'MOOC' → 'Massive Open Online Course (MOOC)'. Choose EXACTLY one."
+      },
+      "system": {
+        "path": "oeh:format",
+        "uri": "oeh:format",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "uri": "oeh:format/presence",
+              "label": {
+                "de": "Präsenz",
+                "en": "In-person"
+              }
+            },
+            {
+              "uri": "oeh:format/online-self",
+              "label": {
+                "de": "Online (Selbstlernkurs)",
+                "en": "Online (self-paced)"
+              }
+            },
+            {
+              "uri": "oeh:format/blended",
+              "label": {
+                "de": "Blended Learning mit festen Präsenz-Gruppenterminen",
+                "en": "Blended learning with fixed in-person group sessions"
+              }
+            },
+            {
+              "uri": "oeh:format/online-group",
+              "label": {
+                "de": "Online mit festen Online-Gruppenterminen",
+                "en": "Online with fixed online group sessions"
+              }
+            },
+            {
+              "uri": "oeh:format/mooc",
+              "label": {
+                "de": "Massive Open Online Course (MOOC)",
+                "en": "Massive Open Online Course (MOOC)"
+              }
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:time_required",
+      "group": "didactics",
+      "label": {
+        "de": "Bearbeitungsaufwand",
+        "en": "Time Required"
+      },
+      "description": {
+        "de": "Geschätzter Bearbeitungsaufwand als ISO 8601 Dauer (z. B. 'PT45M', 'P2D')",
+        "en": "Estimated time required as ISO 8601 duration (e.g. 'PT45M', 'P2D')"
+      },
+      "prompt": {
+        "de": "Bearbeitungsaufwand als ISO 8601, z.B. 'PT45M' (45 Min.), 'PT2H' (2 Std.), 'P2D' (2 Tage).",
+        "en": "Time required as ISO 8601, e.g. 'PT45M' (45 min.), 'PT2H' (2 hrs.), 'P2D' (2 days)."
+      },
+      "system": {
+        "path": "oeh:time_required",
+        "uri": "https://schema.org/timeRequired",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "validation": {
+          "pattern": "^P(T(?=.)(\\d+H)?(\\d+M)?(\\d+S)?)$|^P(\\d+W)$|^P(\\d+Y)?(\\d+M)?(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+S)?)?$"
+        },
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:educationaltypicalagerange_from",
+      "group": "didactics",
+      "label": {
+        "de": "Typisches Mindestalter (Jahre)",
+        "en": "Typical minimum age (years)"
+      },
+      "description": {
+        "de": "Untere Grenze des typischen Altersbereichs in ganzen Jahren",
+        "en": "Lower bound of the typical age range in whole years"
+      },
+      "prompt": {
+        "de": "Unteres typisches Alter der Zielgruppe in Jahren (ganze Zahl), z. B. 6, 10, 14, 18.",
+        "en": "Lower typical age of the target group in years (integer), e.g. 6, 10, 14, 18."
+      },
+      "system": {
+        "path": "ccm:educationaltypicalagerange_from",
+        "uri": "ccm:educationaltypicalagerange_from",
+        "datatype": "integer",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "ccm:educationaltypicalagerange_to",
+      "group": "didactics",
+      "label": {
+        "de": "Typisches Höchstalter (Jahre)",
+        "en": "Typical maximum age (years)"
+      },
+      "description": {
+        "de": "Obere Grenze des typischen Altersbereichs in ganzen Jahren",
+        "en": "Upper bound of the typical age range in whole years"
+      },
+      "prompt": {
+        "de": "Oberes typisches Alter der Zielgruppe in Jahren (ganze Zahl), z. B. 10, 16, 99. Verwende 99 wenn keine Obergrenze genannt.",
+        "en": "Upper typical age of the target group in years (integer), e.g. 10, 16, 99. Use 99 if no upper bound is mentioned."
+      },
+      "system": {
+        "path": "ccm:educationaltypicalagerange_to",
+        "uri": "ccm:educationaltypicalagerange_to",
+        "datatype": "integer",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        }
+      }
+    },
+    {
+      "id": "oeh:prerequisites",
+      "group": "requirements",
+      "label": {
+        "de": "Vorkenntnisse/Voraussetzungen",
+        "en": "Prerequisites"
+      },
+      "description": {
+        "de": "Vorkenntnisse oder Voraussetzungen",
+        "en": "Prerequisites or requirements"
+      },
+      "prompt": {
+        "de": "Vorkenntnisse, z.B. 'Grundlagen Programmierung', 'Mathematik Sek I', 'Keine'.",
+        "en": "Prerequisites, e.g. 'Basic programming', 'Secondary math', 'None'."
+      },
+      "system": {
+        "path": "oeh:prerequisites",
+        "uri": "oeh:prerequisites",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:oeh_competence_requirements",
+      "group": "requirements",
+      "label": {
+        "de": "Vorausgesetzte Kompetenzen",
+        "en": "Required Competencies"
+      },
+      "description": {
+        "de": "Welche Kompetenzen werden für dieses Lernmaterial vorausgesetzt?",
+        "en": "Which competencies are required for this learning material?"
+      },
+      "prompt": {
+        "de": "Ordne der Veranstaltung die vorausgesetzten Kompetenzen zu. Analysiere Voraussetzungen, Zielgruppe und Beschreibung. Wähle zutreffende URIs aus dem Vokabular. Mehrfachauswahl möglich. Verwende EXAKTE Labels.",
+        "en": "Map the prerequisites of this event to matching competencies. Analyse requirements, target group and description. Select matching URIs from the vocabulary. Multiple selection possible. Use EXACT labels."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "ccm:oeh_competence_requirements",
+        "uri": "ccm:oeh_competence_requirements",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "schemes": [
+            {
+              "id": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/",
+              "label": {
+                "de": "Kompetenzen in der digitalen Welt (KMK)"
+              }
+            },
+            {
+              "id": "http://w3id.org/openeduhub/vocabs/digCompEdu/",
+              "label": {
+                "de": "Europäischer Rahmen für die Digitale Kompetenz Lehrender",
+                "en": "European Framework for the Digital Competence of Educators"
+              }
+            }
+          ],
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/",
+              "label": {
+                "de": "Kompetenzen in der digitalen Welt (KMK)"
+              },
+              "type": "ConceptScheme"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3",
+              "label": {
+                "de": "1. Suchen, Verarbeiten und Aufbewahren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF",
+              "label": {
+                "de": "1.1. Suchen und Filtern"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A2364094-DE21-4367-A79F-44FF27A1B9B8",
+              "label": {
+                "de": "1.1.1. Arbeits- und Suchinteressen klären und festlegen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C605B54F-AC2C-4EC6-8A37-280105E82275",
+              "label": {
+                "de": "1.1.2. Suchstrategien nutzen und weiterentwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C15F878A-C6FA-489F-8136-6FCFA195DD1A",
+              "label": {
+                "de": "1.1.3. In verschiedenen digitalen Umgebungen suchen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/CDB1F735-52F5-4ABE-A059-F07D5863108D",
+              "label": {
+                "de": "1.1.4. Relevante Quellen identifizieren und zusammenführen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C",
+              "label": {
+                "de": "1.2. Auswerten und Bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F9B03D28-DBAE-4414-A3DC-19021AB827CB",
+              "label": {
+                "de": "1.2.1. Informationen und Daten analysieren, interpretieren und kritisch bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/104B23E8-18E7-4D1C-B814-239403DCE6D9",
+              "label": {
+                "de": "1.2.2. Informationsquellen analysieren und kritisch bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E",
+              "label": {
+                "de": "1.3. Speichern und Abrufen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A44B1A87-940C-42B6-9695-FD67874217B0",
+              "label": {
+                "de": "1.3.1. Informationen und Daten sicher speichern, wiederfinden und von verschiedenen Orten abrufen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D308E815-D384-4339-A741-F564E6DF9385",
+              "label": {
+                "de": "1.3.2. Informationen und Daten zusammenfassen, organisieren und strukturiert aufbewahren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D",
+              "label": {
+                "de": "2. Kommunizieren und Kooperieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A",
+              "label": {
+                "de": "2.1. Interagieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/E819AC9F-1498-44F7-BCDF-924EA89A7623",
+              "label": {
+                "de": "2.1.1. Mit Hilfe verschiedener digitaler Kommunikationsmöglichkeiten kommunizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A5BC1AA6-96B4-4F45-89A9-24A30F066912",
+              "label": {
+                "de": "2.1.2. Digitale Kommunikationsmöglichkeiten zielgerichtet- und situationsgerecht auswählen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B",
+              "label": {
+                "de": "2.2. Teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/68673305-1281-4B6C-80CB-644F35006FFE",
+              "label": {
+                "de": "2.2.1. Dateien, Informationen und Links teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/CA1C5B3B-CBEF-4D08-9B62-D5FA996058A0",
+              "label": {
+                "de": "2.2.2. Referenzierungspraxis beherrschen (Quellenangaben)"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB",
+              "label": {
+                "de": "2.2. Zusammenarbeiten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/632CFA45-8F42-4561-BE41-A29FE8217293",
+              "label": {
+                "de": "2.3.1. Digitale Werkzeuge für die Zusammenarbeit bei der Zusammenführung von Informationen, Daten und Ressourcen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C36FCDCD-D849-40FE-8A41-FB4CC54CADB6",
+              "label": {
+                "de": "2.3.2. Digitale Werkzeuge bei der gemeinsamen Erarbeitung von Dokumenten nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512",
+              "label": {
+                "de": "2.4. Umgangsregeln kennen und einhalten (Netiquette)"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F820983A-3FB8-43C7-8C6C-9FF8B08AD2EC",
+              "label": {
+                "de": "2.4.1. Verhaltensregeln bei digitaler Interaktion und Kooperation kennen und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/B612B3B4-4F02-4ED5-AF31-7CD5433F5B59",
+              "label": {
+                "de": "2.4.2. Kommunikation der jeweiligen Umgebung anpassen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A1FA8E56-68F2-473F-852C-8199261D87BD",
+              "label": {
+                "de": "2.4.3. Ethische Prinzipien bei der Kommunikation kennen und berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/309B4EAB-648E-4406-B2CB-01116572A061",
+              "label": {
+                "de": "2.4.4. Kulturelle Vielfalt in digitalen Umgebungen berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0",
+              "label": {
+                "de": "2.5. An der Gesellschaft aktiv teilhaben"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7CDB7AF6-7424-4C81-A5D2-E5AFD4430AB6",
+              "label": {
+                "de": "2.5.1. Öffentliche und private Dienste nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9A0CCB59-BD3F-44E1-A6FE-E80CC45B98E7",
+              "label": {
+                "de": "2.5.2. Medienerfahrungen weitergeben und in kommunikative Prozesse einbringen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/E1F6B5E8-41FB-4633-89EC-E4D1C9600DDD",
+              "label": {
+                "de": "2.5.3. Als selbstbestimmter Bürger aktiv an der Gesellschaft teilhaben"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548",
+              "label": {
+                "de": "3. Produzieren und Präsentieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273",
+              "label": {
+                "de": "3.1. Entwickeln und Produzieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/1BDC7D01-DF22-431A-B44B-E8CE1A390EDA",
+              "label": {
+                "de": "3.1.1. Mehrere technische Bearbeitungswerkzeuge kennen und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/BF623466-AF3C-40F8-9789-05DA8A8F8853",
+              "label": {
+                "de": "3.1.2. Eine Produktion planen und in verschiedenen Formaten gestalten, präsentieren, veröffentlichen oder teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4",
+              "label": {
+                "de": "3.2. Weiterverarbeiten und Integrieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/61CCC9B1-C16E-4AE3-ABD1-A017F0BA7AF3",
+              "label": {
+                "de": "3.2.1. Inhalte in verschieden Formaten bearbeiten, zusammenführen, präsentieren und veröffentlichen oder teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3B2E4217-4626-4A8C-BC59-895B7A8D3C98",
+              "label": {
+                "de": "3.2.2. Informationen, Inhalte und vorhandene digitale Produkte weiterverarbeiten und in bestehendes Wissen integrieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A",
+              "label": {
+                "de": "3.3. Rechtliche Vorgaben beachten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2EE8DA61-509D-4018-A148-297FEC67B895",
+              "label": {
+                "de": "3.3.1. Bedeutung von Urheberrecht und geistigem Eigentum kennen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7FDDE6D6-790A-4478-9877-3A6E47F207B8",
+              "label": {
+                "de": "3.3.2. Urheber- und Nutzungsrechte (Lizenzen) bei eigenen und fremden Werken berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/811BF793-18A9-4832-B782-E0B7A7DB2BC5",
+              "label": {
+                "de": "3.3.3. Persönlichkeitsrechte beachten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE",
+              "label": {
+                "de": "4. Schützen und sicher agieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085",
+              "label": {
+                "de": "4.1. Sicher in digitalen Umgebungen agieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A1A49BE0-DB4C-467A-A566-CC915A4A56A9",
+              "label": {
+                "de": "4.1.1. Risiken uns Gefahren in digitalen Umgebungen kennen, reflektieren und berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/85D319FD-B33D-45BF-9376-AA874AD87A62",
+              "label": {
+                "de": "4.1.2. Strategien zum Schutz entwickeln und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68",
+              "label": {
+                "de": "4.2. Persönliche Daten und Privatsphäre schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/52CF6472-FE18-4B74-9EF2-A18C28B30068",
+              "label": {
+                "de": "4.2.1. Maßnahmen für Datensicherheit und gegen Datenmissbrauch berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/0CAB3A2C-47F5-48B1-AD33-0245C77284F2",
+              "label": {
+                "de": "4.2.2. Privatsphäre in digitalen Umgebungen durch geeignete Maßnahmen schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/78326259-4504-43CF-BDC7-47F764E1C855",
+              "label": {
+                "de": "4.2.3. Sicherheitseinstellungen ständig aktualisieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/64F1F6D7-84BD-4760-96E3-E7713502F895",
+              "label": {
+                "de": "4.2.4. Jugendschutz- und Verbraucherschutzmaßnahmen berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA",
+              "label": {
+                "de": "4.3. Gesundheit schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2AD9AD1D-D0F0-4AD6-BAC3-C51439218587",
+              "label": {
+                "de": "4.3.1. Suchtgefahren vermeiden, sich Selbst und andere vor möglichen Gefahren schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D46ED466-3D3E-4195-A195-6E9067570736",
+              "label": {
+                "de": "4.3.2. Digitale Technologien gesundheitsbewusst nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/8F53454E-E4CA-4F0D-BF61-D2EB12E6DCEB",
+              "label": {
+                "de": "4.3.3. Digitale Technologien für soziales Wohlergehen und Eingliederung nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2D8E0507-682A-4C2F-9B28-D7722382D29E",
+              "label": {
+                "de": "4.4. Natur und Umwelt schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3C638851-D9E1-47CF-9B00-75BF24893731",
+              "label": {
+                "de": "4.4.1. Umweltauswirkungen digitaler Technologien berücksichtigen Problemlösen und Handeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2D8E0507-682A-4C2F-9B28-D7722382D29E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5",
+              "label": {
+                "de": "5. Problemlösen und Handeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6",
+              "label": {
+                "de": "5.1. Technische Probleme lösen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4E719615-723B-43FF-AEBB-8E2974F9A92C",
+              "label": {
+                "de": "5.1.1. Anforderungen an digitale Umgebungen formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A2A33EF5-13F2-4631-B37D-211276B683B3",
+              "label": {
+                "de": "5.1.2. Technische Probleme identifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/598E80C9-ECC8-44DC-B758-5D41212F6638",
+              "label": {
+                "de": "5.1.3. Bedarfe für Lösungen ermitteln und Lösungen finden bzw. Lösungsstrategien entwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900",
+              "label": {
+                "de": "5.2. Werkzeuge bedarfsgerecht einsetzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3DFAF9C-4AF2-42E5-92C6-8DC9BA9704F8",
+              "label": {
+                "de": "5.2.1. Eine Vielzahl von digitalen Werkzeugen kennen und kreativ anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9A93A0D2-6845-4B5B-BE15-77C60FEFF08A",
+              "label": {
+                "de": "5.2.2. Anforderungen an digitale Werkzeuge formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F561FA09-D206-46F9-AE18-B94B46622EAE",
+              "label": {
+                "de": "5.2.3. Passende Werkzeuge zur Lösung identifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C8DE2124-6D7D-4C01-8B0B-49EA65A6A907",
+              "label": {
+                "de": "5.2.4. Digitale Umgebungen und Werkzeuge zum persönlichen Gebrauch anpassen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5",
+              "label": {
+                "de": "5.3. Eigene Defizite ermitteln und nach Lösungen suchen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C55FD672-7077-42BE-995A-51DD3F60477C",
+              "label": {
+                "de": "5.3.1. Eigene Defizite bei der Nutzung digitaler Werkzeuge erkennen und Strategien zur Beseitigung entwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/394F0F9D-C69C-4946-9FEE-DC0F875B506B",
+              "label": {
+                "de": "5.3.2. Eigene Strategien zur Problemlösung mit anderen teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB",
+              "label": {
+                "de": "5.4. Digitale Werkzeuge und Medien zum Lernen, Arbeiten und Problemlösen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/129EE303-928D-44FB-B374-D7C6D61FC099",
+              "label": {
+                "de": "5.4.1. Effektive digitale Lernmöglichkeiten finden, bewerten und nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/79CA2484-463D-4F47-BBB5-A6AC51B39239",
+              "label": {
+                "de": "5.4.2. Persönliches System von vernetzen Lernressourcen selbst organisieren können"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A",
+              "label": {
+                "de": "5.5. Algorithmen erkennen und formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/59A93980-F744-4A43-8AA1-485C9AB68C5F",
+              "label": {
+                "de": "5.5.1. Funktionsweisen und grundlegende Prinzipien der digitalen Welt kennen und verstehen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FBB20399-B88B-4E83-936B-8D6EF398E2F1",
+              "label": {
+                "de": "5.5.2. Algorithmische Strukturen in genutzten digitalen Tools erkennen und formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5174CA86-EA58-4D3A-AF1D-02D2459A5D89",
+              "label": {
+                "de": "5.5.3. Eine strukturierte, algorithmische Sequenz zur Lösung eines Problems planen und verwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E",
+              "label": {
+                "de": "6. Analysieren und Reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05",
+              "label": {
+                "de": "6.1. Medien analysieren und bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F90D7B23-D6CA-4EE8-8CB6-2474F876F0F4",
+              "label": {
+                "de": "6.1.1. Gestaltungsmittel von digitalen Medienangeboten kennen und bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C37DF8BD-4822-4A6F-83EB-4D2C84222201",
+              "label": {
+                "de": "6.1.2. Interessengeleitete Setzung, Verbreitung und Dominanz von Themen in digitalen Umgebungen erkennen und beurteilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2CB82A2C-008E-42FE-8724-E99A7E35154A",
+              "label": {
+                "de": "6.1.3. Wirkungen von Medien in der digitalen Welt (z.B. mediale Konstrukte, Stars, Idole, Computerspiele, mediale Gewaltdarstellungen) analysieren und konstruktiv damit umgehen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0",
+              "label": {
+                "de": "6.2. Medien in der digitalen Welt verstehen und reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/94FBCE7E-268E-4D16-B780-457764B68DB2",
+              "label": {
+                "de": "6.2.1 Vielfalt in der digitalen Medienlandschaft kennen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A19EF92-5E68-4B69-937A-B15FC19B7804",
+              "label": {
+                "de": "6.2.2. Chancen und Risiken des Mediengebrauchs in unterschiedlichen Lebensbereichen erkennen, eigenen Mediengebrauch reflektieren und ggf. modifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9ACDA1DF-860E-4882-BB6B-552D9713A821",
+              "label": {
+                "de": "6.2.3. Vorteile und Risiken von Geschäftsaktivitäten und Services im Internet analysieren und beurteilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F17150BD-7D87-443C-932B-D314D1201776",
+              "label": {
+                "de": "6.2.4. Wirtschaftliche Bedeutung der digitalen Medien und digitaler Technologien kennen und sie für eigene Geschäftsideen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/0ECB0609-D0EB-4D7A-8425-85CC91132C0E",
+              "label": {
+                "de": "6.2.5. Die Bedeutung von digitalen Medien für die politische Meinungsbildung und Entscheidungsfindung kennen und nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F7D9AD75-7E30-454E-B97A-6625B3620DAD",
+              "label": {
+                "de": "6.2.6. Potenziale der Digitalisierung im Sinne sozialer Integration und sozialer teilhabe erkennen, analysieren und reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/",
+              "label": {
+                "de": "Europäischer Rahmen für die Digitale Kompetenz Lehrender",
+                "en": "European Framework for the Digital Competence of Educators"
+              },
+              "type": "ConceptScheme"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1",
+              "label": {
+                "de": "Berufliches Engagement",
+                "en": "Professional Engagement"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.1",
+              "label": {
+                "de": "Berufliche Kommunikation",
+                "en": "Organisational communication"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.2",
+              "label": {
+                "de": "Berufliche Zusammenarbeit",
+                "en": "Professional collaboration"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.3",
+              "label": {
+                "de": "Reflektierte Praxis",
+                "en": "Reflective practice"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.4",
+              "label": {
+                "de": "Digitale Weiterbildung",
+                "en": "Digital CPD"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2",
+              "label": {
+                "de": "Digitale Ressourcen",
+                "en": "Digital Resources"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.1",
+              "label": {
+                "de": "Auswählen",
+                "en": "Selecting"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.2",
+              "label": {
+                "de": "Erstellen und Anpassen",
+                "en": "Creating & modifying"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.3",
+              "label": {
+                "de": "Organisieren, Schützen, und Teilen",
+                "en": "Managing, protecting, sharing"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3",
+              "label": {
+                "de": "Lehren und Lernen",
+                "en": "Teaching and Learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.1",
+              "label": {
+                "de": "Lehren",
+                "en": "Teaching"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.2",
+              "label": {
+                "de": "Lernbegleitung",
+                "en": "Guidance"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.3",
+              "label": {
+                "de": "Kollaboratives Lernen",
+                "en": "Collaborative learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.4",
+              "label": {
+                "de": "Selbstgesteuertes Lernen",
+                "en": "Self-regulated learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4",
+              "label": {
+                "de": "Evaluation",
+                "en": "Assessment"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.1",
+              "label": {
+                "de": "Lernstand erheben",
+                "en": "Assessment strategies"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.2",
+              "label": {
+                "de": "Lern-Evidenz analysieren",
+                "en": "Analysing evidence"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.3",
+              "label": {
+                "de": "Feedback und Planung",
+                "en": "Feedback & planning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5",
+              "label": {
+                "de": "Lernerorientierung",
+                "en": "Empowering Learners"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.1",
+              "label": {
+                "de": "Digitale Teilhabe",
+                "en": "Accessibility & inclusion"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.2",
+              "label": {
+                "de": "Differenzierung und Individualisierung",
+                "en": "Differentation & personalisation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.3",
+              "label": {
+                "de": "Aktive Einbindung der Lernenden",
+                "en": "Actively engaging learners"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6",
+              "label": {
+                "de": "Förderung der digitalen Kompetenz der Lernenden",
+                "en": "Facilitating Learner's Digital Competence"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.1",
+              "label": {
+                "de": "Informations- und Medienkompetenz",
+                "en": "Information & media literacy"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.2",
+              "label": {
+                "de": "Kommunikation und Kollaboration",
+                "en": "Communication"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.3",
+              "label": {
+                "de": "Erstellung digitaler Inhalte",
+                "en": "Content creation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.4",
+              "label": {
+                "de": "Verantwortungsvoller Umgang",
+                "en": "Responsible use"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.5",
+              "label": {
+                "de": "Digitales Problemlösen",
+                "en": "Problem solving"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        }
+      }
+    },
+    {
+      "id": "ccm:competence",
+      "group": "requirements",
+      "label": {
+        "de": "Zu erwerbende Kompetenzen",
+        "en": "Competencies to be Acquired"
+      },
+      "description": {
+        "de": "Welche Kompetenzen sollen durch dieses Lernmaterial erworben werden?",
+        "en": "Which competencies should be acquired through this learning material?"
+      },
+      "prompt": {
+        "de": "Ordne die Veranstaltung den passenden Kompetenzen (Lernziele) zu. Analysiere Lernziele, Inhalte und Beschreibung. Wähle zutreffende URIs aus dem Vokabular. Mehrfachauswahl möglich. Verwende EXAKTE Labels.",
+        "en": "Map the event to matching competencies (learning objectives). Analyse learning objectives, content and description. Select matching URIs from the vocabulary. Multiple selection possible. Use EXACT labels."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "ccm:competence",
+        "uri": "ccm:competence",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "schemes": [
+            {
+              "id": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/",
+              "label": {
+                "de": "Kompetenzen in der digitalen Welt (KMK)"
+              }
+            },
+            {
+              "id": "http://w3id.org/openeduhub/vocabs/digCompEdu/",
+              "label": {
+                "de": "Europäischer Rahmen für die Digitale Kompetenz Lehrender",
+                "en": "European Framework for the Digital Competence of Educators"
+              }
+            }
+          ],
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/",
+              "label": {
+                "de": "Kompetenzen in der digitalen Welt (KMK)"
+              },
+              "type": "ConceptScheme"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3",
+              "label": {
+                "de": "1. Suchen, Verarbeiten und Aufbewahren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF",
+              "label": {
+                "de": "1.1. Suchen und Filtern"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A2364094-DE21-4367-A79F-44FF27A1B9B8",
+              "label": {
+                "de": "1.1.1. Arbeits- und Suchinteressen klären und festlegen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C605B54F-AC2C-4EC6-8A37-280105E82275",
+              "label": {
+                "de": "1.1.2. Suchstrategien nutzen und weiterentwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C15F878A-C6FA-489F-8136-6FCFA195DD1A",
+              "label": {
+                "de": "1.1.3. In verschiedenen digitalen Umgebungen suchen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/CDB1F735-52F5-4ABE-A059-F07D5863108D",
+              "label": {
+                "de": "1.1.4. Relevante Quellen identifizieren und zusammenführen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C",
+              "label": {
+                "de": "1.2. Auswerten und Bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F9B03D28-DBAE-4414-A3DC-19021AB827CB",
+              "label": {
+                "de": "1.2.1. Informationen und Daten analysieren, interpretieren und kritisch bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/104B23E8-18E7-4D1C-B814-239403DCE6D9",
+              "label": {
+                "de": "1.2.2. Informationsquellen analysieren und kritisch bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E",
+              "label": {
+                "de": "1.3. Speichern und Abrufen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A44B1A87-940C-42B6-9695-FD67874217B0",
+              "label": {
+                "de": "1.3.1. Informationen und Daten sicher speichern, wiederfinden und von verschiedenen Orten abrufen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D308E815-D384-4339-A741-F564E6DF9385",
+              "label": {
+                "de": "1.3.2. Informationen und Daten zusammenfassen, organisieren und strukturiert aufbewahren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D",
+              "label": {
+                "de": "2. Kommunizieren und Kooperieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A",
+              "label": {
+                "de": "2.1. Interagieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/E819AC9F-1498-44F7-BCDF-924EA89A7623",
+              "label": {
+                "de": "2.1.1. Mit Hilfe verschiedener digitaler Kommunikationsmöglichkeiten kommunizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A5BC1AA6-96B4-4F45-89A9-24A30F066912",
+              "label": {
+                "de": "2.1.2. Digitale Kommunikationsmöglichkeiten zielgerichtet- und situationsgerecht auswählen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B",
+              "label": {
+                "de": "2.2. Teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/68673305-1281-4B6C-80CB-644F35006FFE",
+              "label": {
+                "de": "2.2.1. Dateien, Informationen und Links teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/CA1C5B3B-CBEF-4D08-9B62-D5FA996058A0",
+              "label": {
+                "de": "2.2.2. Referenzierungspraxis beherrschen (Quellenangaben)"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB",
+              "label": {
+                "de": "2.2. Zusammenarbeiten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/632CFA45-8F42-4561-BE41-A29FE8217293",
+              "label": {
+                "de": "2.3.1. Digitale Werkzeuge für die Zusammenarbeit bei der Zusammenführung von Informationen, Daten und Ressourcen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C36FCDCD-D849-40FE-8A41-FB4CC54CADB6",
+              "label": {
+                "de": "2.3.2. Digitale Werkzeuge bei der gemeinsamen Erarbeitung von Dokumenten nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512",
+              "label": {
+                "de": "2.4. Umgangsregeln kennen und einhalten (Netiquette)"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F820983A-3FB8-43C7-8C6C-9FF8B08AD2EC",
+              "label": {
+                "de": "2.4.1. Verhaltensregeln bei digitaler Interaktion und Kooperation kennen und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/B612B3B4-4F02-4ED5-AF31-7CD5433F5B59",
+              "label": {
+                "de": "2.4.2. Kommunikation der jeweiligen Umgebung anpassen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A1FA8E56-68F2-473F-852C-8199261D87BD",
+              "label": {
+                "de": "2.4.3. Ethische Prinzipien bei der Kommunikation kennen und berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/309B4EAB-648E-4406-B2CB-01116572A061",
+              "label": {
+                "de": "2.4.4. Kulturelle Vielfalt in digitalen Umgebungen berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0",
+              "label": {
+                "de": "2.5. An der Gesellschaft aktiv teilhaben"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7CDB7AF6-7424-4C81-A5D2-E5AFD4430AB6",
+              "label": {
+                "de": "2.5.1. Öffentliche und private Dienste nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9A0CCB59-BD3F-44E1-A6FE-E80CC45B98E7",
+              "label": {
+                "de": "2.5.2. Medienerfahrungen weitergeben und in kommunikative Prozesse einbringen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/E1F6B5E8-41FB-4633-89EC-E4D1C9600DDD",
+              "label": {
+                "de": "2.5.3. Als selbstbestimmter Bürger aktiv an der Gesellschaft teilhaben"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548",
+              "label": {
+                "de": "3. Produzieren und Präsentieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273",
+              "label": {
+                "de": "3.1. Entwickeln und Produzieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/1BDC7D01-DF22-431A-B44B-E8CE1A390EDA",
+              "label": {
+                "de": "3.1.1. Mehrere technische Bearbeitungswerkzeuge kennen und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/BF623466-AF3C-40F8-9789-05DA8A8F8853",
+              "label": {
+                "de": "3.1.2. Eine Produktion planen und in verschiedenen Formaten gestalten, präsentieren, veröffentlichen oder teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4",
+              "label": {
+                "de": "3.2. Weiterverarbeiten und Integrieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/61CCC9B1-C16E-4AE3-ABD1-A017F0BA7AF3",
+              "label": {
+                "de": "3.2.1. Inhalte in verschieden Formaten bearbeiten, zusammenführen, präsentieren und veröffentlichen oder teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3B2E4217-4626-4A8C-BC59-895B7A8D3C98",
+              "label": {
+                "de": "3.2.2. Informationen, Inhalte und vorhandene digitale Produkte weiterverarbeiten und in bestehendes Wissen integrieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A",
+              "label": {
+                "de": "3.3. Rechtliche Vorgaben beachten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2EE8DA61-509D-4018-A148-297FEC67B895",
+              "label": {
+                "de": "3.3.1. Bedeutung von Urheberrecht und geistigem Eigentum kennen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7FDDE6D6-790A-4478-9877-3A6E47F207B8",
+              "label": {
+                "de": "3.3.2. Urheber- und Nutzungsrechte (Lizenzen) bei eigenen und fremden Werken berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/811BF793-18A9-4832-B782-E0B7A7DB2BC5",
+              "label": {
+                "de": "3.3.3. Persönlichkeitsrechte beachten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE",
+              "label": {
+                "de": "4. Schützen und sicher agieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085",
+              "label": {
+                "de": "4.1. Sicher in digitalen Umgebungen agieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A1A49BE0-DB4C-467A-A566-CC915A4A56A9",
+              "label": {
+                "de": "4.1.1. Risiken uns Gefahren in digitalen Umgebungen kennen, reflektieren und berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/85D319FD-B33D-45BF-9376-AA874AD87A62",
+              "label": {
+                "de": "4.1.2. Strategien zum Schutz entwickeln und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68",
+              "label": {
+                "de": "4.2. Persönliche Daten und Privatsphäre schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/52CF6472-FE18-4B74-9EF2-A18C28B30068",
+              "label": {
+                "de": "4.2.1. Maßnahmen für Datensicherheit und gegen Datenmissbrauch berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/0CAB3A2C-47F5-48B1-AD33-0245C77284F2",
+              "label": {
+                "de": "4.2.2. Privatsphäre in digitalen Umgebungen durch geeignete Maßnahmen schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/78326259-4504-43CF-BDC7-47F764E1C855",
+              "label": {
+                "de": "4.2.3. Sicherheitseinstellungen ständig aktualisieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/64F1F6D7-84BD-4760-96E3-E7713502F895",
+              "label": {
+                "de": "4.2.4. Jugendschutz- und Verbraucherschutzmaßnahmen berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA",
+              "label": {
+                "de": "4.3. Gesundheit schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2AD9AD1D-D0F0-4AD6-BAC3-C51439218587",
+              "label": {
+                "de": "4.3.1. Suchtgefahren vermeiden, sich Selbst und andere vor möglichen Gefahren schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D46ED466-3D3E-4195-A195-6E9067570736",
+              "label": {
+                "de": "4.3.2. Digitale Technologien gesundheitsbewusst nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/8F53454E-E4CA-4F0D-BF61-D2EB12E6DCEB",
+              "label": {
+                "de": "4.3.3. Digitale Technologien für soziales Wohlergehen und Eingliederung nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2D8E0507-682A-4C2F-9B28-D7722382D29E",
+              "label": {
+                "de": "4.4. Natur und Umwelt schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3C638851-D9E1-47CF-9B00-75BF24893731",
+              "label": {
+                "de": "4.4.1. Umweltauswirkungen digitaler Technologien berücksichtigen Problemlösen und Handeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2D8E0507-682A-4C2F-9B28-D7722382D29E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5",
+              "label": {
+                "de": "5. Problemlösen und Handeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6",
+              "label": {
+                "de": "5.1. Technische Probleme lösen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4E719615-723B-43FF-AEBB-8E2974F9A92C",
+              "label": {
+                "de": "5.1.1. Anforderungen an digitale Umgebungen formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A2A33EF5-13F2-4631-B37D-211276B683B3",
+              "label": {
+                "de": "5.1.2. Technische Probleme identifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/598E80C9-ECC8-44DC-B758-5D41212F6638",
+              "label": {
+                "de": "5.1.3. Bedarfe für Lösungen ermitteln und Lösungen finden bzw. Lösungsstrategien entwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900",
+              "label": {
+                "de": "5.2. Werkzeuge bedarfsgerecht einsetzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3DFAF9C-4AF2-42E5-92C6-8DC9BA9704F8",
+              "label": {
+                "de": "5.2.1. Eine Vielzahl von digitalen Werkzeugen kennen und kreativ anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9A93A0D2-6845-4B5B-BE15-77C60FEFF08A",
+              "label": {
+                "de": "5.2.2. Anforderungen an digitale Werkzeuge formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F561FA09-D206-46F9-AE18-B94B46622EAE",
+              "label": {
+                "de": "5.2.3. Passende Werkzeuge zur Lösung identifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C8DE2124-6D7D-4C01-8B0B-49EA65A6A907",
+              "label": {
+                "de": "5.2.4. Digitale Umgebungen und Werkzeuge zum persönlichen Gebrauch anpassen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5",
+              "label": {
+                "de": "5.3. Eigene Defizite ermitteln und nach Lösungen suchen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C55FD672-7077-42BE-995A-51DD3F60477C",
+              "label": {
+                "de": "5.3.1. Eigene Defizite bei der Nutzung digitaler Werkzeuge erkennen und Strategien zur Beseitigung entwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/394F0F9D-C69C-4946-9FEE-DC0F875B506B",
+              "label": {
+                "de": "5.3.2. Eigene Strategien zur Problemlösung mit anderen teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB",
+              "label": {
+                "de": "5.4. Digitale Werkzeuge und Medien zum Lernen, Arbeiten und Problemlösen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/129EE303-928D-44FB-B374-D7C6D61FC099",
+              "label": {
+                "de": "5.4.1. Effektive digitale Lernmöglichkeiten finden, bewerten und nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/79CA2484-463D-4F47-BBB5-A6AC51B39239",
+              "label": {
+                "de": "5.4.2. Persönliches System von vernetzen Lernressourcen selbst organisieren können"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A",
+              "label": {
+                "de": "5.5. Algorithmen erkennen und formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/59A93980-F744-4A43-8AA1-485C9AB68C5F",
+              "label": {
+                "de": "5.5.1. Funktionsweisen und grundlegende Prinzipien der digitalen Welt kennen und verstehen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FBB20399-B88B-4E83-936B-8D6EF398E2F1",
+              "label": {
+                "de": "5.5.2. Algorithmische Strukturen in genutzten digitalen Tools erkennen und formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5174CA86-EA58-4D3A-AF1D-02D2459A5D89",
+              "label": {
+                "de": "5.5.3. Eine strukturierte, algorithmische Sequenz zur Lösung eines Problems planen und verwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E",
+              "label": {
+                "de": "6. Analysieren und Reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05",
+              "label": {
+                "de": "6.1. Medien analysieren und bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F90D7B23-D6CA-4EE8-8CB6-2474F876F0F4",
+              "label": {
+                "de": "6.1.1. Gestaltungsmittel von digitalen Medienangeboten kennen und bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C37DF8BD-4822-4A6F-83EB-4D2C84222201",
+              "label": {
+                "de": "6.1.2. Interessengeleitete Setzung, Verbreitung und Dominanz von Themen in digitalen Umgebungen erkennen und beurteilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2CB82A2C-008E-42FE-8724-E99A7E35154A",
+              "label": {
+                "de": "6.1.3. Wirkungen von Medien in der digitalen Welt (z.B. mediale Konstrukte, Stars, Idole, Computerspiele, mediale Gewaltdarstellungen) analysieren und konstruktiv damit umgehen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0",
+              "label": {
+                "de": "6.2. Medien in der digitalen Welt verstehen und reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/94FBCE7E-268E-4D16-B780-457764B68DB2",
+              "label": {
+                "de": "6.2.1 Vielfalt in der digitalen Medienlandschaft kennen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A19EF92-5E68-4B69-937A-B15FC19B7804",
+              "label": {
+                "de": "6.2.2. Chancen und Risiken des Mediengebrauchs in unterschiedlichen Lebensbereichen erkennen, eigenen Mediengebrauch reflektieren und ggf. modifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9ACDA1DF-860E-4882-BB6B-552D9713A821",
+              "label": {
+                "de": "6.2.3. Vorteile und Risiken von Geschäftsaktivitäten und Services im Internet analysieren und beurteilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F17150BD-7D87-443C-932B-D314D1201776",
+              "label": {
+                "de": "6.2.4. Wirtschaftliche Bedeutung der digitalen Medien und digitaler Technologien kennen und sie für eigene Geschäftsideen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/0ECB0609-D0EB-4D7A-8425-85CC91132C0E",
+              "label": {
+                "de": "6.2.5. Die Bedeutung von digitalen Medien für die politische Meinungsbildung und Entscheidungsfindung kennen und nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F7D9AD75-7E30-454E-B97A-6625B3620DAD",
+              "label": {
+                "de": "6.2.6. Potenziale der Digitalisierung im Sinne sozialer Integration und sozialer teilhabe erkennen, analysieren und reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/",
+              "label": {
+                "de": "Europäischer Rahmen für die Digitale Kompetenz Lehrender",
+                "en": "European Framework for the Digital Competence of Educators"
+              },
+              "type": "ConceptScheme"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1",
+              "label": {
+                "de": "Berufliches Engagement",
+                "en": "Professional Engagement"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.1",
+              "label": {
+                "de": "Berufliche Kommunikation",
+                "en": "Organisational communication"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.2",
+              "label": {
+                "de": "Berufliche Zusammenarbeit",
+                "en": "Professional collaboration"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.3",
+              "label": {
+                "de": "Reflektierte Praxis",
+                "en": "Reflective practice"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.4",
+              "label": {
+                "de": "Digitale Weiterbildung",
+                "en": "Digital CPD"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2",
+              "label": {
+                "de": "Digitale Ressourcen",
+                "en": "Digital Resources"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.1",
+              "label": {
+                "de": "Auswählen",
+                "en": "Selecting"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.2",
+              "label": {
+                "de": "Erstellen und Anpassen",
+                "en": "Creating & modifying"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.3",
+              "label": {
+                "de": "Organisieren, Schützen, und Teilen",
+                "en": "Managing, protecting, sharing"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3",
+              "label": {
+                "de": "Lehren und Lernen",
+                "en": "Teaching and Learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.1",
+              "label": {
+                "de": "Lehren",
+                "en": "Teaching"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.2",
+              "label": {
+                "de": "Lernbegleitung",
+                "en": "Guidance"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.3",
+              "label": {
+                "de": "Kollaboratives Lernen",
+                "en": "Collaborative learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.4",
+              "label": {
+                "de": "Selbstgesteuertes Lernen",
+                "en": "Self-regulated learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4",
+              "label": {
+                "de": "Evaluation",
+                "en": "Assessment"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.1",
+              "label": {
+                "de": "Lernstand erheben",
+                "en": "Assessment strategies"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.2",
+              "label": {
+                "de": "Lern-Evidenz analysieren",
+                "en": "Analysing evidence"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.3",
+              "label": {
+                "de": "Feedback und Planung",
+                "en": "Feedback & planning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5",
+              "label": {
+                "de": "Lernerorientierung",
+                "en": "Empowering Learners"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.1",
+              "label": {
+                "de": "Digitale Teilhabe",
+                "en": "Accessibility & inclusion"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.2",
+              "label": {
+                "de": "Differenzierung und Individualisierung",
+                "en": "Differentation & personalisation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.3",
+              "label": {
+                "de": "Aktive Einbindung der Lernenden",
+                "en": "Actively engaging learners"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6",
+              "label": {
+                "de": "Förderung der digitalen Kompetenz der Lernenden",
+                "en": "Facilitating Learner's Digital Competence"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.1",
+              "label": {
+                "de": "Informations- und Medienkompetenz",
+                "en": "Information & media literacy"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.2",
+              "label": {
+                "de": "Kommunikation und Kollaboration",
+                "en": "Communication"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.3",
+              "label": {
+                "de": "Erstellung digitaler Inhalte",
+                "en": "Content creation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.4",
+              "label": {
+                "de": "Verantwortungsvoller Umgang",
+                "en": "Responsible use"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.5",
+              "label": {
+                "de": "Digitales Problemlösen",
+                "en": "Problem solving"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        }
+      }
+    },
+    {
+      "id": "ccm:oeh_competence_check",
+      "group": "requirements",
+      "label": {
+        "de": "Überprüfte Kompetenzen",
+        "en": "Assessed Competencies"
+      },
+      "description": {
+        "de": "Welche Kompetenzen werden durch dieses Lernmaterial überprüft?",
+        "en": "Which competencies are assessed through this learning material?"
+      },
+      "prompt": {
+        "de": "Ordne der Veranstaltung die überprüften/bewerteten Kompetenzen zu. Analysiere Prüfungsformate, Bewertungskriterien und Lernzielkontrollen. Wähle zutreffende URIs. Mehrfachauswahl möglich.",
+        "en": "Map the assessed/evaluated competencies to this event. Analyse assessment formats, evaluation criteria and learning checks. Select matching URIs. Multiple selection possible."
+      },
+      "promptInstructions": {
+        "labelExactMatch": true
+      },
+      "system": {
+        "path": "ccm:oeh_competence_check",
+        "uri": "ccm:oeh_competence_check",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "schemes": [
+            {
+              "id": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/",
+              "label": {
+                "de": "Kompetenzen in der digitalen Welt (KMK)"
+              }
+            },
+            {
+              "id": "http://w3id.org/openeduhub/vocabs/digCompEdu/",
+              "label": {
+                "de": "Europäischer Rahmen für die Digitale Kompetenz Lehrender",
+                "en": "European Framework for the Digital Competence of Educators"
+              }
+            }
+          ],
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/",
+              "label": {
+                "de": "Kompetenzen in der digitalen Welt (KMK)"
+              },
+              "type": "ConceptScheme"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3",
+              "label": {
+                "de": "1. Suchen, Verarbeiten und Aufbewahren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF",
+              "label": {
+                "de": "1.1. Suchen und Filtern"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A2364094-DE21-4367-A79F-44FF27A1B9B8",
+              "label": {
+                "de": "1.1.1. Arbeits- und Suchinteressen klären und festlegen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C605B54F-AC2C-4EC6-8A37-280105E82275",
+              "label": {
+                "de": "1.1.2. Suchstrategien nutzen und weiterentwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C15F878A-C6FA-489F-8136-6FCFA195DD1A",
+              "label": {
+                "de": "1.1.3. In verschiedenen digitalen Umgebungen suchen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/CDB1F735-52F5-4ABE-A059-F07D5863108D",
+              "label": {
+                "de": "1.1.4. Relevante Quellen identifizieren und zusammenführen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/01A03699-266A-4A8D-A8A8-BFA9BA0CB1AF"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C",
+              "label": {
+                "de": "1.2. Auswerten und Bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F9B03D28-DBAE-4414-A3DC-19021AB827CB",
+              "label": {
+                "de": "1.2.1. Informationen und Daten analysieren, interpretieren und kritisch bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/104B23E8-18E7-4D1C-B814-239403DCE6D9",
+              "label": {
+                "de": "1.2.2. Informationsquellen analysieren und kritisch bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A5FE9E6-13FB-4A90-8034-5689D6EA804C"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E",
+              "label": {
+                "de": "1.3. Speichern und Abrufen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACC2EE4E-C3CE-4300-A7BC-AB3FA340DEB3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A44B1A87-940C-42B6-9695-FD67874217B0",
+              "label": {
+                "de": "1.3.1. Informationen und Daten sicher speichern, wiederfinden und von verschiedenen Orten abrufen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D308E815-D384-4339-A741-F564E6DF9385",
+              "label": {
+                "de": "1.3.2. Informationen und Daten zusammenfassen, organisieren und strukturiert aufbewahren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89FA9D2B-484B-4D7E-AC43-B0100C3D0D0E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D",
+              "label": {
+                "de": "2. Kommunizieren und Kooperieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A",
+              "label": {
+                "de": "2.1. Interagieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/E819AC9F-1498-44F7-BCDF-924EA89A7623",
+              "label": {
+                "de": "2.1.1. Mit Hilfe verschiedener digitaler Kommunikationsmöglichkeiten kommunizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A5BC1AA6-96B4-4F45-89A9-24A30F066912",
+              "label": {
+                "de": "2.1.2. Digitale Kommunikationsmöglichkeiten zielgerichtet- und situationsgerecht auswählen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/86F6AEFE-EA4D-42D3-8131-A514B78C904A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B",
+              "label": {
+                "de": "2.2. Teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/68673305-1281-4B6C-80CB-644F35006FFE",
+              "label": {
+                "de": "2.2.1. Dateien, Informationen und Links teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/CA1C5B3B-CBEF-4D08-9B62-D5FA996058A0",
+              "label": {
+                "de": "2.2.2. Referenzierungspraxis beherrschen (Quellenangaben)"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A7AB032-812D-464C-A834-3A7F6824B61B"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB",
+              "label": {
+                "de": "2.2. Zusammenarbeiten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/632CFA45-8F42-4561-BE41-A29FE8217293",
+              "label": {
+                "de": "2.3.1. Digitale Werkzeuge für die Zusammenarbeit bei der Zusammenführung von Informationen, Daten und Ressourcen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C36FCDCD-D849-40FE-8A41-FB4CC54CADB6",
+              "label": {
+                "de": "2.3.2. Digitale Werkzeuge bei der gemeinsamen Erarbeitung von Dokumenten nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/108097E8-A762-477A-8389-5FC1908E7EAB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512",
+              "label": {
+                "de": "2.4. Umgangsregeln kennen und einhalten (Netiquette)"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F820983A-3FB8-43C7-8C6C-9FF8B08AD2EC",
+              "label": {
+                "de": "2.4.1. Verhaltensregeln bei digitaler Interaktion und Kooperation kennen und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/B612B3B4-4F02-4ED5-AF31-7CD5433F5B59",
+              "label": {
+                "de": "2.4.2. Kommunikation der jeweiligen Umgebung anpassen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A1FA8E56-68F2-473F-852C-8199261D87BD",
+              "label": {
+                "de": "2.4.3. Ethische Prinzipien bei der Kommunikation kennen und berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/309B4EAB-648E-4406-B2CB-01116572A061",
+              "label": {
+                "de": "2.4.4. Kulturelle Vielfalt in digitalen Umgebungen berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/91DB462E-1B30-47AE-A149-3E61B91F4512"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0",
+              "label": {
+                "de": "2.5. An der Gesellschaft aktiv teilhaben"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5490EF24-A2EE-4A93-8F06-D4E535A5667D"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7CDB7AF6-7424-4C81-A5D2-E5AFD4430AB6",
+              "label": {
+                "de": "2.5.1. Öffentliche und private Dienste nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9A0CCB59-BD3F-44E1-A6FE-E80CC45B98E7",
+              "label": {
+                "de": "2.5.2. Medienerfahrungen weitergeben und in kommunikative Prozesse einbringen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/E1F6B5E8-41FB-4633-89EC-E4D1C9600DDD",
+              "label": {
+                "de": "2.5.3. Als selbstbestimmter Bürger aktiv an der Gesellschaft teilhaben"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/89C99EB8-C56F-4A77-844C-C5C74DEAA5B0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548",
+              "label": {
+                "de": "3. Produzieren und Präsentieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273",
+              "label": {
+                "de": "3.1. Entwickeln und Produzieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/1BDC7D01-DF22-431A-B44B-E8CE1A390EDA",
+              "label": {
+                "de": "3.1.1. Mehrere technische Bearbeitungswerkzeuge kennen und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/BF623466-AF3C-40F8-9789-05DA8A8F8853",
+              "label": {
+                "de": "3.1.2. Eine Produktion planen und in verschiedenen Formaten gestalten, präsentieren, veröffentlichen oder teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/535100C8-B6CB-44B3-925A-781B61CA1273"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4",
+              "label": {
+                "de": "3.2. Weiterverarbeiten und Integrieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/61CCC9B1-C16E-4AE3-ABD1-A017F0BA7AF3",
+              "label": {
+                "de": "3.2.1. Inhalte in verschieden Formaten bearbeiten, zusammenführen, präsentieren und veröffentlichen oder teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3B2E4217-4626-4A8C-BC59-895B7A8D3C98",
+              "label": {
+                "de": "3.2.2. Informationen, Inhalte und vorhandene digitale Produkte weiterverarbeiten und in bestehendes Wissen integrieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3D4CB50-54AF-48EA-B97D-2CC92A579CC4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A",
+              "label": {
+                "de": "3.3. Rechtliche Vorgaben beachten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F427CBE5-3444-405B-B3ED-31392C5AD548"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2EE8DA61-509D-4018-A148-297FEC67B895",
+              "label": {
+                "de": "3.3.1. Bedeutung von Urheberrecht und geistigem Eigentum kennen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7FDDE6D6-790A-4478-9877-3A6E47F207B8",
+              "label": {
+                "de": "3.3.2. Urheber- und Nutzungsrechte (Lizenzen) bei eigenen und fremden Werken berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/811BF793-18A9-4832-B782-E0B7A7DB2BC5",
+              "label": {
+                "de": "3.3.3. Persönlichkeitsrechte beachten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/ACFF453C-4B8B-466F-B2EA-2D308CB43D7A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE",
+              "label": {
+                "de": "4. Schützen und sicher agieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085",
+              "label": {
+                "de": "4.1. Sicher in digitalen Umgebungen agieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A1A49BE0-DB4C-467A-A566-CC915A4A56A9",
+              "label": {
+                "de": "4.1.1. Risiken uns Gefahren in digitalen Umgebungen kennen, reflektieren und berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/85D319FD-B33D-45BF-9376-AA874AD87A62",
+              "label": {
+                "de": "4.1.2. Strategien zum Schutz entwickeln und anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D812DABA-BF00-453B-B4EE-7098174FB085"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68",
+              "label": {
+                "de": "4.2. Persönliche Daten und Privatsphäre schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/52CF6472-FE18-4B74-9EF2-A18C28B30068",
+              "label": {
+                "de": "4.2.1. Maßnahmen für Datensicherheit und gegen Datenmissbrauch berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/0CAB3A2C-47F5-48B1-AD33-0245C77284F2",
+              "label": {
+                "de": "4.2.2. Privatsphäre in digitalen Umgebungen durch geeignete Maßnahmen schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/78326259-4504-43CF-BDC7-47F764E1C855",
+              "label": {
+                "de": "4.2.3. Sicherheitseinstellungen ständig aktualisieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/64F1F6D7-84BD-4760-96E3-E7713502F895",
+              "label": {
+                "de": "4.2.4. Jugendschutz- und Verbraucherschutzmaßnahmen berücksichtigen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/975C9AFF-0F15-48AB-8238-24E72A614E68"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA",
+              "label": {
+                "de": "4.3. Gesundheit schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2AD9AD1D-D0F0-4AD6-BAC3-C51439218587",
+              "label": {
+                "de": "4.3.1. Suchtgefahren vermeiden, sich Selbst und andere vor möglichen Gefahren schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/D46ED466-3D3E-4195-A195-6E9067570736",
+              "label": {
+                "de": "4.3.2. Digitale Technologien gesundheitsbewusst nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/8F53454E-E4CA-4F0D-BF61-D2EB12E6DCEB",
+              "label": {
+                "de": "4.3.3. Digitale Technologien für soziales Wohlergehen und Eingliederung nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/84C60310-25DF-4FB7-BCD0-1E4075619AEA"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2D8E0507-682A-4C2F-9B28-D7722382D29E",
+              "label": {
+                "de": "4.4. Natur und Umwelt schützen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4183F865-E001-47C1-B0C9-FE6EB5660ABE"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3C638851-D9E1-47CF-9B00-75BF24893731",
+              "label": {
+                "de": "4.4.1. Umweltauswirkungen digitaler Technologien berücksichtigen Problemlösen und Handeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2D8E0507-682A-4C2F-9B28-D7722382D29E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5",
+              "label": {
+                "de": "5. Problemlösen und Handeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6",
+              "label": {
+                "de": "5.1. Technische Probleme lösen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4E719615-723B-43FF-AEBB-8E2974F9A92C",
+              "label": {
+                "de": "5.1.1. Anforderungen an digitale Umgebungen formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A2A33EF5-13F2-4631-B37D-211276B683B3",
+              "label": {
+                "de": "5.1.2. Technische Probleme identifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/598E80C9-ECC8-44DC-B758-5D41212F6638",
+              "label": {
+                "de": "5.1.3. Bedarfe für Lösungen ermitteln und Lösungen finden bzw. Lösungsstrategien entwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/76A5E561-DFA2-4073-A4F6-0E29EC0B26B6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900",
+              "label": {
+                "de": "5.2. Werkzeuge bedarfsgerecht einsetzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A3DFAF9C-4AF2-42E5-92C6-8DC9BA9704F8",
+              "label": {
+                "de": "5.2.1. Eine Vielzahl von digitalen Werkzeugen kennen und kreativ anwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9A93A0D2-6845-4B5B-BE15-77C60FEFF08A",
+              "label": {
+                "de": "5.2.2. Anforderungen an digitale Werkzeuge formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F561FA09-D206-46F9-AE18-B94B46622EAE",
+              "label": {
+                "de": "5.2.3. Passende Werkzeuge zur Lösung identifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C8DE2124-6D7D-4C01-8B0B-49EA65A6A907",
+              "label": {
+                "de": "5.2.4. Digitale Umgebungen und Werkzeuge zum persönlichen Gebrauch anpassen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FB52C6CD-834C-4694-B093-C5333534F900"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5",
+              "label": {
+                "de": "5.3. Eigene Defizite ermitteln und nach Lösungen suchen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C55FD672-7077-42BE-995A-51DD3F60477C",
+              "label": {
+                "de": "5.3.1. Eigene Defizite bei der Nutzung digitaler Werkzeuge erkennen und Strategien zur Beseitigung entwickeln"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/394F0F9D-C69C-4946-9FEE-DC0F875B506B",
+              "label": {
+                "de": "5.3.2. Eigene Strategien zur Problemlösung mit anderen teilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/7E3ABDA4-5E3F-46AA-9B94-19DD0784CAB5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB",
+              "label": {
+                "de": "5.4. Digitale Werkzeuge und Medien zum Lernen, Arbeiten und Problemlösen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/129EE303-928D-44FB-B374-D7C6D61FC099",
+              "label": {
+                "de": "5.4.1. Effektive digitale Lernmöglichkeiten finden, bewerten und nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/79CA2484-463D-4F47-BBB5-A6AC51B39239",
+              "label": {
+                "de": "5.4.2. Persönliches System von vernetzen Lernressourcen selbst organisieren können"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/A8063FA9-882C-44A6-9E91-DF85C781B6FB"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A",
+              "label": {
+                "de": "5.5. Algorithmen erkennen und formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/3A80F194-4CA1-43A1-B67A-E815B16BEFE5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/59A93980-F744-4A43-8AA1-485C9AB68C5F",
+              "label": {
+                "de": "5.5.1. Funktionsweisen und grundlegende Prinzipien der digitalen Welt kennen und verstehen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/FBB20399-B88B-4E83-936B-8D6EF398E2F1",
+              "label": {
+                "de": "5.5.2. Algorithmische Strukturen in genutzten digitalen Tools erkennen und formulieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/5174CA86-EA58-4D3A-AF1D-02D2459A5D89",
+              "label": {
+                "de": "5.5.3. Eine strukturierte, algorithmische Sequenz zur Lösung eines Problems planen und verwenden"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/262679FB-D967-4FEC-B2E9-559D29038E6A"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E",
+              "label": {
+                "de": "6. Analysieren und Reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05",
+              "label": {
+                "de": "6.1. Medien analysieren und bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F90D7B23-D6CA-4EE8-8CB6-2474F876F0F4",
+              "label": {
+                "de": "6.1.1. Gestaltungsmittel von digitalen Medienangeboten kennen und bewerten"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C37DF8BD-4822-4A6F-83EB-4D2C84222201",
+              "label": {
+                "de": "6.1.2. Interessengeleitete Setzung, Verbreitung und Dominanz von Themen in digitalen Umgebungen erkennen und beurteilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2CB82A2C-008E-42FE-8724-E99A7E35154A",
+              "label": {
+                "de": "6.1.3. Wirkungen von Medien in der digitalen Welt (z.B. mediale Konstrukte, Stars, Idole, Computerspiele, mediale Gewaltdarstellungen) analysieren und konstruktiv damit umgehen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/C95DBED2-0BDB-49E3-8590-764779708C05"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0",
+              "label": {
+                "de": "6.2. Medien in der digitalen Welt verstehen und reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/98BD185D-919B-4E7F-BFBB-A4DB2020CE1E"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/94FBCE7E-268E-4D16-B780-457764B68DB2",
+              "label": {
+                "de": "6.2.1 Vielfalt in der digitalen Medienlandschaft kennen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/4A19EF92-5E68-4B69-937A-B15FC19B7804",
+              "label": {
+                "de": "6.2.2. Chancen und Risiken des Mediengebrauchs in unterschiedlichen Lebensbereichen erkennen, eigenen Mediengebrauch reflektieren und ggf. modifizieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/9ACDA1DF-860E-4882-BB6B-552D9713A821",
+              "label": {
+                "de": "6.2.3. Vorteile und Risiken von Geschäftsaktivitäten und Services im Internet analysieren und beurteilen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F17150BD-7D87-443C-932B-D314D1201776",
+              "label": {
+                "de": "6.2.4. Wirtschaftliche Bedeutung der digitalen Medien und digitaler Technologien kennen und sie für eigene Geschäftsideen nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/0ECB0609-D0EB-4D7A-8425-85CC91132C0E",
+              "label": {
+                "de": "6.2.5. Die Bedeutung von digitalen Medien für die politische Meinungsbildung und Entscheidungsfindung kennen und nutzen"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/F7D9AD75-7E30-454E-B97A-6625B3620DAD",
+              "label": {
+                "de": "6.2.6. Potenziale der Digitalisierung im Sinne sozialer Integration und sozialer teilhabe erkennen, analysieren und reflektieren"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digitalCompetencies/2C455193-6E3B-4532-98B4-80494E5684A0"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/",
+              "label": {
+                "de": "Europäischer Rahmen für die Digitale Kompetenz Lehrender",
+                "en": "European Framework for the Digital Competence of Educators"
+              },
+              "type": "ConceptScheme"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1",
+              "label": {
+                "de": "Berufliches Engagement",
+                "en": "Professional Engagement"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.1",
+              "label": {
+                "de": "Berufliche Kommunikation",
+                "en": "Organisational communication"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.2",
+              "label": {
+                "de": "Berufliche Zusammenarbeit",
+                "en": "Professional collaboration"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.3",
+              "label": {
+                "de": "Reflektierte Praxis",
+                "en": "Reflective practice"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/1.4",
+              "label": {
+                "de": "Digitale Weiterbildung",
+                "en": "Digital CPD"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/1"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2",
+              "label": {
+                "de": "Digitale Ressourcen",
+                "en": "Digital Resources"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.1",
+              "label": {
+                "de": "Auswählen",
+                "en": "Selecting"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.2",
+              "label": {
+                "de": "Erstellen und Anpassen",
+                "en": "Creating & modifying"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/2.3",
+              "label": {
+                "de": "Organisieren, Schützen, und Teilen",
+                "en": "Managing, protecting, sharing"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/2"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3",
+              "label": {
+                "de": "Lehren und Lernen",
+                "en": "Teaching and Learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.1",
+              "label": {
+                "de": "Lehren",
+                "en": "Teaching"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.2",
+              "label": {
+                "de": "Lernbegleitung",
+                "en": "Guidance"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.3",
+              "label": {
+                "de": "Kollaboratives Lernen",
+                "en": "Collaborative learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/3.4",
+              "label": {
+                "de": "Selbstgesteuertes Lernen",
+                "en": "Self-regulated learning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/3"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4",
+              "label": {
+                "de": "Evaluation",
+                "en": "Assessment"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.1",
+              "label": {
+                "de": "Lernstand erheben",
+                "en": "Assessment strategies"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.2",
+              "label": {
+                "de": "Lern-Evidenz analysieren",
+                "en": "Analysing evidence"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/4.3",
+              "label": {
+                "de": "Feedback und Planung",
+                "en": "Feedback & planning"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/4"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5",
+              "label": {
+                "de": "Lernerorientierung",
+                "en": "Empowering Learners"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.1",
+              "label": {
+                "de": "Digitale Teilhabe",
+                "en": "Accessibility & inclusion"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.2",
+              "label": {
+                "de": "Differenzierung und Individualisierung",
+                "en": "Differentation & personalisation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/5.3",
+              "label": {
+                "de": "Aktive Einbindung der Lernenden",
+                "en": "Actively engaging learners"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/5"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6",
+              "label": {
+                "de": "Förderung der digitalen Kompetenz der Lernenden",
+                "en": "Facilitating Learner's Digital Competence"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.1",
+              "label": {
+                "de": "Informations- und Medienkompetenz",
+                "en": "Information & media literacy"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.2",
+              "label": {
+                "de": "Kommunikation und Kollaboration",
+                "en": "Communication"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.3",
+              "label": {
+                "de": "Erstellung digitaler Inhalte",
+                "en": "Content creation"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.4",
+              "label": {
+                "de": "Verantwortungsvoller Umgang",
+                "en": "Responsible use"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/digCompEdu/6.5",
+              "label": {
+                "de": "Digitales Problemlösen",
+                "en": "Problem solving"
+              },
+              "broader": "http://w3id.org/openeduhub/vocabs/digCompEdu/6"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true,
+          "map_labels_to_uris": true
+        }
+      }
+    },
+    {
+      "id": "oeh:required_tools",
+      "group": "requirements",
+      "label": {
+        "de": "Erforderliche Tools/Software",
+        "en": "Required Tools/Software"
+      },
+      "description": {
+        "de": "Erforderliche Tools oder Software",
+        "en": "Required tools or software"
+      },
+      "prompt": {
+        "de": "Benötigte Tools/Software, z.B. 'GeoGebra', 'Python 3', 'Taschenrechner'.",
+        "en": "Required tools/software, e.g. 'GeoGebra', 'Python 3', 'Calculator'."
+      },
+      "system": {
+        "path": "oeh:required_tools",
+        "uri": "oeh:required_tools",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:assessment_type",
+      "group": "assessment",
+      "label": {
+        "de": "Bewertungs-/Prüfungsform",
+        "en": "Assessment Type"
+      },
+      "description": {
+        "de": "Verwendete Bewertungs- oder Prüfungsform(en)",
+        "en": "Used assessment or examination type(s)"
+      },
+      "prompt": {
+        "de": "Bewertungsform. Verwende EXAKT: 'selbsttest', 'klausur', 'projektbewertung', 'peer_review', 'mündlich', 'praxis'.",
+        "en": "Assessment type. Use EXACT: 'self-test', 'exam', 'project evaluation', 'peer review', 'oral', 'practical'."
+      },
+      "system": {
+        "path": "oeh:assessment_type",
+        "uri": "oeh:assessment_type",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "selbsttest",
+                "en": "self-test"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/selbsttest"
+            },
+            {
+              "label": {
+                "de": "klausur",
+                "en": "exam"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/klausur"
+            },
+            {
+              "label": {
+                "de": "projektbewertung",
+                "en": "project evaluation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/projektbewertung"
+            },
+            {
+              "label": {
+                "de": "peer_review",
+                "en": "peer review"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/peer_review"
+            },
+            {
+              "label": {
+                "de": "mündlich",
+                "en": "oral"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/muendlich"
+            },
+            {
+              "label": {
+                "de": "praxis",
+                "en": "practical"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/assessmentType/praxis"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:offers_certificate",
+      "group": "assessment",
+      "label": {
+        "de": "Bietet Zertifikat",
+        "en": "Offers Certificate"
+      },
+      "description": {
+        "de": "Gibt an, ob ein Zertifikat oder eine Bescheinigung angeboten wird",
+        "en": "Indicates whether a certificate or credential is offered"
+      },
+      "prompt": {
+        "de": "Wird ein Zertifikat angeboten? true oder false.",
+        "en": "Is a certificate offered? true or false."
+      },
+      "system": {
+        "path": "oeh:offers_certificate",
+        "uri": "oeh:offers_certificate",
+        "datatype": "boolean",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:certificate_name",
+      "group": "assessment",
+      "label": {
+        "de": "Zertifikatsname",
+        "en": "Certificate Name"
+      },
+      "description": {
+        "de": "Name des angebotenen Zertifikats",
+        "en": "Name of the offered certificate"
+      },
+      "prompt": {
+        "de": "Name des Zertifikats, z.B. 'ECDL', 'Cambridge Certificate B2', 'Teilnahmebescheinigung'.",
+        "en": "Certificate name, e.g. 'ECDL', 'Cambridge Certificate B2', 'Certificate of Participation'."
+      },
+      "system": {
+        "path": "oeh:certificate_name",
+        "uri": "oeh:certificate_name",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true,
+          "fulltext": true
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:accessibility_features",
+      "group": "accessibility",
+      "label": {
+        "de": "Barrierefreiheitsmerkmale",
+        "en": "Accessibility Features"
+      },
+      "description": {
+        "de": "Verfügbare Barrierefreiheitsmerkmale",
+        "en": "Available accessibility features"
+      },
+      "prompt": {
+        "de": "Barrierefreiheitsmerkmale. Verwende EXAKT: 'Untertitel', 'Transkript', 'Audiobeschreibung', 'Alternativtext', 'Gebärdensprache', 'Hoher Kontrast', 'Tastaturnavigation', 'Lange Beschreibung', 'Geschlossene Untertitel'.",
+        "en": "Accessibility features. Use EXACT: 'captions', 'transcript', 'audio description', 'alt text', 'sign language', 'high contrast', 'keyboard navigation', 'long description', 'closed captions'."
+      },
+      "system": {
+        "path": "oeh:accessibility_features",
+        "uri": "https://schema.org/accessibilityFeature",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Untertitel",
+                "en": "captions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/captions"
+            },
+            {
+              "label": {
+                "de": "Transkript",
+                "en": "transcript"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/transcript"
+            },
+            {
+              "label": {
+                "de": "Audiobeschreibung",
+                "en": "audio description"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/audioDescription"
+            },
+            {
+              "label": {
+                "de": "Alternativtext",
+                "en": "alt text"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/alternativeText"
+            },
+            {
+              "label": {
+                "de": "Gebärdensprache",
+                "en": "sign language"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/signLanguage"
+            },
+            {
+              "label": {
+                "de": "Hoher Kontrast",
+                "en": "high contrast"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/highContrast"
+            },
+            {
+              "label": {
+                "de": "Tastaturnavigation",
+                "en": "keyboard navigation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/keyboardNavigation"
+            },
+            {
+              "label": {
+                "de": "Lange Beschreibung",
+                "en": "long description"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/longDescription"
+            },
+            {
+              "label": {
+                "de": "Geschlossene Untertitel",
+                "en": "closed captions"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityFeature/closedCaptions"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:accessibility_hazards",
+      "group": "accessibility",
+      "label": {
+        "de": "Barrierefreiheits-Gefahren",
+        "en": "Accessibility Hazards"
+      },
+      "description": {
+        "de": "Potenzielle Gefahren oder Probleme für bestimmte Nutzergruppen",
+        "en": "Potential hazards or issues for certain user groups"
+      },
+      "prompt": {
+        "de": "Barrierefreiheits-Gefahren. Verwende EXAKT: 'Blitzen', 'Bewegungssimulation', 'Automatisches Audio'.",
+        "en": "Accessibility hazards. Use EXACT: 'flashing', 'motion simulation', 'audio auto'."
+      },
+      "system": {
+        "path": "oeh:accessibility_hazards",
+        "uri": "https://schema.org/accessibilityHazard",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "Blitzen",
+                "en": "flashing"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityHazard/flashing"
+            },
+            {
+              "label": {
+                "de": "Bewegungssimulation",
+                "en": "motion simulation"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityHazard/motionSimulation"
+            },
+            {
+              "label": {
+                "de": "Automatisches Audio",
+                "en": "audio auto"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityHazard/audioAuto"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "oeh:accessibility_conformance",
+      "group": "accessibility",
+      "label": {
+        "de": "Barrierefreiheits-Konformität",
+        "en": "Accessibility Conformance"
+      },
+      "description": {
+        "de": "Konformitätsstufe nach WCAG",
+        "en": "Conformance level according to WCAG"
+      },
+      "prompt": {
+        "de": "WCAG-Konformität. Verwende EXAKT: 'wcag20_a', 'wcag20_aa', 'wcag21_aa' oder 'none'.",
+        "en": "WCAG conformance. Use EXACT: 'WCAG 2.0 Level A', 'WCAG 2.0 Level AA', 'WCAG 2.1 Level AA', or 'none'."
+      },
+      "system": {
+        "path": "oeh:accessibility_conformance",
+        "uri": "oeh:accessibility_conformance",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "wcag20_a",
+                "en": "WCAG 2.0 Level A"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityConformance/wcag20_a"
+            },
+            {
+              "label": {
+                "de": "wcag20_aa",
+                "en": "WCAG 2.0 Level AA"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityConformance/wcag20_aa"
+            },
+            {
+              "label": {
+                "de": "wcag21_aa",
+                "en": "WCAG 2.1 Level AA"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityConformance/wcag21_aa"
+            },
+            {
+              "label": {
+                "de": "none",
+                "en": "none"
+              },
+              "uri": "http://w3id.org/openeduhub/vocabs/accessibilityConformance/none"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true
+        },
+        "repo_field": false
+      }
+    },
+    {
+      "id": "ccm:price",
+      "group": "costs",
+      "label": {
+        "de": "Kosten",
+        "en": "Costs"
+      },
+      "description": {
+        "de": "Ist das Angebot kostenpflichtig?",
+        "en": "Does this offering require payment?"
+      },
+      "prompt": {
+        "de": "Bestimme den Kostenstatus. Wähle GENAU eine Option: 'nein (kostenfrei)' wenn kostenlos zugänglich (free, gratis, Open Access, CC-lizenziert); 'ja (kostenpflichtig)' wenn ein Preis, Abo oder Lizenzkosten genannt werden; 'zusätzliche Inhalte / Features per Kauf möglich' wenn ein Basisangebot frei ist, aber kostenpflichtige Erweiterungen existieren (Freemium). Falls keine Angabe: Feld leer lassen.",
+        "en": "Determine the cost status. Choose EXACTLY one option: 'nein (kostenfrei)' if freely accessible (free, open access, CC-licensed); 'ja (kostenpflichtig)' if a price, subscription or license fee is mentioned; 'zusätzliche Inhalte / Features per Kauf möglich' if a free base offering exists but paid add-ons are available (freemium). If unknown: leave field empty."
+      },
+      "system": {
+        "path": "ccm:price",
+        "uri": "ccm:price",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "id": "http://w3id.org/openeduhub/vocabs/price/",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/price/no",
+              "label": {
+                "de": "nein (kostenfrei)",
+                "en": "no (free of charge)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/price/yes",
+              "label": {
+                "de": "ja (kostenpflichtig)",
+                "en": "yes (paid)"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/price/yes_for_additional",
+              "label": {
+                "de": "zusätzliche Inhalte / Features per Kauf möglich",
+                "en": "additional content / features purchasable"
+              }
+            }
+          ]
+        },
+        "repo_field": true
+      }
+    },
+    {
+      "id": "cm:author",
+      "group": "license",
+      "label": {
+        "de": "Autor:in / Urheber:in",
+        "en": "Author / Creator"
+      },
+      "description": {
+        "de": "Autor:innen (kommagetrennt)",
+        "en": "Author(s) (comma-separated)"
+      },
+      "prompt": {
+        "de": "Extrahiere namentlich genannte Autor:innen oder Urheber:innen. Format: 'Vorname Nachname'. Bei Organisationen den vollständigen Namen. Nur explizit im Text genannte Personen – keine Herausgeber, Plattformbetreiber oder Redaktionen. Gib ein JSON-Array zurück. Beispiele: ['Prof. Dr. Maria Schmidt'], ['Max Mustermann', 'Erika Musterfrau'], ['Landesinstitut für Schulentwicklung'].",
+        "en": "Extract explicitly named author(s) or creator(s). Format: 'First Last'. For organizations, use full name. Only persons explicitly named in the text – no editors, platform operators, or editorial teams. Return a JSON array. Examples: ['Prof. Dr. Maria Schmidt'], ['John Doe', 'Jane Smith'], ['National Institute for School Development']."
+      },
+      "system": {
+        "path": "cm:author",
+        "uri": "cm:author",
+        "datatype": "array",
+        "multiple": true,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true,
+          "deduplicate": true
+        }
+      }
+    },
+    {
+      "id": "ccm:oeh_publisher_combined",
+      "group": "license",
+      "label": {
+        "de": "Publisher / Herausgeber",
+        "en": "Publisher"
+      },
+      "description": {
+        "de": "Verlag oder Herausgeber",
+        "en": "Publisher"
+      },
+      "prompt": {
+        "de": "Extrahiere den Verlag, die Plattform oder die herausgebende Organisation – nicht den/die Autor:in. Suche nach Impressum, Copyright-Hinweisen, Domainnamen oder Logos. Gib nur EINEN Namen als String zurück. Beispiele: 'Bundeszentrale für politische Bildung', 'Cornelsen Verlag', 'Serlo Education e.V.'.",
+        "en": "Extract the publisher, platform, or publishing organization – not the author. Look for imprint, copyright notices, domain names, or logos. Return only ONE name as string. Examples: 'Federal Agency for Civic Education', 'Oxford University Press', 'Khan Academy'."
+      },
+      "system": {
+        "path": "ccm:oeh_publisher_combined",
+        "uri": "ccm:oeh_publisher_combined",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        }
+      }
+    },
+    {
+      "id": "ccm:custom_license",
+      "group": "license",
+      "label": {
+        "de": "Benutzerdefinierte Lizenz",
+        "en": "Custom License"
+      },
+      "description": {
+        "de": "Individuelle Lizenzangabe",
+        "en": "Custom license text"
+      },
+      "prompt": {
+        "de": "Extrahiere individuelle Lizenzbedingungen, die NICHT zu einer Standard-CC-Lizenz passen. Das können Copyright-Vermerke, Nutzungshinweise oder Links zu eigenen Lizenztexten sein. NUR befüllen, wenn keine passende CC-Lizenz zutrifft. Beispiele: '© 2024 Universität München – nur für Bildungszwecke', 'Frei nutzbar für nicht-kommerzielle Lehre', 'https://example.com/nutzungsbedingungen'.",
+        "en": "Extract individual license terms that do NOT match a standard CC license. This can include copyright statements, usage notices, or links to custom license texts. Only populate if no standard CC license applies. Examples: '© 2024 University of Munich – educational use only', 'Free for non-commercial teaching', 'https://example.com/terms-of-use'."
+      },
+      "system": {
+        "path": "ccm:custom_license",
+        "uri": "ccm:custom_license",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        }
+      }
+    },
+    {
+      "id": "ccm:commonlicense_key",
+      "group": "license",
+      "label": {
+        "de": "Lizenztyp (CC)",
+        "en": "License Type (CC)"
+      },
+      "description": {
+        "de": "CC-Lizenztyp wählen",
+        "en": "Select CC license type"
+      },
+      "prompt": {
+        "de": "Erkenne die Creative-Commons-Lizenz der Ressource. Suche nach CC-Symbolen, Lizenz-Badges, Fußzeilen oder Lizenz-URLs (z.B. creativecommons.org/licenses/by-sa/). Gib NUR das Kürzel zurück, OHNE Versionsnummer. Erlaubte Werte: CC0, CC BY, CC BY-SA, CC BY-ND, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND. Wenn keine CC-Lizenz erkennbar: null. Beispiele: 'CC BY-SA' (bei 'Namensnennung - Weitergabe unter gleichen Bedingungen'), 'CC0' (bei 'Public Domain'), 'CC BY-NC' (bei 'nur nicht-kommerziell').",
+        "en": "Identify the Creative Commons license. Look for CC symbols, license badges, footers, or license URLs (e.g., creativecommons.org/licenses/by-sa/). Return ONLY the abbreviation, WITHOUT version number. Allowed values: CC0, CC BY, CC BY-SA, CC BY-ND, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND. If no CC license found: null. Examples: 'CC BY-SA' (for 'Attribution-ShareAlike'), 'CC0' (for 'Public Domain'), 'CC BY-NC' (for 'non-commercial only')."
+      },
+      "system": {
+        "path": "ccm:commonlicense_key",
+        "uri": "ccm:commonlicense_key",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "closed",
+          "concepts": [
+            {
+              "label": {
+                "de": "CC0",
+                "en": "CC0"
+              },
+              "value": "CC0"
+            },
+            {
+              "label": {
+                "de": "CC BY",
+                "en": "CC BY"
+              },
+              "value": "CC BY"
+            },
+            {
+              "label": {
+                "de": "CC BY-SA",
+                "en": "CC BY-SA"
+              },
+              "value": "CC BY-SA"
+            },
+            {
+              "label": {
+                "de": "CC BY-ND",
+                "en": "CC BY-ND"
+              },
+              "value": "CC BY-ND"
+            },
+            {
+              "label": {
+                "de": "CC BY-NC",
+                "en": "CC BY-NC"
+              },
+              "value": "CC BY-NC"
+            },
+            {
+              "label": {
+                "de": "CC BY-NC-SA",
+                "en": "CC BY-NC-SA"
+              },
+              "value": "CC BY-NC-SA"
+            },
+            {
+              "label": {
+                "de": "CC BY-NC-ND",
+                "en": "CC BY-NC-ND"
+              },
+              "value": "CC BY-NC-ND"
+            }
+          ]
+        },
+        "normalization": {
+          "trim": true,
+          "case": "upper"
+        }
+      }
+    },
+    {
+      "id": "ccm:commonlicense_cc_version",
+      "group": "license",
+      "label": {
+        "de": "Lizenzversion",
+        "en": "License Version"
+      },
+      "description": {
+        "de": "Version, z.B. 4.0",
+        "en": "Version, e.g. 4.0"
+      },
+      "prompt": {
+        "de": "Extrahiere die Versionsnummer der CC-Lizenz. Suche in Lizenz-URLs (z.B. '/licenses/by/4.0/') oder im Lizenztext. Gängige Versionen: 4.0, 3.0, 2.5, 2.0, 1.0. Gib NUR die Nummer zurück (z.B. '4.0'). Wenn keine Version erkennbar, aber eine CC-Lizenz vorhanden: '4.0' als Standard annehmen. Beispiele: '4.0', '3.0'.",
+        "en": "Extract the CC license version number. Look in license URLs (e.g., '/licenses/by/4.0/') or license text. Common versions: 4.0, 3.0, 2.5, 2.0, 1.0. Return ONLY the number (e.g., '4.0'). If no version found but CC license present: assume '4.0'. Examples: '4.0', '3.0'."
+      },
+      "system": {
+        "path": "ccm:commonlicense_cc_version",
+        "uri": "ccm:commonlicense_cc_version",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "validation": {
+          "pattern": "^[0-9]+(\\.[0-9]+)?$"
+        },
+        "normalization": {
+          "trim": true
+        }
+      }
+    },
+    {
+      "id": "schema:datePublished",
+      "group": "classification",
+      "label": {
+        "de": "Veröffentlichungsdatum",
+        "en": "Date Published"
+      },
+      "description": {
+        "de": "Datum der Veröffentlichung oder letzten Aktualisierung",
+        "en": "Date of publication or last update"
+      },
+      "prompt": {
+        "de": "Extrahiere das Veröffentlichungs- oder Aktualisierungsdatum. Suche nach Datumsangaben im Text, Impressum, Footer oder Meta-Tags. Format: YYYY-MM-DD. Beispiele: '2024-03-15', '2023-09-01'.",
+        "en": "Extract the publication or update date. Look for dates in text, imprint, footer, or meta tags. Format: YYYY-MM-DD. Examples: '2024-03-15', '2023-09-01'."
+      },
+      "system": {
+        "path": "schema:datePublished",
+        "uri": "https://schema.org/datePublished",
+        "datatype": "date",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": false,
+        "index": {
+          "keyword": true
+        },
+        "normalization": {
+          "trim": true
+        }
+      }
+    },
+    {
+      "id": "ccm:fskRating",
+      "group": "classification",
+      "label": {
+        "de": "FSK-Bewertung",
+        "en": "FSK Rating"
+      },
+      "description": {
+        "de": "Altersfreigabe nach FSK (Freiwillige Selbstkontrolle)",
+        "en": "Age rating according to FSK (Voluntary Self-Regulation)"
+      },
+      "prompt": {
+        "de": "FSK-Altersfreigabe des Lernmaterials. Wähle GENAU eine Option: '0', '6', '12', '16' oder '18'. Nur angeben wenn explizit erwähnt.",
+        "en": "FSK age rating of the learning material. Choose EXACTLY one: '0', '6', '12', '16' or '18'. Only provide if explicitly mentioned."
+      },
+      "system": {
+        "path": "ccm:fskRating",
+        "uri": "ccm:fskRating",
+        "datatype": "string",
+        "multiple": false,
+        "required": false,
+        "ask_user": true,
+        "ai_fillable": true,
+        "repo_field": true,
+        "index": {
+          "keyword": true
+        },
+        "vocabulary": {
+          "type": "skos",
+          "id": "http://w3id.org/openeduhub/vocabs/fskRating/",
+          "concepts": [
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/fskRating/0",
+              "label": {
+                "de": "0",
+                "en": "0"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/fskRating/6",
+              "label": {
+                "de": "6",
+                "en": "6"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/fskRating/12",
+              "label": {
+                "de": "12",
+                "en": "12"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/fskRating/16",
+              "label": {
+                "de": "16",
+                "en": "16"
+              }
+            },
+            {
+              "uri": "http://w3id.org/openeduhub/vocabs/fskRating/18",
+              "label": {
+                "de": "18",
+                "en": "18"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "output_template": {
+    "oeh:didactic_method": [],
+    "oeh:format": "",
+    "oeh:time_required": "",
+    "ccm:educationaltypicalagerange_from": null,
+    "ccm:educationaltypicalagerange_to": null,
+    "oeh:prerequisites": [],
+    "ccm:oeh_competence_requirements": [],
+    "ccm:competence": [],
+    "ccm:oeh_competence_check": [],
+    "oeh:required_tools": [],
+    "oeh:assessment_type": [],
+    "oeh:offers_certificate": null,
+    "oeh:certificate_name": "",
+    "oeh:accessibility_features": [],
+    "oeh:accessibility_hazards": [],
+    "oeh:accessibility_conformance": "",
+    "ccm:price": "",
+    "cm:author": [],
+    "ccm:oeh_publisher_combined": "",
+    "ccm:custom_license": "",
+    "ccm:commonlicense_key": "",
+    "ccm:commonlicense_cc_version": "",
+    "schema:datePublished": "",
+    "ccm:fskRating": ""
+  }
+}

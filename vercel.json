@@ -5,7 +5,7 @@
       "src": "src/main.py",
       "use": "@vercel/python",
       "config": {
-        "includeFiles": "src/static/**",
+        "includeFiles": ["src/static/**", "src/schemata/**"],
         "maxLambdaSize": "50mb",
         "maxDuration": 60
       }
